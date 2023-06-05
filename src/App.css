@@ -1,1 +1,43 @@
+:root {
+  --bg-color: #4682B4;
+  --section-color: #B0C4DE;
+  --btn-color: #87CEFA;
+  --white-color: #F2F2F2;
+  --black-color: #262526;
+}
 
+@font-face {
+  font-family: oxygen;
+  src: url(./ressources/font/Oxygen-Regular.ttf);
+}
+@font-face {
+  font-family: righteous;
+  src: url(./ressources/font/Righteous-Regular.ttf);
+}
+@font-face {
+  font-family: roboto;
+  src: url(./ressources/font/Roboto-Regular.ttf);
+}
+
+body {
+  background-color: var(--white-color);
+}
+
+a {
+  text-decoration: none;
+  color: var(--white-color);
+  font-size: 24px;
+  font-family: righteous;
+}
+
+h1,h2,h3,h4 {
+  color: var(--black-color);
+  font-size: 24px;
+  font-family: oxygen;
+}
+
+p {
+  color: var(--black-color);
+  font-size: 20px;
+  font-family: roboto;
+}

@@ -1,7 +1,11 @@
 /* dependencies */
 import { Link } from 'react-router-dom';
 
+/* styles */
+import './styles/Accueil.css';
+
 /* components */
+import Bouton from './components/Bouton';
 import Card from './components/Card';
 
 /* ressources */
@@ -15,44 +19,77 @@ const Accueil = () => {
     return (
         <>
             <div>
-                <h1>Vos véhicules se détendent enfin</h1>
-                <img src={heroImg} alt="hero banner" />
+                <h1 className='heroTitle'>Vos véhicules se détendent enfin</h1>
+                <img src={heroImg} alt="hero banner" className='heroBanner'/>
             </div>
             
 
-            <section>
-                <h2>SECTION TITLE : SERVICE - CARROSSERIE</h2>
-                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
-                <Link to={'/carrosserie'}>Voir tous les services de carrosserie</Link>
-                <img src={img1} alt="article" />
+            <section className='sectionPanel'>
+
+                <h2 className='sectionTitle'>SECTION TITLE : SERVICE - CARROSSERIE</h2>
+
+                <div className='textwrapper'>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                </div>
+
+                <div className='linkwrapper'>
+                    <Link to={'/carrosserie'} className='sectionLink'>Voir tous les services de carrosserie</Link>
+                </div>
+
+                <img src={img1} alt="une voiture neuve" className='photoSection'/>
+
             </section>
 
-            <section>
-                <h2>SECTION TITLE : SERVICE - MECANIQUE</h2>
-                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
-                <Link to={'/mecanique'}>Voir tous les services de mécanique</Link>
-                <img src={img2} alt="article" />
+            <section className='sectionPanel'>
+
+                <h2 className='sectionTitle'>SECTION TITLE : SERVICE - MECANIQUE</h2>
+
+                <div className='textwrapper'>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                </div>
+
+                <div className='linkwrapper'>
+                    <Link to={'/mecanique'} className='sectionLink'>Voir tous les services de mécanique</Link>
+                </div>
+
+                <img src={img2} alt="mécanique d'une voiture" className='photoSection'/>
+
             </section>
 
-            <section>
-                <h2>SECTION TITLE : SERVICE - ENTRETIENS</h2>
-                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
-                <Link to={'/entretien'}>Voir tous les services d'entretien'</Link>
-                <img src={img3} alt="article" />
+            <section className='sectionPanel'>
+
+                <h2 className='sectionTitle'>SECTION TITLE : SERVICE - ENTRETIENS</h2>
+
+                <div className='textwrapper'>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                </div>
+
+                <div className='linkwrapper'>
+                    <Link to={'/entretien'} className='sectionLink'>Voir tous les services d'entretien'</Link>
+                </div>
+
+                <img src={img3} alt="entretien d'une voiture" className='photoSection'/>
+
             </section>
 
-            <section>
+            <section className='bandSection'>
                 <h3>Découvrez nos voitures d'occasions</h3>
                 <button>Voitures d'occasions</button>
             </section>
 
-            <section>
-                <img src={img4} alt="article" />
-                <h2>SECTION TITLE : A PROPOS</h2>
-                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+            <section className='sectionPanel2'>
+
+                <h2 className='sectionTitle'>SECTION TITLE : A PROPOS</h2>
+
+                <img src={img4} alt="staff & client" className='photoSection'/>
+
+                <div className='textwrapper'>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                </div>
+                
             </section>
 
-            <section>
+            <section className='sectionPanel2'>
                 <Card />
                 <button>Laisser un avis</button>
                 <button>Voir tous les avis</button>

@@ -1,7 +1,7 @@
 .menuNav {
     list-style: none;
     position: absolute;
-    background: #4682B4;  
+    background-color: var(--bg-color);
     visibility: hidden;
     width: 0%;
     max-width: 100%;
@@ -19,7 +19,7 @@
 }
 
 .hamburgerBtn {
-    background-color: #4682B4;
+    background-color: var(--bg-color);
     border: none;
     position: absolute;
     top: 1vh;

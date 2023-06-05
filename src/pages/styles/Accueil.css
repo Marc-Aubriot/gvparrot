@@ -1,0 +1,65 @@
+.heroBanner {
+    position: relative;
+    object-fit: cover;
+    width: 100%;
+    height: 430px;
+}
+
+.heroTitle {
+    position: absolute;
+    left: 5%;
+    top: 30%;
+    color: var(--white-color);
+    z-index: 8;
+}
+
+.sectionPanel {
+    margin-top: 50px;
+}
+
+.sectionPanel2 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 50px;
+    background-color: var(--section-color);
+}
+.sectionTitle {
+    text-align: center;
+}
+
+.photoSection {
+    object-fit: cover;
+    width: 100%;
+    height: 284px;
+    border-radius: 20px;
+}
+
+.textwrapper {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.linkwrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sectionLink {
+    color: var(--black-color);
+    font-size: 20px;
+    justify-self: center;
+}
+
+.bandSection {
+    background-color: var(--bg-color);
+    height: 400px;
+}
+
+.bandSection h3 {
+    color: var(--white-color);
+    font-size: 36px;
+    width: 90%;
+    padding-top: 25%;
+    margin-left: 10%;
+}

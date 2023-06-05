@@ -1,4 +1,4 @@
 .headerStyle {
-    background-color: #4682B4;
+    background-color: var(--bg-color);
     height: 90px;
 }
