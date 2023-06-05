@@ -1,3 +1,6 @@
+/* dependencies */
+import { Link } from 'react-router-dom';
+
 /* components */
 import Card from './components/Card';
 
@@ -20,22 +23,22 @@ const Accueil = () => {
             <section>
                 <h2>SECTION TITLE : SERVICE - CARROSSERIE</h2>
                 <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
-                <a>Voir tous les services de mécanique</a>
-                <img src={img1} alt="article image" />
+                <Link to={'/carrosserie'}>Voir tous les services de carrosserie</Link>
+                <img src={img1} alt="article" />
             </section>
 
             <section>
                 <h2>SECTION TITLE : SERVICE - MECANIQUE</h2>
                 <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
-                <a>Voir tous les services de mécanique</a>
-                <img src={img2} alt="article image" />
+                <Link to={'/mecanique'}>Voir tous les services de mécanique</Link>
+                <img src={img2} alt="article" />
             </section>
 
             <section>
                 <h2>SECTION TITLE : SERVICE - ENTRETIENS</h2>
                 <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
-                <a>Voir tous les services de mécanique</a>
-                <img src={img3} alt="article image" />
+                <Link to={'/entretien'}>Voir tous les services d'entretien'</Link>
+                <img src={img3} alt="article" />
             </section>
 
             <section>
@@ -44,7 +47,7 @@ const Accueil = () => {
             </section>
 
             <section>
-                <img src={img4} alt="article image" />
+                <img src={img4} alt="article" />
                 <h2>SECTION TITLE : A PROPOS</h2>
                 <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
             </section>

@@ -1,0 +1,65 @@
+.menuNav {
+    list-style: none;
+    position: absolute;
+    background: #4682B4;  
+    visibility: hidden;
+    width: 0%;
+    max-width: 100%;
+    z-index: 9;
+}
+
+.menuNav.showMenu {
+    margin: 0;
+    padding: 0;
+    visibility: visible;
+    width: 100%;
+    height: 90vh;
+    min-height: 750px;
+    text-align: center;
+}
+
+.hamburgerBtn {
+    background-color: #4682B4;
+    border: none;
+    position: absolute;
+    top: 1vh;
+    right: 1vw;
+    width: 90px;
+    height: 80px;
+}
+
+.hamburger-lines {
+    display: block;
+    height: 26px;
+    width: 32px;
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hamburger-lines .line {
+    display: block;
+    height: 4px;
+    width: 100%;
+    border-radius: 10px;
+    background: #0e2431;
+}
+  
+.hamburger-lines .line1 {
+    transform-origin: 0% 0%;
+    transition: transform 0.4s ease-in-out;
+}
+  
+.hamburger-lines .line2 {
+    transition: transform 0.2s ease-in-out;
+}
+  
+.hamburger-lines .line3 {
+    transform-origin: 0% 100%;
+    transition: transform 0.4s ease-in-out;
+}
+  
