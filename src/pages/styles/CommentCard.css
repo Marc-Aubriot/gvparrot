@@ -1,0 +1,10 @@
+.commentCardBox {
+    background-color: var(--bg-color);
+    width: 55%;
+    padding: 10px 20px 20px 20px;
+    margin: 0 auto;
+}
+
+.commentCardBox p {
+    color: var(--white-color);
+}

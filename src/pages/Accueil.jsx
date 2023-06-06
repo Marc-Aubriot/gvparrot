@@ -6,7 +6,7 @@ import './styles/Accueil.css';
 
 /* components */
 import Bouton from './components/Bouton';
-import Card from './components/Card';
+import CommentCard from './components/CommentCard';
 
 /* ressources */
 import heroImg from '../ressources/images/front/herobanner.jpg';
@@ -93,9 +93,14 @@ const Accueil = () => {
             </section>
 
             <section className='sectionPanel2'>
-                <Card />
-                <button>Laisser un avis</button>
-                <button>Voir tous les avis</button>
+                <h2 className='sectionTitle'>SECTION TITLE : AVIS</h2>
+                <CommentCard nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
+                
+                <div className='avisBtnBox'>
+                    <Bouton text="Laisser un avis"></Bouton>
+                    <Bouton text="Voir tous les avis"></Bouton>
+                </div>
+                
             </section>
         </>
     )
