@@ -1,0 +1,9 @@
+.btnComponent {
+    height: 60px;
+    width: 100%;
+    background-color: var(--btn-color);
+    border: none;
+    border-radius: 30px;
+    font-family: righteous;
+    font-size: 24px;
+}

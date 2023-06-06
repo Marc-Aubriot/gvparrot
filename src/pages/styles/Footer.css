@@ -1,0 +1,50 @@
+footer {
+    background-color: var(--bg-color);
+    color: var(--white-color);
+    font-family: roboto;
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+footer p {
+    color: var(--white-color);
+    font-size: 12px;
+}
+
+.footerTopBox {
+    display: flex;
+    width: 100vw;
+}
+
+.addressePanel {
+    width: 50%;
+}
+
+.contactPanel {
+    width: 50%;
+}
+
+.footerBotBox {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    margin: 0 auto;
+    width: 60%;
+    text-align: start;
+}
+
+.ouvertureBox {
+    display: flex;
+    text-align: center;
+}
+
+.daynameBox {
+    width: 30%;
+    text-align: start;
+}
+
+.horairesBox {
+    width: 70%;
+    text-align: start;
+}

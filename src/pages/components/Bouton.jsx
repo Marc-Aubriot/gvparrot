@@ -1,6 +1,12 @@
-const Bouton = () => {
+import { Link } from "react-router-dom";
+import "../styles/Bouton.css"
+
+const Bouton = (props) => {
     return (
-        <>i'm a bouton</>
+        <Link to={props.linkstring}>
+            <button className="btnComponent">{props.text}</button>
+        </Link>
+        
     )
 }
 

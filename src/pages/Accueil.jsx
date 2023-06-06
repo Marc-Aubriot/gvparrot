@@ -74,7 +74,10 @@ const Accueil = () => {
 
             <section className='bandSection'>
                 <h3>Découvrez nos voitures d'occasions</h3>
-                <button>Voitures d'occasions</button>
+                <div className="bandSectionBtn">
+                    <Bouton text="Voitures d'occasions" linkstring="/occasions"></Bouton>
+                </div>
+                
             </section>
 
             <section className='sectionPanel2'>
