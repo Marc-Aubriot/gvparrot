@@ -1,0 +1,10 @@
+.navSnippet {
+    background-color: var(--btn-color);
+    padding: 10px 0px 10px 30px;
+    margin-top: 40px;
+}
+
+.navSnippet a, .navSnippet ul, .navSnippet li {
+    color: var(--black-color);
+}
+

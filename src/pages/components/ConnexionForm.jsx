@@ -1,6 +1,11 @@
+/* dependencies */
 import { Form } from "react-router-dom";
+
+/* components */
 import Bouton from "./Bouton";
-import "../styles/ConnexionForm.css";
+
+/* styles */
+import "./styles/ConnexionForm.css";
 
 const ConnexionForm = (props) => {
     return (

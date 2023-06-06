@@ -2,8 +2,11 @@
 import { useState } from "react";
 
 /* styles */
-import "../styles/Navbar.css";
+import "./styles/Navbar.css";
 import { Link } from 'react-router-dom';
+
+/* components */
+import HamburgerBtn from "./HamburgerBtn";
 
 const Navbar = () => {
     const [navbarOpen, setNavbarOpen] = useState(false);
@@ -11,22 +14,13 @@ const Navbar = () => {
     const closeMenu = () => { setNavbarOpen(false) }
 
     return (
-        <>
         <nav>
             <button className="hamburgerBtn" onClick={handleToggle}>
                 {navbarOpen ? 
                 ( 
-                    <div className="hamburger-lines">
-                        <span className="line line1"></span>
-                        <span className="line line2"></span>
-                        <span className="line line3"></span>
-                    </div>
+                    <HamburgerBtn />
                 ) : (
-                    <div className="hamburger-lines">
-                        <span className="line line1"></span>
-                        <span className="line line2"></span>
-                        <span className="line line3"></span>
-                    </div>
+                    <HamburgerBtn />
                 )}
             </button>
             
@@ -41,7 +35,6 @@ const Navbar = () => {
             </ul>
 
         </nav>
-        </>
     )
 }
 

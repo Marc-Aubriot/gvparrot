@@ -1,10 +1,8 @@
-import React from 'react';
-
 /* ressources */
 import LogoImg from "../../ressources/images/front/logo200px.png";
 
 /* styles */
-import "../styles/Logo.css";
+import "./styles/Logo.css";
 
 const Logo = () => {
     return (

@@ -9,9 +9,7 @@ import App from './App';
 
 /* pages */
 import Accueil from './pages/Accueil';
-import Carrosserie from './pages/Carrosserie';
-import Mecanique from './pages/Mecanique';
-import Entretien from './pages/Entretien';
+import Service from './pages/Service';
 import Occasions from './pages/Occasions';
 import Contact from './pages/Contact';
 import Espacepro from './pages/Espacepro';
@@ -30,13 +28,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/carrosserie",
-        element: <Carrosserie />
+        element: <Service title="Carrosserie"/>
       },{
         path: "/mecanique",
-        element: <Mecanique />
+        element: <Service title="Mecanique"/>
       },{
         path: "/entretien",
-        element: <Entretien />
+        element: <Service title="Entretien"/>
       },{
         path: "/occasions",
         element: <Occasions />

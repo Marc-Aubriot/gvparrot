@@ -1,0 +1,14 @@
+#serviceHeroTitle {
+    position: absolute;
+    top: 48%;
+    left: 15%;
+    font-size: 48px;
+}
+
+.servicesDescription {
+    padding-left: 5px;
+}
+
+.servicesDescription h3 {
+    text-align: start;
+}

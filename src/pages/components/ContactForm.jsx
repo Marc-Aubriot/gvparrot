@@ -1,6 +1,11 @@
+/* dependencies */
 import { Form } from "react-router-dom";
+
+/* components */
 import Bouton from "./Bouton";
-import "../styles/ContactForm.css";
+
+/* styles */
+import "./styles/ContactForm.css";
 
 const ContactForm = (props) => {
     return (

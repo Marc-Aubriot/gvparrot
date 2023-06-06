@@ -1,5 +1,8 @@
+/* dependencies */
 import { Link } from "react-router-dom";
-import "../styles/Bouton.css"
+
+/* styles */
+import "./styles/Bouton.css"
 
 const Bouton = (props) => {
     return (

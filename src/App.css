@@ -1,3 +1,4 @@
+/* variables & utilities */
 :root {
   --bg-color: #4682B4;
   --section-color: #B0C4DE;
@@ -19,6 +20,7 @@
   src: url(./ressources/font/Roboto-Regular.ttf);
 }
 
+/* elements */
 html, body, main {
   padding: 0;
   margin: 0;
@@ -43,8 +45,7 @@ section img {
   border-radius: 20px;
 }
 
-
-a {
+a, nav {
   text-decoration: none;
   color: var(--white-color);
   font-size: 24px;
@@ -55,10 +56,50 @@ h1,h2,h3,h4 {
   color: var(--black-color);
   font-size: 24px;
   font-family: oxygen;
+  font-weight: 400;
 }
 
 p, label {
   color: var(--black-color);
   font-size: 20px;
+  font-family: roboto;
+}
+
+/* general class */
+.heroBanner {
+  position: relative;
+  object-fit: cover;
+  width: 100%;
+  height: 430px;
+}
+
+.heroTitle {
+  position: absolute;
+  left: 5%;
+  top: 30%;
+  color: var(--white-color);
+  z-index: 8;
+}
+
+.textwrapper {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.linkwrapper {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ffrighteous {
+  font-family: righteous;
+}
+
+.ffoxygen {
+  font-family: oxygen;
+}
+
+.ffroboto {
   font-family: roboto;
 }

@@ -1,4 +1,5 @@
-import '../styles/CommentCard.css';
+/* styles */
+import './styles/CommentCard.css';
 
 const CommentCard = (props) => {
     return (
