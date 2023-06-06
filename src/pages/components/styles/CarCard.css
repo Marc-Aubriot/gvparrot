@@ -1,0 +1,51 @@
+.carCardBox {
+    border: solid 1px var(--black-color);
+    margin: 0px 0px 20px 0px;
+    height: 400px;
+}
+
+.cardTop {
+    border-bottom: solid 1px var(--black-color);
+    height: 50%;
+}
+
+.cardImage {
+    object-fit: cover;
+    height: 100%;
+    border-radius: 0px;
+}
+
+.cardBotttom {
+    background-color: var(--btn-color);
+    padding: 5px;
+    border-bottom: solid 1px var(--black-color);
+}
+
+.cardTitle {
+    font-family: righteous;
+    font-size: 24px;
+}
+
+.cardDescription {
+    font-family: oxygen;
+    font-size: 16px;
+}
+
+.cardInformation {
+    font-family: roboto;
+    font-size: 12px;
+}
+
+.priceBox {
+    display: flex;
+}
+
+.cardPrice {
+    font-family: righteous;
+    font-size: 16px;
+}
+
+.cardTTC {
+    font-family: righteous;
+    font-size: 10px;
+}
