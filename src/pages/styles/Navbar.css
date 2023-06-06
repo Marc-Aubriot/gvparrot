@@ -16,6 +16,9 @@
     height: 90vh;
     min-height: 750px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .hamburgerBtn {

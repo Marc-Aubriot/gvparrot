@@ -1,8 +1,12 @@
+import CustomForm from "./components/CustomForm";
+
 const Espacepro = () => {
     return (
-        <>
-        <h1>espacepro PAGE</h1>
-        </>
+        <section>
+            <h1>Mon espace professionnel</h1>
+
+            <CustomForm />
+        </section>
     )
 }
 

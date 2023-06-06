@@ -24,9 +24,9 @@ const Accueil = () => {
             </div>
             
 
-            <section className='sectionPanel'>
+            <section>
 
-                <h2 className='sectionTitle'>SECTION TITLE : SERVICE - CARROSSERIE</h2>
+                <h2>SECTION TITLE : SERVICE - CARROSSERIE</h2>
 
                 <div className='textwrapper'>
                     <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
@@ -36,13 +36,13 @@ const Accueil = () => {
                     <Link to={'/carrosserie'} className='sectionLink'>Voir tous les services de carrosserie</Link>
                 </div>
 
-                <img src={img1} alt="une voiture neuve" className='photoSection'/>
+                <img src={img1} alt="une voiture neuve"/>
 
             </section>
 
-            <section className='sectionPanel'>
+            <section>
 
-                <h2 className='sectionTitle'>SECTION TITLE : SERVICE - MECANIQUE</h2>
+                <h2>SECTION TITLE : SERVICE - MECANIQUE</h2>
 
                 <div className='textwrapper'>
                     <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
@@ -52,13 +52,13 @@ const Accueil = () => {
                     <Link to={'/mecanique'} className='sectionLink'>Voir tous les services de mécanique</Link>
                 </div>
 
-                <img src={img2} alt="mécanique d'une voiture" className='photoSection'/>
+                <img src={img2} alt="mécanique d'une voiture"/>
 
             </section>
 
-            <section className='sectionPanel'>
+            <section>
 
-                <h2 className='sectionTitle'>SECTION TITLE : SERVICE - ENTRETIENS</h2>
+                <h2>SECTION TITLE : SERVICE - ENTRETIENS</h2>
 
                 <div className='textwrapper'>
                     <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
@@ -68,7 +68,7 @@ const Accueil = () => {
                     <Link to={'/entretien'} className='sectionLink'>Voir tous les services d'entretien'</Link>
                 </div>
 
-                <img src={img3} alt="entretien d'une voiture" className='photoSection'/>
+                <img src={img3} alt="entretien d'une voiture"/>
 
             </section>
 
@@ -80,11 +80,11 @@ const Accueil = () => {
                 
             </section>
 
-            <section className='sectionPanel2'>
+            <section>
 
-                <h2 className='sectionTitle'>SECTION TITLE : A PROPOS</h2>
+                <h2>SECTION TITLE : A PROPOS</h2>
 
-                <img src={img4} alt="staff & client" className='photoSection'/>
+                <img src={img4} alt="staff & client"/>
 
                 <div className='textwrapper'>
                     <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
@@ -92,8 +92,8 @@ const Accueil = () => {
                 
             </section>
 
-            <section className='sectionPanel2'>
-                <h2 className='sectionTitle'>SECTION TITLE : AVIS</h2>
+            <section>
+                <h2>SECTION TITLE : AVIS</h2>
                 <CommentCard nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
                 
                 <div className='avisBtnBox'>

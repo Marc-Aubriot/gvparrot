@@ -4,7 +4,7 @@ import "../styles/Bouton.css"
 const Bouton = (props) => {
     return (
         <Link to={props.linkstring}>
-            <button className="btnComponent">{props.text}</button>
+            <button className="btnComponent" type={props.type}>{props.text}</button>
         </Link>
         
     )
