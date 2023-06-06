@@ -1,11 +1,11 @@
-import CustomForm from "./components/CustomForm";
+import ConnexionForm from "./components/ConnexionForm";
 
 const Espacepro = () => {
     return (
         <section>
             <h1>Mon espace professionnel</h1>
 
-            <CustomForm />
+            <ConnexionForm />
         </section>
     )
 }

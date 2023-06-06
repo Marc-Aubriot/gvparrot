@@ -1,10 +1,10 @@
 import { Form } from "react-router-dom";
 import Bouton from "./Bouton";
-import "../styles/CustomForm.css";
+import "../styles/ConnexionForm.css";
 
-const CustomForm = (props) => {
+const ConnexionForm = (props) => {
     return (
-        <div className="customForm">
+        <div className="ConnexionForm">
             <Form method="post" action={props.action}>
 
                 <div className="field">
@@ -28,4 +28,4 @@ const CustomForm = (props) => {
     )
 }
 
-export default CustomForm;
+export default ConnexionForm;

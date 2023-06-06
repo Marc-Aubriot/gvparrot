@@ -1,9 +1,9 @@
-.customForm {
+.ConnexionForm {
     width: 90%;
     margin: 0 auto;
 }
 
-.customForm input {
+.ConnexionForm input {
     width: 100%;
     height: 30px;
     border: none;
