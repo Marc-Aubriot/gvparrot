@@ -13,11 +13,15 @@ import Service from './pages/Service';
 import Occasions from './pages/Occasions';
 import Contact from './pages/Contact';
 import Espacepro from './pages/Espacepro';
+import ErrorPage from './pages/ErrorPage';
+import ProductPage from './pages/ProductPage';
+import Backoffice from './pages/Backoffice';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -44,7 +48,13 @@ const router = createBrowserRouter([
       },{
         path: "/espacepro",
         element: <Espacepro />
-      },
+      },{
+        path: "/occasions/:id",
+        element: <ProductPage />
+      },{
+        path: "/backoffice",
+        element: <Backoffice />
+      }
     ]
   },
 ]);

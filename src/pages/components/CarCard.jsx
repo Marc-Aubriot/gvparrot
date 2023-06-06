@@ -1,12 +1,17 @@
+/* dependencies */
+import { Link } from 'react-router-dom';
+
 /* styles */
 import './styles/CarCard.css';
-import pic from '../../ressources/images/gallerie/renault.jpg';
 
 const CarCard = (props) => {
     return (
         <div className='carCardBox'>
+
             <div className='cardTop'>
-                <img src={props.image} alt={'voiture'} className='cardImage'></img>
+                <Link to={props.id}> 
+                    <img src={props.image} alt={'voiture'} className='cardImage'></img>
+                </Link>
             </div>
             
             <div className='cardBotttom'>

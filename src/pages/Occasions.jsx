@@ -6,6 +6,7 @@ import './styles/Occasions.css';
 
 const Occasions = () => {
     const cardata = {
+        id: '1',
         image: '../ressources/images/gallerie/renault.jpg',
         titre: 'Renault Clio IV',
         description: 'Blue dci 100cv business',
@@ -14,16 +15,15 @@ const Occasions = () => {
     }
 
     return (
-        <section className='gallerie'>
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
-            <CarCard image={cardata.image} titre={cardata.titre} description={cardata.description} informations={cardata.informations} prix={cardata.prix} />
+        <section className='galerie'>
+            <CarCard 
+                id={cardata.id} 
+                image={cardata.image} 
+                titre={cardata.titre} 
+                description={cardata.description} 
+                informations={cardata.informations} 
+                prix={cardata.prix} 
+            />
         </section>
     )
 }

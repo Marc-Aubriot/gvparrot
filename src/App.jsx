@@ -1,6 +1,7 @@
 /* dependencies */
 import { Outlet } from "react-router-dom";
 
+
 /* Styles */
 import './App.css';
 
