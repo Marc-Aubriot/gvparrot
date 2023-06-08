@@ -14,7 +14,7 @@ import Occasions from './pages/Occasions';
 import Contact from './pages/Contact';
 import Espacepro from './pages/Espacepro';
 import ErrorPage from './pages/ErrorPage';
-import ProductPage from './pages/ProductPage';
+import ProductPage, { loader as productLoader} from './pages/ProductPage';
 import Backoffice from './pages/Backoffice';
 
 const router = createBrowserRouter([
@@ -50,7 +50,8 @@ const router = createBrowserRouter([
         element: <Espacepro />
       },{
         path: "/occasions/:id",
-        element: <ProductPage />
+        element: <ProductPage />,
+        loader: productLoader,
       },{
         path: "/backoffice",
         element: <Backoffice />
