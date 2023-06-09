@@ -22,8 +22,6 @@ const Galerie = (props) => {;
     return (
         <>
         {props.imgset.map((img, i )=> {
-            console.log(img);
-            console.log(i);
             return (
                 <img src={img} id={`img-${i}`} className={ i ? "galerieImg" : "activeGalerieImg" } onClick={handleClick} alt='voiture'></img>
             )

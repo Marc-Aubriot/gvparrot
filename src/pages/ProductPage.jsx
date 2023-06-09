@@ -16,10 +16,10 @@ export async function loader(urlparams) {
 }
 
 const ProductPage = () => {
-    /* url param loader*/
+    /* url parameter loader*/
     const { params } = useLoaderData();
 
-    /* hooks */
+    /* hooks des datas fetch par axios */
     const [car, setCar] = useState([]);
     const [images, setImages] = useState([]);
     const [lesplus, setLesplus] = useState([]);
@@ -31,12 +31,9 @@ const ProductPage = () => {
 
     /* requête au montage et récupération de la réponse */
     useEffect( ()=> {
-        getCar();
-    });
-
-    function getCar() {
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
-
+        const getCar = () => {
+            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            
             // transforme la réponse (string) en array
             const data = response.data.split(','); 
             // récupère les images
@@ -55,12 +52,18 @@ const ProductPage = () => {
             setEquips(equipement);
             setDetails(detay);
         });
-    }
+        }
+        getCar();
+    }, [params, inputs]);
+
+    //hook et handler pour menu équipements / détails
+    const [equipementsDivOpen, setEquipementsDivOpen] = useState(true);
+    const handleToggle = () => { setEquipementsDivOpen(prev => !prev) }
 
     return (
         <section className="productPage">
 
-            <Galerie imgset={images} />
+        <Galerie imgset={images} />
 
             <div className="carCard">
 
@@ -90,28 +93,45 @@ const ProductPage = () => {
             </div>
 
             <div className="sectionEquipement">
-                <div className="equipDetail">
-                    <h2>EQUIPEMENTS</h2>
-                    <h2> / </h2>
-                    <h2>DETAILS</h2>
+                <div className="equipDetail" onClick={handleToggle}>
+                    <h2 className={ equipementsDivOpen ? "active" : "" }>EQUIPEMENTS</h2>
+                    <h2 className={ equipementsDivOpen ? "" : "active" }>DETAILS</h2>
                 </div>
                 
-                <h3>Les +</h3>
-                {lesplus.map( (string, i) => {
-                    return (
-                        <li>{string}</li>
-                    )
-                })}
+                <div id="equipementsDiv" className={ equipementsDivOpen ? "showDiv" : "hiddenDiv" }>
 
-                <h3>EQUIPEMENTS DE SERIE</h3>
-                <ul>
-                    {equips.map( (string, i) => {
-                    return (
-                        <li>{string}</li>
-                    )
-                })}
-                </ul>
+                    <h3>Les +</h3>
+                    {lesplus.map( (string, i) => {
+                        return (
+                            <li key={i}>{string}</li>
+                        )
+                    })}
+
+                    <h3>EQUIPEMENTS DE SERIE</h3>
+                    <ul>
+                        {equips.map( (string, i) => {
+                        return (
+                            <li key={i}>{string}</li>
+                        )
+                    })}
+                    </ul>
+
+                </div>
                 
+                <div id="detailsDiv" className={ equipementsDivOpen ? "hiddenDiv" : "showDiv" }>
+                    <h3>Informations du véhicule</h3>
+                    <p>Couleur : {details[0]} </p>
+                    <p>Puissance fiscale : {details[1]}</p>
+                    <p>Portes: {details[2]}</p>
+                    <p>Places: {details[3]}</p>
+
+                    <h3>GARANTIE</h3>
+                    <p>Garantie: {details[4]}</p>
+
+                    <h3>Informations énergétiques</h3>
+                    <p>Qualitéde l'air</p>
+                    <p>Certificat Crit'Air {details[5]}</p>
+                </div>
             </div>
 
             

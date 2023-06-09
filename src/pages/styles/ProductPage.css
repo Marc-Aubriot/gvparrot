@@ -60,9 +60,27 @@
 
 .equipDetail {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .equipDetail h2 {
+    font-family: righteous;
+}
+
+.active {
+    background-color: var(--btn-color);
+}
+
+.showDiv {
+    visibility: visible;
+    position: initial;
+}
+
+.hiddenDiv {
+    visibility: hidden;
+    position: absolute;
+}
+
+#detailsDiv h3 {
     font-family: righteous;
 }
