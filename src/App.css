@@ -59,10 +59,15 @@ h1,h2,h3,h4 {
   font-weight: 400;
 }
 
-p, label {
+p, label, li {
   color: var(--black-color);
   font-size: 20px;
   font-family: roboto;
+}
+
+hr {
+  background-color: var(--black-color);
+  height: 1px;
 }
 
 /* general class */

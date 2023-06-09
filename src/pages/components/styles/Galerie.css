@@ -1,0 +1,13 @@
+.activeGalerieImg {
+    border-radius: 0px;
+    border: solid 1px black;
+    /*/height: 264px;
+    width: 100%;*/
+}
+
+.galerieImg {
+    border-radius: 0px;
+    width: 100px;
+    height: 100px;
+    border: solid 1px black;
+}

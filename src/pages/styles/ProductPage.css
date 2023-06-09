@@ -1,31 +1,68 @@
+.productPage {
+    padding: 10px;
+}
+
+/* CARCARD */
+.carCard {
+    border: 1px solid var(--black-color);
+}
+
+.carCardHeader {
+    padding: 20px 0px 0px 20px;
+    border-bottom: 1px solid var(--black-color);
+    background-color: var(--bg-color);
+}
+
 #carTitle {
+    padding: 0;
+    margin: 0;
     font-family: righteous;
-    
+    text-align: start;
 }
 
 #carDescription1 {
     font-family: oxygen;
-    
 }
 
-#carDescription2 {
+#carRef {
     font-family: roboto;
-    
 }
 
-#carPrice {
+.carCardBody {
+    padding: 0px 20px 0px 20px;
+    font-family: roboto;
+}
+
+#carPrice, .carPrice{
     font-family: righteous;
-    
+    padding: 0;
+    margin: 0;
 }
 
-#carInformationsGenerales {
+.carPriceTTC {
     font-family: righteous;
+    font-size: 12px;
+    line-height: 0px;
+}
+.carCardFooter {
+    border-top: 1px solid var(--black-color);
 }
 
-#carEquipmentsNOptions {
-    font-family: righteous;
+.priceBox {
+    display: flex;
+    margin-bottom: 10px;
 }
 
-#carEntretiensNInfosTech {
+/* EQUIPEMENTS / DETAIL */
+.sectionEquipement h3 {
+    text-align: start;
+}
+
+.equipDetail {
+    display: flex;
+    justify-content: center;
+}
+
+.equipDetail h2 {
     font-family: righteous;
 }

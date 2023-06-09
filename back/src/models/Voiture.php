@@ -3,48 +3,54 @@
 class Voiture {
 
     private $id;
-    private $utilisateur_id;
-    private $titre;
     private $images;
-    private $prix;
+    private $titre;
+    private $descript;
+    private $boite;
+    private $carburant;
     private $kilometrage;
     private $annee;
-    private $caracteristiques;
+    private $prix;
+    private $lesplus;
     private $equipements;
-    private $options;
+    private $details;
 
-    public function __construct($id, $utilisateur_id, $titre, $images, $prix, $kilometrage, $annee, $caracteristiques, $equipements, $options)
+    public function __construct($id, $images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details)
     {
         $this->id = $id;
-        $this->utilisateur_id = $utilisateur_id;
-        $this->titre = $titre;
         $this->images = $images;
-        $this->prix = $prix;
+        $this->titre = $titre;
+        $this->descript = $descript;
+        $this->boite = $boite;
+        $this->carburant = $carburant;
         $this->kilometrage = $kilometrage;
         $this->annee = $annee;
-        $this->caracteristiques = $caracteristiques;
+        $this->prix = $prix;
+        $this->lesplus = $lesplus;
         $this->equipements = $equipements;
-        $this->options = $options;
+        $this->details = $details;
     }
 
     // Fonction pour ajouter une nouvelle Voiture en base de données
     public function addCar() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('INSERT INTO voitures (id, utilisateur_id, titre, images, prix, kilometrage, annee, caracteristiques, equipements, options)
-        VALUES (:id, :val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9)');
+        $stmt = $conn->prepare('INSERT INTO voitures (id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details)
+        VALUES (:id, :val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11)');
 
         $stmt->execute(
             array(':id' => $this->id, 
-            ':val1' => $this->utilisateur_id, 
+            ':val1' => $this->images, 
             ':val2' => $this->titre, 
-            ':val3' => $this->images, 
-            ':val4' => $this->prix,
-            ':val5' => $this->kilometrage,
-            ':val6' => $this->annee,
-            ':val7' => $this->caracteristiques,
-            ':val8' => $this->equipements,
-            ':val9' => $this->options
+            ':val3' => $this->descript, 
+            ':val4' => $this->boite,
+            ':val5' => $this->carburant,
+            ':val6' => $this->kilometrage,
+            ':val7' => $this->annee,
+            ':val8' => $this->prix,
+            ':val9' => $this->lesplus,
+            ':val10' => $this->equipements,
+            ':val11' => $this->details
         ));
 
         $conn = null;
@@ -66,15 +72,17 @@ class Voiture {
             $conn = null;
             return new Voiture(
                 $result['id'], 
-                $result['utilisateur_id'], 
-                $result['titre'], 
                 $result['images'], 
-                $result['prix'], 
+                $result['titre'], 
+                $result['descript'], 
+                $result['boite'], 
+                $result['carburant'],
                 $result['kilometrage'],
                 $result['annee'],
-                $result['caracteristiques'],
+                $result['prix'],
+                $result['lesplus'],
                 $result['equipements'],
-                $result['options']);
+                $result['details']);
         } else {
             $conn = null;
             return null;
@@ -106,26 +114,30 @@ class Voiture {
 
     // Méthodes pour recevoir les paramètres d'une voiture
     public function getId() { return $this->id; }
-    public function getUserId() { return $this->utilisateur_id; }
-    public function getTitle() { return $this->titre; }
     public function getImages() { return $this->images; }
-    public function getPrice() { return $this->prix; }
-    public function getKm() { return $this->kilometrage; }
-    public function getYear() { return $this->annee; }
-    public function getCarac() { return $this->caracteristiques; }
-    public function getEquip() { return $this->equipements; }
-    public function getOptions() { return $this->options; }
+    public function getTitre() { return $this->titre; }
+    public function getDescript() { return $this->descript; }
+    public function getBoite() { return $this->boite; }
+    public function getCarburant() { return $this->carburant; }
+    public function getKilometrage() { return $this->kilometrage; }
+    public function getAnnee() { return $this->annee; }
+    public function getPrix() { return $this->prix; }
+    public function getLesplus() { return $this->lesplus; }
+    public function getEquipements() { return $this->equipements; }
+    public function getDetails() { return $this->details; }
 
     // Méthodes pour modifier les paramètres d'une voiture
     public function setId($new_value) { $this->id = $new_value; }
-    public function setUserId($new_value) { $this->utilisateur_id = $new_value; }
-    public function setTitle($new_value) { $this->titre = $new_value; }
     public function setImages($new_value) { $this->images = $new_value; }
-    public function setPrice($new_value) { $this->prix = $new_value; }
-    public function setKm($new_value) { $this->kilometrage = $new_value; }
-    public function setYear($new_value) { $this->annee = $new_value; }
-    public function setCarac($new_value) { $this->caracteristiques = $new_value; }
-    public function setEquip($new_value) { $this->equipements = $new_value; }
-    public function setOptions($new_value) { $this->options = $new_value; }
+    public function setTitre($new_value) { $this->titre = $new_value; }
+    public function setDescript($new_value) { $this->descript = $new_value; }
+    public function setBoite($new_value) { $this->boite = $new_value; }
+    public function setCarburant($new_value) { $this->carburant = $new_value; }
+    public function setKilometrage($new_value) { $this->kilometrage = $new_value; }
+    public function setAnnee($new_value) { $this->annee = $new_value; }
+    public function setPrix($new_value) { $this->prix = $new_value; }
+    public function setLesplus($new_value) { $this->lesplus = $new_value; }
+    public function setEquipements($new_value) { $this->equipements = $new_value; }
+    public function setDetails($new_value) { $this->details = $new_value; }
 }
 ?>
