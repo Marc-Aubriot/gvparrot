@@ -71,7 +71,15 @@ hr {
   height: 1px;
 }
 
+main {
+  width: 100%;
+}
+
 /* general class */
+.largeScreenContainer {
+  width: 100%;
+}
+
 .heroBanner {
   position: relative;
   object-fit: cover;
@@ -108,4 +116,40 @@ hr {
 
 .ffroboto {
   font-family: roboto;
+}
+
+/* responsive tablet */
+@media (min-width: 700px) {
+  section img {
+    display: block;
+    width: 80%;
+    height: 400px;
+    margin: 0 auto;
+  }
+
+  .textwrapper {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+/* responsive desktop */
+@media (min-width: 1200px) {
+  /* utilities */
+  .text-start, section .text-start {
+    text-align: start;
+  }
+
+  .text-end, section .text-end {
+    text-align: end;
+  }
+}
+
+/* responsive large screen */
+@media (min-width: 1600px) {
+  .largeScreenContainer {
+    width: 1600px;
+    margin: 0 auto;
+    display: flex;
+  }
 }

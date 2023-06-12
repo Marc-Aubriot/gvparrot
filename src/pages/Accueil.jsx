@@ -17,74 +17,94 @@ import img4 from '../ressources/images/front/article4.jpg';
 
 const Accueil = () => {
     return (
-        <>
+        <main >
             <div>
                 <h1 className='heroTitle'>Vos véhicules se détendent enfin</h1>
                 <img src={heroImg} alt="hero banner" className='heroBanner'/>
             </div>
             
 
-            <section>
+            <section className='service1 largeScreenContainer'>
 
-                <h2>SECTION TITLE : SERVICE - CARROSSERIE</h2>
-
-                <div className='textwrapper'>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                <div className='float-l imageWrapper'>
+                    <img src={img1} alt="une voiture neuve" /> 
                 </div>
 
-                <div className='linkwrapper'>
-                    <Link to={'/carrosserie'} className='sectionLink'>Voir tous les services de carrosserie</Link>
+                <div>
+                    <h2 className='text-start'>SECTION TITLE : SERVICE - CARROSSERIE</h2>
+
+                    <div className='textwrapper'>
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                    </div>
+
+                    <div className='linkwrapper text-start'>
+                        <Link to={'/carrosserie'} className='sectionLink'>Voir tous les services de carrosserie</Link>
+                    </div>
+                </div>  
+          
+            </section>
+
+            <section className='service2 largeScreenContainer'>
+
+                <div className='float-r imageWrapper'>
+                    <img src={img2} alt="mécanique d'une voiture"/>
                 </div>
 
-                <img src={img1} alt="une voiture neuve"/>
+                <div>
+                    <h2 className='text-end'>SECTION TITLE : SERVICE - MECANIQUE</h2>
+
+                    <div className='textwrapper text-start'>
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                    </div>
+
+                    <div className='linkwrapper text-end'>
+                        <Link to={'/mecanique'} className='sectionLink'>Voir tous les services de mécanique</Link>
+                    </div>
+                </div>    
 
             </section>
 
-            <section>
+            <section className='service3 largeScreenContainer'>
 
-                <h2>SECTION TITLE : SERVICE - MECANIQUE</h2>
-
-                <div className='textwrapper'>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                <div className='float-l imageWrapper'>
+                    <img src={img3} alt="entretien d'une voiture"/>
                 </div>
 
-                <div className='linkwrapper'>
-                    <Link to={'/mecanique'} className='sectionLink'>Voir tous les services de mécanique</Link>
+                <div>
+                    <h2 className='text-start'>SECTION TITLE : SERVICE - ENTRETIENS</h2>
+
+                    <div className='textwrapper'>
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                    </div>
+
+                    <div className='linkwrapper text-start'>
+                        <Link to={'/entretien'} className='sectionLink'>Voir tous les services d'entretien'</Link>
+                    </div>
                 </div>
-
-                <img src={img2} alt="mécanique d'une voiture"/>
-
-            </section>
-
-            <section>
-
-                <h2>SECTION TITLE : SERVICE - ENTRETIENS</h2>
-
-                <div className='textwrapper'>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
-                </div>
-
-                <div className='linkwrapper'>
-                    <Link to={'/entretien'} className='sectionLink'>Voir tous les services d'entretien'</Link>
-                </div>
-
-                <img src={img3} alt="entretien d'une voiture"/>
 
             </section>
 
             <section className='bandSection'>
-                <h3>Découvrez nos voitures d'occasions</h3>
-                <div className="bandSectionBtn">
-                    <Bouton text="Voitures d'occasions" linkstring="/occasions"></Bouton>
+
+                <div className='largeScreenContainer bandSection'> 
+
+                    <h3>Découvrez nos voitures d'occasions</h3>
+
+                    <div className="bandSectionBtn">
+                        <Bouton text="Voitures d'occasions" linkstring="/occasions"></Bouton>
+                    </div>
+
                 </div>
-                
+
             </section>
 
-            <section>
+            <section className='service4 largeScreenContainer'>
+
+                <div className='imageWrapper float-r'>
+                    <img src={img4} alt="staff & client"/>
+                </div>
 
                 <h2>SECTION TITLE : A PROPOS</h2>
-
-                <img src={img4} alt="staff & client"/>
 
                 <div className='textwrapper'>
                     <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
@@ -92,9 +112,15 @@ const Accueil = () => {
                 
             </section>
 
-            <section>
+            <section className='service5 largeScreenContainer'>
                 <h2>SECTION TITLE : AVIS</h2>
-                <CommentCard nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
+
+                <div className='cardWrapper'>
+                    <CommentCard lsOnly="true" nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
+                    <CommentCard lsOnly="true" nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
+                    <CommentCard lsOnly="false" nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
+                </div>
+                
                 
                 <div className='avisBtnBox'>
                     <Bouton text="Laisser un avis"></Bouton>
@@ -102,7 +128,7 @@ const Accueil = () => {
                 </div>
                 
             </section>
-        </>
+        </main>
     )
 }
 
