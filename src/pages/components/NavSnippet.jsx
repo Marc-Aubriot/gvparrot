@@ -3,7 +3,7 @@ import './styles/NavSnippet.css';
 
 const NavSnippet = () => {
     return (
-        <nav className='navSnippet'>
+        <nav className='navSnippet largeScreenContainer'>
             <ul>
                 <li>freinage</li>
                 <li>échappement</li>

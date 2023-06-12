@@ -50,6 +50,11 @@ footer p {
     text-align: start;
 }
 
+.horaireTitle {
+    margin: 0 auto;
+    width: 40%;
+}
+
 /* responsive table */
 @media (min-width: 700px) {
     .footerBotBox {
@@ -58,8 +63,7 @@ footer p {
     }
 
     .ouvertureBox {
-        text-align: center;
-        justify-content: end;
+        justify-content: start;
     }
 
     .horairesBox {
@@ -76,7 +80,7 @@ footer p {
 
     .footerTopBox {
         justify-content: end;
-        margin-right: 6%;
+        padding-right: 10%;
     }
 
     .addressePanel {
@@ -89,5 +93,6 @@ footer p {
 
     .footerBotBox {
         padding: 0px;
+        margin: 0px;
     }
 }

@@ -25,7 +25,7 @@ const Footer = () => {
                 </div>
 
                 <div className='footerBotBox'>
-                    <p>Horaires d'ouvertures</p>
+                    <p className='horaireTitle'>Horaires d'ouvertures</p>
                     
                     <div className='ouvertureBox'>
                         <div className='daynameBox'>

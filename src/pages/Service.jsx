@@ -1,6 +1,3 @@
-/* dependencies */
-import { Link } from 'react-router-dom';
-
 /* styles */
 import './styles/Service.css';
 
@@ -12,15 +9,15 @@ import heroImg from '../ressources/images/front/article2.jpg';
 
 const Service = (props) => {
     return (
-        <>
+        <main>
             <div>
-                <h1 className='heroTitle ffrighteous' id="serviceHeroTitle">{props.title}</h1>
                 <img src={heroImg} alt="mécanique" className='heroBanner'/>
+                <h1 className='heroTitle ffrighteous' id="serviceHeroTitle">{props.title}</h1>
             </div>
 
             <NavSnippet />
 
-            <section className='servicesDescription'>
+            <section className='servicesDescription largeScreenContainer'>
                 <h2>Freinage</h2>
 
                 <h3>Plaquettes de frein</h3>
@@ -39,7 +36,8 @@ const Service = (props) => {
                 <p>La purge du liquide de frein est une opération qui consiste à éliminer l'air emprisonné dans le système de freinage et à remplacer le liquide de frein usagé par du liquide neuf. Cela garantit le bon fonctionnement et la performance du système de freinage.</p>
 
             </section>
-        </>
+
+        </main>
     )
 }
 

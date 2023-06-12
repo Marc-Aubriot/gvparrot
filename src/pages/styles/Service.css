@@ -1,14 +1,35 @@
 #serviceHeroTitle {
-    position: absolute;
-    top: 48%;
+    top: 30%;
     left: 15%;
     font-size: 48px;
 }
 
 .servicesDescription {
     padding-left: 5px;
+    display: block;
+
 }
 
 .servicesDescription h3 {
     text-align: start;
+}
+
+.container {
+    padding: 10px;
+}
+
+/* responsive tablet */
+@media (min-width: 700px) {
+    .servicesDescription {
+        margin: 0 auto;
+        padding-left: 30px;
+        width: 90%;
+    }
+}
+
+/* responsive desktop */
+@media (min-width: 1200px) {
+    .servicesDescription {
+        max-width: 1600px;
+    }
 }
