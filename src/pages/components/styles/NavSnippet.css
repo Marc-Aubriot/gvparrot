@@ -8,7 +8,15 @@
 
 .navSnippet a, .navSnippet ul, .navSnippet li {
     color: var(--black-color);
+}
 
+.navSnippet li {
+    cursor: pointer;
+}
+
+.navSnippet li:hover {
+    background-color: var(--bg-color);
+    border-radius: 10px;
 }
 
 /* responsive tablet */

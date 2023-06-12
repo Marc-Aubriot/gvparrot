@@ -1,3 +1,6 @@
+/* dependencies */
+import { useState } from "react";
+
 /* components */
 import CarCard from './components/CarCard';
 
@@ -14,17 +17,73 @@ const Occasions = () => {
         prix: '5 200€'
     }
 
+    const [filterPanelOpen, setFilterPanelOpen] = useState(false);
+    const handleToggleFilter = () => { setFilterPanelOpen(prev => !prev) }
+    const closeMenu = () => { setFilterPanelOpen(false) }
+
     return (
-        <section className='galerie'>
-            <CarCard 
-                id={cardata.id} 
-                image={cardata.image} 
-                titre={cardata.titre} 
-                description={cardata.description} 
-                informations={cardata.informations} 
-                prix={cardata.prix} 
-            />
-        </section>
+
+        <main className="pageOccasion">
+
+            <div className={`filterPanel ${filterPanelOpen ? " showMenu" : ""}`}>
+                
+            </div>
+
+            <section className='galerie'>
+                
+                    <CarCard 
+                        id={cardata.id} 
+                        image={cardata.image} 
+                        titre={cardata.titre} 
+                        description={cardata.description} 
+                        informations={cardata.informations} 
+                        prix={cardata.prix} 
+                    />
+
+                    <CarCard 
+                        id={cardata.id} 
+                        image={cardata.image} 
+                        titre={cardata.titre} 
+                        description={cardata.description} 
+                        informations={cardata.informations} 
+                        prix={cardata.prix} 
+                    />
+
+                
+
+                    <CarCard 
+                        id={cardata.id} 
+                        image={cardata.image} 
+                        titre={cardata.titre} 
+                        description={cardata.description} 
+                        informations={cardata.informations} 
+                        prix={cardata.prix} 
+                    />
+
+                    <CarCard 
+                        id={cardata.id} 
+                        image={cardata.image} 
+                        titre={cardata.titre} 
+                        description={cardata.description} 
+                        informations={cardata.informations} 
+                        prix={cardata.prix} 
+                    />
+
+                
+            </section>
+
+            <nav className='navBarOccasions'>
+
+                <div className='navBarOccasionsLeftBTN'>
+                    <button onClick={handleToggleFilter}>Filtrer</button>
+                </div>
+
+                <div className='navBarOccasionsRightBTN'>
+                    <button>Trier</button>
+                </div>
+
+            </nav>
+        </main>
     )
 }
 

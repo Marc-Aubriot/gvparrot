@@ -2,6 +2,7 @@
     border: solid 1px var(--black-color);
     margin: 0px 0px 20px 0px;
     height: 400px;
+    background-color: var(--btn-color);
 }
 
 .cardTop {
@@ -17,9 +18,8 @@
 }
 
 .cardBotttom {
-    background-color: var(--btn-color);
     padding: 5px;
-    border-bottom: solid 1px var(--black-color);
+    margin-bottom: 0;
 }
 
 .cardTitle {
@@ -39,6 +39,7 @@
 
 .priceBox {
     display: flex;
+    margin-bottom: 0;
 }
 
 .cardPrice {
@@ -49,4 +50,17 @@
 .cardTTC {
     font-family: righteous;
     font-size: 10px;
+}
+
+/* responsive tablet */
+@media (min-width: 700px) {
+    .carCardBox {
+        width: 80%;
+        margin: 15px auto;
+    }
+
+    .cardImage {
+        width: 100%;
+        margin: 0 0;
+    }
 }

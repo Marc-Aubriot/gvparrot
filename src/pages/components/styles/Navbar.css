@@ -31,6 +31,10 @@
     height: 80px;
 }
 
+.menuNav li:hover {
+    background-color: var(--btn-color);
+    border-radius: 10px;
+}
 
 /* responsive desktop*/
 @media (min-width: 1000px) {

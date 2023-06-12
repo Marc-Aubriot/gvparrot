@@ -1,3 +1,90 @@
 .galerie {
     padding: 20px 10px 10px 10px;
 }
+
+.navBarOccasions {
+    font-family: righteous;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    border: solid 1px var(--black-color);
+    background-color: var(--bg-color);
+    color: var(--white-color);
+}
+
+.navBarOccasions button {
+    border: none;
+    height: 50px;
+    background-color: var(--bg-color);
+    color: var(--white-color);
+    font-size: 24px;
+    cursor: pointer;
+}
+.navBarOccasionsLeftBTN {
+    border-right: solid 1px var(--black-color);
+    width: 50%;
+}
+
+.navBarOccasionsRightBTN {
+    width: 50%;
+}
+
+.filterPanel {
+    background-color: var(--bg-color);
+    height: 100vh;
+    width: 100%;
+    display: none;
+    visibility: hidden;
+    position: sticky;
+    top: 0vh;
+}
+
+.showMenu {
+    display: block;
+    visibility: visible;
+}
+
+/* responsive tablet */
+@media (min-width: 700px) {
+    .galerie {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* responsive desktop */
+@media (min-width: 1200px) {
+    .pageOccasion {
+        display: flex;
+    }
+
+    .galerie {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    .navBarOccasions {
+        display: none;
+    }
+
+    .filterPanel {
+        display: block;
+        visibility: visible;
+        position: initial;
+        height: 600px;
+        width: 300px;
+        margin: 20px;
+        margin-top: 50px;
+    }
+}
+
+/* responsive large screen */
+@media (min-width: 1600px) {
+    .galerie {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
