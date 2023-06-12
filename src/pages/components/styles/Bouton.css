@@ -6,4 +6,6 @@
     border-radius: 30px;
     font-family: righteous;
     font-size: 24px;
+    cursor: pointer;
+    box-shadow: 2px 4px var(--bg-color);
 }

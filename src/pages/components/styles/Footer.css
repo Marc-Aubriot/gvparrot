@@ -32,6 +32,7 @@ footer p {
     margin: 0 auto;
     width: 60%;
     text-align: start;
+    text-align: center;
 }
 
 .ouvertureBox {
@@ -47,4 +48,46 @@ footer p {
 .horairesBox {
     width: 70%;
     text-align: start;
+}
+
+/* responsive table */
+@media (min-width: 700px) {
+    .footerBotBox {
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    .ouvertureBox {
+        text-align: center;
+        justify-content: end;
+    }
+
+    .horairesBox {
+        width: 50%;
+    }
+}
+
+/* responsive desktop*/
+@media (min-width: 1200px) {
+    .footerContainer {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .footerTopBox {
+        justify-content: end;
+        margin-right: 6%;
+    }
+
+    .addressePanel {
+        width: 30%;
+    }
+
+    .contactPanel {
+        width: 30%;
+    }
+
+    .footerBotBox {
+        padding: 0px;
+    }
 }

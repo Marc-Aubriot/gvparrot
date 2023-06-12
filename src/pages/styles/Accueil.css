@@ -11,6 +11,7 @@
 .bandSection {
     background-color: var(--bg-color);
     height: 400px;
+    border-radius: 0px;
 }
 
 .bandSection h3 {
