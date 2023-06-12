@@ -1,0 +1,8 @@
+@media (min-width: 700px) {
+    .contactPage {
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        max-width: 1200px;
+    }
+}

@@ -1,0 +1,16 @@
+.espaceProPage {
+    height: 58vh;
+}
+
+.formWrapper {
+    margin-top: 20%;
+}
+
+@media (min-width: 700px) {
+    .espaceProPage {
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        max-width: 1200px;
+    }
+}

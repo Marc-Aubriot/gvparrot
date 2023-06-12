@@ -1,6 +1,6 @@
 .headerStyle {
     background-color: var(--bg-color);
-    height: 90px;
+    height: 100px;
 }
 
 @media (min-width: 1000px) {

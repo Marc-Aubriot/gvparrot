@@ -1,12 +1,22 @@
 /* components */
 import ConnexionForm from "./components/ConnexionForm";
 
+/* styles */
+import './styles/EspacePro.css';
+
 const Espacepro = () => {
     return (
-        <section>
-            <h1>Mon espace professionnel</h1>
+        <section className="espaceProPage">
 
-            <ConnexionForm />
+            <div className="formWrapper">
+
+            
+                <h1>Mon espace professionnel</h1>
+
+                <ConnexionForm />
+                
+            </div>
+           
         </section>
     )
 }
