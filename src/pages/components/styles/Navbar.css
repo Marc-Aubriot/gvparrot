@@ -30,3 +30,31 @@
     width: 90px;
     height: 80px;
 }
+
+
+/* responsive desktop*/
+@media (min-width: 1000px) {
+    .menuNav {
+        position: initial;
+        visibility: visible;
+        display: flex;
+        float: right;
+        justify-content: space-evenly;
+        margin-right: 2%;
+        width: 95%;
+    }
+
+    .navBar {
+        width: 100%;
+    }
+    .hamburgerBtn {
+        display: none;
+    }
+}
+
+/* responsive large screen*/
+@media (min-width: 1400px) {
+    .menuNav {
+        width: 70%;
+    }
+}

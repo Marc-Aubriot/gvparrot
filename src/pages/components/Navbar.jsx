@@ -14,7 +14,7 @@ const Navbar = () => {
     const closeMenu = () => { setNavbarOpen(false) }
 
     return (
-        <nav>
+        <nav className="navBar">
             <button className="hamburgerBtn" onClick={handleToggle}>
                 {navbarOpen ? 
                 ( 
