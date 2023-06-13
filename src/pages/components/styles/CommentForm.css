@@ -1,0 +1,61 @@
+.pageAccueilForm {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.pageAccueilformWrapper {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.commentFormField {
+    width: 80%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.formLabel {
+    font-family: righteous;
+    margin-left: 20px;
+}
+
+.formInput {
+    font-family: roboto;
+    color: var(--black-color);
+    font-size: 18px;
+    width: 95%;
+    height: 30px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.commentFormBtnWrapper {
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 60px;
+}
+
+.responseText {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.commentFormSubmitBtnWrapper {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.commentFormSubmitBtn {
+    height: 60px;
+    width: 100%;
+    background-color: var(--btn-color);
+    border: none;
+    border-radius: 30px;
+    font-family: righteous;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 2px 4px var(--bg-color);
+}

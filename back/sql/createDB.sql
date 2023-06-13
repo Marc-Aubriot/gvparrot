@@ -21,12 +21,11 @@ CREATE TABLE voitures (
 );
 
 CREATE TABLE commentaires (
-	id VARCHAR(255) PRIMARY KEY,
-    utilisateur_id VARCHAR(255),
+	id INT PRIMARY KEY auto_increment,
 	nom VARCHAR(50),
 	contenu TEXT,
 	note FLOAT,
-	valider BOOL
+	valider BOOL DEFAULT FALSE
 );
 
 CREATE TABLE utilisateurs (
@@ -82,17 +81,17 @@ VALUES ("3", "brio", "cram", "brio@outlook.fr", "testmotdepasse3", "0650550480",
 INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
 VALUES ("4", "aub", "rio", "aubrio@outlook.fr", "testmotdepasse4", "0650550480", "no message dispo", false);
 
-INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider)
-VALUES ('1', '1', 'marc', "super garage, j'adore, j'adhère", "4.5", true);
+INSERT INTO commentaires (nom, contenu, note, valider)
+VALUES ('marc', "super garage, j'adore, j'adhère", "4.5", true);
 
-INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider)
-VALUES ('2', '2', 'diane', "garage nul je déteste", "1.5", true);
+INSERT INTO commentaires (nom, contenu, note, valider)
+VALUES ('diane', "garage nul je déteste", "1.5", true);
 
-INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider)
-VALUES ('3', '3', 'cram', "garage moyen osef", "2.5", true);
+INSERT INTO commentaires (nom, contenu, note, valider)
+VALUES ('cram', "garage moyen osef", "2.5", true);
 
-INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider)
-VALUES ('4', '4', 'rio', "nul nul nul", "0.5", false);
+INSERT INTO commentaires (nom, contenu, note)
+VALUES ('rio', "nul nul nul", "0.5");
 
 INSERT INTO services (titre, descript)
 VALUES ("freinage", "Plaquettes de frein

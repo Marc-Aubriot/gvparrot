@@ -89,6 +89,15 @@
 
     .service5 {
         margin-bottom: 100px;
+        min-height: 500px;
+        /*display: flex;*/
+    }
+
+    .boxWrapper {
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: auto;
+        display: flex;
     }
 
     .float-r { 

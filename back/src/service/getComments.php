@@ -2,7 +2,6 @@
 
 include_once ROOT.'/src/models/Comment.php';
 
-//$q = $_REQUEST["q"];
 $comments = Comment::getValidatedCommentList();
 
 foreach($comments as $item) {

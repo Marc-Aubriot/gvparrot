@@ -3,21 +3,13 @@
 Class Comment {
 
     private $id;
-    private $utilisateur_id;
     private $nom;
     private $contenu;
     private $note;
     private $valider;
-    /*public $id;
-    public $utilisateur_id;
-    public $nom;
-    public $contenu;
-    public $note;
-    public $valider;*/
 
-    public function __construct($id, $utilisateur_id, $nom, $contenu, $note, $valider) {
+    public function __construct($id, $nom, $contenu, $note, $valider) {
         $this->id = $id;
-        $this->utilisateur_id = $utilisateur_id;
         $this->nom = $nom;
         $this->contenu = $contenu;
         $this->note = $note;
@@ -25,16 +17,30 @@ Class Comment {
     }
 
     // fonction pour ajouter un nouveau commentaire en DB
-    public function addComment() {
+    public static function addComment($nom, $contenu, $note) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $con->prepare('INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider) 
-        VALUES (:id, :val1, :val2, :val3, :val4, :val5)');
+        $stmt = $con->prepare('INSERT INTO commentaires (nom, contenu, note) 
+        VALUES (:val2, :val3, :val4)');
 
         $stmt->execute(
-            array(':id' => $this->id, 
-            ':val1' => $this->utilisateur_id, 
-            ':val2' => $this->nom, 
+            array(':val2' => $nom, 
+            ':val3' => $contenu, 
+            ':val4' => $note,
+        ));
+
+        $con = null;
+    }
+
+    // fonction pour ajouter un nouveau commentaire en DB
+    public function addCommentByEmployee() {
+        $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $con->prepare('INSERT INTO commentaires (nom, contenu, note, valider) 
+        VALUES (:val2, :val3, :val4, :val5)');
+
+        $stmt->execute(
+            array(':val2' => $this->nom, 
             ':val3' => $this->contenu, 
             ':val4' => $this->note,
             ':val5' => $this->valider
@@ -59,7 +65,6 @@ Class Comment {
             $conn = null;
             return new Comment(
                 $result['id'], 
-                $result['utilisateur_id'], 
                 $result['nom'], 
                 $result['contenu'], 
                 $result['note'], 
@@ -116,7 +121,6 @@ Class Comment {
 
     // Méthodes pour recevoir les paramètres d'une voiture
     public function getId() { return $this->id; }
-    public function getUtilisateur_id() { return $this->utilisateur_id; }
     public function getNom() { return $this->nom; }
     public function getContenu() { return $this->contenu; }
     public function getNote() { return $this->note; }
@@ -124,7 +128,6 @@ Class Comment {
 
     // Méthodes pour modifier les paramètres d'une voiture
     public function setId($new_value) { $this->id = $new_value; }
-    public function setUtilisateur_id($new_value) { $this->utilisateur_id = $new_value; }
     public function setNom($new_value) { $this->nom = $new_value; }
     public function setContenu($new_value) { $this->contenu = $new_value; }
     public function setNote($new_value) { $this->note = $new_value; }
