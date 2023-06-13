@@ -70,11 +70,29 @@ VALUES ('2', '../ressources/images/gallerie/ford.jpg+../ressources/images/galler
 INSERT INTO voitures (id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details)
 VALUES ('3', '../ressources/images/gallerie/volkswagen.jpg+../ressources/images/gallerie/coxx.jpg', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6 cv+5 portes+5 places+12 mois+C');
 
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
+VALUES ("1", "aubriot", "marc", "marc.aubriot@outlook.fr", "testmotdepasse", "0650550480", "no message dispo", true);
+
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
+VALUES ("2", "pihet", "diane", "pihet@outlook.fr", "testmotdepasse2", "0650550480", "no message dispo", false);
+
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
+VALUES ("3", "brio", "cram", "brio@outlook.fr", "testmotdepasse3", "0650550480", "no message dispo", false);
+
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
+VALUES ("4", "aub", "rio", "aubrio@outlook.fr", "testmotdepasse4", "0650550480", "no message dispo", false);
+
 INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider)
 VALUES ('1', '1', 'marc', "super garage, j'adore, j'adhère", "4.5", true);
 
-INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
-VALUES ("1", "aubriot", "marc", "marc.aubriot@outlook.fr", "testmotdepasse", "0650550480", "no message dispo", true);
+INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider)
+VALUES ('2', '2', 'diane', "garage nul je déteste", "1.5", true);
+
+INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider)
+VALUES ('3', '3', 'cram', "garage moyen osef", "2.5", true);
+
+INSERT INTO commentaires (id, utilisateur_id, nom, contenu, note, valider)
+VALUES ('4', '4', 'rio', "nul nul nul", "0.5", false);
 
 INSERT INTO services (titre, descript)
 VALUES ("freinage", "Plaquettes de frein

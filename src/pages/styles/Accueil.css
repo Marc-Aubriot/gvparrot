@@ -126,4 +126,14 @@
         width: 80%;
         justify-content: space-around;
     }
+
+    .avisBtnBox {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+    }
+
+    .avisBtn {
+        width: 500px;
+    }
 }

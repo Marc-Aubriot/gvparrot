@@ -1,5 +1,7 @@
 /* dependencies */
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 /* styles */
 import './styles/Accueil.css';
@@ -16,6 +18,33 @@ import img3 from '../ressources/images/front/article3.jpg';
 import img4 from '../ressources/images/front/article4.jpg';
 
 const Accueil = () => {
+    /* hooks des datas fetch par axios */
+    const [comments, setComments] = useState([]);
+
+    /* requête au montage et récupération de la réponse */
+    useEffect( ()=> {
+        const getComments = () => {
+            /* axios payload */
+            const inputs = `action=getComments`;
+            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            
+            // transforme la réponse (string) en array
+            const rawdata = response.data.split('&'); 
+
+            let data = [];
+            rawdata.forEach(element => {
+                data.push(element.split('+'));
+            });
+
+            data.pop();
+
+            // on accroche les datas récupérées aux différents hooks
+            setComments(data);
+        });
+        }
+        getComments();
+    }, []);
+
     return (
         <main >
             <div>
@@ -116,15 +145,19 @@ const Accueil = () => {
                 <h2>SECTION TITLE : AVIS</h2>
 
                 <div className='cardWrapper'>
-                    <CommentCard lsOnly="true" nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
-                    <CommentCard lsOnly="true" nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
-                    <CommentCard lsOnly="false" nom="Jacques" rating="5/5" comment='"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'/>
+                    { comments[0] ? <CommentCard lsOnly="false" nom={comments[0][1]} rating={comments[0][3]} comment={comments[0][2]} /> : '' }
+                    { comments[1] ? <CommentCard lsOnly="true" nom={comments[1][1]} rating={comments[1][3]} comment={comments[1][2]} /> : '' }
+                    { comments[2] ? <CommentCard lsOnly="true" nom={comments[2][1]} rating={comments[2][3]} comment={comments[2][2]} /> : ''}
                 </div>
                 
                 
                 <div className='avisBtnBox'>
-                    <Bouton text="Laisser un avis"></Bouton>
-                    <Bouton text="Voir tous les avis"></Bouton>
+                    <div className='avisBtn'>
+                        <Bouton text="Laisser un avis" className="avisBtn"></Bouton>
+                    </div>
+                    <div className='avisBtn'>
+                        <Bouton text="Voir tous les avis"></Bouton>
+                    </div>
                 </div>
                 
             </section>
