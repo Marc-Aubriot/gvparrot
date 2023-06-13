@@ -107,6 +107,7 @@
         height: 200px;
         display: flex;
         margin-bottom: 100px;
+        margin: 0 auto;
     }
 
     .bandSection h3 {
@@ -115,7 +116,7 @@
     }
 
     .bandSectionBtn {
-        margin: auto;
+        /*margin: auto;*/
         margin-right: 10%;
         width: 30%;
     }
