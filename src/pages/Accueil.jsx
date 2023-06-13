@@ -17,10 +17,21 @@ import img1 from '../ressources/images/front/article1.jpg';
 import img2 from '../ressources/images/front/article2.jpg';
 import img3 from '../ressources/images/front/article3.jpg';
 import img4 from '../ressources/images/front/article4.jpg';
+import { BsChevronDoubleLeft } from 'react-icons/bs';
+import { BsChevronDoubleRight } from 'react-icons/bs';
 
 const Accueil = () => {
     /* hooks des datas fetch par axios */
     const [comments, setComments] = useState([]);
+    const [index, setIndex ] = useState(0);
+
+    const precedentBtn = () => {
+        setIndex( index => index - 1);
+    }
+
+    const suivantBtn = () => {
+        setIndex( index => index + 1);
+    }
 
     /* requête au montage et récupération de la réponse */
     useEffect( ()=> {
@@ -41,6 +52,7 @@ const Accueil = () => {
 
                 // on accroche les datas récupérées aux différents hooks
                 setComments(data);
+                setIndex(0);
             });
         }
         getComments();
@@ -49,6 +61,10 @@ const Accueil = () => {
     /* hooks pour la section commentaire */
     const [avisFormOpen, setAvisFormOpen] = useState(false);
     const handleToggle = () => { setAvisFormOpen(prev => !prev) }
+
+    const style = {
+        width: "50px", height: "50px"
+    }
 
     return (
         <main >
@@ -157,9 +173,27 @@ const Accueil = () => {
                         <CommentForm toggle={handleToggle} /> 
                         : 
                         <div className='cardWrapper'>
-                            { comments[0] ? <CommentCard lsOnly="false" nom={comments[0][1]} rating={comments[0][3]} comment={comments[0][2]} /> : '' }
-                            { comments[1] ? <CommentCard lsOnly="true" nom={comments[1][1]} rating={comments[1][3]} comment={comments[1][2]} /> : '' }
-                            { comments[2] ? <CommentCard lsOnly="true" nom={comments[2][1]} rating={comments[2][3]} comment={comments[2][2]} /> : ''}
+
+                            {
+                                index === 0 ? ''
+                                :
+                                <div className='btnPrecedentAvis'>
+                                    <button id='btnPrecedentAvis' onClick={precedentBtn}><BsChevronDoubleLeft style={style}/></button>
+                                </div>
+                            }
+
+                            { comments[index] ? <CommentCard lsOnly="false" nom={comments[index][1]} rating={comments[index][3]} comment={comments[index][2]} /> : '' }
+                            { comments[index+1] ? <CommentCard lsOnly="true" nom={comments[index+1][1]} rating={comments[index+1][3]} comment={comments[index+1][2]} /> : '' }
+                            { comments[index+2] ? <CommentCard lsOnly="true" nom={comments[index+2][1]} rating={comments[index+2][3]} comment={comments[index+2][2]} /> : ''}
+                            
+                            {
+                                index === comments.length - 3 ? ''
+                                :
+                                <div className='btnSuivantAvis'>
+                                    <button id='btnSuivantAvis' onClick={suivantBtn}><BsChevronDoubleRight style={style}/></button>
+                                </div>
+                            }
+
                         </div>
                     } 
                         
@@ -170,15 +204,9 @@ const Accueil = () => {
                     ""
                     :
                     <div className='avisBtnBox'>
-
                         <div className='avisBtn'>
                             <Bouton text="Laisser un avis" className="avisBtn" onClick={handleToggle}></Bouton>
                         </div>
-
-                        <div className='avisBtn'>
-                            <Bouton text="Voir tous les avis"></Bouton>
-                        </div>
-
                     </div> 
                 }
 

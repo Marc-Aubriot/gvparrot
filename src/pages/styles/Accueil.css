@@ -37,6 +37,36 @@
     margin-top: 30px;
 }
 
+.btnSuivantAvis {
+    position: relative;
+    top: 50%;
+}
+
+#btnSuivantAvis {
+    width: 50px;
+    height: 70px;
+    border: none;
+    background-color: transparent;
+}
+
+.btnPrecedentAvis {
+    position: relative;
+    top: 50%;
+}
+
+#btnPrecedentAvis {
+    width: 50px;
+    height: 70px;
+    border: none;
+    background-color: transparent;
+}
+
+/*.cardWrapper {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+}*/
+
 /* responsive tablet */
 @media (min-width: 700px) {
     .bandSection {
