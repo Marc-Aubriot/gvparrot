@@ -1,10 +1,10 @@
 <?php
 
 include_once ROOT.'/src/models/Service.php';
-
-$serviceList = Service::getServiceList();
+$categorie = $_REQUEST['categorie'];
+$serviceList = Service::getServiceListByCategorie($categorie);
 
 foreach($serviceList as $item) {
-    echo $item['id'].'+'.$item['categorie'].'+'.$item['titre'].'+'.$item['descript'].'&';
+    echo $item['id'].'+'.$item['categorie'].'+'.$item['subcategorie'].'+'.$item['titre'].'+'.$item['descript'].'&';
 };
 ?>
