@@ -1,5 +1,5 @@
 /* dependencies */
-import { Form, Link } from "react-router-dom";
+import { Form } from "react-router-dom";
 
 /* components */
 import Bouton from "./Bouton";

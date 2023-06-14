@@ -41,6 +41,7 @@ CREATE TABLE utilisateurs (
 
 CREATE TABLE services (
 	id INT PRIMARY KEY AUTO_INCREMENT,
+    categorie VARCHAR(20),
 	titre VARCHAR(100),
 	descript TEXT
 );
@@ -93,8 +94,8 @@ VALUES ('cram', "garage moyen osef", "2.5", true);
 INSERT INTO commentaires (nom, contenu, note)
 VALUES ('rio', "nul nul nul", "0.5");
 
-INSERT INTO services (titre, descript)
-VALUES ("freinage", "Plaquettes de frein
+INSERT INTO services (categorie, titre, descript)
+VALUES ("Mecanique", "freinage", "Plaquettes de frein
 Le remplacement des plaquettes de frein est une opération essentielle de l'entretien des freins d'un véhicule. Les plaquettes de frein sont des composants clés qui créent la friction nécessaire pour ralentir et arrêter le véhicule lorsque vous appuyez sur la pédale de frein.
 
 Disques de frein
@@ -109,8 +110,8 @@ Les flexibles de frein sont des tuyaux en caoutchouc renforcés qui relient les 
 Purge du liquide de frein
 La purge du liquide de frein est une opération qui consiste à éliminer l'air emprisonné dans le système de freinage et à remplacer le liquide de frein usagé par du liquide neuf. Cela garantit le bon fonctionnement et la performance du système de freinage.");
 
-INSERT INTO services (titre, descript)
-VALUES ("entretien_moteur", "Vidange d'huile
+INSERT INTO services (categorie, titre, descript)
+VALUES ("Entretien", "entretien moteur", "Vidange d'huile
 La vidange d'huile est une opération essentielle de l'entretien régulier du moteur d'un véhicule. Elle consiste à retirer l'ancienne huile moteur usagée et à la remplacer par de l'huile moteur fraîche et de qualité, afin de maintenir le bon fonctionnement et la durabilité du moteur.
 
 Remplacement du filtre à huile

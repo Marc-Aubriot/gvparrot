@@ -19,7 +19,7 @@ const Occasions = () => {
 
     const [filterPanelOpen, setFilterPanelOpen] = useState(false);
     const handleToggleFilter = () => { setFilterPanelOpen(prev => !prev) }
-    const closeMenu = () => { setFilterPanelOpen(false) }
+    //const closeMenu = () => { setFilterPanelOpen(false) }
 
     return (
 

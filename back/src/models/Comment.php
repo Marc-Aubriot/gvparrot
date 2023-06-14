@@ -119,14 +119,14 @@ Class Comment {
         $db = null;
     }
 
-    // Méthodes pour recevoir les paramètres d'une voiture
+    // Méthodes pour recevoir les paramètres
     public function getId() { return $this->id; }
     public function getNom() { return $this->nom; }
     public function getContenu() { return $this->contenu; }
     public function getNote() { return $this->note; }
     public function getValider() { return $this->valider; }
 
-    // Méthodes pour modifier les paramètres d'une voiture
+    // Méthodes pour modifier les paramètres
     public function setId($new_value) { $this->id = $new_value; }
     public function setNom($new_value) { $this->nom = $new_value; }
     public function setContenu($new_value) { $this->contenu = $new_value; }

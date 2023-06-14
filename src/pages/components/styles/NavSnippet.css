@@ -24,7 +24,7 @@
     .navSnippet ul {
         width: 90%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         padding-right: 40px;
         
     }
@@ -34,7 +34,7 @@
 @media (min-width: 1200px) {
     .navSnippet ul {
         width: 90%;
-        justify-content: space-between;
+        justify-content: space-evenly;
         padding-right: 40px;
     }
 }
