@@ -16,7 +16,8 @@ CREATE TABLE voitures (
     prix INT,
     lesplus VARCHAR(200),
     equipements VARCHAR(1000),
-    details VARCHAR(500)
+    details VARCHAR(500),
+    ref VARCHAR(100)
 );
 
 CREATE TABLE commentaires (

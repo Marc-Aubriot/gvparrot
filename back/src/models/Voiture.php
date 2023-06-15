@@ -14,8 +14,9 @@ class Voiture {
     private $lesplus;
     private $equipements;
     private $details;
+    private $ref;
 
-    public function __construct($id, $images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details)
+    public function __construct($id, $images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref)
     {
         $this->id = $id;
         $this->images = $images;
@@ -29,14 +30,15 @@ class Voiture {
         $this->lesplus = $lesplus;
         $this->equipements = $equipements;
         $this->details = $details;
+        $this->ref = $ref;
     }
 
     // Fonction pour ajouter une nouvelle Voiture en base de données
     public function addCar() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details)
-        VALUES (:id, :val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11)');
+        $stmt = $conn->prepare('INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+        VALUES (:id, :val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12)');
 
         $stmt->execute(
             array(
@@ -50,7 +52,8 @@ class Voiture {
             ':val8' => $this->prix,
             ':val9' => $this->lesplus,
             ':val10' => $this->equipements,
-            ':val11' => $this->details
+            ':val11' => $this->details,
+            ':val12' => $this->ref
         ));
 
         $conn = null;
@@ -82,7 +85,8 @@ class Voiture {
                 $result['prix'],
                 $result['lesplus'],
                 $result['equipements'],
-                $result['details']);
+                $result['details'],
+                $result['ref']);
         } else {
             $conn = null;
             return null;
@@ -165,6 +169,7 @@ class Voiture {
     public function getLesplus() { return $this->lesplus; }
     public function getEquipements() { return $this->equipements; }
     public function getDetails() { return $this->details; }
+    public function getReference() { return $this->ref; }
 
     // Méthodes pour modifier les paramètres d'une voiture
     public function setImages($new_value) { $this->images = $new_value; }
@@ -178,5 +183,6 @@ class Voiture {
     public function setLesplus($new_value) { $this->lesplus = $new_value; }
     public function setEquipements($new_value) { $this->equipements = $new_value; }
     public function setDetails($new_value) { $this->details = $new_value; }
+    public function setReference($new_value) { $this->ref = $new_value; }
 }
 ?>

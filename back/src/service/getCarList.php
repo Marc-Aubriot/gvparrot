@@ -17,6 +17,7 @@ foreach($carlist as $voiture) {
     $voiture['prix'].','.
     $voiture['lesplus'].','.
     $voiture['equipements'].','.
-    $voiture['details'].'&';
+    $voiture['details'].',',
+    $voiture['ref'].'&';
 };
 ?>

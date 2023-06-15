@@ -77,7 +77,7 @@ const Footer = () => {
                                 :
                                 horaires.map( (element, i) => {
                                     return (
-                                        <p>{element[0]}-{element[1]} / {element[2]}-{element[3]}</p>
+                                        <p key={i}>{element[0]}-{element[1]} / {element[2]}-{element[3]}</p>
                                     )
                                 })
                             }

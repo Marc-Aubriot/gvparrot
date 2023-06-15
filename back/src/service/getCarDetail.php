@@ -19,5 +19,6 @@ echo
     $voiture->getLesplus().','.
     $voiture->getEquipements().','.
     $voiture->getDetails().','.
+    $voiture->getReference().','.
     $maxcar['COUNT(id)'];
 ?>

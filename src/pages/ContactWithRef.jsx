@@ -1,14 +1,31 @@
 /* dependencies */
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLoaderData  } from "react-router-dom";
 
 /* styles */
-import "./styles/ContactForm.css";
+import './styles/Contact.css';
 
-const ContactForm = () => {
+/* data loader */
+export async function loader(urlparams) {
+    return urlparams;
+}
+
+const Contact = () => {
+    /* url parameter loader*/
+    const { params } = useLoaderData();
+
     /* hooks des datas fetch par axios */
     const [commentSendTrue, setCommentSendTrue] = useState([]);
+    const [product, setRef] = useState();
+    const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState([]);
+
+    useEffect( ()=> {
+        setRef(params.product);
+        setLoading(true);
+        
+    }, [])
 
     /* envoi le formulaire avec axios et le built in FORMDATA class */
     const sendForm = (e) => {
@@ -32,7 +49,9 @@ const ContactForm = () => {
     }
 
     return (
-        <div className="ContactForm">
+        <section className="contactPage">
+            <h1>CONTACT PAGE</h1>
+            <div className="ContactForm">
             {
                 commentSendTrue ? 
             
@@ -70,14 +89,22 @@ const ContactForm = () => {
                             id="sujet" 
                             name="sujet" 
                             placeholder="Sujet"
+                            defaultValue=
+                            {
+                                loading ?
+                                `Reférence du véhicule: ${product}`
+                                :
+                                ""
+                            } 
                             className='formInput'
+                            readOnly
                         ></input>
                     </div>
 
                     <div className="field">
                         <label for="message">Message</label>
                         <br />
-                        <textarea id="message" name="message" type='textarea' placeholder='Message' className='formInput'></textarea>
+                        <textarea id="message" name="message" type='textarea' defaultValue='Je suis interessé par ce vehicule, merci de me contacter.' className='formInput'></textarea>
                     </div>
 
                     <div className="fieldBtn">
@@ -88,7 +115,8 @@ const ContactForm = () => {
                 <p className='responseText'>{response}</p>
             }
         </div>
+        </section>
     )
 }
 
-export default ContactForm;
+export default Contact;

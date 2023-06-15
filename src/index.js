@@ -12,6 +12,7 @@ import Accueil from './pages/Accueil';
 import Service from './pages/Service';
 import Occasions from './pages/Occasions';
 import Contact from './pages/Contact';
+import ContactWithRef, { loader as refloader } from './pages/ContactWithRef';
 import Espacepro from './pages/Espacepro';
 import ErrorPage from './pages/ErrorPage';
 import ProductPage, { loader as productLoader} from './pages/ProductPage';
@@ -46,12 +47,16 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />
       },{
+        path: "/contact/:product",
+        element: <ContactWithRef />,
+        loader: productLoader,
+      },{
         path: "/espacepro",
         element: <Espacepro />
       },{
         path: "/occasions/:id",
         element: <ProductPage />,
-        loader: productLoader,
+        loader: refloader,
       },{
         path: "/backoffice",
         element: <Backoffice />

@@ -46,7 +46,7 @@ const ProductPage = () => {
             // récupère les détails 
             const detay = data[11].split('+'); 
             // récupère le nombre max d'annonces
-            const max = data[12];
+            const max = data[13];
 
             // on accroche les datas récupérées aux différents hooks
             setCar(data);   
@@ -54,8 +54,7 @@ const ProductPage = () => {
             setLesplus(plus);
             setEquips(equipement);
             setDetails(detay);
-            setNumberOfCar(max);
-            console.log(numberOfCar);
+            setNumberOfCar(max);//
         });
         }
         getCar();
@@ -97,7 +96,7 @@ const ProductPage = () => {
                         <div className="carCardHeader">
                             <h2 id="carTitle">{car[2]}</h2>
                             <p id="carDescription1">{car[3]}</p>
-                            <p id="carRef">Réf.annonce: {car[0]}</p>
+                            <p id="carRef">Réf.annonce: {car[12]}</p>
                         </div>
                         
                         <div className="carCardBody">
@@ -115,7 +114,9 @@ const ProductPage = () => {
                         </div>
 
                         <div className="carCardFooter">
-                            <button type="button" id="carProductContactBtn">Prendre contact</button>
+                            <Link to={`/contact/${car[12]}`} >
+                                <button type="button" id="carProductContactBtn">Prendre contact</button>
+                            </Link>
                         </div>
                     </div>
                 </div>

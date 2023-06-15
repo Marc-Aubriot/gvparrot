@@ -76,8 +76,8 @@ const Service = (props) => {
 
                             return (
                                 <>
-                                    <h3>{element[3]}</h3>
-                                    <p>{element[4]}</p>
+                                    <h3 key={`h3-${i}`}>{element[3]}</h3>
+                                    <p key={`p-${i}`}>{element[4]}</p>
                                 </>
                                 
                             )

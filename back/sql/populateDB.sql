@@ -1,13 +1,13 @@
 /* populate db : test data + dummy data */
 /* VOITURES */
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details)
-VALUES ( '../ressources/images/gallerie/renault.jpg+../ressources/images/gallerie/coxx.jpg', 'Renault Clio IV', 'Blue dci 100cv business', 'Manuelle', 'Diesel', '45000', '2018', '14500', 'Cuir+Sièges chauffants+Toit ouvrant+GPS', 'Régulateur+Limiteur de vitesse+Radar de recul+Sellerie en cuir+Régulateur adaptatif+Radar avant+Avertisseur d angle mort+Siège chauffant+Affichage tête haute+Attelage+Connexion bluetooth+etc', 'Bleu+6 cv+5 portes+5 places+12 mois+B');
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '../ressources/images/gallerie/renault.jpg+../ressources/images/gallerie/coxx.jpg', 'Renault Clio IV', 'Blue dci 100cv business', 'Manuelle', 'Diesel', '45000', '2018', '14500', 'Cuir+Sièges chauffants+Toit ouvrant+GPS', 'Régulateur+Limiteur de vitesse+Radar de recul+Sellerie en cuir+Régulateur adaptatif+Radar avant+Avertisseur d angle mort+Siège chauffant+Affichage tête haute+Attelage+Connexion bluetooth+etc', 'Bleu+6 cv+5 portes+5 places+12 mois+B', 'bleubleu');
 
-INSERT INTO voitures (id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details)
-VALUES ( '../ressources/images/gallerie/ford.jpg+../ressources/images/gallerie/coxx.jpg', 'Ford Focus', 'EcoBoost 1.0L Titanium', 'Manuelle', 'Essence', '35000', '2019', '13500', 'Climatisation automatique+Caméra de recul+Jantes en alliage+Start-Stop', 'Régulateur+Limiteur de vitesse+Bluetooth+Feux de jour LED+Détecteur de pluie+Radar avant et arrière+Volant en cuir+Écran tactile 8" SYNC', 'Gris+5 cv+5 portes+5 places+24 mois+D');
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '../ressources/images/gallerie/ford.jpg+../ressources/images/gallerie/coxx.jpg', 'Ford Focus', 'EcoBoost 1.0L Titanium', 'Manuelle', 'Essence', '35000', '2019', '13500', 'Climatisation automatique+Caméra de recul+Jantes en alliage+Start-Stop', 'Régulateur+Limiteur de vitesse+Bluetooth+Feux de jour LED+Détecteur de pluie+Radar avant et arrière+Volant en cuir+Écran tactile 8" SYNC', 'Gris+5 cv+5 portes+5 places+24 mois+D', 'grigri');
 
-INSERT INTO voitures (id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details)
-VALUES ( '../ressources/images/gallerie/volkswagen.jpg+../ressources/images/gallerie/coxx.jpg', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6 cv+5 portes+5 places+12 mois+C');
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '../ressources/images/gallerie/volkswagen.jpg+../ressources/images/gallerie/coxx.jpg', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6 cv+5 portes+5 places+12 mois+C', 'blabla');
 
 /* UTILISATEURS */
 INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
@@ -82,3 +82,5 @@ INSERT INTO horaires (lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche)
 VALUES ( "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "fermé,,,");
 
 /* MESSAGES */
+INSERT INTO messages (nom, prenom, telephone, email, sujet, content)
+VALUES ("Marc", "Aubriot", "0650550480", "marc.aubriot@outlook.fr", "test sujet", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." );

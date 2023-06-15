@@ -36,15 +36,6 @@ const Occasions = () => {
         getCarList();
     }, []);
 
-    const cardata = {
-        id: '1',
-        image: '../ressources/images/gallerie/renault.jpg',
-        titre: 'Renault Clio IV',
-        description: 'Blue dci 100cv business',
-        informations: 'Diesel - 2018 - 45000 km - Manuelle',
-        prix: '5 200€'
-    }
-
     const [filterPanelOpen, setFilterPanelOpen] = useState(false);
     const handleToggleFilter = () => { setFilterPanelOpen(prev => !prev) }
     //const closeMenu = () => { setFilterPanelOpen(false) }
