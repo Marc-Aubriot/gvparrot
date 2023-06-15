@@ -48,6 +48,7 @@ CREATE TABLE services (
 );
 
 CREATE TABLE horaires (
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	lundi VARCHAR(50),
 	mardi VARCHAR(50),
 	mercredi VARCHAR(50),

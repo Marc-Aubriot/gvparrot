@@ -1,7 +1,39 @@
+/* dependencies */
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+
 /* styles */
 import './styles/Footer.css';
+import Spinner from './Spinner';
 
 const Footer = () => {
+    const [horaires, setHoraires] = useState([]);
+    const [isLoading, setIsloading] = useState(true);
+
+    /* requête au montage et récupération de la réponse */
+    useEffect( ()=> {
+
+
+        const getHorairesList = () => {
+            /* axios payload */
+            const inputs = `action=getHoraires`;
+            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            
+                // transforme la réponse (string) en array
+                const rawdata = response.data.split('+'); 
+
+                let data = [];
+                rawdata.forEach(element => {
+                    data.push(element.split(','));
+                });
+
+                setHoraires(data);
+                setIsloading(false);
+            })
+        }
+        getHorairesList();
+    }, []);
+
     return (
         <footer>
             
@@ -39,13 +71,18 @@ const Footer = () => {
                         </div>
                         
                         <div className='horairesBox'>
-                            <p>08h00 - 12h00 / 13h00 - 18h00</p>
-                            <p>08h00 - 12h00 / 13h00 - 18h00</p>
-                            <p>08h00 - 12h00 / 13h00 - 18h00</p>
-                            <p>08h00 - 12h00 / 13h00 - 18h00</p>
-                            <p>08h00 - 12h00 / 13h00 - 18h00</p>
-                            <p>08h00 - 12h00 / 13h00 - 18h00</p>
-                            <p>fermé</p>
+                            {
+                                isLoading ? 
+                                <Spinner />
+                                :
+                                horaires.map( (element, i) => {
+                                    return (
+                                        <p>{element[0]}-{element[1]} / {element[2]}-{element[3]}</p>
+                                    )
+                                })
+                            }
+                           
+                            
                         </div>
                     </div>
                 </div>
