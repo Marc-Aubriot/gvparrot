@@ -35,11 +35,11 @@ class Voiture {
     public function addCar() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('INSERT INTO voitures (id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details)
+        $stmt = $conn->prepare('INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details)
         VALUES (:id, :val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11)');
 
         $stmt->execute(
-            array(':id' => $this->id, 
+            array(
             ':val1' => $this->images, 
             ':val2' => $this->titre, 
             ':val3' => $this->descript, 
@@ -109,6 +109,26 @@ class Voiture {
         }
     }
 
+    // Fonction pour récupérer tous les comments validés
+    public static function getMaxCar() {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('SELECT COUNT(id) FROM voitures;');
+
+        $stmt->execute();
+
+        // Récupération du résultat sous d'un array contenant les commentaires
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $conn = null;         
+            return $result;
+
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
+
     // Fonction pour mettre à jour un champ d'une voiture dans la base de données
     public function updateChamp($champ, $nouvelleValeur) {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -147,7 +167,6 @@ class Voiture {
     public function getDetails() { return $this->details; }
 
     // Méthodes pour modifier les paramètres d'une voiture
-    public function setId($new_value) { $this->id = $new_value; }
     public function setImages($new_value) { $this->images = $new_value; }
     public function setTitre($new_value) { $this->titre = $new_value; }
     public function setDescript($new_value) { $this->descript = $new_value; }

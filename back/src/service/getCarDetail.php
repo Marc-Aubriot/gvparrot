@@ -4,6 +4,7 @@ include_once ROOT.'/src/models/Voiture.php';
 
 $q = $_REQUEST["q"];
 $voiture = Voiture::getCarById($q);
+$maxcar = Voiture::getMaxCar();
 
 echo 
     $voiture->getId().','.
@@ -17,5 +18,6 @@ echo
     $voiture->getPrix().','.
     $voiture->getLesplus().','.
     $voiture->getEquipements().','.
-    $voiture->getDetails();
+    $voiture->getDetails().','.
+    $maxcar['COUNT(id)'];
 ?>

@@ -5,7 +5,7 @@ USE ecfgvparrot;
 
 /* create tabkles */
 CREATE TABLE voitures (
-	id VARCHAR(255) PRIMARY KEY,
+	id INT PRIMARY KEY AUTO_INCREMENT,
     images VARCHAR(500),
     titre VARCHAR(100),
     descript VARCHAR(100),
@@ -20,7 +20,7 @@ CREATE TABLE voitures (
 );
 
 CREATE TABLE commentaires (
-	id INT PRIMARY KEY auto_increment,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	nom VARCHAR(50),
 	contenu TEXT,
 	note FLOAT,

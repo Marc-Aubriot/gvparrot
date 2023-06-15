@@ -1,7 +1,8 @@
 /* variables & utilities */
 :root {
   --bg-color: #4682B4;
-  --section-color: #B0C4DE;
+  /*--section-color: #B0C4DE;*/
+  --section-color: #c8dbf5;
   --btn-color: #87CEFA;
   --white-color: #F2F2F2;
   --black-color: #270526;
@@ -33,7 +34,7 @@ section {
   padding-top: 30px;
   padding-bottom: 30px;
   background-color: var(--section-color);
-  border-radius: 20px;
+  /*border-radius: 10px;*/
 }
 
 section h1, section h2, section h3 {
