@@ -10,7 +10,6 @@ CREATE TABLE voitures (
     titre VARCHAR(100),
     descript VARCHAR(100),
     boite VARCHAR(10),
-    
     carburant VARCHAR(10),
     kilometrage INT,
     annee VARCHAR(4),

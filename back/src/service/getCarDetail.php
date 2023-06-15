@@ -17,6 +17,5 @@ echo
     $voiture->getPrix().','.
     $voiture->getLesplus().','.
     $voiture->getEquipements().','.
-    $voiture->getDetails()
-;
+    $voiture->getDetails();
 ?>
