@@ -7,7 +7,6 @@ import { useLoaderData  } from "react-router-dom";
 import './styles/ProductPage.css';
 
 /* components */
-import Bouton from './components/Bouton';
 import Galerie from "./components/Galerie";
 
 /* data loader */
@@ -63,32 +62,36 @@ const ProductPage = () => {
     return (
         <section className="productPage">
 
-        <Galerie imgset={images} />
+            <div className="topSection">
 
-            <div className="carCard">
+            
+                <Galerie imgset={images} />
 
-                <div className="carCardHeader">
-                    <h2 id="carTitle">{car[2]}</h2>
-                    <p id="carDescription1">{car[3]}</p>
-                    <p id="carRef">Réf.annonce: {car[0]}</p>
-                </div>
-                
-                <div className="carCardBody">
-                    <p>{car[6]} km</p>
-                    <p>{car[7]}</p>
-                    <p>{car[5]}</p>
-                    <p>{car[4]}</p>
-                    <hr />
-                    <p className="carPrice">Prix</p>
-                    <div className="priceBox">
-                        <p id="carPrice">{car[8]} €</p>
-                        <p className="carPriceTTC"> TTC</p>
+                <div className="carCard">
+
+                    <div className="carCardHeader">
+                        <h2 id="carTitle">{car[2]}</h2>
+                        <p id="carDescription1">{car[3]}</p>
+                        <p id="carRef">Réf.annonce: {car[0]}</p>
                     </div>
                     
-                </div>
+                    <div className="carCardBody">
+                        <p>{car[6]} km</p>
+                        <p>{car[7]}</p>
+                        <p>{car[5]}</p>
+                        <p>{car[4]}</p>
+                        <hr />
+                        <p className="carPrice">Prix</p>
+                        <div className="priceBox">
+                            <p id="carPrice">{car[8]} €</p>
+                            <p className="carPriceTTC"> TTC</p>
+                        </div>
+                        
+                    </div>
 
-                <div className="carCardFooter">
-                    <Bouton text="Prendre contact" linkstring="/contact" type="button" />
+                    <div className="carCardFooter">
+                        <button type="button" id="carProductContactBtn">Prendre contact</button>
+                    </div>
                 </div>
             </div>
 
@@ -98,40 +101,50 @@ const ProductPage = () => {
                     <h2 className={ equipementsDivOpen ? "" : "active" }>DETAILS</h2>
                 </div>
                 
-                <div id="equipementsDiv" className={ equipementsDivOpen ? "showDiv" : "hiddenDiv" }>
+                <div className="equipementWrapper">
 
-                    <h3>Les +</h3>
-                    {lesplus.map( (string, i) => {
-                        return (
-                            <li key={i}>{string}</li>
-                        )
-                    })}
+                    <div id="equipementsDiv" className={ equipementsDivOpen ? "showDiv" : "hiddenDiv" }>
 
-                    <h3>EQUIPEMENTS DE SERIE</h3>
-                    <ul>
-                        {equips.map( (string, i) => {
-                        return (
-                            <li key={i}>{string}</li>
-                        )
-                    })}
-                    </ul>
+                        <div className="lesplusWrapper">
+                             <h3>Les +</h3>
+                            {lesplus.map( (string, i) => {
+                                return (
+                                    <li key={i}>{string}</li>
+                                )
+                            })}
+                        </div>
+                       
+                        <div className="equipserieWrapper">
+                            <h3>EQUIPEMENTS DE SERIE</h3>
+                            <ul>
+                                {equips.map( (string, i) => {
+                                return (
+                                    <li key={i}>{string}</li>
+                                )
+                            })}
+                            </ul>
+                        </div>
+                        
 
-                </div>
+                    </div>
                 
-                <div id="detailsDiv" className={ equipementsDivOpen ? "hiddenDiv" : "showDiv" }>
-                    <h3>Informations du véhicule</h3>
-                    <p>Couleur : {details[0]} </p>
-                    <p>Puissance fiscale : {details[1]}</p>
-                    <p>Portes: {details[2]}</p>
-                    <p>Places: {details[3]}</p>
+                    <div id="detailsDiv" className={ equipementsDivOpen ? "hiddenDiv" : "showDiv" }>
+                        <h3>Informations du véhicule</h3>
+                        <p>Couleur : {details[0]} </p>
+                        <p>Puissance fiscale : {details[1]}</p>
+                        <p>Portes: {details[2]}</p>
+                        <p>Places: {details[3]}</p>
 
-                    <h3>GARANTIE</h3>
-                    <p>Garantie: {details[4]}</p>
+                        <h3>GARANTIE</h3>
+                        <p>Garantie: {details[4]}</p>
 
-                    <h3>Informations énergétiques</h3>
-                    <p>Qualitéde l'air</p>
-                    <p>Certificat Crit'Air {details[5]}</p>
+                        <h3>Informations énergétiques</h3>
+                        <p>Qualitéde l'air</p>
+                        <p>Certificat Crit'Air {details[5]}</p>
+                    </div>
+
                 </div>
+
             </div>
 
             

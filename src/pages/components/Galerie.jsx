@@ -20,7 +20,7 @@ const Galerie = (props) => {;
     };
     
     return (
-        <>
+        <div className='galerieContainer'>
         {props.imgset.map((img, i )=> {
             return (
                 <img src={img} id={`img-${i}`} className={ i ? "galerieImg" : "activeGalerieImg" } onClick={handleClick} alt='voiture'></img>
@@ -29,7 +29,7 @@ const Galerie = (props) => {;
         )
         }
         
-        </>
+        </div>
     )
 }
 

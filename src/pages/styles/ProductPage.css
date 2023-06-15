@@ -46,6 +46,7 @@
 }
 .carCardFooter {
     border-top: 1px solid var(--black-color);
+    padding: 0;
 }
 
 .priceBox {
@@ -83,4 +84,62 @@
 
 #detailsDiv h3 {
     font-family: righteous;
+}
+
+#carProductContactBtn {
+    height: 70px;
+    width: 100%;
+    background-color: var(--btn-color);
+    border: none;
+    font-family: righteous;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 2px 4px var(--bg-color);
+}
+
+@media (min-width: 1200px) {
+    .topSection {
+        display: flex;
+    }
+
+    .carCard {
+        width: 29%;
+    }
+
+    .sectionEquipement {
+       padding: 20px;
+    }   
+
+    .equipDetail {
+        width: 100%;
+        height: 100%;
+    }
+
+    .equipementWrapper {
+        display: flex;
+        width: 100%;
+    }
+
+    .lesplusWrapper {
+
+    }
+
+    .equipserieWrapper {
+
+    }
+    
+    #equipementsDiv {
+        width: 75%;
+        visibility: visible;
+        position: initial;
+    }
+    
+    #detailsDiv {
+        width: 25%;
+        margin-right: 20px;
+        padding-left: 20px;
+        position: initial;
+        background-color: var(--bg-color);
+        visibility: visible;
+    }
 }

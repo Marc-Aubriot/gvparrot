@@ -11,3 +11,9 @@
     height: 100px;
     border: solid 1px black;
 }
+
+@media (min-width: 1200px) {
+    .galerieContainer {
+        width: 70%;
+    }
+}
