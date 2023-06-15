@@ -26,3 +26,31 @@
     border: none;
     border-radius: 5px;
 }
+
+.btnEnvoyer {
+    height: 60px;
+    width: 100%;
+    background-color: var(--btn-color);
+    border: none;
+    border-radius: 30px;
+    font-family: righteous;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 2px 4px var(--bg-color);
+}
+
+.responseText {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.formInput {
+    font-family: roboto;
+    color: var(--black-color);
+    font-size: 18px;
+    width: 95%;
+    height: 30px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}

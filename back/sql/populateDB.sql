@@ -80,3 +80,5 @@ VALUES ("Entretien", "Entretien moteur", "Nettoyage du système d'admission d'ai
 /* HORAIRES*/
 INSERT INTO horaires (lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche)
 VALUES ( "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "fermé,,,");
+
+/* MESSAGES */

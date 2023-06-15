@@ -27,6 +27,17 @@ CREATE TABLE commentaires (
 	valider BOOL DEFAULT FALSE
 );
 
+CREATE TABLE messages (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    telephone VARCHAR(15),
+    email VARCHAR(100),
+    sujet VARCHAR(255),
+    content TEXT,
+    lecture BOOL DEFAULT FALSE
+);
+
 CREATE TABLE utilisateurs (
 	id VARCHAR(255) PRIMARY KEY,
 	nom VARCHAR(50),
