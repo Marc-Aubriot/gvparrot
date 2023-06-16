@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 /* components */
 import HamburgerBtn from "./HamburgerBtn";
 
-const BackofficeNavbar = () => {
+const BackofficeNavbar = (props) => {
     const [navbarOpen, setNavbarOpen] = useState(false);
     const handleToggle = () => { setNavbarOpen(prev => !prev) }
     const closeMenu = () => { setNavbarOpen(false) }
@@ -17,21 +17,20 @@ const BackofficeNavbar = () => {
         <nav className="navBar">
             <button className="hamburgerBtn" onClick={handleToggle}>
                 {navbarOpen ? 
-                ( 
-                    <HamburgerBtn />
-                ) : (
-                    <HamburgerBtn />
-                )}
+                    ( 
+                        <HamburgerBtn />
+                    ) : (
+                        <HamburgerBtn />
+                    )
+                }
             </button>
             
-            <ul className={`menuNav ${navbarOpen ? " showMenu" : ""}`}>
-                <li><Link to={'accueil'} onClick={closeMenu}>Accueil</Link></li>
-                <li><Link to={'carrosserie'} onClick={closeMenu}>Carrosserie</Link></li>
-                <li><Link to={'mecanique'} onClick={closeMenu}>Mécanique</Link></li>
-                <li><Link to={'entretien'} onClick={closeMenu}>Entretien</Link></li>
-                <li><Link to={'occasions'} onClick={closeMenu}>Occasions</Link></li>
-                <li><Link to={'contact'} onClick={closeMenu}>Contact</Link></li>
-                <li><Link to={'espacepro'} onClick={closeMenu}>Espace Pro</Link></li>
+            <ul className={`backofficemenuNav ${navbarOpen ? " showMenu" : ""}`}>
+                <li><Link to={`${props.id}/addemployee`} onClick={closeMenu}>Ajouter un employé</Link></li>
+                <li><Link to={`${props.id}/listemployee`} onClick={closeMenu}>Voir la liste des employés</Link></li>
+                <li><Link to={'modifyhoraires'} onClick={closeMenu}>Définir les horaires d'ouverture</Link></li>
+                <li><Link to={'modifyservices'} onClick={closeMenu}>Modifier les services</Link></li>
+                <li className="deconnexionBTN"><Link to={'/contact'} onClick={closeMenu}>Déconnexion</Link></li>
             </ul>
 
         </nav>

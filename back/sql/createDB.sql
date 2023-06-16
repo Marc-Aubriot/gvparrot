@@ -40,7 +40,7 @@ CREATE TABLE messages (
 );
 
 CREATE TABLE utilisateurs (
-	id VARCHAR(255) PRIMARY KEY,
+	id CHAR(36) PRIMARY KEY,
 	nom VARCHAR(50),
 	prenom VARCHAR(50),
 	email VARCHAR(100),

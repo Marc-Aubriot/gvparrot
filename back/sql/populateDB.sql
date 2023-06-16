@@ -11,16 +11,7 @@ VALUES ( '../ressources/images/gallerie/volkswagen.jpg+../ressources/images/gall
 
 /* UTILISATEURS */
 INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
-VALUES ("1", "aubriot", "marc", "marc.aubriot@outlook.fr", "testmotdepasse", true);
-
-INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
-VALUES ("2", "pihet", "diane", "pihet@outlook.fr", "testmotdepasse2", false);
-
-INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
-VALUES ("3", "brio", "cram", "brio@outlook.fr", "testmotdepasse3", false);
-
-INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
-VALUES ("4", "aub", "rio", "aubrio@outlook.fr", "testmotdepasse4", false);
+VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbea", "aubriot", "marc", "marc.aubriot@outlook.fr", "$2y$10$IKnk.34eszvM4lq.JKwWJOMQ0br0ltJDnPNCEubprCems6DmC1.9.", true);
 
 INSERT INTO commentaires (nom, contenu, note, valider)
 VALUES ('marc', "super garage, j'adore, j'adhère", "4.5", true);

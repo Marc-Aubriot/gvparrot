@@ -23,8 +23,8 @@ Class Utilisateur {
     public static function addUser($id, $nom, $prenom, $email, $mot_de_passe) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $con->prepare('INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe) 
-        VALUES (:val1, :val2, :val3, :val4, :val5');
+        $stmt = $con->prepare('INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin) 
+        VALUES (:val1, :val2, :val3, :val4, :val5, :val6)');
 
         $stmt->execute(
             array(
@@ -33,6 +33,7 @@ Class Utilisateur {
                 ':val3' => $prenom,
                 ':val4' => $email, 
                 ':val5' => $mot_de_passe, 
+                ':val6' => false
         ));
 
         $con = null;
@@ -98,7 +99,7 @@ Class Utilisateur {
     public static function getUserList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('SELECT * FROM utilisateurs');
+        $stmt = $conn->prepare('SELECT * FROM utilisateurs WHERE is_admin = 0');
 
         $stmt->execute();
 
@@ -122,6 +123,31 @@ Class Utilisateur {
         $stmt->bindParam(':nouvelleValeur', $nouvelleValeur);
         $stmt->bindParam(':id', $this->id);
         $stmt->execute();
+
+        $db = null;
+    }
+    public function modify() {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt1 = $db->prepare("UPDATE utilisateurs SET nom =:nouvelleValeur WHERE id=:id");
+        $stmt1->bindParam(':nouvelleValeur', $this->nom);
+        $stmt1->bindParam(':id', $this->id);
+        $stmt1->execute();
+
+        $stmt2 = $db->prepare("UPDATE utilisateurs SET prenom =:nouvelleValeur WHERE id=:id");
+        $stmt2->bindParam(':nouvelleValeur', $this->prenom);
+        $stmt2->bindParam(':id', $this->id);
+        $stmt2->execute();
+
+        $stmt3 = $db->prepare("UPDATE utilisateurs SET email =:nouvelleValeur WHERE id=:id");
+        $stmt3->bindParam(':nouvelleValeur', $this->email);
+        $stmt3->bindParam(':id', $this->id);
+        $stmt3->execute();
+
+        $stmt4 = $db->prepare("UPDATE utilisateurs SET mot_de_passe =:nouvelleValeur WHERE id=:id");
+        $stmt4->bindParam(':nouvelleValeur', $this->mot_de_passe);
+        $stmt4->bindParam(':id', $this->id);
+        $stmt4->execute();
 
         $db = null;
     }

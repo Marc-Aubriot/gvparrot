@@ -1,0 +1,17 @@
+.backofficeHEADER {
+    background-color: var(--bg-color);
+    height: 100px;
+}
+
+@media (min-width: 1000px) {
+    .backofficeHEADER {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 30vw;    
+        height: 100vh;
+        padding-left: 20px;
+        overflow: hidden;
+    }
+}

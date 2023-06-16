@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './index.css';
 import App from './App';
 
-/* pages */
+/* pages front office */
 import Accueil from './pages/Accueil';
 import Service from './pages/Service';
 import Occasions from './pages/Occasions';
@@ -16,8 +16,13 @@ import ContactWithRef, { loader as refloader } from './pages/ContactWithRef';
 import Espacepro from './pages/Espacepro';
 import ErrorPage from './pages/ErrorPage';
 import ProductPage, { loader as productLoader} from './pages/ProductPage';
-import Backoffice from './pages/Backoffice';
+
+/* pages back office */
+import Backoffice, { loader as idloader } from './pages/Backoffice';
 import Workspace from './pages/components/Workspace';
+import AddEmployee from './pages/components/AddEmployee';
+import ListEmployee from './pages/components/ListEmployee';
+import DetailEmployee from './pages/components/detailEmployee';
 
 const router = createBrowserRouter([
   {
@@ -64,10 +69,22 @@ const router = createBrowserRouter([
     path: "/backoffice",
     element: <Backoffice />,
     errorElement: <ErrorPage />,
+    loader: idloader,
     children: [
       {
         path: "/backoffice/:id",
         element: <Workspace />
+      },{
+        path: "/backoffice/:id/addemployee",
+        element: <AddEmployee />
+      },{
+        path: "/backoffice/:id/listemployee",
+        element: <ListEmployee />,
+        loader: idloader,
+      },{
+        path: "/backoffice/:id/listemployee/:employeeid",
+        element: <DetailEmployee />,
+        loader: idloader,
       }
     ]
   }

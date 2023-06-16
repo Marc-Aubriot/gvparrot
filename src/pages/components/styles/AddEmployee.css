@@ -1,0 +1,47 @@
+.addEmployeePage {
+    width: 100%;
+}
+
+.addEmployeePageFormWrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.instruction {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.inputField {
+    margin-top: 5px;
+    width: 100%;
+    height: 25px;
+    border: solid 1px var(--black-color);
+}
+
+.fieldBTN {
+    display: flex;
+    margin-top: 30px;
+}
+
+.submitBtn {
+    width: 50%;
+    height: 40px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.responseText {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+@media (min-width: 1000px) {
+    .addEmployeePage {
+        position: absolute;
+        top: 0px;
+        left: 35%;
+        width: 60%;
+    }
+}

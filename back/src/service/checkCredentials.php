@@ -15,7 +15,9 @@ if ( $user === null) {
 
 if ( $user->getEmail() === $email ) {
 
-    if ( $form_mot_de_passe === $user->getMotDePasse() ) {
+    $user_password = $user->getMotDePasse();
+
+    if ( password_verify( $form_mot_de_passe ,$user_password) ) {
 
         $response = 'ok mail et pass+'.$user->getId();
         echo $response;

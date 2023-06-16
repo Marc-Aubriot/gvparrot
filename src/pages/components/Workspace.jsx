@@ -1,9 +1,11 @@
+/* styles */
+import './styles/Workspace.css';
+
 const Workspace = () => {
     return (
-        <>
-            HERE WE WORK HARD
-            WE HARD WORK
-        </>
+        <div className='Workspace'>
+            <h1>Hello WORLD</h1>
+        </div>
     )
 }
 
