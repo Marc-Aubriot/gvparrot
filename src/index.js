@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: <ProductPage />,
         loader: refloader,
       },{
-        path: "/backoffice",
+        path: "/backoffice/:id",
         element: <Backoffice />
       }
     ]

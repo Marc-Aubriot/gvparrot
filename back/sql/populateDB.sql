@@ -10,17 +10,17 @@ INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, a
 VALUES ( '../ressources/images/gallerie/volkswagen.jpg+../ressources/images/gallerie/coxx.jpg', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6 cv+5 portes+5 places+12 mois+C', 'blabla');
 
 /* UTILISATEURS */
-INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
-VALUES ("1", "aubriot", "marc", "marc.aubriot@outlook.fr", "testmotdepasse", "0650550480", "no message dispo", true);
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
+VALUES ("1", "aubriot", "marc", "marc.aubriot@outlook.fr", "testmotdepasse", true);
 
-INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
-VALUES ("2", "pihet", "diane", "pihet@outlook.fr", "testmotdepasse2", "0650550480", "no message dispo", false);
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
+VALUES ("2", "pihet", "diane", "pihet@outlook.fr", "testmotdepasse2", false);
 
-INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
-VALUES ("3", "brio", "cram", "brio@outlook.fr", "testmotdepasse3", "0650550480", "no message dispo", false);
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
+VALUES ("3", "brio", "cram", "brio@outlook.fr", "testmotdepasse3", false);
 
-INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, telephone, message, is_admin)
-VALUES ("4", "aub", "rio", "aubrio@outlook.fr", "testmotdepasse4", "0650550480", "no message dispo", false);
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
+VALUES ("4", "aub", "rio", "aubrio@outlook.fr", "testmotdepasse4", false);
 
 INSERT INTO commentaires (nom, contenu, note, valider)
 VALUES ('marc', "super garage, j'adore, j'adhère", "4.5", true);

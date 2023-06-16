@@ -104,7 +104,7 @@ const Contact = () => {
                     <div className="field">
                         <label for="message">Message</label>
                         <br />
-                        <textarea id="message" name="message" type='textarea' defaultValue='Je suis interessé par ce vehicule, merci de me contacter.' className='formInput'></textarea>
+                        <textarea id="message" name="message" type='textarea' defaultValue='Je suis intéressé par ce véhicule, merci de me contacter.' className='formInput'></textarea>
                     </div>
 
                     <div className="fieldBtn">

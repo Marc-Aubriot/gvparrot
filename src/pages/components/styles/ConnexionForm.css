@@ -23,3 +23,21 @@
 .fieldBtn button {
     box-shadow: 2px 4px var(--bg-color);
 }
+
+.btnComponent {
+    height: 60px;
+    width: 100%;
+    background-color: var(--btn-color);
+    border: none;
+    border-radius: 30px;
+    font-family: righteous;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 2px 4px var(--bg-color);
+}
+
+.responseText {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}

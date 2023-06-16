@@ -45,9 +45,7 @@ CREATE TABLE utilisateurs (
 	prenom VARCHAR(50),
 	email VARCHAR(100),
 	mot_de_passe VARCHAR(255),
-	telephone VARCHAR(10),
-	message VARCHAR(255),
-	is_admin BOOL
+	is_admin BOOL DEFAULT FALSE
 );
 
 CREATE TABLE services (
