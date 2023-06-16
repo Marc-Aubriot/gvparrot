@@ -17,6 +17,7 @@ import Espacepro from './pages/Espacepro';
 import ErrorPage from './pages/ErrorPage';
 import ProductPage, { loader as productLoader} from './pages/ProductPage';
 import Backoffice from './pages/Backoffice';
+import Workspace from './pages/components/Workspace';
 
 const router = createBrowserRouter([
   {
@@ -57,12 +58,19 @@ const router = createBrowserRouter([
         path: "/occasions/:id",
         element: <ProductPage />,
         loader: refloader,
-      },{
-        path: "/backoffice/:id",
-        element: <Backoffice />
       }
     ]
-  },
+  },{
+    path: "/backoffice",
+    element: <Backoffice />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/backoffice/:id",
+        element: <Workspace />
+      }
+    ]
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

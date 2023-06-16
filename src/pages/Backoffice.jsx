@@ -1,6 +1,19 @@
+/* dependencies */
+import { Outlet } from "react-router-dom";
+
+/* components */
+import BackofficeHeader from "./components/BackofficeHeader";
+import BackofficeNavbar from "./components/BackofficeNavbar";
+
 const Backoffice = () => {
     return (
-        <>i'm BACKOFFICE</>
+        <>
+            <BackofficeHeader />
+
+            <Outlet />
+
+            <BackofficeNavbar />
+        </>
     )
 }
 

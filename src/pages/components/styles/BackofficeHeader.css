@@ -1,0 +1,11 @@
+.headerStyle {
+    background-color: var(--bg-color);
+    height: 100px;
+}
+
+@media (min-width: 1000px) {
+    .headerStyle {
+        display: flex;
+        width: 100%;
+    }
+}
