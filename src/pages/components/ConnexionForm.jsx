@@ -31,7 +31,6 @@ const ConnexionForm = (props) => {
             setResponse(data);
 
             if (data[0] === "ok mail et pass") { 
-                console.log('HOOK');
                 navigate(`/backoffice/${data[1]}`); 
             }
 

@@ -45,6 +45,35 @@ Class Horaire {
         $conn = null;
     }
 
+    public static function getHoraire($id) {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
+
+        $stmt->bindValue(':id', $id);
+
+        $stmt->execute();
+
+        // Récupération du résultat sous forme d'objet
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $conn = null;
+            return new Horaire(
+                $result['id'], 
+                $result['lundi'], 
+                $result['mardi'], 
+                $result['mercredi'],
+                $result['jeudi'], 
+                $result['vendredi'],
+                $result['samedi'],
+                $result['dimanche']
+            );
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
+
     // Fonction pour récupérer les informations
     public static function getHoraireByDay($jour) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -88,7 +117,7 @@ Class Horaire {
     }
 
     // Fonction pour mettre à jour un champ 
-    public function updateChamp($champ, $nouvelleValeur) {
+    public function modify($champ, $nouvelleValeur) {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $query = "UPDATE horaires SET " . $champ . "=:nouvelleValeur WHERE id=:id";
         $stmt = $db->prepare($query);

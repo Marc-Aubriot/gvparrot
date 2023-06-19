@@ -10,4 +10,3 @@ if ($_REQUEST) {
     include_once(ROOT.'/src/service/'.$action.'.php');
 };
 ?>
-

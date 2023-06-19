@@ -36,12 +36,3 @@
     margin-top: 60px;
     margin-bottom: 60px;
 }
-
-@media (min-width: 1000px) {
-    .addEmployeePage {
-        position: absolute;
-        top: 0px;
-        left: 35%;
-        width: 60%;
-    }
-}

@@ -1,3 +1,9 @@
+.workspaceTitle {
+    text-align: center;
+    font-size: 36px;
+    font-family: righteous;
+}
+
 @media (min-width: 1000px) {
     .Workspace {
         position: absolute;

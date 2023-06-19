@@ -23,6 +23,7 @@ import Workspace from './pages/components/Workspace';
 import AddEmployee from './pages/components/AddEmployee';
 import ListEmployee from './pages/components/ListEmployee';
 import DetailEmployee from './pages/components/detailEmployee';
+import ModifyHoraires from './pages/components/ModifyHoraires';
 
 const router = createBrowserRouter([
   {
@@ -68,23 +69,28 @@ const router = createBrowserRouter([
   },{
     path: "/backoffice",
     element: <Backoffice />,
-    errorElement: <ErrorPage />,
     loader: idloader,
     children: [
       {
         path: "/backoffice/:id",
-        element: <Workspace />
-      },{
-        path: "/backoffice/:id/addemployee",
-        element: <AddEmployee />
-      },{
-        path: "/backoffice/:id/listemployee",
-        element: <ListEmployee />,
+        element: <Workspace />,
         loader: idloader,
-      },{
-        path: "/backoffice/:id/listemployee/:employeeid",
-        element: <DetailEmployee />,
-        loader: idloader,
+        children: [
+          {
+            path: "/backoffice/:id/addemployee",
+            element: <AddEmployee />
+          },{
+            path: "/backoffice/:id/listemployee",
+            element: <ListEmployee />
+          },{
+            path: "/backoffice/:id/listemployee/:employeeid",
+            element: <DetailEmployee />,
+            loader: idloader,
+          },{
+            path: "/backoffice/:id/modifyhoraires",
+            element: <ModifyHoraires />
+          }
+        ]
       }
     ]
   }

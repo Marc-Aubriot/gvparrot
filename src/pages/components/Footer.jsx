@@ -14,7 +14,7 @@ const Footer = () => {
     useEffect( ()=> {
 
 
-        const getHorairesList = () => {
+        const getHoraires = () => {
             /* axios payload */
             const inputs = `action=getHoraires`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
@@ -31,7 +31,7 @@ const Footer = () => {
                 setIsloading(false);
             })
         }
-        getHorairesList();
+        getHoraires();
     }, []);
 
     return (

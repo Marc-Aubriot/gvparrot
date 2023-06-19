@@ -1,7 +1,7 @@
 /* dependencies */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Spinner from "./Spinner";
 
 /* styles */
@@ -16,14 +16,14 @@ export async function loader(urlparams) {
 const DetailEmployee = () => {
     /* url parameter loader*/
     const { params } = useLoaderData();
-    const [user, setUser] = useState([]);
+    const [employee, setEmployee] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [response, setResponse] = useState();
-    const [userDeleted, setUserDeleted] = useState(false);
+    const [employeeDeleted, setEmployeeDeleted] = useState(false);
   
     //  
     useEffect( ()=> {
-        const getUser = () => {
+        const getEmployeeInfos = () => {
             /* axios payload */
             const inputs = `action=detailEmployee&id=${params.employeeid}`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
@@ -33,11 +33,11 @@ const DetailEmployee = () => {
 
                 const data = rawdata.split(',');
 
-                setUser(data);
+                setEmployee(data);
                 setIsLoading(false);
             })
         }
-        getUser();
+        getEmployeeInfos();
 
     }, [])
 
@@ -61,7 +61,7 @@ const DetailEmployee = () => {
         });
     }
 
-    const deleteUser = (e) => {
+    const deleteEmployee = (e) => {
         e.preventDefault();
         /* axios payload */
         const inputs = `action=deleteEmployee&id=${params.employeeid}`;
@@ -69,7 +69,7 @@ const DetailEmployee = () => {
 
             const data = response.data;
             setResponse(data);
-            setUserDeleted(true);
+            setEmployeeDeleted(true);
         });
     }
     return (
@@ -82,36 +82,36 @@ const DetailEmployee = () => {
                 <div className='addEmployeePageFormWrapper'>
                      <h3 className='instruction'>Veuillez renseigner les informations pour la création d'un nouvel employé</h3>
 
-                    <form onSubmit={sendForm} className={ userDeleted ? 'hideForm' : '' }>
+                    <form onSubmit={sendForm} className={ employeeDeleted ? 'hideForm' : '' }>
                         
                         <div className="field">
                             <label htmlFor="nom">Nom</label>
                             <br />
-                            <input name="nom" type='text' className='inputField' defaultValue={user[1]}></input>
+                            <input name="nom" type='text' className='inputField' defaultValue={employee[1]}></input>
                         </div>
                     
                         <div className="field">
                             <label htmlFor="prenom">Prénom</label>
                             <br />
-                            <input name='prenom' type='text' className='inputField' defaultValue={user[2]}></input>
+                            <input name='prenom' type='text' className='inputField' defaultValue={employee[2]}></input>
                         </div>
 
                         <div className="field">
                             <label htmlFor='email'>Email</label>
                             <br />
-                            <input name='email' type='email' className='inputField' defaultValue={user[3]}></input>
+                            <input name='email' type='email' className='inputField' defaultValue={employee[3]}></input>
                         </div>
 
                         <div className="field">
                             <label htmlFor='mdp1'>Mot de passe</label>
                             <br />
-                            <input name='mdp1' type='password' className='inputField' defaultValue={user[4]}></input>
+                            <input name='mdp1' type='password' className='inputField' defaultValue={employee[4]}></input>
                         </div>
 
                         <div className="field">
                             <label htmlFor='mdp2'>Vérifier le mot de passe</label>
                             <br />
-                            <input name='mdp2' type='password' className='inputField' defaultValue={user[4]}></input>
+                            <input name='mdp2' type='password' className='inputField' defaultValue={employee[4]}></input>
                         </div>
 
                         <div className="fieldBTN">
@@ -120,8 +120,8 @@ const DetailEmployee = () => {
 
                     </form>
 
-                    <div className={ userDeleted ? 'hideForm' : 'fieldBTN' }>
-                        <button type="button" onClick={deleteUser} className="submitBtn">Supprimer employé</button>
+                    <div className={ employeeDeleted ? 'hideForm' : 'fieldBTN' }>
+                        <button type="button" onClick={deleteEmployee} className="submitBtn">Supprimer employé</button>
                     </div>
 
                     <p className="responseText">{response}</p>

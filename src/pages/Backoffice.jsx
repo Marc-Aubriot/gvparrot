@@ -2,6 +2,7 @@
 import { Outlet } from "react-router-dom";
 import { useLoaderData  } from "react-router-dom";
 import axios from 'axios';
+
 import { useState, useEffect } from 'react';
 
 /* components */
@@ -19,9 +20,8 @@ export async function loader(urlparams) {
 const Backoffice = () => {
     /* url parameter loader*/
     const { params } = useLoaderData();
-    const [userStatut, setUserStatut] = useState();
+    const [user, setUser] = useState([]);
   
-    //  
     useEffect( ()=> {
         const getUserStatut = () => {
             /* axios payload */
@@ -30,7 +30,8 @@ const Backoffice = () => {
             
                 // transforme la réponse (string) en array
                 const rawdata = response.data; 
-                setUserStatut(rawdata);
+                setUser([rawdata, params.id]);
+
             })
         }
         getUserStatut();
@@ -41,10 +42,10 @@ const Backoffice = () => {
         <>
             <header className="backofficeHEADER">
                 <Logo />
-                <BackofficeNavbar user={userStatut} id={params.id} />
+                <BackofficeNavbar user={user[0]} id={user[1]} />
             </header>
 
-            <Outlet />
+            <Outlet context={[user, setUser]} />
 
             
         </>

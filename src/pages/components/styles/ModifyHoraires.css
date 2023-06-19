@@ -1,0 +1,54 @@
+.modifyHorairePageWrapper {
+    margin: 0 auto;
+    width: 90%;
+}
+
+.modifyHoraireTitle {
+    font-family: righteous;
+    text-align: center;
+}
+
+.modifyHoraireSubtitle {
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+}
+
+.modifyHoraireForm {
+    height: fit-content;
+    margin-top: 20px;
+}
+
+.modifyHoraireField {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    align-items: center;
+}
+
+.modifyHoraireFieldName {
+    width: 100px;
+}
+
+.modifyHoraireFieldInput {
+    font-family: roboto;
+    height: 25px;
+    width: 150px;
+}
+
+.modifyHoraireBtnField {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.modifyHoraireSubmitBtn {
+    width: 200px;
+    height: 30px;
+}
+
+.modifyHoraireResponseText {
+    font-family: oxygen;
+}

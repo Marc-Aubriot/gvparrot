@@ -1,24 +1,16 @@
 /* dependencies */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 
 /* styles */
 import './styles/ListEmployee.css';
 
-/* data loader */
-export async function loader(urlparams) {
-    return urlparams;
-}
-
 const ListEmployee = () => {
-    /* url parameter loader*/
-    const { params } = useLoaderData();
     const [userList, setUserList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
   
-    //  
     useEffect( ()=> {
         const getUserList = () => {
             /* axios payload */

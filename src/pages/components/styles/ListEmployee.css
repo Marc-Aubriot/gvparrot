@@ -1,17 +1,9 @@
 .listEmployeePage {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .hideForm {
     display: none;
     visibility: hidden;
-}
-
-@media (min-width: 1000px) {
-    .listEmployeePage {
-        position: absolute;
-        top: 0px;
-        left: 35%;
-        width: 60%;
-    }
 }
