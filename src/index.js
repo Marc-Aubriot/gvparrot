@@ -24,6 +24,7 @@ import AddEmployee from './pages/components/AddEmployee';
 import ListEmployee from './pages/components/ListEmployee';
 import DetailEmployee from './pages/components/detailEmployee';
 import ModifyHoraires from './pages/components/ModifyHoraires';
+import ModifyServices from './pages/components/ModifyServices';
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,9 @@ const router = createBrowserRouter([
           },{
             path: "/backoffice/:id/modifyhoraires",
             element: <ModifyHoraires />
+          },{
+            path: "/backoffice/:id/modifyservices",
+            element: <ModifyServices />
           }
         ]
       }

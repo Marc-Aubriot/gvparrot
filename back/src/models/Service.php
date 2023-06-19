@@ -82,8 +82,26 @@ Class Service {
         }
     }
 
+    public static function getAllServices() {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('SELECT * FROM services');
+        $stmt->execute();
+
+        // Récupération du résultat sous d'un array contenant les services
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($result) {
+            $conn = null;           
+            return $result;
+
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
+
     // Fonction pour mettre à jour un champ 
-    public function updateChamp($champ, $nouvelleValeur) {
+    public function modify($champ, $nouvelleValeur) {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $query = "UPDATE services SET " . $champ . "=:nouvelleValeur WHERE id=:id";
         $stmt = $db->prepare($query);

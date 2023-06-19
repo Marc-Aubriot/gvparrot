@@ -20,8 +20,15 @@
 }
 
 .modifyHoraireField {
-    display: flex;
     justify-content: space-around;
+    width: 90%;
+    align-items: center;
+    margin-top: 100px;
+    display: block;
+}
+
+.modifyHoraireSubField1, .modifyHoraireSubField2 {
+    display: flex;
     width: 90%;
     align-items: center;
 }
@@ -34,6 +41,7 @@
     font-family: roboto;
     height: 25px;
     width: 150px;
+    margin: 5px;
 }
 
 .modifyHoraireBtnField {
@@ -51,4 +59,23 @@
 
 .modifyHoraireResponseText {
     font-family: oxygen;
+}
+
+@media (min-width: 700px) {
+    .modifyHoraireField {
+        display: flex;
+        margin-top: 0;
+    }
+
+    .modifyHoraireInputWrapper {
+        display: flex;
+    }
+
+    .modifyHoraireSubField1 {
+        margin-right: 20px;
+    } 
+    
+    .modifyHoraireSubField2 {
+        margin-left: 20px;
+    }
 }

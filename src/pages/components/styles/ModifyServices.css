@@ -1,0 +1,88 @@
+.modifyServicesWrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.modifyServcesTitle {
+    font-family: righteous;
+    text-align: center;
+}
+
+.modifyServicesResponseText {
+    font-family: oxygen;
+}
+
+.modifyServiceField {
+    border: solid 1px black;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.modifyServiceInputField {
+    width: 50%;
+    font-size: 18px;
+}
+
+.modifyServiceInputFieldtextarea {
+    font-size: 18px;
+    font-size: righteous;
+}
+
+.modifyServiceModifyBTN {
+
+}
+
+.modifyServiceField {
+
+}
+
+.bgdiv-modal {
+    z-index: 10;
+    width: 99vw;
+    height: 99vh;
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+}
+
+.modal {
+    width: 50vw;
+    height: 300px;
+    background-color: var(--section-color);
+    position: absolute;
+    border: solid 2px var(--black-color);
+    top: 25%;
+    left: 25%;
+}
+
+.modal-input {
+    width: 100%;
+    height: 25px;
+}
+
+.modal-btn {
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+}
+
+.modal-closeBtn {
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+}
+
+.modal-inputWrapper {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+.modal-btnWrapper {
+    width: 90%;
+    display: flex;
+    height: 50px;
+    margin-top: 30px;
+    justify-content: space-evenly;
+}
