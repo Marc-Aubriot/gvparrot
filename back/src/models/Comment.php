@@ -77,6 +77,26 @@ Class Comment {
     }
 
     // Fonction pour récupérer tous les comments validés
+    public static function getCommentList() {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('SELECT * FROM commentaires');
+
+        $stmt->execute();
+
+        // Récupération du résultat sous d'un array contenant les commentaires
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($result) {
+            $conn = null;           
+            return $result;
+
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
+
+    // Fonction pour récupérer tous les comments validés
     public static function getValidatedCommentList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
@@ -102,6 +122,28 @@ Class Comment {
         $query = "UPDATE commentaires SET " . $champ . "=:nouvelleValeur WHERE id=:id";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':nouvelleValeur', $nouvelleValeur);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        $db = null;
+    }
+
+    // Fonction pour mettre à jour un champ 
+    public function pin() {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+        $query = "UPDATE commentaires SET valider = 1 WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        $db = null;
+    }
+
+    // Fonction pour mettre à jour un champ 
+    public function unPin() {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+        $query = "UPDATE commentaires SET valider = 0 WHERE id=:id";
+        $stmt = $db->prepare($query);
         $stmt->bindParam(':id', $this->id);
         $stmt->execute();
 

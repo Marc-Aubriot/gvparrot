@@ -1,0 +1,78 @@
+/* VERIFY COMMENT - PAGE */
+.verifyCommentsWrapper {
+    padding: 20px;
+    width: 100%;
+}
+
+.verifyCommentsTitle{
+    text-align: center;
+    font-family: righteous;
+}
+
+.verifyCommentsSubTitle {
+    font-family: oxygen;
+    font-style: italic;
+    font-size: 18px;
+    text-align: center;
+}
+
+.verifyCommentsResponseText {
+    font-family: righteous;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* VERIFY COMMENT - COMMENT CARD */
+.verifyCommentsCommentCard {
+    padding: 10px;
+    margin: 20px;
+    background-color: var(--section-color);
+    cursor: pointer;
+    z-index: 200;
+}
+
+.verifyCommentsCommentCardTopRow {
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
+}
+
+.verifyCommentsCommentCardComment {
+    margin: 0 auto;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.verifyCommentsCommentCardBotRow {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.verifyCommentsCommentCardDeleteBtn {
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+}
+
+/* UTILITIES */
+.pin {
+    border: solid 5px var(--bg-color);
+}
+
+@media (min-width: 1000px) {
+    .verifyCommentsCommentCard {
+        width: 400px;
+    }
+
+    .verifyCoommentsCardsWrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 2000px) {
+    .verifyCoommentsCardsWrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

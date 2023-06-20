@@ -30,6 +30,7 @@ const BackofficeNavbar = (props) => {
                 <li><Link to={`${props.id}/listemployee`} onClick={closeMenu}>Voir la liste des employés</Link></li>
                 <li><Link to={`${props.id}/modifyhoraires`} onClick={closeMenu}>Définir les horaires d'ouverture</Link></li>
                 <li><Link to={`${props.id}/modifyservices`} onClick={closeMenu}>Modifier les services</Link></li>
+                <li><Link to={`${props.id}/verifycomments`} onClick={closeMenu}>Modération de commentaires</Link></li>
                 <li className="deconnexionBTN"><Link to={'/contact'} onClick={closeMenu}>Déconnexion</Link></li>
             </ul>
 

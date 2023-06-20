@@ -25,6 +25,7 @@ import ListEmployee from './pages/components/ListEmployee';
 import DetailEmployee from './pages/components/detailEmployee';
 import ModifyHoraires from './pages/components/ModifyHoraires';
 import ModifyServices from './pages/components/ModifyServices';
+import VerifyComments from './pages/components/VerifyComments';
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,9 @@ const router = createBrowserRouter([
           },{
             path: "/backoffice/:id/modifyservices",
             element: <ModifyServices />
+          },{
+            path: "/backoffice/:id/verifycomments",
+            element: <VerifyComments />
           }
         ]
       }

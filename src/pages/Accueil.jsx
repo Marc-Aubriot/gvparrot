@@ -37,7 +37,7 @@ const Accueil = () => {
     useEffect( ()=> {
         const getComments = () => {
             /* axios payload */
-            const inputs = `action=getComments`;
+            const inputs = `action=getComments&q=validated`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
             
                 // transforme la réponse (string) en array
