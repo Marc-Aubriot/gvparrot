@@ -96,6 +96,7 @@ const ModifyServices = () => {
         btn.className = "modal-btn";
         btn.addEventListener('click', () => {
             elementToModify.textContent = input.value;
+            elementToModify.className = 'highlight';
             bgdiv.remove();
         });
         btnWrapper.appendChild(btn);
@@ -146,20 +147,14 @@ const ModifyServices = () => {
 
     const sendForm2 = (e) => {
         e.preventDefault(e);
-        
-        const element0 = document.getElementById(`p-${e.target.name}-0`);
-        const element1 = document.getElementById(`a-${e.target.name}-1`);
-        const element2 = document.getElementById(`g-${e.target.name}-2`);
-        const element3 = document.getElementById(`e-${e.target.name}-3`);
 
         const formData = new FormData();
 
-        formData.append('ID', e.target.id);
-        formData.append('categorie', element0.textContent);
-        formData.append('subcategorie', element1.textContent);
-        formData.append('title', element2.textContent);
-        formData.append('descript', element3.textContent);
-        formData.append('action', 'modifyServices');
+        formData.append('categorie', e.target[0].value);
+        formData.append('subcategorie', e.target[1].value);
+        formData.append('title', e.target[2].value);
+        formData.append('descript', e.target[3].value);
+        formData.append('action', 'addService');
 
         axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
             const rawdata = response.data;
@@ -172,7 +167,7 @@ const ModifyServices = () => {
     return (
         <div className='modifyServicesWrapper'>
 
-            <h2 className="modifyServcesTitle">Cliquer sur le texte pour le modifier et ensuite valider les modifications.</h2>
+            <h2 className="modifyServcesTitle">Ajouter, modifier ou supprimer un service. Cliquer sur le texte pour le modifier et ensuite valider les modifications.</h2>
             {
                 formSend ?
                 <p className='modifyServicesResponseText'>{response}</p>
@@ -180,40 +175,42 @@ const ModifyServices = () => {
                 ""
             }
 
-            <button onClick={toggleHandler}>Ajouter un service</button>
-
             {
                 toggleForm ?
-                <div>
-                    <form onSubmit={sendForm2}>
-                        <div>
-                            <label>Categorie</label>
-                            <input type="text" />
+                <div className='modifyServiceAddServiceFormWrapper'>
+                    <form onSubmit={sendForm2} className='modifyServiceFormWrapper'>
+                        <div className='modifyServiceAddServiceFormField'>
+                            <label className='modifyServiceAddServiceLabel' htmlFor='categorie'><b>Categorie</b></label>
+                            <input className='modifyServiceAddServiceInput' type="text" name='categorie'/>
                         </div>
                         
-                        <div>
-                            <label htmlFor="subcategorie">Subcategorie</label>
-                            <input type="" />
+                        <div className='modifyServiceAddServiceFormField'>
+                            <label className='modifyServiceAddServiceLabel' htmlFor="subcategorie"><b>Subcategorie</b></label>
+                            <input className='modifyServiceAddServiceInput' type="text" name='subcategorie'/>
                         </div>
 
-                        <div>
-                            <label htmlFor="subcategorie">Titre</label>
-                            <input type="" />
+                        <div className='modifyServiceAddServiceFormField'>
+                            <label className='modifyServiceAddServiceLabel' htmlFor="titre"><b>Titre</b></label>
+                            <input className='modifyServiceAddServiceInput' type="text" name='titre'/>
                         </div>
 
-                        <div>
-                            <label htmlFor="subcategorie">Description</label>
-                            <input type="" />
+                        <div className='modifyServiceAddServiceFormField'>
+                            <label className='modifyServiceAddServiceLabel' htmlFor="description"><b>Description</b></label>
+                            <input className='modifyServiceAddServiceInput' type="text" name='description'/>
                         </div>
 
-                        <div>
-                            <button type='submit'>Enregistrer</button>
+                        <div className='modifyServiceAddServiceSubmitBtnWrapper'>
+                            <button className='modifyServiceAddServiceSubmitBtn' type='submit'>Enregistrer</button>
                         </div>
                     </form>
 
+                    <div className='modifyServiceCloseAddServiceFormBTNWrapper'>
+                        <button  className='modifyServiceCloseAddServiceFormBTN' onClick={toggleHandler}>Fermer</button>
+                    </div>
+                    
                 </div>
                 :
-                ""
+                <button className='modifyServicePopAddServiceFormBTN' onClick={toggleHandler}>Ajouter un service</button>
             }
 
             {
