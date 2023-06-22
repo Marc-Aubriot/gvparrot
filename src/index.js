@@ -28,6 +28,8 @@ import ModifyServices from './pages/components/ModifyServices';
 import VerifyComments from './pages/components/VerifyComments';
 import BackofficeAccueil from './pages/components/BackofficeAccueil';
 import MailBox from './pages/components/MailBox';
+import AddCar from './pages/components/AddCar';
+import ListEquipement from './pages/components/ListEquipement';
 
 const router = createBrowserRouter([
   {
@@ -105,6 +107,12 @@ const router = createBrowserRouter([
           },{
             path: "/backoffice/:id/mailbox",
             element: <MailBox />
+          },{
+            path: "/backoffice/:id/addcar",
+            element: <AddCar />
+          },{
+            path: "/backoffice/:id/equipmentlist",
+            element: <ListEquipement />
           }
         ]
       }

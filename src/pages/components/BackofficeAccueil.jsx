@@ -41,7 +41,6 @@ const BackofficeAccueil = () => {
 
     const checkAsViewed = (e) => {
         const id = e.target.id;
-
         const inputs = `action=verifyMessage&q=y&id=${id}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
@@ -54,7 +53,7 @@ const BackofficeAccueil = () => {
 
     return (
         <div className="backofficeAccueilPageWrapper">
-            <h2 className="backofficeAccueilPageTitle">{messages.length > 0 ? `Vous avez ${messages.length} nouveaux messages` : "Vous n'avez aucun nouveau message"}</h2>
+            <h2 className="backofficeAccueilPageTitle">{messages.length > 0 ? `Vous avez ${messages.length} ${messages.length === 1 ? 'nouveau message' : 'nouveaux messages'}` : "Vous n'avez aucun nouveau message"}</h2>
             {
                 isLoading ?
                 <Spinner />

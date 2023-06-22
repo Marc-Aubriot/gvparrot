@@ -67,6 +67,10 @@ CREATE TABLE horaires (
 	dimanche VARCHAR(50)
 );
 
+CREATE TABLE equipements (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nom VARCHAR(50)
+);
 /* add foreign key */
 ALTER TABLE commentaires
 ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);

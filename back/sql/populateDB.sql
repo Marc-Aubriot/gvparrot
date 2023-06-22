@@ -75,3 +75,7 @@ VALUES ( "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h0
 /* MESSAGES */
 INSERT INTO messages (nom, prenom, telephone, email, sujet, content)
 VALUES ("Marc", "Aubriot", "0650550480", "marc.aubriot@outlook.fr", "test sujet", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." );
+
+/* LISTE DES EQUIPEMENTS*/
+INSERT INTO equipements (nom)
+VALUES ("Régulateur"), ("Limiteur de vitesse"), ("Radar de recul"), ("Sellerie en cuir"), ("Régulateur adaptatif"), ("Radar avant"), ("Avertisseurs d'angle mort"), ("Siège chauffant"), ("Affichage tête haute"), ("Attelage"), ("Connexion bluetooth");

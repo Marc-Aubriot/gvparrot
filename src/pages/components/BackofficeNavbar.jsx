@@ -28,7 +28,9 @@ const BackofficeNavbar = (props) => {
             <ul className={`backofficemenuNav ${navbarOpen ? " showMenu" : ""}`}>
                 <li><Link to={`${props.id}/accueil`} onClick={closeMenu}>Accueil espace de travail</Link></li>
                 <li><Link to={`${props.id}/addemployee`} onClick={closeMenu}>Ajouter un employé</Link></li>
+                <li><Link to={`${props.id}/addcar`} onClick={closeMenu}>Ajouter une voiture au catalogue</Link></li>
                 <li><Link to={`${props.id}/modifyhoraires`} onClick={closeMenu}>Définir les horaires d'ouverture</Link></li>
+                <li><Link to={`${props.id}/equipmentlist`} onClick={closeMenu}>Gérer la liste des équipements</Link></li>
                 <li><Link to={`${props.id}/modifyservices`} onClick={closeMenu}>Modifier les services</Link></li>
                 <li><Link to={`${props.id}/verifycomments`} onClick={closeMenu}>Modération de commentaires</Link></li>
                 <li><Link to={`${props.id}/listemployee`} onClick={closeMenu}>Voir la liste des employés</Link></li>

@@ -21,7 +21,7 @@ const ModifyServices = () => {
         const getServices = () => {
 
             const inputs = `action=getServiceList&categorie=all`;
-            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const rawdata = response.data.split('&'); 
 
@@ -106,7 +106,7 @@ const ModifyServices = () => {
         e.preventDefault();
 
         const input = `action=deleteService&ID=${e.target.id}`;
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, input).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, input).then(function(response) {
 
             const rawdata = response.data;
             setResponse(rawdata);
@@ -133,7 +133,7 @@ const ModifyServices = () => {
         formData.append('descript', element3.textContent);
         formData.append('action', 'modifyServices');
 
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
             const rawdata = response.data;
             setResponse(rawdata);
             setReload(true);
@@ -156,7 +156,7 @@ const ModifyServices = () => {
         formData.append('descript', e.target[3].value);
         formData.append('action', 'addService');
 
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
             const rawdata = response.data;
             setResponse(rawdata);
             setReload(true);
@@ -222,7 +222,7 @@ const ModifyServices = () => {
                     {
                         services.map( (e,i) => {
                             return (
-                                <div className='modifyServiceField' >
+                                <div key={i} className='modifyServiceField' >
 
                                     <p onClick={modifyValue} id={`p-${i+1}-0`}>{e[1]}</p>
                                     <p onClick={modifyValue} id={`a-${i+1}-1`}>{e[2]}</p>
