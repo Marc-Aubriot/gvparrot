@@ -31,7 +31,7 @@ const ConnexionForm = (props) => {
             setResponse(data);
 
             if (data[0] === "ok mail et pass") { 
-                navigate(`/backoffice/${data[1]}`); 
+                navigate(`/backoffice/${data[1]}/accueil`); 
             }
 
         });

@@ -73,11 +73,32 @@ Class Message {
         }
     }
 
+    // Fonction pour récupérer tous les messages lu / non lu
+    public static function getMessageListByViewStatut($view_statut) {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('SELECT * FROM messages WHERE lecture = :lecture ORDER BY id DESC');
+
+        $stmt->bindValue(':lecture', $view_statut);
+        $stmt->execute();
+
+        // Récupération du résultat sous d'un array contenant les commentaires
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($result) {
+            $conn = null;           
+            return $result;
+
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
+
     // Fonction pour récupérer tous les messages
     public static function getMessageList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('SELECT * FROM messages');
+        $stmt = $conn->prepare('SELECT * FROM messages ORDER BY id DESC');
 
         $stmt->execute();
 
@@ -99,6 +120,17 @@ Class Message {
         $query = "UPDATE messages SET " . $champ . "=:nouvelleValeur WHERE id=:id";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':nouvelleValeur', $nouvelleValeur);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        $db = null;
+    }
+
+    public function checkAsViewed($view) {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+        $query = "UPDATE messages SET lecture=:view WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':view', $view);
         $stmt->bindParam(':id', $this->id);
         $stmt->execute();
 

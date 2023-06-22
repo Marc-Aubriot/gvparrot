@@ -26,6 +26,8 @@ import DetailEmployee from './pages/components/detailEmployee';
 import ModifyHoraires from './pages/components/ModifyHoraires';
 import ModifyServices from './pages/components/ModifyServices';
 import VerifyComments from './pages/components/VerifyComments';
+import BackofficeAccueil from './pages/components/BackofficeAccueil';
+import MailBox from './pages/components/MailBox';
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,9 @@ const router = createBrowserRouter([
         loader: idloader,
         children: [
           {
+            path: "/backoffice/:id/accueil",
+            element: <BackofficeAccueil />
+          },{
             path: "/backoffice/:id/addemployee",
             element: <AddEmployee />
           },{
@@ -97,6 +102,9 @@ const router = createBrowserRouter([
           },{
             path: "/backoffice/:id/verifycomments",
             element: <VerifyComments />
+          },{
+            path: "/backoffice/:id/mailbox",
+            element: <MailBox />
           }
         ]
       }

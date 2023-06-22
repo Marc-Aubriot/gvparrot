@@ -1,0 +1,53 @@
+/* BACK OFFICE PAGE ACCUEIL */
+.backofficeAccueilPageWrapper {
+    width: 100%;
+    margin: 10px;
+}
+
+.backofficeAccueilPageTitle {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.responseText {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+/* BACK OFFICE PAGE ACCUEIL : MESSAGE */
+.backofficeACcueilPageMessageWrapper {
+    border: solid 1px var(--section-color);
+    background-color: var(--section-color);
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.backofficeAccueilPageMessageFieldBTN {
+    display: flex;
+    justify-content: center;
+}
+
+.backofficeACcueilPageMessageWrapper .backofficeAccueilPageMessageContent a {
+    color: initial;
+    text-decoration: underline;
+    font-family: roboto;
+}
+
+@media (min-width: 1000px) {
+    .backofficeAccueilPageWrapper {
+        width: 90%;
+    }
+
+    .backofficeAccueilPageMessageField {
+        display: flex;
+    }
+
+    .backofficeAccueilPageMessageLabel {
+        width: 20%;
+    }
+
+    .backofficeAccueilPageMessageContent {
+        width: 80%;
+    }
+}
