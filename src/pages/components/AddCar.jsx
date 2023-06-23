@@ -61,19 +61,38 @@ const AddCar = () => {
 
     const sendForm = (e) => {
         e.preventDefault();
+        const lesplus = 'test';
+        const equipements = 'test';
+        const details = 'test';
 
-        console.log(e.target[0]);
+        // récupère les images uploadées
+        const imgs = e.target[0].files;
+
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
         const formData = new FormData();
-        formData.append('images', e.target[0].value, e.target[0]);
+
+        // on append chaque file uploadée
+        for (let i=0; i<imgs.length; i++) {
+            formData.append(`file-${i}`, imgs[i]);
+        }
+        // on envoit le nombre de files dans le formulaire pour le traitement
+        formData.append(`file-count`, imgs.length);
         formData.append('titre', e.target[1].value);
         formData.append('descript', e.target[2].value);
+        formData.append('boite', e.target[3].value);
+        formData.append('carburant', e.target[4].value);
+        formData.append('kilometrage', e.target[5].value);
+        formData.append('annee', e.target[6].value);
+        formData.append('prix', e.target[7].value);
+        formData.append('lesplus', lesplus);
+        formData.append('equipements', equipements);
+        formData.append('details', details);
+        formData.append('ref', e.target[11].value);
 
+        formData.append('action', 'addCar');
 
-
-        formData.append('action', 'test');
-
-        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData, config).then(function(response) {
             
             const data = response.data; 
 
@@ -87,8 +106,8 @@ const AddCar = () => {
     
     return (
         <div>
-            
             <h2>Remplir le formulaire pour ajouter une nouvelle voiture au catalogue</h2>
+
             <form onSubmit={sendForm}>
 
                 <h3>Informations générales</h3>

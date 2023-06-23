@@ -127,7 +127,7 @@ const ModifyCars = () => {
 
                                     <div className="modifyCarPageCarCardTopBox">
                                         <div className="modifyCarPageCarCardTopLeftBox">
-                                            <img src={`../${imgs[0]}`} alt='voiture' className="modifyCarPageCarCardImg" />
+                                            <img src={imgs[0]} alt='voiture' className="modifyCarPageCarCardImg" />
                                         </div>
                                         
                                         <div className="modifyCarPageCarCardTopRightBox">
