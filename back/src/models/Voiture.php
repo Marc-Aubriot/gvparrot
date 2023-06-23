@@ -16,9 +16,8 @@ class Voiture {
     private $details;
     private $ref;
 
-    public function __construct($id, $images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref)
+    public function __construct($images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref)
     {
-        $this->id = $id;
         $this->images = $images;
         $this->titre = $titre;
         $this->descript = $descript;

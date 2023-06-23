@@ -18,7 +18,7 @@ const Occasions = () => {
         const getCarList = () => {
             /* axios payload */
             const inputs = `action=getCarList`;
-            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 // transforme la réponse (string) en array
                 const rawdata = response.data.split('&'); 
@@ -38,7 +38,6 @@ const Occasions = () => {
 
     const [filterPanelOpen, setFilterPanelOpen] = useState(false);
     const handleToggleFilter = () => { setFilterPanelOpen(prev => !prev) }
-    //const closeMenu = () => { setFilterPanelOpen(false) }
 
     return (
 
@@ -64,6 +63,7 @@ const Occasions = () => {
                                 description={e[3]} 
                                 informations={`${e[5]} - ${e[6]} km - ${e[7]} - ${e[4]}`} 
                                 prix={e[8]} 
+                                key={i}
                             />
                         )
                     })

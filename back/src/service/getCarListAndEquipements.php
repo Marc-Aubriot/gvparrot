@@ -7,8 +7,11 @@ $equipements = Equipement::getAllEquipements();
 
 $carlist = Voiture::getCarList();
 
+$response = '';
+
 foreach($carlist as $voiture) {
-    echo 
+    
+    $response = $response.
     $voiture['id'].','.
     $voiture['images'].','.
     $voiture['titre'].','.
@@ -20,11 +23,16 @@ foreach($carlist as $voiture) {
     $voiture['prix'].','.
     $voiture['lesplus'].','.
     $voiture['equipements'].','.
-    $voiture['details'].',',
+    $voiture['details'].','.
     $voiture['ref'].'&';
 };
 
+$response = $response.'#';
+
 foreach($equipements as $item) {
-    echo $item['id'].'+'.$item['nom'].'&';
+
+    $response = $response.$item['id'].'+'.$item['nom'].'&';
 };
+
+echo $response;
 ?>

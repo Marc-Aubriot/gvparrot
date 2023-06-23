@@ -23,7 +23,7 @@ const Galerie = (props) => {;
         <div className='galerieContainer'>
         {props.imgset.map((img, i )=> {
             return (
-                <img src={img} id={`img-${i}`} className={ i ? "galerieImg" : "activeGalerieImg" } onClick={handleClick} alt='voiture'></img>
+                <img key={i} src={img} id={`img-${i}`} className={ i ? "galerieImg" : "activeGalerieImg" } onClick={handleClick} alt='voiture'></img>
             )
         }
         )

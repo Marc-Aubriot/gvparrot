@@ -1,0 +1,128 @@
+/* MODIFY CARS PÄGE */
+.modifyCarPage {
+    padding: 10px;
+    width: 100%;
+}
+
+.modifyCarPageTitle {
+    font-family: oxygen;
+    text-align: center;
+}
+
+.responseText {
+    font-family: righteous;
+    text-align: center;
+}
+
+.modifyCarPageCarListWrapper {
+    margin-top: 40px;
+}
+
+.modifyCarPageCarCardWrapper h3 {
+    font-family: righteous;
+    font-size: 24px;
+}
+
+.modifyCarPageCarCardWrapper h4 {
+    font-family: oxygen;
+    font-size: 18px;
+}
+
+/* CAR CARD */
+.modifyCarPageCarCardWrapper {
+    margin-bottom: 40px;
+    width: 100%;
+    background-color: var(--section-color);
+    padding: 10px;
+}
+
+/* top box */
+.modifyCarPageCarCardTopBox {
+    display: flex;
+    width: 100%;
+}
+
+/* topleft box */
+.modifyCarPageCarCardTopLeftBox {
+    width: 50%;
+}
+
+.modifyCarPageCarCardImg {
+    width: 180px;
+}
+
+/* topright box */
+.modifyCarPageCarCardTopRightBox {
+    width: 50%;
+}
+
+/* bot box */
+.modifyCarPageCarCardBotBox {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* botleft box */
+.modifyCarPageCarCardBotLeftBox {
+    width: 50%;
+
+}
+
+/* botright box */
+.modifyCarPageCarCardBotRightBox {
+    width: 50%;
+    text-align: center;
+}
+
+.modifyCarPageCarCardBtnWrapper {
+    width: 100%;
+}
+
+.modifyCarPageCarCarBtn {
+    width: 200px;
+    height: 40px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.infoSuppTitle {
+    font-family: righteous;
+    font-size: 24px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.infoSuppContainer {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.BtnDelete {
+    background-color: rgb(233, 131, 131);
+    font-family: righteous;
+    font-size: 18px;
+}
+
+@media (min-width: 1500px) {
+    .modifyCarPageCarCardImg {
+        width: 300px;
+    }
+
+    .modifyCarPageCarCardBotLeftBox {
+        display: flex;
+    }
+
+    .modifyCarPageCarCardBotRightBox {
+        display: flex;
+    }
+
+    .modifyCarPageCarCarBtn {
+        width: 100px;
+    }
+
+    .detailsBoxWrapper {
+        display: flex;
+        justify-content: space-around;
+    }
+}

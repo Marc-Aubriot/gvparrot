@@ -30,6 +30,7 @@ import BackofficeAccueil from './pages/components/BackofficeAccueil';
 import MailBox from './pages/components/MailBox';
 import AddCar from './pages/components/AddCar';
 import ListEquipement from './pages/components/ListEquipement';
+import ModifyCars from './pages/components/ModifyCars';
 
 const router = createBrowserRouter([
   {
@@ -113,6 +114,9 @@ const router = createBrowserRouter([
           },{
             path: "/backoffice/:id/equipmentlist",
             element: <ListEquipement />
+          },{
+            path: "/backoffice/:id/modifycars",
+            element: <ModifyCars />
           }
         ]
       }

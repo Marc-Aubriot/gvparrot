@@ -7,6 +7,7 @@ import './styles/AddCar.css';
 
 const AddCar = () => {
     const [carList, setCarList] = useState([]);
+    const [equipementList, setEquipementList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [response, setResponse] = useState();
@@ -14,21 +15,40 @@ const AddCar = () => {
     useEffect( () => {
 
         const getCarListAndEquipements = () => {
-            const inputs = `action=getCarList`;
+            const inputs = `action=getCarListAndEquipements`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
-                const rawdata = response.data.split('&'); 
+                const rawdata = response.data.split('#'); 
 
-                let data = [];
+                // on récupère d'abord la liste des véhicules sous forme de string
+                const cars = rawdata[0].split('&');
 
-                rawdata.forEach(element => {
-                    data.push(element.split('+'));
+                let data0 = [];
+
+                cars.forEach(element => {
+                    data0.push(element.split('+'));
                 });
 
-                data.pop();
+                data0.pop();
 
-                setCarList(data);
+                setCarList(data0);
 
+
+                // on récupère ensuite la liste des équipements standard sous forme de string
+                const equips = rawdata[1].split('&');
+
+                let data1 = [];
+
+                equips.forEach(element => {
+                    data1.push(element.split('+'));
+                })
+
+                data1.pop();
+
+                setEquipementList(data1);
+
+
+                // si la requête prend du temps, pop le spinner
                 setIsLoading(false);
             });
         }
@@ -39,12 +59,19 @@ const AddCar = () => {
 
     }, [reload]);
 
-    const addEquipement = (e) => {
+    const sendForm = (e) => {
         e.preventDefault();
 
+        console.log(e.target[0]);
+
         const formData = new FormData();
-        formData.append('nom', e.target[0].value);
-        formData.append('action', 'addEquipement');
+        formData.append('images', e.target[0].value, e.target[0]);
+        formData.append('titre', e.target[1].value);
+        formData.append('descript', e.target[2].value);
+
+
+
+        formData.append('action', 'test');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
             
@@ -57,32 +84,20 @@ const AddCar = () => {
             setReload(true);
         });
     }
-
-    const deleteEquipement = (e) => {
-        const id = e.target.id;
-        const inputs = `action=deleteEquipement&id=${id}`;
-            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
-            
-                const data = response.data; 
-
-                setResponse(data);
-
-                setIsLoading(false);
-
-                setReload(true);
-            });
-    }
-    const equips = [
-        "Régulateur", "Limiteur de vitesse", "Radar de recul", "Sellerie en cuir", "Régulateur adaptatif", "Radar avant", "Avertisseurs d'angle mort",
-        "Sigèe chauffant", "Afficage tête haute", "Attelage", "Connexion bluetooth"
-    ];
     
     return (
         <div>
-
-            <form>
+            
+            <h2>Remplir le formulaire pour ajouter une nouvelle voiture au catalogue</h2>
+            <form onSubmit={sendForm}>
 
                 <h3>Informations générales</h3>
+
+                <div>
+                    <label htmlFor="images">Images</label>
+                    <input type="file" name="images" multiple />
+                </div>
+
                 <div>
                     <label htmlFor="titre">Titre</label>
                     <input type="text" name="titre"/>
@@ -128,11 +143,11 @@ const AddCar = () => {
                 <h3>Les plus</h3>
                 <h3>Equipements</h3>
                 {
-                    equips.map( (e,i) => {
+                    equipementList.map( (e,i) => {
                         return (
-                            <div>
-                                <input type="checkbox" id={e} name={e} key={i}/>
-                                <label htmlFor={"e"}>{e}</label>
+                            <div key={i}>
+                                <input type="checkbox" id={e[1]} name={e[1]} key={i}/>
+                                <label htmlFor={`${e[1]}`}>{e[1]}</label>
                             </div>
                         )
                     })
@@ -152,11 +167,6 @@ const AddCar = () => {
                 <div>
                     <label htmlFor="puissancefiscale">Puissance fiscale</label>
                     <input type="text" name="puissancefiscale"/>
-                </div>
-
-                <div>
-                    <label htmlFor="puissancereelle">Puissance réelle</label>
-                    <input type="text" name="puissancereelle"/>    
                 </div>
 
                 <div>
@@ -202,6 +212,10 @@ const AddCar = () => {
                         <option value="D">D</option>
                         <option value="E">E</option>
                     </select>
+                </div>
+
+                <div>
+                    <button type="submit">Ajouter le véhicule</button>
                 </div>
             </form>
         </div>
