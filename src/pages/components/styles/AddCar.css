@@ -1,1 +1,55 @@
-/* */
+/* ADD CAR PAGE */
+.addCarPage {
+    padding: 10px;
+}
+
+.addCarPageTitle {
+    text-align: center;
+    font-family: oxygen;
+}
+
+.uploadResponseText {
+    font-style: italic;
+    font-size: 18px;
+}
+
+/* ADD CAR PAGE FORM */
+.AddCarFormTitle {
+    font-family: righteous;
+}
+
+.addCarPageInputField {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.addCarPageInputFieldLabel {
+    width: 200px;
+}
+
+.addCarPageInputFieldInput {
+    margin-right: 10px;
+}
+
+.addCarPageFormSubmitBtnWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.addCarPageFormSubmitBtn {
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+    font-family: righteous;
+    cursor: pointer;
+}
+
+@media (min-width: 1250px) {
+    .addCarFormContentWrapperTopBox {
+        display: flex;
+    }
+    
+    .addCarFormSectionWrapper {
+        width: 50%;
+    }
+}

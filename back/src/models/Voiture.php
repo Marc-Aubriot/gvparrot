@@ -92,6 +92,40 @@ class Voiture {
         }
     }
 
+    // Fonction pour récupérer les informations d'une voiture dans la base de données en utilisant son id
+    public static function getCarByRef($car_ref) {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('SELECT * FROM voitures WHERE ref = :ref');
+
+        $stmt->bindValue(':ref', $car_ref);
+
+        $stmt->execute();
+
+        // Récupération du résultat sous forme d'objet
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $conn = null;
+            return new Voiture(
+                $result['id'], 
+                $result['images'], 
+                $result['titre'], 
+                $result['descript'], 
+                $result['boite'], 
+                $result['carburant'],
+                $result['kilometrage'],
+                $result['annee'],
+                $result['prix'],
+                $result['lesplus'],
+                $result['equipements'],
+                $result['details'],
+                $result['ref']);
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
+
     // Fonction pour récupérer tous les comments validés
     public static function getCarList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -112,7 +146,7 @@ class Voiture {
         }
     }
 
-    // Fonction pour récupérer tous les comments validés
+    // Fonction pour récupérer le nombre de car présent dans la DB
     public static function getMaxCar() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 

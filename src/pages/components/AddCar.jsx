@@ -6,21 +6,26 @@ import { useState, useEffect } from "react";
 import './styles/AddCar.css';
 
 const AddCar = () => {
+
+    // hooks
     const [carList, setCarList] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [response, setResponse] = useState();
 
+    // récupère les messages quand le composant est monté, et reload le composant quand les datas sont changées
     useEffect( () => {
 
         const getCarListAndEquipements = () => {
+
+            // requête au back end via axios
             const inputs = `action=getCarListAndEquipements`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const rawdata = response.data.split('#'); 
 
-                // on récupère d'abord la liste des véhicules sous forme de string
+                // on récupère d'abord la liste des véhicules sous forme de string qu'on convertit en array
                 const cars = rawdata[0].split('&');
 
                 let data0 = [];
@@ -47,9 +52,7 @@ const AddCar = () => {
 
                 setEquipementList(data1);
 
-
-                // si la requête prend du temps, pop le spinner
-                setIsLoading(false);
+                setIsLoading(false); // les données sont récupérées, on interrompt le spinner et on affiche les données
             });
         }
 
@@ -59,25 +62,51 @@ const AddCar = () => {
 
     }, [reload]);
 
+    // envoit les données du formulaire au serveur qui va ensuite ajouté une nouvelle ligne en BDD à la table "voitures"
     const sendForm = (e) => {
+
         e.preventDefault();
-        const lesplus = 'test';
-        const equipements = 'test';
-        const details = 'test';
+        
+        // on récupère les values des checkbox de la section équipement, qu'on transforme en un string
+        const count = equipementList.length;
+        let tempArray = [];
+
+        for ( let i = 0; i < count; i++) {
+            const checkbox = document.getElementById(`checkbox-${i}`);
+            const check = checkbox.checked;
+
+            if (check) {
+                tempArray.push(checkbox.name);
+            }
+        }
+
+        // data['a','b','c'] > data 'a,b,c > data 'a+b+c'
+        let tempString = tempArray.toString('+'); 
+        const equipements = tempString.replaceAll(',', '+'); 
+
+
+        // on récupère les values des checkbox de la section détails, qu'on transforme en un string
+        const details = `${e.target[8].value}+${e.target[9].value}+${e.target[10].value}+${e.target[11].value}+${e.target[12].value}+${e.target[13].value}+${e.target[14].value}`;
+
 
         // récupère les images uploadées
         const imgs = e.target[0].files;
 
-        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+        //const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
+
+        // on prépare le formulaire
         const formData = new FormData();
 
         // on append chaque file uploadée
         for (let i=0; i<imgs.length; i++) {
             formData.append(`file-${i}`, imgs[i]);
         }
+
         // on envoit le nombre de files dans le formulaire pour le traitement
         formData.append(`file-count`, imgs.length);
+
+        // on attache toutes les données et on l'envoit
         formData.append('titre', e.target[1].value);
         formData.append('descript', e.target[2].value);
         formData.append('boite', e.target[3].value);
@@ -85,158 +114,202 @@ const AddCar = () => {
         formData.append('kilometrage', e.target[5].value);
         formData.append('annee', e.target[6].value);
         formData.append('prix', e.target[7].value);
-        formData.append('lesplus', lesplus);
         formData.append('equipements', equipements);
         formData.append('details', details);
-        formData.append('ref', e.target[11].value);
-
         formData.append('action', 'addCar');
 
-        axios.post(process.env.REACT_APP_SERVEURHTTP, formData, config).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
             
             const data = response.data; 
 
-            setResponse(data);
+            setResponse(data); // affiche la réponse du serveur
 
-            setIsLoading(false);
+            setIsLoading(false); // interrompt le spinner
 
-            setReload(true);
+            setReload(true); // reload le composant avec les nouvelles données reçues
         });
     }
-    
+
+    // UX: check la possiblité de téléversement des fichiers au moment de l'input
+    const handleUpload = (e) => {
+        // récupère les images uploadées
+        const fileInput = document.getElementById('fileInput');
+        const imgs = fileInput.files;
+
+        //const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+
+
+        // on prépare le formulaire
+        const formData = new FormData();
+
+        // on append chaque file uploadée
+        for (let i=0; i<imgs.length; i++) {
+            formData.append(`file-${i}`, imgs[i]);
+        }
+
+        // on envoit le nombre de files dans le formulaire pour le traitement
+        formData.append(`file-count`, imgs.length);
+
+        // on attache toutes les données et on l'envoit
+        formData.append('action', 'checkImg');
+
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
+            
+            const data = response.data; 
+
+            setResponse(data); // affiche la réponse du serveur
+
+            setIsLoading(false); // interrompt le spinner
+
+            setReload(true); // reload le composant avec les nouvelles données reçues
+        });
+    }
+
+    // le composant render un formulaire dans l'espace backoffice > employé qui sert à ajouter une nouvelle voiture
     return (
-        <div>
-            <h2>Remplir le formulaire pour ajouter une nouvelle voiture au catalogue</h2>
+        <div className="addCarPage">
+            <h2 className="addCarPageTitle">Remplir le formulaire pour ajouter une nouvelle voiture au catalogue</h2>
+            
+            {
+                response ?
+                <p className="responseText">{response}</p>
+                :
+                ''
+            }
 
-            <form onSubmit={sendForm}>
+            <form onSubmit={sendForm} id="FormVoiture">
 
-                <h3>Informations générales</h3>
+                <div className="addCarFormContentWrapperTopBox">
+                    <div className="addCarFormSectionWrapper">
+                        <h3 className="AddCarFormTitle">Informations générales</h3>
 
-                <div>
-                    <label htmlFor="images">Images</label>
-                    <input type="file" name="images" multiple />
+                        <div className="addCarPageInputField">
+                            <label htmlFor="images" className="addCarPageInputFieldLabel">Images</label>
+                            <input type="file" id="fileInput" name="images" multiple onChange={handleUpload} className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="titre" className="addCarPageInputFieldLabel">Titre</label>
+                            <input type="text" name="titre" className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="descript" className="addCarPageInputFieldLabel">Modèle</label>
+                            <input type="text" name="descript" className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="boite" className="addCarPageInputFieldLabel">Boîte</label>
+                            <select name="boiteSelector" id="boiteSelector" className="addCarPageInputFieldInput">
+                                <option value="Manuelle">Manuelle</option>
+                                <option value="Automatique">Automatique</option>
+                            </select>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="carburant" className="addCarPageInputFieldLabel">Carburant</label>
+                            <select name="carburantSelector" id="carburantSelector" className="addCarPageInputFieldInput">
+                                <option value="Essence">Essence</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Electrique">Electrique</option>
+                            </select>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="kilometrage" className="addCarPageInputFieldLabel">Kilométrage (km)</label>
+                            <input type="text" name="kilometrage" className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="annee" className="addCarPageInputFieldLabel">Année</label>
+                            <input type="text" name="annee" className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="prix" className="addCarPageInputFieldLabel">Prix (€)</label>
+                            <input type="text" name="prix" className="addCarPageInputFieldInput"/>
+                        </div>
+                    </div>
+
+                    <div className="addCarFormSectionWrapper">
+                        <h3 className="AddCarFormTitle">Détails</h3>
+                        <div className="addCarPageInputField">
+                            <label htmlFor="couleur" className="addCarPageInputFieldLabel">Couleur</label>
+                            <input type="text" name="couleur" className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="puissancefiscale" className="addCarPageInputFieldLabel">Puissance fiscale (cv)</label>
+                            <input type="text" name="puissancefiscale" className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="rapports" className="addCarPageInputFieldLabel">Rapports</label>
+                            <input type="text" name="rapports" className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="places" className="addCarPageInputFieldLabel">Places</label>
+                            <select name="places" id="places" className="addCarPageInputFieldInput">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="portes" className="addCarPageInputFieldLabel">Portes</label>
+                            <select name="portes" id="portes" className="addCarPageInputFieldInput">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="garantie" className="addCarPageInputFieldLabel">Garantie (mois)</label>
+                            <input type="text" name="garantie" className="addCarPageInputFieldInput"/>
+                        </div>
+
+                        <div className="addCarPageInputField">
+                            <label htmlFor="critair" className="addCarPageInputFieldLabel">Crit'Air</label>
+                            <select name="critair" id="critair" className="addCarPageInputFieldInput">
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
-                    <label htmlFor="titre">Titre</label>
-                    <input type="text" name="titre"/>
+                    <h3 className="AddCarFormTitle">Equipements</h3>
+                    {
+                        equipementList.map( (e,i) => {
+                            return (
+                                <div className="addCarPageInputField" key={i}>
+                                    <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
+                                    <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
 
-                <div>
-                    <label htmlFor="descript">Modèle</label>
-                    <input type="text" name="descript"/>
+                <div className="addCarPageFormSubmitBtnWrapper">
+                    <button type="submit" id="formSubmiter" className="addCarPageFormSubmitBtn">Ajouter le véhicule</button>
                 </div>
 
-                <div>
-                    <label htmlFor="boite">Boîte</label>
-                    <select name="boiteSelector" id="boiteSelector">
-                        <option value="manuelle">Manuelle</option>
-                        <option value="automatique">Automatique</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label htmlFor="carburant">Carburant</label>
-                    <select name="carburantSelector" id="carburantSelector">
-                        <option value="essence">Essence</option>
-                        <option value="disele">Diesel</option>
-                        <option value="electrique">Electrique</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label htmlFor="kilometrage">Kilométrage</label>
-                    <input type="text" name="kilometrage"/>
-                </div>
-
-                <div>
-                    <label htmlFor="annee">Année</label>
-                    <input type="text" name="annee"/>
-                </div>
-
-                <div>
-                    <label htmlFor="prix">Prix</label>
-                    <input type="text" name="prix"/>
-                </div>
-
-                <h3>Les plus</h3>
-                <h3>Equipements</h3>
-                {
-                    equipementList.map( (e,i) => {
-                        return (
-                            <div key={i}>
-                                <input type="checkbox" id={e[1]} name={e[1]} key={i}/>
-                                <label htmlFor={`${e[1]}`}>{e[1]}</label>
-                            </div>
-                        )
-                    })
-                }
-
-                <div>
-                    <label htmlFor="autres">Autres</label>
-                    <input type="text"name="autres" />
-                </div>
-
-                <h3>Détails</h3>
-                <div>
-                    <label htmlFor="couleur">Couleur</label>
-                    <input type="text" name="couleur"/>
-                </div>
-
-                <div>
-                    <label htmlFor="puissancefiscale">Puissance fiscale</label>
-                    <input type="text" name="puissancefiscale"/>
-                </div>
-
-                <div>
-                    <label htmlFor="rapports">Rapports</label>
-                    <input type="text" name="rapports"/>
-                </div>
-
-                <div>
-                    <label htmlFor="places">Places</label>
-                    <select name="places" id="places">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label htmlFor="portes">Portes</label>
-                    <select name="portes" id="portes">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label htmlFor="garantie">Garantie</label>
-                    <input type="text" name="garantie"/>
-                </div>
-
-                <div>
-                    <label htmlFor="critair">Crit'Air</label>
-                    <select name="critair" id="critair">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                    </select>
-                </div>
-
-                <div>
-                    <button type="submit">Ajouter le véhicule</button>
-                </div>
             </form>
+
         </div>
     )
 }

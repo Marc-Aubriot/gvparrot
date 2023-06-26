@@ -1,14 +1,19 @@
 /* dependencies */
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 /* components */
 import Spinner from './Spinner';
 
 /* styles */
-import './styles/ModifyCars.css';
+import './styles/SeeCarList.css';
 
-const ModifyCars = () => {
+const SeeCarList = () => {  
+    // navigation
+    const navigate = useNavigate();
+
+    // hooks
     const [carList, setCarList] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -63,21 +68,9 @@ const ModifyCars = () => {
 
     const modifyCar = (e) => {
         e.preventDefault();
+        const ref = e.target.getAttribute('data-ref');
 
-        const formData = new FormData();
-        formData.append('nom', e.target[0].value);
-        formData.append('action', 'addEquipement');
-
-        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
-            
-            const data = response.data; 
-
-            setResponse(data);
-
-            setIsLoading(false);
-
-            setReload(true);
-        });
+        navigate(`${ref}`);
     }
 
     const deleteCar = (e) => {
@@ -152,7 +145,7 @@ const ModifyCars = () => {
                                             </div>
                                             
                                             <div className="modifyCarPageCarCardBtnWrapper">
-                                                <button id={e[0]} onClick={modifyCar} className="modifyCarPageCarCarBtn">Modifier</button>
+                                                <button id={e[0]} data-ref={e[12]} onClick={modifyCar} className="modifyCarPageCarCarBtn">Modifier</button>
                                             </div>
                                             
                                             <div className="modifyCarPageCarCardBtnWrapper">
@@ -222,4 +215,4 @@ const ModifyCars = () => {
     )
 }
 
-export default ModifyCars;
+export default SeeCarList;

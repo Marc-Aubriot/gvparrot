@@ -9,18 +9,25 @@ import Spinner from './Spinner';
 import './styles/BackofficeAccueil.css';
 
 const MailBox = () => {
+
+    // hooks
     const [response, setResponse] = useState();
     const [messages, setMessages] = useState([]);
+    const [messagesNonLu, setMessagesNonLu] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [filter, setFilter] = useState('0');
 
+    // récupère les messages quand le composant est monté, et reload le composant quand les datas sont changées
     useEffect( () => {
+
         const getMessages = () => {
 
+            // requête au back end via axios
             const inputs = `action=getMessages&q=all`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
+                // récupère tous les messages dans const "messages", les données reçues sont au format string et passées en array
                 const rawdata = response.data.split('&'); 
 
                 let data = [];
@@ -33,7 +40,18 @@ const MailBox = () => {
 
                 setMessages(data);
 
-                setIsLoading(false);
+                setIsLoading(false); // les données sont récupérées, on interrompt le spinner et on affiche les données
+
+                // récupère tous les messages non lu dans const "messagesNonLu", en filtrant notre premier tableau "messages"
+                let msgNonLu = [];
+
+                data.forEach(msg => {
+                    if ( msg[7] === '0' ) {
+                        msgNonLu.push(msg);
+                    }
+                });
+
+                setMessagesNonLu(msgNonLu);
             });
         }
 
@@ -84,7 +102,7 @@ const MailBox = () => {
                 <option value={'1'} >Messages Lu</option>
             </select>
 
-            <h2 className="backofficeAccueilPageTitle">{messages.length > 0 ? `Vous avez ${messages.length} nouveaux messages` : "Vous n'avez aucun nouveau message"}</h2>
+            <h2 className="backofficeAccueilPageTitle">{messagesNonLu.length > 0 ? `Vous avez ${messagesNonLu.length} ${messagesNonLu.length === 1 ? 'nouveau message' : 'nouveaux messages'}` : "Vous n'avez aucun nouveau message"}</h2>
             {
                 response ? 
                 <p className="responseText">{response}</p>
