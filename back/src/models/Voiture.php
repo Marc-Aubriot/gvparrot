@@ -16,8 +16,9 @@ class Voiture {
     private $details;
     private $ref;
 
-    public function __construct($images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref)
+    public function __construct($id, $images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref)
     {
+        $this->id = $id;
         $this->images = $images;
         $this->titre = $titre;
         $this->descript = $descript;
@@ -33,7 +34,7 @@ class Voiture {
     }
 
     // Fonction pour ajouter une nouvelle Voiture en base de données
-    public function addCar() {
+    public static function addCar($images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
@@ -41,18 +42,18 @@ class Voiture {
 
         $stmt->execute(
             array(
-            ':val1' => $this->images, 
-            ':val2' => $this->titre, 
-            ':val3' => $this->descript, 
-            ':val4' => $this->boite,
-            ':val5' => $this->carburant,
-            ':val6' => $this->kilometrage,
-            ':val7' => $this->annee,
-            ':val8' => $this->prix,
-            ':val9' => $this->lesplus,
-            ':val10' => $this->equipements,
-            ':val11' => $this->details,
-            ':val12' => $this->ref
+            ':val1' => $images, 
+            ':val2' => $titre, 
+            ':val3' => $descript, 
+            ':val4' => $boite,
+            ':val5' => $carburant,
+            ':val6' => $kilometrage,
+            ':val7' => $annee,
+            ':val8' => $prix,
+            ':val9' => $lesplus,
+            ':val10' => $equipements,
+            ':val11' => $details,
+            ':val12' => $ref
         ));
 
         $conn = null;

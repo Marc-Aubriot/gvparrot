@@ -23,6 +23,15 @@ for ( $i = 0; $i < $count; $i++ ) {
 
 // Récupère toutes les infos envoyées par le front
 $images = implode("+", $tmp_array); // transforme l'array en string pour stockage BDD
+
+if ($_REQUEST['imgPathTrue'] === 'true' && $count > 0 ) {
+    $path = $_REQUEST['imgPath'];
+    $images = $images.'+'.$path;
+} else if ( $_REQUEST['imgPathTrue'] === 'true' && $count <= 0 ) {
+    $images = $path;
+}
+
+$ref = $_REQUEST['ref'];
 $titre = $_REQUEST['titre'];
 $descript = $_REQUEST['descript'];
 $boite = $_REQUEST['boite'];
@@ -34,13 +43,22 @@ $prix = $_REQUEST['prix'];
 $lesplus = ''; 
 $equipements = $_REQUEST['equipements'];
 $details = $_REQUEST['details'];
-$ref = guidv4(); // génère une référence aléatoire
 
-// créé un nouvel objet via son Model et envoit l'objet en BDD
-$voiture = Voiture::addCar($images, $titre, $descript,  $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref);
-
+// récupère la voiture via son id et update les datas dans la BDD avec les datas recues
+$voiture = Voiture::getCarByRef($ref);
+$voiture->updateChamp('images',$images);
+$voiture->updateChamp('titre',$titre);
+$voiture->updateChamp('descript',$descript);
+$voiture->updateChamp('boite',$boite);
+$voiture->updateChamp('carburant',$carburant);
+$voiture->updateChamp('kilometrage',$kilometrage);
+$voiture->updateChamp('annee',$annee);
+$voiture->updateChamp('prix',$prix);
+$voiture->updateChamp('lesplus',$lesplus);
+$voiture->updateChamp('equipements',$equipements);
+$voiture->updateChamp('details',$details);
 
 // envoit une réponse au front
-$response = 'voiture ajoutée sous la référence '.$ref;
+$response = 'voiture '.$ref.': informations modifiées'.$voiture->getTitre();
 echo $response;
 ?>

@@ -14,6 +14,15 @@
 }
 
 /* ADD CAR PAGE FORM */
+.addCarFormPhotoDiv {
+    display: flex;
+    align-items: center;
+}
+
+.addCarFormPhotoDivContent {
+    margin-left: 10px;
+}
+
 .AddCarFormTitle {
     font-family: righteous;
 }
