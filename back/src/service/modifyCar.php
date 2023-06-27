@@ -24,9 +24,10 @@ for ( $i = 0; $i < $count; $i++ ) {
 // Récupère toutes les infos envoyées par le front
 $images = implode("+", $tmp_array); // transforme l'array en string pour stockage BDD
 
-if ($_REQUEST['imgPathTrue'] === 'true' && $count > 0 ) {
+if ($_REQUEST['imgPathTrue'] === 'true' && $count > 1 ) {
     $path = $_REQUEST['imgPath'];
     $images = $images.'+'.$path;
+    $count--;
 } else if ( $_REQUEST['imgPathTrue'] === 'true' && $count <= 0 ) {
     $images = $path;
 }
@@ -39,8 +40,7 @@ $carburant = $_REQUEST['carburant'];
 $kilometrage = $_REQUEST['kilometrage'];
 $annee = $_REQUEST['annee'];
 $prix = $_REQUEST['prix'];
-//$lesplus = $_REQUEST['lesplus']; // réalisé ailleurs
-$lesplus = ''; 
+$lesplus = $_REQUEST['lesplus'];
 $equipements = $_REQUEST['equipements'];
 $details = $_REQUEST['details'];
 
@@ -59,6 +59,6 @@ $voiture->updateChamp('equipements',$equipements);
 $voiture->updateChamp('details',$details);
 
 // envoit une réponse au front
-$response = 'voiture '.$ref.': informations modifiées'.$voiture->getTitre();
+$response = 'voiture '.$ref.': informations modifiées';
 echo $response;
 ?>

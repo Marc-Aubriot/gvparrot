@@ -102,7 +102,7 @@ const VerifyComments = () => {
                         comments.map( (e,i) => {
 
                             return (
-                                <div className={ (e[4] === "1") ? 'verifyCommentsCommentCard pin' : 'verifyCommentsCommentCard'} id={`card-${i}`}> 
+                                <div key={i} className={ (e[4] === "1") ? 'verifyCommentsCommentCard pin' : 'verifyCommentsCommentCard'} id={`card-${i}`}> 
 
                                     <div className='verifyCommentsCommentCardTopRow'>
                                         <p>{e[1]}</p>

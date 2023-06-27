@@ -13,7 +13,7 @@ const MailBox = () => {
     // hooks
     const [response, setResponse] = useState();
     const [messages, setMessages] = useState([]);
-    const [messagesNonLu, setMessagesNonLu] = useState();
+    const [messagesNonLuCount, setMessagesNonLuCount] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [filter, setFilter] = useState('0');
@@ -51,7 +51,7 @@ const MailBox = () => {
                     }
                 });
 
-                setMessagesNonLu(msgNonLu);
+                setMessagesNonLuCount(msgNonLu.length);
             });
         }
 
@@ -96,13 +96,13 @@ const MailBox = () => {
     return (
         <div className="backofficeAccueilPageWrapper">
 
-            <select id="viewOptionsSelector" onChange={handleSelectorChange}>
+            <select id="viewOptionsSelector" onChange={handleSelectorChange} defaultValue={'0'}>
                 <option value={'all'}>Tous les messages</option>
-                <option value={'0'} selected='selected'>Messages Non lu</option>
+                <option value={'0'}>Messages Non lu</option>
                 <option value={'1'} >Messages Lu</option>
             </select>
 
-            <h2 className="backofficeAccueilPageTitle">{messagesNonLu.length > 0 ? `Vous avez ${messagesNonLu.length} ${messagesNonLu.length === 1 ? 'nouveau message' : 'nouveaux messages'}` : "Vous n'avez aucun nouveau message"}</h2>
+            <h2 className="backofficeAccueilPageTitle">{messagesNonLuCount > 0 ? `Vous avez ${messagesNonLuCount} ${messagesNonLuCount === 1 ? 'nouveau message' : 'nouveaux messages'}` : "Vous n'avez aucun nouveau message"}</h2>
             {
                 response ? 
                 <p className="responseText">{response}</p>
@@ -149,7 +149,9 @@ const MailBox = () => {
 
                         </div>
 
-                    )}
+                    )} else {
+                        return ('')
+                    }
                 })
             }
         </div>

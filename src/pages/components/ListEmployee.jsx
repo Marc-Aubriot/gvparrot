@@ -47,9 +47,11 @@ const ListEmployee = () => {
                     {
                         userList.map( (e, i) => {
                             return (
-                                <Link to={`${e[0]}`}>
-                                    <li key={i}>Nom: {e[1]} / Prenom: {e[2]} / Email: {e[3]}</li>
-                                </Link>
+                                <div key={i}>
+                                    <Link to={`${e[0]}`}>
+                                        <li key={i}>Nom: {e[1]} / Prenom: {e[2]} / Email: {e[3]}</li>
+                                    </Link>
+                                </div>
                             )
                         })
                     }

@@ -22,10 +22,10 @@ const ModifyCar = () => {
     const [car, setCar] = useState([]);
     const [details, setDetails] = useState([]);
     const [equipement, setEquipement] = useState([]);
-    const [carImgPath, setCarImgPath] = useState([]);
     const [rawImgPath, setRawImgPath] = useState();
     const [carImg, setCarImg] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
+    const [lesplus, setLesplus] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [response, setResponse] = useState();
@@ -42,34 +42,39 @@ const ModifyCar = () => {
                 const rawdata = response.data.split('#'); 
 
                 // on récupère d'abord les datas du véhicule
-                let carData = rawdata[0].split(',');
+                const carData = rawdata[0].split(',');
                 setCar(carData);
 
                 // on récupère les images du véhicule, d'abord le path existant, et ensuite les noms de fichiers
                 setRawImgPath(carData[1]);
-                let carImgPath = carData[1].split('+');
-                setCarImgPath(carImgPath);
+                const carImgPath = carData[1].split('+');
 
-                let carImgArray = [];
+                const carImgArray = [];
                 carImgPath.forEach(img => {
-                    let image = img.split('/');
+                    const image = img.split('/');
                     carImgArray.push(image[image.length-1]);
 
                 });
-                setCarImg(carImgArray);
+                if (carImgArray.length>1) {
+                    setCarImg(carImgArray);
+                }
 
                 // on récupère les détails du véhicule
-                let carDetail = carData[11].split('+');
+                const carDetail = carData[11].split('+');
                 setDetails(carDetail);
 
                 // on récupère les équipements du véhicule
-                let carEquipement = carData[10].split('+');
+                const carEquipement = carData[10].split('+');
                 setEquipement(carEquipement);
+
+                // on récupère les plus du véhicule
+                const carPlus = carData[9].split('+');
+                setLesplus(carPlus);
 
                 // on récupère ensuite la liste des équipements standard sous forme de string
                 const equips = rawdata[1].split('&');
 
-                let data1 = [];
+                const data1 = [];
 
                 equips.forEach(element => {
                     data1.push(element.split('+'));
@@ -87,7 +92,7 @@ const ModifyCar = () => {
 
         if (reload) { setReload(false); };
 
-    }, [reload]);
+    }, [reload,params]);
 
     // envoit les données du formulaire au serveur qui va ensuite ajouté une nouvelle ligne en BDD à la table "voitures"
     const sendForm = (e) => {
@@ -110,6 +115,24 @@ const ModifyCar = () => {
         // data['a','b','c'] > data 'a,b,c > data 'a+b+c'
         let tempString = tempArray.toString('+'); 
         const equipements = tempString.replaceAll(',', '+'); 
+
+
+        // on récupère les values des checkbox de la section les plus, qu'on transforme en un string
+        const countlesplus = equipementList.length;
+        let tempArrayLesplus = [];
+
+        for ( let i = 0; i < countlesplus; i++) {
+            const checkbox = document.getElementById(`lesplus-${i}`);
+            const check = checkbox.checked;
+
+            if (check) {
+                tempArrayLesplus.push(checkbox.value);
+            }
+        }
+
+        // data['a','b','c'] > data 'a,b,c > data 'a+b+c'
+        let tempStringLesPlus = tempArrayLesplus.toString('+'); 
+        const lesplusToAppend = tempStringLesPlus.replaceAll(',', '+'); 
 
 
         // on récupère les values des checkbox de la section détails, qu'on transforme en un string
@@ -141,8 +164,12 @@ const ModifyCar = () => {
         }
 
         // on envoit le path des images déjà présentes
-        formData.append('imgPath', rawImgPath);
-        formData.append('imgPathTrue', 'true');
+        if (rawImgPath) {
+            formData.append('imgPath', rawImgPath);
+            formData.append('imgPathTrue', 'true');
+        } else { 
+            formData.append('imgPathTrue', 'false');
+        }
         
         // on attache toutes les données et on l'envoit
         formData.append('ref', params.carref);
@@ -153,6 +180,7 @@ const ModifyCar = () => {
         formData.append('kilometrage', e.target[5].value);
         formData.append('annee', e.target[6].value);
         formData.append('prix', e.target[7].value);
+        formData.append('lesplus', lesplusToAppend);
         formData.append('equipements', equipements);
         formData.append('details', details);
         formData.append('action', 'modifyCar');
@@ -205,17 +233,28 @@ const ModifyCar = () => {
     const deletePhoto = (e) => {
         e.preventDefault();
         const id = e.target.name;
-        const div = document.getElementById(`div-span-${id}`);
-        const span = document.getElementById(`span-${id}`);
-        const button = document.getElementById(`button-span-${id}`);
 
-        let newCarImg = carImg.splice(id, 1);
-        div.remove();//
-        //span.remove();
-        //button.remove();
+        // enlève la photo de l'interface
+        const removedImg = carImg.splice(id, 1);
 
-        //setCarImg(newCarImg);
-        console.log(carImg);
+        // modifie le path des images originales en enlevant la photo supprimée
+        const newPathArray = rawImgPath.split('+');
+        const removedPath = newPathArray.splice(id, 1);
+        const rawNewStringPath = newPathArray.toString();
+
+        // on update la BDD avec le nouveau string path
+        const inputs = `action=deletePhoto&path=${rawNewStringPath}&ref=${params.carref}`;
+        axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
+            
+            const data = response.data; 
+
+            setResponse(data); // affiche la réponse du serveur
+
+            setIsLoading(false); // interrompt le spinner
+
+            setReload(true); // reload le composant avec les nouvelles données reçues
+        });
+
     }
 
     // le composant render un formulaire dans l'espace backoffice > employé qui sert à ajouter une nouvelle voiture
@@ -367,36 +406,73 @@ const ModifyCar = () => {
                             </div>
                         </div>
 
-                        <div>
-                            <h3 className="AddCarFormTitle">Equipements</h3>
-                            {
-                                equipementList.map( (e,i) => {
-                                    let checkedCheckbox = false;
+                        <div className="addCarFormContentWrapperBotBox">
 
-                                    for ( let iteration = 0; iteration < equipement.length; iteration++ ) {
-                                        if ( e[1] === equipement[iteration] ) {
-                                            checkedCheckbox = true;
+                            <div className="addCarFormSectionWrapper">
+                                <h3 className="AddCarFormTitle">Equipements</h3>
+                                {
+                                    equipementList.map( (e,i) => {
+                                        let checkedCheckbox = false;
+
+                                        for ( let iteration = 0; iteration < equipement.length; iteration++ ) {
+                                            if ( e[1] === equipement[iteration] ) {
+                                                checkedCheckbox = true;
+                                            };
                                         };
-                                    };
-                                    
-                                    return (
-                                        <div key={i}>
-                                            {
-                                                checkedCheckbox ?
-                                                <div className="addCarPageInputField" key={i}>
-                                                    <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} defaultChecked/>
-                                                    <label htmlFor={`${e[1]}`}>{e[1]}</label>
-                                                </div>
-                                                :
-                                                <div className="addCarPageInputField" key={i}>
-                                                    <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
-                                                    <label htmlFor={`${e[1]}`}>{e[1]}</label>
-                                                </div>
-                                            }
-                                        </div>
-                                    )
-                                })
-                            }
+                                        
+                                        return (
+                                            <div key={i}>
+                                                {
+                                                    checkedCheckbox ?
+                                                    <div className="addCarPageInputField" key={i}>
+                                                        <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} defaultChecked/>
+                                                        <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                                    </div>
+                                                    :
+                                                    <div className="addCarPageInputField" key={i}>
+                                                        <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
+                                                        <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+
+                            <div className="addCarFormSectionWrapper">
+                                <h3 className="AddCarFormTitle">Les plus</h3>
+                                {
+                                    equipementList.map( (e,i) => {  
+                                        let checkedCheckbox = false;
+
+                                        for ( let iteration = 0; iteration < lesplus.length; iteration++ ) {
+                                            if ( e[1] === lesplus[iteration] ) {
+                                                checkedCheckbox = true;
+                                            };
+                                        };
+
+                                        return (
+                                            <div key={i}>
+                                                {
+                                                    checkedCheckbox ?
+                                                    <div className="addCarPageInputField" key={i}>
+                                                        <input type="checkbox" id={`lesplus-${i}`} name={`lesplus-${e[1]}`} value={e[1]} className="addCarPageInputFieldInput" key={i} defaultChecked/>
+                                                        <label htmlFor={`lesplus-${e[1]}`}>{e[1]}</label>
+                                                    </div>
+                                                    :
+                                                    <div className="addCarPageInputField" key={i}>
+                                                        <input type="checkbox" id={`lesplus-${i}`} name={`lesplus-${e[1]}`} value={e[1]} className="addCarPageInputFieldInput" key={i} />
+                                                        <label htmlFor={`lesplus-${e[1]}`}>{e[1]}</label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                }
+                             
+                            </div>
+                            
                         </div>
 
                         <div className="addCarPageFormSubmitBtnWrapper">
