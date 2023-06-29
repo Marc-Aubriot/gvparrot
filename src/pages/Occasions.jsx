@@ -9,14 +9,17 @@ import Spinner from './components/Spinner';
 /* styles */
 import './styles/Occasions.css';
 
+// page contenant les véhicules d'occasions
 const Occasions = () => {
+    // hooks liste des véhicules
     const [carList, setCarList] = useState([]);
+    
+    // hook de fonctionnement de page
     const [isLoading, setIsloading] = useState(true);
 
-    /* requête au montage et récupération de la réponse */
+    // récupère la liste des véhicules dans la BDD
     useEffect( ()=> {
         const getCarList = () => {
-            /* axios payload */
             const inputs = `action=getCarList`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
@@ -36,9 +39,11 @@ const Occasions = () => {
         getCarList();
     }, []);
 
+    // hooks le panneau des filtres est ouvert ou non, et son toggle
     const [filterPanelOpen, setFilterPanelOpen] = useState(false);
     const handleToggleFilter = () => { setFilterPanelOpen(prev => !prev) }
 
+    // render la galerie de véhicules, une zone de filtres et une navigation interne
     return (
 
         <main className="pageOccasion">

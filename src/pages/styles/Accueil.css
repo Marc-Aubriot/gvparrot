@@ -47,6 +47,7 @@
     height: 70px;
     border: none;
     background-color: transparent;
+    cursor: pointer;
 }
 
 .btnPrecedentAvis {
@@ -59,6 +60,7 @@
     height: 70px;
     border: none;
     background-color: transparent;
+    cursor: pointer;
 }
 
 /*.cardWrapper {

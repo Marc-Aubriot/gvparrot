@@ -1,6 +1,7 @@
 /* dependencies */
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useOutletContext } from 'react-router-dom';
 
 /* components */
 import Spinner from './Spinner';
@@ -8,11 +9,15 @@ import Spinner from './Spinner';
 /* styles */
 import './styles/BackofficeAccueil.css';
 
+// Contenu de la page d'accueil du Back office
 const BackofficeAccueil = () => {
+    // hooks data user, data messages
+    const [user] = useOutletContext();
     const [messages, setMessages] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
 
+    // récupère les messages dans la BDD via axios si l'utilisateur est un employé
     useEffect( () => {
         const getMessages = () => {
 
@@ -35,25 +40,37 @@ const BackofficeAccueil = () => {
             });
         }
 
-        getMessages();
+        if ( user[0] === "Employé" ) { 
+            getMessages(); 
+        } else if ( user[0] === "Administrateur" ) {
+            setIsLoading(false);
+        }
         if (reload) { setReload(false); };
-    }, [reload]);
+    }, [reload, user]);
 
+    // marque les messages comme lu dans la BDD
     const checkAsViewed = (e) => {
         const id = e.target.id;
         const inputs = `action=verifyMessage&q=y&id=${id}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
-                const data = response.data; 
+                //const data = response.data; 
 
                 setReload(true);
             }
         );
     }
 
+    // Load le contenu de l'espace de travail en fonction du statut de l'user ("Administrateur" ou "Employé")
     return (
         <div className="backofficeAccueilPageWrapper">
-            <h2 className="backofficeAccueilPageTitle">{messages.length > 0 ? `Vous avez ${messages.length} ${messages.length === 1 ? 'nouveau message' : 'nouveaux messages'}` : "Vous n'avez aucun nouveau message"}</h2>
+            {
+                user[0] === "Employé" ? 
+                <h2 className="backofficeAccueilPageTitle">{messages.length > 0 ? `Vous avez ${messages.length} ${messages.length === 1 ? 'nouveau message' : 'nouveaux messages'}` : "Vous n'avez aucun nouveau message"}</h2>
+                :
+                <h2 className="backofficeAccueilPageTitle">Espace de travail Administrateur</h2>
+            }
+            
             {
                 isLoading ?
                 <Spinner />

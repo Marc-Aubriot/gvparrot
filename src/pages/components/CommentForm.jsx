@@ -6,15 +6,13 @@ import { useState } from 'react';
 import './styles/CommentForm.css';
 import Bouton from './Bouton';
 
-/* components */
-
-
+// component un formulaire de commentaire qui sera envoyé en BDD
 const CommentForm = (props) => {
-    /* hooks des datas fetch par axios */
+    // hooks envoit du formulaire
     const [commentSendTrue, setCommentSendTrue] = useState([]);
     const [response, setResponse] = useState([]);
 
-    /* envoi le formulaire avec axios et le built in FORMDATA class */
+    // envoit le commentaire en BDD
     const sendForm = (e) => {
         e.preventDefault();
         setCommentSendTrue();
@@ -32,42 +30,50 @@ const CommentForm = (props) => {
         });
     }
 
+    // render le formulaire
     return(
         <div className='pageAccueilformWrapper'>
             {
-                commentSendTrue ? 
-                <form onSubmit={sendForm} className='pageAccueilForm'>
-
-                    <div className='commentFormField'>
-                        <label for="nameField" className='formLabel'>Nom</label>
-                        <br />
-                        <input id='nameField' name='nameField' type='text' placeholder='Nom' className='formInput'></input>
-                    </div>
-                    
-                    <div className='commentFormField'>
-                        <label for="noteField"  className='formLabel'>Note</label>
-                        <br />
-                        <input id='noteField' name='noteField' type='text' placeholder='Note de 1 à 5' className='formInput'></input>
-                    </div>
-
-                    <div className='commentFormField'>
-                        <label for="messageField"  className='formLabel'>Message</label>
-                        <br />
-                        <input id='messageField' name='messageField' type='text' placeholder='Message' className='formInput'></input>
-                    </div>
-
-                    <div className='commentFormSubmitBtnWrapper'>
-                        <button type='submit' className='commentFormSubmitBtn'>Envoyer</button>
-                    </div>
-                    
-                </form> 
-            :
+                response ?
                 <p className='responseText'>{response}</p>
+                :
+                ''
             }
 
-            <div className='commentFormBtnWrapper'>
-                <Bouton type='button' text='retour aux avis' onClick={props.toggle}/>
-            </div>
+            <form onSubmit={sendForm} className='pageAccueilForm'>
+
+                <div className='commentFormField'>
+                    <label for="nameField" className='formLabel'>Nom</label>
+                    <br />
+                    <input id='nameField' name='nameField' type='text' placeholder='Nom' className='formInput'></input>
+                </div>
+                
+                <div className='commentFormField'>
+                    <label for="noteField"  className='formLabel'>Note</label>
+                    <br />
+                    <input id='noteField' name='noteField' type='text' placeholder='Note de 1 à 5' className='formInput'></input>
+                </div>
+
+                <div className='commentFormField'>
+                    <label for="messageField"  className='formLabel'>Message</label>
+                    <br />
+                    <input id='messageField' name='messageField' type='text' placeholder='Message' className='formInput'></input>
+                </div>
+
+                <div className='commentFormSubmitBtnWrapper'>
+                    <button type='submit' className='commentFormSubmitBtn'>Envoyer</button>
+                </div>
+                
+            </form> 
+
+            {
+                commentSendTrue ?
+                ""
+                :
+                <div className='commentFormBtnWrapper'>
+                    <Bouton type='button' text='retour aux avis' onClick={props.toggle}/>
+                </div>
+            }
             
         </div>
     )

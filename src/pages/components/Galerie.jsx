@@ -1,6 +1,7 @@
 /* styles */
 import './styles/Galerie.css';
 
+// component une galerie de photos dans la page product detail
 const Galerie = (props) => {;
 
     /* on click, switch target image & active image */
@@ -19,6 +20,7 @@ const Galerie = (props) => {;
         };
     };
     
+    // render la galerie
     return (
         <div className='galerieContainer'>
         {props.imgset.map((img, i )=> {

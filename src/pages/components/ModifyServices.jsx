@@ -8,18 +8,22 @@ import Spinner from './Spinner';
 /* styles */
 import './styles/ModifyServices.css';
 
+// fonctionnalité permettant la modifications des services en front office
 const ModifyServices = () => {
-
-    const [formSend, setFormSend] = useState(false);
-    const [response, setResponse] = useState();
+    // hook
     const [services, setServices] = useState([]);
+
+    // hook fonctionnel
+    const [response, setResponse] = useState();
+    const [formSend, setFormSend] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [toggleForm, setToggleForm] = useState(false);
 
+    // récupère une liste des services en BDD
     useEffect( ()=> {
-        const getServices = () => {
 
+        const getServices = () => {
             const inputs = `action=getServiceList&categorie=all`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
@@ -42,6 +46,7 @@ const ModifyServices = () => {
 
     }, [reload]);
 
+    // gère la modification des informations dans un modal
     const modifyValue = (e) => {
         const elementToModify = document.getElementById(e.target.id);
 
@@ -102,6 +107,7 @@ const ModifyServices = () => {
         btnWrapper.appendChild(btn);
     }
 
+    // efface le service de la BDD
     const deleteService = (e) => {
         e.preventDefault();
 
@@ -115,7 +121,7 @@ const ModifyServices = () => {
         });
     }
 
-    /* envoi le formulaire avec axios et le built in FORMDATA class */
+    // envoit le formulaire avec les informations modifiées en BDD
     const sendForm = (e) => {
         e.preventDefault(e);
         
@@ -141,6 +147,7 @@ const ModifyServices = () => {
         });
     }
 
+    // toggle affichant le modal de modification d'informations
     const toggleHandler = () => {
         setToggleForm( prev => !prev );
     }

@@ -8,22 +8,23 @@ import Spinner from './Spinner';
 /* styles */
 import './styles/BackofficeAccueil.css';
 
+// fonctionnalité affichant une "boite email" maison contenant tous les messages envoyés par le front office
 const MailBox = () => {
 
-    // hooks
-    const [response, setResponse] = useState();
+    // hook les messages, les messages non lu
     const [messages, setMessages] = useState([]);
     const [messagesNonLuCount, setMessagesNonLuCount] = useState();
+
+    // hook fonctionnel
+    const [response, setResponse] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [filter, setFilter] = useState('0');
 
-    // récupère les messages quand le composant est monté, et reload le composant quand les datas sont changées
+    // récupère les messages et les messages non lu dans la BDD
     useEffect( () => {
 
         const getMessages = () => {
-
-            // requête au back end via axios
             const inputs = `action=getMessages&q=all`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
@@ -88,11 +89,13 @@ const MailBox = () => {
         );
     }
 
+    // en fonction du select et de l'option, affiche les messages lu, non lu ou tous les messages
     const handleSelectorChange = (e) => {
         const selector = document.getElementById('viewOptionsSelector');
         setFilter(selector.value);
     }
 
+    // render une liste des messages en fonction d'un filtre
     return (
         <div className="backofficeAccueilPageWrapper">
 

@@ -14,23 +14,28 @@ export async function loader(urlparams) {
     return urlparams;
 }
 
+
+// fonctionnalité permettant de modifier les informations concernant une voiture, ou leurs suppression
 const ModifyCar = () => {
     /* url parameter loader*/
     const { params } = useLoaderData();
 
-    // hooks
+    // hook informations du véhicule, détails, équipement, les plus, le path des images, le nom des images et une liste d'équipement standard et 
     const [car, setCar] = useState([]);
     const [details, setDetails] = useState([]);
     const [equipement, setEquipement] = useState([]);
+    const [lesplus, setLesplus] = useState([]);
     const [rawImgPath, setRawImgPath] = useState();
     const [carImg, setCarImg] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
-    const [lesplus, setLesplus] = useState([]);
+
+    // hook fonctionnel
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [response, setResponse] = useState();
 
-    // récupère les messages quand le composant est monté, et reload le composant quand les datas sont changées
+
+    // récupère les informations du véhicule en BDD
     useEffect( () => {
 
         const getCarByRef = () => {
@@ -94,7 +99,7 @@ const ModifyCar = () => {
 
     }, [reload,params]);
 
-    // envoit les données du formulaire au serveur qui va ensuite ajouté une nouvelle ligne en BDD à la table "voitures"
+    // envoit les données modifiées du véhicule en BDD
     const sendForm = (e) => {
 
         e.preventDefault();

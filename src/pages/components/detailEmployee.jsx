@@ -13,18 +13,23 @@ export async function loader(urlparams) {
     return urlparams;
 }
 
+// fonctionnalité affichant les informations d'un employé et permettant la modification des informations
 const DetailEmployee = () => {
-    /* url parameter loader*/
+    // url parameter loader
     const { params } = useLoaderData();
+
+    // hook information de l'employé
     const [employee, setEmployee] = useState([]);
+
+    // hook fonctionnel
     const [isLoading, setIsLoading] = useState(true);
     const [response, setResponse] = useState();
     const [employeeDeleted, setEmployeeDeleted] = useState(false);
   
-    //  
+    // récupère les informations de l'employé en BDD
     useEffect( ()=> {
+
         const getEmployeeInfos = () => {
-            /* axios payload */
             const inputs = `action=detailEmployee&id=${params.employeeid}`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
             
@@ -37,11 +42,12 @@ const DetailEmployee = () => {
                 setIsLoading(false);
             })
         }
+
         getEmployeeInfos();
 
-    }, [])
+    }, [params])
 
-    /* envoi le formulaire avec axios et le built in FORMDATA class */
+    // envoit les nouvelles informations de l'employé en BDD
     const sendForm = (e) => {
         e.preventDefault();
 
@@ -61,9 +67,10 @@ const DetailEmployee = () => {
         });
     }
 
+    // supprime les informations concernant l'employé en BDD
     const deleteEmployee = (e) => {
         e.preventDefault();
-        /* axios payload */
+
         const inputs = `action=deleteEmployee&id=${params.employeeid}`;
         axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
 
@@ -72,6 +79,8 @@ const DetailEmployee = () => {
             setEmployeeDeleted(true);
         });
     }
+
+    // render une page contenant les informations de l'employé, un formulaire pour modification, et un bouton pour supprimer
     return (
         <div className="listEmployeePage">
 

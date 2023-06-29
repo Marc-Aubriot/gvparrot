@@ -5,15 +5,20 @@ import { useState, useEffect } from "react";
 /* components */
 import Spinner from "./Spinner";
 
-/* */
+/* styles */
 import './styles/ListEquipement.css';
 
+// fonctionnalité affichant la liste des équipements
 const ListEquipement = () => {
+    // hook liste des équipements
     const [equipements, setEquipements] = useState([]);
+
+    // hook fonctionnels
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [response, setResponse] = useState();
 
+    // récupère la liste des équipements en BDD
     useEffect( () => {
 
         const getEquipementList = () => {
@@ -42,6 +47,7 @@ const ListEquipement = () => {
 
     }, [reload]);
 
+    // ajouté un équipement en BDD
     const addEquipement = (e) => {
         e.preventDefault();
 
@@ -61,6 +67,7 @@ const ListEquipement = () => {
         });
     }
 
+    // supprime un équipement de la BDD
     const deleteEquipement = (e) => {
         const id = e.target.id;
         const inputs = `action=deleteEquipement&id=${id}`;
@@ -76,6 +83,7 @@ const ListEquipement = () => {
             });
     }
 
+    // retourne une liste des équipements, avec possiblité d'ajout ou de suppression d'équipement
     return (
         <div className="listEquipementPage">
             <h2 className="listEquipementPageTitle">Liste des équipements standard (lors de la création d'un nouveau véhicule)</h2>

@@ -2,19 +2,24 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+/* components */
+import Spinner from './Spinner';
+
 /* styles */
 import './styles/AddCar.css';
 
+// fonctionnalité pour ajouté un véhicule dans la BDD
 const AddCar = () => {
-
-    // hooks
+    // hooks liste des véhicules et liste des équipements
     const [carList, setCarList] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
+
+    // hook de fonctionnement de page
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [response, setResponse] = useState();
 
-    // récupère les messages quand le composant est monté, et reload le composant quand les datas sont changées
+    // récupère la liste des véhicules et équipements dans la BDD
     useEffect( () => {
 
         const getCarListAndEquipements = () => {
@@ -290,19 +295,24 @@ const AddCar = () => {
                     </div>
                 </div>
 
-                <div>
-                    <h3 className="AddCarFormTitle">Equipements</h3>
-                    {
-                        equipementList.map( (e,i) => {
-                            return (
-                                <div className="addCarPageInputField" key={i}>
-                                    <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
-                                    <label htmlFor={`${e[1]}`}>{e[1]}</label>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                {
+                    isLoading ?
+                    <Spinner />
+                    :
+                    <div>
+                        <h3 className="AddCarFormTitle">Equipements</h3>
+                        {
+                            equipementList.map( (e,i) => {
+                                return (
+                                    <div className="addCarPageInputField" key={i}>
+                                        <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
+                                        <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                }
 
                 <div className="addCarPageFormSubmitBtnWrapper">
                     <button type="submit" id="formSubmiter" className="addCarPageFormSubmitBtn">Ajouter le véhicule</button>

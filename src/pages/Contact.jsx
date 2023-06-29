@@ -4,6 +4,8 @@ import ContactForm from "./components/ContactForm";
 /* styles */
 import './styles/Contact.css';
 
+
+// Page de contact avec un formulaire 
 const Contact = () => {
     return (
         <section className="contactPage">

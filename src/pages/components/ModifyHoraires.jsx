@@ -8,17 +8,20 @@ import Spinner from './Spinner';
 /* styles */
 import './styles/ModifyHoraires.css';
 
+// fonctionnalité permettant de modifié les horaires dans le footer en front office
 const ModifyHoraires = () => {
+    // hook les horaires
+    const [horaires, setHoraires] = useState([]);
 
+    // hook fonctionnel
     const [formSendTrue, setFormSendTrue] = useState(false);
     const [response, setResponse] = useState();
-    const [horaires, setHoraires] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    /* requête au montage et récupération de la réponse */
+    // récupère les horaires en BDD
     useEffect( ()=> {
+
         const getHoraires = () => {
-            /* axios payload */
             const inputs = `action=getHoraires`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
             
@@ -34,10 +37,11 @@ const ModifyHoraires = () => {
                 setIsLoading(false);
             });
         }
+
         getHoraires();
     }, []);
 
-    /* envoi le formulaire avec axios et le built in FORMDATA class */
+    // envoit le formulaire contenant les modifications des horaires en BDD
     const sendForm = (e) => {
         e.preventDefault();
         setFormSendTrue(true);
@@ -97,6 +101,7 @@ const ModifyHoraires = () => {
         });
     }
 
+    // render un formulaire permettant la modification des horaires
     return (
         <div className='modifyHorairePageWrapper'>
 

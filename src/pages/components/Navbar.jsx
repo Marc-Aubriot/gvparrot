@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom';
 /* components */
 import HamburgerBtn from "./HamburgerBtn";
 
+// la barre de navigation du site
 const Navbar = () => {
+    // hook fonctionnel
     const [navbarOpen, setNavbarOpen] = useState(false);
     const handleToggle = () => { setNavbarOpen(prev => !prev) }
     const closeMenu = () => { setNavbarOpen(false) }

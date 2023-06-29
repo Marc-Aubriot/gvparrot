@@ -1,6 +1,7 @@
 /* styles */
 import './styles/HamburgerBtn.css';
 
+// component bouton hamburger dans la barre de navigation, full css
 const HamburgerBtn = () => {
     return (
         <div className="hamburger-lines">

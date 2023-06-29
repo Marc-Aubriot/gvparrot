@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 /* styles */
 import "./styles/Bouton.css"
 
+// component bouton stylisé
 const Bouton = (props) => {
     return (
         <Link to={props.linkstring}>

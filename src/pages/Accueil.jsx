@@ -10,6 +10,7 @@ import './styles/Accueil.css';
 import Bouton from './components/Bouton';
 import CommentCard from './components/CommentCard';
 import CommentForm from './components/CommentForm';
+import Spinner from './components/Spinner';
 
 /* ressources */
 import heroImg from '../ressources/images/front/herobanner.jpg';
@@ -20,23 +21,28 @@ import img4 from '../ressources/images/front/article4.jpg';
 import { BsChevronDoubleLeft } from 'react-icons/bs';
 import { BsChevronDoubleRight } from 'react-icons/bs';
 
+// Page accueil contenant une description rapide des services proposés et un retour client
 const Accueil = () => {
-    /* hooks des datas fetch par axios */
+    // hooks commenaitres et numéro d'index pour la galerie de commentaires
     const [comments, setComments] = useState([]);
     const [index, setIndex ] = useState(0);
 
+    // hook de fonctionnement de page
+    const [isLoading, setIsloading] = useState(true);
+
+    // gère le clic sur le bouton précèdent dans la galerie de commentaires
     const precedentBtn = () => {
         setIndex( index => index - 1);
     }
 
+    // gère le clic sur le bouton  suivant dans la galerie de commentaires
     const suivantBtn = () => {
         setIndex( index => index + 1);
     }
 
-    /* requête au montage et récupération de la réponse */
+    // récupère les commentaires dans la BDD
     useEffect( ()=> {
         const getComments = () => {
-            /* axios payload */
             const inputs = `action=getComments&q=validated`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
             
@@ -50,22 +56,26 @@ const Accueil = () => {
 
                 data.pop();
 
-                // on accroche les datas récupérées aux différents hooks
+                // hooks les commentaires et set l'index à 0 pour la galerie
                 setComments(data);
                 setIndex(0);
+
+                setIsloading(false);
             });
         }
         getComments();
     }, []);
 
-    /* hooks pour la section commentaire */
+    // hook si le modal est open et son toggle
     const [avisFormOpen, setAvisFormOpen] = useState(false);
     const handleToggle = () => { setAvisFormOpen(prev => !prev) }
 
+    // style
     const style = {
         width: "50px", height: "50px"
     }
 
+    // render la page principale, avec une présentation des services et une galerie de retour client, ainsi qu'un formulaire modal
     return (
         <main >
             <div>
@@ -162,55 +172,61 @@ const Accueil = () => {
                 
             </section>
 
-            <section className='service5 largeScreenContainer'>
+            {
+                isLoading ?
+                <Spinner />
+                :
+            
+                <section className='service5 largeScreenContainer'>
+        
+                    <h2>SECTION TITLE : AVIS</h2>
 
-                <h2>SECTION TITLE : AVIS</h2>
+                    <div className='boxWrapper'>
 
-                <div className='boxWrapper'>
+                        {   
+                            avisFormOpen ? 
+                            <CommentForm toggle={handleToggle} /> 
+                            : 
+                            <div className='cardWrapper'>
 
-                    {   
-                        avisFormOpen ? 
-                        <CommentForm toggle={handleToggle} /> 
-                        : 
-                        <div className='cardWrapper'>
+                                {
+                                    index === 0 ? ''
+                                    :
+                                    <div className='btnPrecedentAvis'>
+                                        <button id='btnPrecedentAvis' onClick={precedentBtn}><BsChevronDoubleLeft style={style}/></button>
+                                    </div>
+                                }
 
-                            {
-                                index === 0 ? ''
-                                :
-                                <div className='btnPrecedentAvis'>
-                                    <button id='btnPrecedentAvis' onClick={precedentBtn}><BsChevronDoubleLeft style={style}/></button>
-                                </div>
-                            }
+                                { comments[index] ? <CommentCard lsOnly="false" nom={comments[index][1]} rating={comments[index][3]} comment={comments[index][2]} /> : '' }
+                                { comments[index+1] ? <CommentCard lsOnly="true" nom={comments[index+1][1]} rating={comments[index+1][3]} comment={comments[index+1][2]} /> : '' }
+                                { comments[index+2] ? <CommentCard lsOnly="true" nom={comments[index+2][1]} rating={comments[index+2][3]} comment={comments[index+2][2]} /> : ''}
+                                
+                                {
+                                    index === comments.length - 3 ? ''
+                                    :
+                                    <div className='btnSuivantAvis'>
+                                        <button id='btnSuivantAvis' onClick={suivantBtn}><BsChevronDoubleRight style={style}/></button>
+                                    </div>
+                                }
 
-                            { comments[index] ? <CommentCard lsOnly="false" nom={comments[index][1]} rating={comments[index][3]} comment={comments[index][2]} /> : '' }
-                            { comments[index+1] ? <CommentCard lsOnly="true" nom={comments[index+1][1]} rating={comments[index+1][3]} comment={comments[index+1][2]} /> : '' }
-                            { comments[index+2] ? <CommentCard lsOnly="true" nom={comments[index+2][1]} rating={comments[index+2][3]} comment={comments[index+2][2]} /> : ''}
+                            </div>
+                        } 
                             
-                            {
-                                index === comments.length - 3 ? ''
-                                :
-                                <div className='btnSuivantAvis'>
-                                    <button id='btnSuivantAvis' onClick={suivantBtn}><BsChevronDoubleRight style={style}/></button>
-                                </div>
-                            }
+                    </div>
 
-                        </div>
-                    } 
-                        
-                </div>
+                    {
+                        avisFormOpen ?
+                        ""
+                        :
+                        <div className='avisBtnBox'>
+                            <div className='avisBtn'>
+                                <Bouton text="Laisser un avis" className="avisBtn" onClick={handleToggle}></Bouton>
+                            </div>
+                        </div> 
+                    }
 
-                {
-                    avisFormOpen ?
-                    ""
-                    :
-                    <div className='avisBtnBox'>
-                        <div className='avisBtn'>
-                            <Bouton text="Laisser un avis" className="avisBtn" onClick={handleToggle}></Bouton>
-                        </div>
-                    </div> 
-                }
-
-            </section>
+                </section>
+            }
 
         </main>
     )

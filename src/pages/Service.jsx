@@ -8,20 +8,22 @@ import './styles/Service.css';
 /* ressources */
 import heroImg from '../ressources/images/front/article2.jpg';
 
+// Page Services (carrosserie, mécanique et entretien du véhicule)
 const Service = (props) => {
+    // hooks liste des services et catégorie active
     const [serviceList, setServiceList] = useState([]);
     const [activeSubCat, setActiveSubCat] = useState([]);
     let array = [];
 
+    // set la catégorie cliquée comme la catégorie active
     const handleClick = (e) => {
         setActiveSubCat(e.target.innerText);
     }
 
-    /* requête au montage et récupération de la réponse */
+    // récupère la liste des services dans la BDD
     useEffect( ()=> {
-    
+
         const getServiceList = () => {
-            /* axios payload */
             const inputs = `action=getServiceList&categorie=${props.title}`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
             
@@ -39,9 +41,11 @@ const Service = (props) => {
                 setActiveSubCat(data[0][2]);
             })
         }
+
         getServiceList();
     }, [props.title]);
 
+    // render le contenu de la page (une navigation inter services et les services)
     return (
         <main>
             <div>
@@ -61,7 +65,7 @@ const Service = (props) => {
                                 return (
                                     <li key={index} id={index} onClick={handleClick}>{element[2]}</li>
                                 )
-                            } 
+                            } else { return ('') }
                             
                         })
                     }
@@ -75,13 +79,13 @@ const Service = (props) => {
                         if (element[2] === activeSubCat ) {
 
                             return (
-                                <>
+                                <div key={i}>
                                     <h3 key={`h3-${i}`}>{element[3]}</h3>
                                     <p key={`p-${i}`}>{element[4]}</p>
-                                </>
+                                </div>
                                 
                             )
-                        }
+                        } else { return ('') }
                     })
                    
                 }

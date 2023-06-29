@@ -4,6 +4,7 @@ import LogoImg from "../../ressources/images/front/logo200px.png";
 /* styles */
 import "./styles/Logo.css";
 
+// component le logo du site
 const Logo = () => {
     return (
         <>

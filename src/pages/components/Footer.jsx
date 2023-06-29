@@ -6,16 +6,18 @@ import { useState, useEffect } from 'react';
 import './styles/Footer.css';
 import Spinner from './Spinner';
 
+// component le footer du site en front office
 const Footer = () => {
+    // hook les datas horaires
     const [horaires, setHoraires] = useState([]);
+
+    // hook fonctionnel
     const [isLoading, setIsloading] = useState(true);
 
-    /* requête au montage et récupération de la réponse */
+    // récupère les horaires en BDD
     useEffect( ()=> {
 
-
         const getHoraires = () => {
-            /* axios payload */
             const inputs = `action=getHoraires`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
             

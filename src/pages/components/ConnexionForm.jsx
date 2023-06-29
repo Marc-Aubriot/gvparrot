@@ -6,17 +6,18 @@ import { useNavigate } from "react-router-dom";
 /* styles */
 import "./styles/ConnexionForm.css";
 
+// component un formulaire de connexion au back office
 const ConnexionForm = (props) => {
     const navigate = useNavigate();
 
-    /* hooks des datas fetch par axios */
-    const [commentSendTrue, setCommentSendTrue] = useState([]);
+    // hook envoit du formulaire
+    const [formSentTrue, setFormSetTrue] = useState([]);
     const [response, setResponse] = useState([]);
 
-    /* envoi le formulaire avec axios et le built in FORMDATA class */
+    // envoit le formulaire au serveur pour check les informations de connexion, et en fonction autorise la connexion
     const sendForm = (e) => {
         e.preventDefault();
-        setCommentSendTrue();
+        setFormSetTrue();
 
         const formData = new FormData();
         formData.append('email', e.target[0].value);
@@ -37,32 +38,41 @@ const ConnexionForm = (props) => {
         });
     }
 
+    // render le formulaire de connexion
     return (
         <div className="ConnexionForm">
             {
-                commentSendTrue ?
-                    <form onSubmit={sendForm}>
-
-                        <div className="field">
-                            <label>Email</label>
-                            <br />
-                            <input type="email" id="mail" name="mail"></input>
-                        </div>
-                        
-                        <div className="field">
-                            <label>Password</label>
-                            <br />
-                            <input type="password" id="pass" name="pass"></input>
-                        </div>
-
-                        <div className="fieldBtn">
-                            <button className="btnComponent" type="submit">Connexion</button>
-                        </div>
-                        
-                    </form>
-                :
+                response ?
                 <p className='responseText'>{response[0]}</p>
+                :""
             }
+
+
+            <form onSubmit={sendForm}>
+
+                <div className="field">
+                    <label>Email</label>
+                    <br />
+                    <input type="email" id="mail" name="mail"></input>
+                </div>
+                
+                <div className="field">
+                    <label>Password</label>
+                    <br />
+                    <input type="password" id="pass" name="pass"></input>
+                </div>
+
+                {
+                    formSentTrue ?
+                    ""
+                    :
+                    <div className="fieldBtn">
+                        <button className="btnComponent" type="submit">Connexion</button>
+                    </div>
+                }
+                
+            </form>
+
 
         </div>
     )

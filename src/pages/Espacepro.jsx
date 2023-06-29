@@ -4,6 +4,8 @@ import ConnexionForm from "./components/ConnexionForm";
 /* styles */
 import './styles/EspacePro.css';
 
+
+// page de connexion au back office
 const Espacepro = () => {
     return (
         <section className="espaceProPage">

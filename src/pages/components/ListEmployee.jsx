@@ -7,10 +7,15 @@ import Spinner from "./Spinner";
 /* styles */
 import './styles/ListEmployee.css';
 
+// fonctionnalité affichant une liste des employés
 const ListEmployee = () => {
+    // hook la liste des employés
     const [userList, setUserList] = useState([]);
+
+    // hook fonctionnel
     const [isLoading, setIsLoading] = useState(true);
   
+    // récupère la liste des employés en BDD
     useEffect( ()=> {
         const getUserList = () => {
             /* axios payload */
@@ -36,6 +41,7 @@ const ListEmployee = () => {
 
     }, [])
 
+    // render une liste des employés et affiche des informations non exhautives
     return (
         <div className="listEmployeePage">
             <h3>Cliquer sur un employé pour voir le détails et modifier ses informations</h3>

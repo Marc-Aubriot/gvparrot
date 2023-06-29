@@ -8,17 +8,21 @@ import Spinner from './Spinner';
 /* styles */
 import './styles/VerifyComments.css';
 
+// fonctionnalité permettant de verifier les commentaires 
 const VerifyComments = () => {
-
-    const [formSend, setFormSend] = useState(false);
-    const [response, setResponse] = useState();
+    // hook les commentaires
     const [comments, setComments] = useState([]);
+
+    // hook fonctionnel
+    const [response, setResponse] = useState();
+    const [formSend, setFormSend] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
 
+    // récupère les commentaires en BDD
     useEffect( ()=> {
-        const getComments = () => {
 
+        const getComments = () => {
             const inputs = `action=getComments&q=all`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
             
@@ -39,7 +43,9 @@ const VerifyComments = () => {
 
     }, [reload]);
 
+    // efface le commentaire
     const deleteComment = (e) => {
+
         const input = `action=deleteComment&ID=${e.target.id}`;
         axios.post(`http://localhost:3000/gvparrot/back/public_html/`, input).then(function(response) {
 
@@ -50,7 +56,7 @@ const VerifyComments = () => {
         });
     }
 
-    /* envoi le formulaire avec axios et le built in FORMDATA class */
+    // permet de marqué le commentaire comme vérifié par l'employé en BDD
     const verifyComment = (e) => {
         const commentCard = document.getElementById(`card-${e.target.id}`);
         const id = e.target.getAttribute('data-comment-id');
@@ -81,6 +87,7 @@ const VerifyComments = () => {
         });
     }
 
+    // retourne une liste des commentaire avec un bouton permettant d'approuver le commentaire, et un bouton permettant la suppression
     return (
         <div className='verifyCommentsWrapper'>
             <h2 className='verifyCommentsTitle'>Cliquer sur un commentaire pour le valider ou sur le bouton supprimer pour l'effacer </h2>

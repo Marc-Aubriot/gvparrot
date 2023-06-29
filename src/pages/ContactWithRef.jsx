@@ -11,26 +11,28 @@ export async function loader(urlparams) {
     return urlparams;
 }
 
+// Page de contact avec un formulaire pré rempli si l'user vient des products pages
 const Contact = () => {
-    /* url parameter loader*/
+    // url parameter loader
     const { params } = useLoaderData();
 
-    /* hooks des datas fetch par axios */
-    const [commentSendTrue, setCommentSendTrue] = useState([]);
+    // hooks si le commentaire est envoyé et la référence du produit
+    const [formSent, setFormSent] = useState(false);
     const [product, setRef] = useState();
+
+    // hook de fonctionnement de page
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState([]);
 
     useEffect( ()=> {
         setRef(params.product);
         setLoading(true);
-        
-    }, [])
+    }, [params])
 
-    /* envoi le formulaire avec axios et le built in FORMDATA class */
+    // formulaire de contact
     const sendForm = (e) => {
         e.preventDefault();
-        setCommentSendTrue();
+        setFormSent(true);
 
         const formData = new FormData();
         formData.append('nom', e.target[0].value);
@@ -48,72 +50,82 @@ const Contact = () => {
         });
     }
 
+    // render la page de contact préremplie
     return (
         <section className="contactPage">
             <h1>CONTACT PAGE</h1>
             <div className="ContactForm">
+
             {
-                commentSendTrue ? 
+                response ?
+                <p className='responseText'>{response}</p>
+                :
+                ""
+            }
             
-                <form onSubmit={sendForm}>
+            <form onSubmit={sendForm}>
 
-                    <div className="field">
-                        <label for="nom">Nom</label>
-                        <br />
-                        <input type="text" id="nom" name="nom" placeholder='Nom' className='formInput'></input>
-                    </div>
+                <div className="field">
+                    <label htmlFor="nom">Nom</label>
+                    <br />
+                    <input type="text" id="nom" name="nom" placeholder='Nom' className='formInput'></input>
+                </div>
 
-                    <div className="field">
-                        <label for="prenom">Prénom</label>
-                        <br />
-                        <input type="text" id="prenom" name="prenom" placeholder='Prenom' className='formInput'></input>
-                    </div>
+                <div className="field">
+                    <label htmlFor="prenom">Prénom</label>
+                    <br />
+                    <input type="text" id="prenom" name="prenom" placeholder='Prenom' className='formInput'></input>
+                </div>
 
-                    <div className="field">
-                        <label for="tel">Téléphone</label>
-                        <br />
-                        <input type="text" id="tel" name="tel" placeholder='Telephone' className='formInput'></input>
-                    </div>
+                <div className="field">
+                    <label htmlFor="tel">Téléphone</label>
+                    <br />
+                    <input type="text" id="tel" name="tel" placeholder='Telephone' className='formInput'></input>
+                </div>
 
-                    <div className="field">
-                        <label for="mail">Email</label>
-                        <br />
-                        <input type="email" id="mail" name="mail" placeholder='Email' className='formInput'></input>
-                    </div>
-                    
-                    <div className="field">
-                        <label for="sujet">Sujet</label>
-                        <br />
-                        <input 
-                            type="text" 
-                            id="sujet" 
-                            name="sujet" 
-                            placeholder="Sujet"
-                            defaultValue=
-                            {
-                                loading ?
-                                `Reférence du véhicule: ${product}`
-                                :
-                                ""
-                            } 
-                            className='formInput'
-                            readOnly
-                        ></input>
-                    </div>
+                <div className="field">
+                    <label htmlFor="mail">Email</label>
+                    <br />
+                    <input type="email" id="mail" name="mail" placeholder='Email' className='formInput'></input>
+                </div>
+                
+                <div className="field">
+                    <label htmlFor="sujet">Sujet</label>
+                    <br />
+                    <input 
+                        type="text" 
+                        id="sujet" 
+                        name="sujet" 
+                        placeholder="Sujet"
+                        defaultValue=
+                        {
+                            loading ?
+                            `Reférence du véhicule: ${product}`
+                            :
+                            ""
+                        } 
+                        className='formInput'
+                        readOnly
+                    ></input>
+                </div>
 
-                    <div className="field">
-                        <label for="message">Message</label>
-                        <br />
-                        <textarea id="message" name="message" type='textarea' defaultValue='Je suis intéressé par ce véhicule, merci de me contacter.' className='formInput'></textarea>
-                    </div>
+                <div className="field">
+                    <label htmlFor="message">Message</label>
+                    <br />
+                    <textarea id="message" name="message" type='textarea' defaultValue='Je suis intéressé par ce véhicule, merci de me contacter.' className='formInput'></textarea>
+                </div>
 
+                {
+                    formSent ?
+                    ""
+                    :
                     <div className="fieldBtn">
                         <button type="submit" className='btnEnvoyer'>Envoyer</button>
                     </div>
-                </form>
-                :
-                <p className='responseText'>{response}</p>
-            }
+                }
+                
+            </form>
+
         </div>
         </section>
     )

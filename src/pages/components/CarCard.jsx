@@ -5,14 +5,18 @@ import { useEffect, useState } from 'react';
 /* styles */
 import './styles/CarCard.css';
 
+// component une card stylisé
 const CarCard = (props) => {
+    // hook contenant le path des images
     const [cardImage, setCardImage] = useState([]);
 
+    // transforme les path d'images passés en prop en array au montage
     useEffect( () => {
         const imgArray = props.image.split('+');
         setCardImage(imgArray[0]);
-    }, [])
+    }, [props])
 
+    // retourne la card
     return (
         <div className='carCardBox'>
 

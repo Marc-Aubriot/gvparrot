@@ -9,18 +9,22 @@ import Spinner from './Spinner';
 /* styles */
 import './styles/SeeCarList.css';
 
+// component permettant d'affiché une liste de véhicules
 const SeeCarList = () => {  
     // navigation
     const navigate = useNavigate();
 
-    // hooks
+    // hook liste des véhicules et liste des équipements
     const [carList, setCarList] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
+
+    // hook fonctionnel
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [response, setResponse] = useState();
     const [toggleDetails, setToggleDetails] = useState(false);
 
+    // récupère une liste des véhicules et une liste des équipements en BDD
     useEffect( () => {
 
         const getCarListAndEquipements = () => {
@@ -66,6 +70,7 @@ const SeeCarList = () => {
 
     }, [reload]);
 
+    // le clic permet de naviguer sur une page permettant la modification des informations du véhicule
     const modifyCar = (e) => {
         e.preventDefault();
         const ref = e.target.getAttribute('data-ref');
@@ -73,6 +78,7 @@ const SeeCarList = () => {
         navigate(`${ref}`);
     }
 
+    // efface le véhicule en BDD
     const deleteCar = (e) => {
         const id = e.target.id;
         const inputs = `action=deleteCar&id=${id}`;
@@ -88,10 +94,12 @@ const SeeCarList = () => {
             });
     }
     
+    // toggle permettant l'affiche des détails du véhicule
     const toggleHandler = () => {
         setToggleDetails( prev => !prev );
     }
 
+    // affiche une liste des véhicules, avec lien pour modification, bouton pour suppression et toggle pour affichage des détails
     return (
         <div className="modifyCarPage">
             <h2 className="modifyCarPageTitle">Cliquer sur un véhicule de la liste pour le modifier ou le supprimer (Attention! La suppression est irréversible</h2>

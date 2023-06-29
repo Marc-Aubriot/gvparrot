@@ -1,6 +1,8 @@
 /* dependencies */
 import { useRouteError, Link } from 'react-router-dom';
 
+
+// Page d'erreur
 const ErrorPage = () => {
     const error = useRouteError();
 

@@ -5,15 +5,16 @@ import { useState } from 'react';
 /* styles */
 import "./styles/ContactForm.css";
 
+// component un formulaire de contact
 const ContactForm = () => {
-    /* hooks des datas fetch par axios */
-    const [commentSendTrue, setCommentSendTrue] = useState([]);
+    // hook envoit du formulaire
+    const [formSentTrue, setFormSentTrue] = useState([]);
     const [response, setResponse] = useState([]);
 
-    /* envoi le formulaire avec axios et le built in FORMDATA class */
+    // envoit les informations en BDD
     const sendForm = (e) => {
         e.preventDefault();
-        setCommentSendTrue();
+        setFormSentTrue();
 
         const formData = new FormData();
         formData.append('nom', e.target[0].value);
@@ -31,62 +32,72 @@ const ContactForm = () => {
         });
     }
 
+    // render le formulaire de contact
     return (
         <div className="ContactForm">
             {
-                commentSendTrue ? 
-            
-                <form onSubmit={sendForm}>
+                response ?
+                <p className='responseText'>{response}</p>
+                :
+                ""
+            }
 
-                    <div className="field">
-                        <label for="nom">Nom</label>
-                        <br />
-                        <input type="text" id="nom" name="nom" placeholder='Nom' className='formInput'></input>
-                    </div>
 
-                    <div className="field">
-                        <label for="prenom">Prénom</label>
-                        <br />
-                        <input type="text" id="prenom" name="prenom" placeholder='Prenom' className='formInput'></input>
-                    </div>
+            <form onSubmit={sendForm}>
 
-                    <div className="field">
-                        <label for="tel">Téléphone</label>
-                        <br />
-                        <input type="text" id="tel" name="tel" placeholder='Telephone' className='formInput'></input>
-                    </div>
+                <div className="field">
+                    <label for="nom">Nom</label>
+                    <br />
+                    <input type="text" id="nom" name="nom" placeholder='Nom' className='formInput'></input>
+                </div>
 
-                    <div className="field">
-                        <label for="mail">Email</label>
-                        <br />
-                        <input type="email" id="mail" name="mail" placeholder='Email' className='formInput'></input>
-                    </div>
-                    
-                    <div className="field">
-                        <label for="sujet">Sujet</label>
-                        <br />
-                        <input 
-                            type="text" 
-                            id="sujet" 
-                            name="sujet" 
-                            placeholder="Sujet"
-                            className='formInput'
-                        ></input>
-                    </div>
+                <div className="field">
+                    <label for="prenom">Prénom</label>
+                    <br />
+                    <input type="text" id="prenom" name="prenom" placeholder='Prenom' className='formInput'></input>
+                </div>
 
-                    <div className="field">
-                        <label for="message">Message</label>
-                        <br />
-                        <textarea id="message" name="message" type='textarea' placeholder='Message' className='formInput'></textarea>
-                    </div>
+                <div className="field">
+                    <label for="tel">Téléphone</label>
+                    <br />
+                    <input type="text" id="tel" name="tel" placeholder='Telephone' className='formInput'></input>
+                </div>
 
+                <div className="field">
+                    <label for="mail">Email</label>
+                    <br />
+                    <input type="email" id="mail" name="mail" placeholder='Email' className='formInput'></input>
+                </div>
+                
+                <div className="field">
+                    <label for="sujet">Sujet</label>
+                    <br />
+                    <input 
+                        type="text" 
+                        id="sujet" 
+                        name="sujet" 
+                        placeholder="Sujet"
+                        className='formInput'
+                    ></input>
+                </div>
+
+                <div className="field">
+                    <label for="message">Message</label>
+                    <br />
+                    <textarea id="message" name="message" type='textarea' placeholder='Message' className='formInput'></textarea>
+                </div>
+
+                {
+                    formSentTrue ?
+                    ""
+                    :
                     <div className="fieldBtn">
                         <button type="submit" className='btnEnvoyer'>Envoyer</button>
                     </div>
-                </form>
-                :
-                <p className='responseText'>{response}</p>
-            }
+                }
+
+            </form>
+      
         </div>
     )
 }

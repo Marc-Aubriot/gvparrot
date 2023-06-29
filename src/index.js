@@ -33,7 +33,9 @@ import ListEquipement from './pages/components/ListEquipement';
 import SeeCarList from './pages/components/SeeCarList';
 import ModifyCar from './pages/components/ModifyCar';
 
+// routeur
 const router = createBrowserRouter([
+  // front office
   {
     path: "/",
     element: <App />,
@@ -74,7 +76,10 @@ const router = createBrowserRouter([
         loader: refloader,
       }
     ]
-  },{
+  }
+  
+  //back office
+  ,{
     path: "/backoffice",
     element: <Backoffice />,
     loader: idloader,
