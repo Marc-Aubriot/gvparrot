@@ -8,13 +8,13 @@ import "./styles/ContactForm.css";
 // component un formulaire de contact
 const ContactForm = () => {
     // hook envoit du formulaire
-    const [formSentTrue, setFormSentTrue] = useState([]);
+    const [formSentTrue, setFormSentTrue] = useState(false);
     const [response, setResponse] = useState([]);
 
     // envoit les informations en BDD
     const sendForm = (e) => {
         e.preventDefault();
-        setFormSentTrue();
+        setFormSentTrue(true);
 
         const formData = new FormData();
         formData.append('nom', e.target[0].value);
@@ -46,31 +46,31 @@ const ContactForm = () => {
             <form onSubmit={sendForm}>
 
                 <div className="field">
-                    <label for="nom">Nom</label>
+                    <label htmlFor="nom">Nom</label>
                     <br />
                     <input type="text" id="nom" name="nom" placeholder='Nom' className='formInput'></input>
                 </div>
 
                 <div className="field">
-                    <label for="prenom">Prénom</label>
+                    <label htmlFor="prenom">Prénom</label>
                     <br />
                     <input type="text" id="prenom" name="prenom" placeholder='Prenom' className='formInput'></input>
                 </div>
 
                 <div className="field">
-                    <label for="tel">Téléphone</label>
+                    <label htmlFor="tel">Téléphone</label>
                     <br />
                     <input type="text" id="tel" name="tel" placeholder='Telephone' className='formInput'></input>
                 </div>
 
                 <div className="field">
-                    <label for="mail">Email</label>
+                    <label htmlFor="mail">Email</label>
                     <br />
                     <input type="email" id="mail" name="mail" placeholder='Email' className='formInput'></input>
                 </div>
                 
                 <div className="field">
-                    <label for="sujet">Sujet</label>
+                    <label htmlFor="sujet">Sujet</label>
                     <br />
                     <input 
                         type="text" 
@@ -82,7 +82,7 @@ const ContactForm = () => {
                 </div>
 
                 <div className="field">
-                    <label for="message">Message</label>
+                    <label htmlFor="message">Message</label>
                     <br />
                     <textarea id="message" name="message" type='textarea' placeholder='Message' className='formInput'></textarea>
                 </div>

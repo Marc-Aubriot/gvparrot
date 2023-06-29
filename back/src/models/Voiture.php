@@ -127,7 +127,7 @@ class Voiture {
         }
     }
 
-    // Fonction pour récupérer tous les comments validés
+    // Fonction pour récupérer une liste des voitures
     public static function getCarList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
@@ -150,7 +150,7 @@ class Voiture {
     // Fonction pour récupérer le nombre de car présent dans la DB
     public static function getMaxCar() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
+        
         $stmt = $conn->prepare('SELECT COUNT(id) FROM voitures;');
 
         $stmt->execute();
@@ -165,6 +165,27 @@ class Voiture {
             $conn = null;
             return null;
         }
+    }
+
+    // Fonction pour récupérer la ref précédente et la ref suivante en fonction de la ref actuelle, trié par id
+    public static function getPrevAndNextRef($ref) {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $sql = 'CALL get_prev_and_next_ref(:ref)';
+
+        $refs = [];
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(':ref', $ref, PDO::PARAM_STR);
+        
+        $stmt->execute();
+
+        $refs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $conn = null;
+
+        return $refs;
     }
 
     // Fonction pour mettre à jour un champ d'une voiture dans la base de données

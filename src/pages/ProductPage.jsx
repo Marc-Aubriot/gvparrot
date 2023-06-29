@@ -28,47 +28,67 @@ const ProductPage = () => {
     const [lesplus, setLesplus] = useState([]);
     const [equips, setEquips] = useState([]);
     const [details, setDetails] = useState([]);
-    const [numberOfCar, setNumberOfCar] = useState([]);
-    
+    const [previousCarRef, setPreviousCarRef] = useState();
+    const [nextCarRef, setNextCarRef] = useState();
+
     // hook de fonctionnement de page
     const [isLoading, setIsloading] = useState(true);
 
-    // récupère les informations du véhicules dans la BDD et les segmentes 
+    // récupère les informations du véhicules dans la BDD et les segmentes, et les références précédentes et suivantes pour la navigation
     useEffect( ()=> {
         const getCar = () => {
             const inputs = `action=getCarDetail&q=${params.id}`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
-            
-            // transforme la réponse (string) en array
-            const data = response.data.split(','); 
+                
+                // transforme la réponse (string) en array
+                const data = response.data.split(','); 
+                //const data = response.data;
 
-            // récupère les images
-            const img = data[1].split('+'); 
+                // récupère les images
+                const img = data[1].split('+'); 
 
-            // récupère les plus
-            const plus = data[9].split('+'); 
+                // récupère les plus
+                const plus = data[9].split('+'); 
 
-            // récupère les équipements
-            const equipement = data[10].split('+'); 
+                // récupère les équipements
+                const equipement = data[10].split('+'); 
 
-            // récupère les détails 
-            const detay = data[11].split('+'); 
+                // récupère les détails 
+                const detay = data[11].split('+'); 
 
-            // récupère le nombre max d'annonces
-            const max = data[13];
+                // on accroche les datas récupérées aux différents hooks
+                setCar(data);   
+                setImages(img);
+                setLesplus(plus);
+                setEquips(equipement);
+                setDetails(detay);
 
-            // on accroche les datas récupérées aux différents hooks
-            setCar(data);   
-            setImages(img);
-            setLesplus(plus);
-            setEquips(equipement);
-            setDetails(detay);
-            setNumberOfCar(max);
+                setIsloading(false);
 
-            setIsloading(false);
-        });
+                // récupère les références avant et après la référence actuelle en BDD
+                getPreviousAndNextCarRef(data[12]);
+            });
         }
+
+        const getPreviousAndNextCarRef = (ref) => {
+            const inputs = `action=getPrevAndNextCar&ref=${ref}`;
+            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+                
+                // transforme la réponse (string) en array
+                const data = response.data.split('+'); 
+
+                // récupère le previous car
+                setPreviousCarRef(data[0]);
+
+                // récupère le next car
+                setNextCarRef(data[2]);
+
+                setIsloading(false);
+            });
+        }
+
         getCar();
+
     }, [params]);
 
     // hook et handler pour les sections équipements et détails
@@ -87,8 +107,8 @@ const ProductPage = () => {
                 <>
                     <div className="navigationInterProduct">
             
-                        <Link to={`/occasions/${Number(params.id)-1}`} className="leftBtnWrapper">
-                            <button disabled={ Number(params.id) === 1 ? true : false } className={ Number(params.id) === 1 ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Annonce précédente</button>
+                        <Link to={`/occasions/${previousCarRef}`} className="leftBtnWrapper">
+                            <button disabled={ previousCarRef === 'null' ? true : false } className={ previousCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Annonce précédente</button>
                         </Link>
 
 
@@ -96,8 +116,8 @@ const ProductPage = () => {
                             <button className="navigationInterProductBTN">Retour aux annonces</button>
                         </Link>
 
-                        <Link to={`/occasions/${Number(params.id)+1}`} className="RightBtnWrapper">
-                        <button disabled={ Number(params.id) === Number(numberOfCar) ? true : false } className={ Number(params.id) === Number(numberOfCar) ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Annonce suivante</button>
+                        <Link to={`/occasions/${nextCarRef}`} className="RightBtnWrapper">
+                        <button disabled={ nextCarRef === 'null' ? true : false } className={ nextCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Annonce suivante</button>
                         </Link>
                     </div>
                     
@@ -182,7 +202,7 @@ const ProductPage = () => {
                                     <p>Garantie: {details[4]}</p>
 
                                     <h3>Informations énergétiques</h3>
-                                    <p>Qualitéde l'air</p>
+                                    <p>Qualité de l'air</p>
                                     <p>Certificat Crit'Air {details[5]}</p>
                                 </div>
 

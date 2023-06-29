@@ -3,8 +3,7 @@
 include_once ROOT.'/src/models/Voiture.php';
 
 $q = $_REQUEST["q"];
-$voiture = Voiture::getCarById($q);
-$maxcar = Voiture::getMaxCar();
+$voiture = Voiture::getCarByRef($q);
 
 echo 
     $voiture->getId().','.
@@ -19,6 +18,5 @@ echo
     $voiture->getLesplus().','.
     $voiture->getEquipements().','.
     $voiture->getDetails().','.
-    $voiture->getReference().','.
-    $maxcar['COUNT(id)'];
+    $voiture->getReference();
 ?>

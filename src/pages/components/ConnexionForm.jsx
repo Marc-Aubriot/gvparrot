@@ -11,13 +11,13 @@ const ConnexionForm = (props) => {
     const navigate = useNavigate();
 
     // hook envoit du formulaire
-    const [formSentTrue, setFormSetTrue] = useState([]);
+    const [formSentTrue, setFormSetTrue] = useState(false);
     const [response, setResponse] = useState([]);
 
     // envoit le formulaire au serveur pour check les informations de connexion, et en fonction autorise la connexion
     const sendForm = (e) => {
         e.preventDefault();
-        setFormSetTrue();
+        setFormSetTrue(true);
 
         const formData = new FormData();
         formData.append('email', e.target[0].value);
@@ -26,13 +26,15 @@ const ConnexionForm = (props) => {
 
         axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
 
-            /* retourne un string qu'on va transformer en tableau contenant un message et un résultat logique */
+            // retourne un string qu'on passe en tableau, contenant l'accès ou le refus, et un token de connexion ou une id
             const rawdata = response.data;
             const data = rawdata.split('+');
             setResponse(data);
 
             if (data[0] === "ok mail et pass") { 
                 navigate(`/backoffice/${data[1]}/accueil`); 
+            } else {
+                setFormSetTrue(false);
             }
 
         });
@@ -51,13 +53,13 @@ const ConnexionForm = (props) => {
             <form onSubmit={sendForm}>
 
                 <div className="field">
-                    <label>Email</label>
+                    <label htmlFor="mail">Email</label>
                     <br />
                     <input type="email" id="mail" name="mail"></input>
                 </div>
                 
                 <div className="field">
-                    <label>Password</label>
+                    <label htmlFor="pass">Password</label>
                     <br />
                     <input type="password" id="pass" name="pass"></input>
                 </div>

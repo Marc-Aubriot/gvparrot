@@ -21,7 +21,7 @@ const CarCard = (props) => {
         <div className='carCardBox'>
 
             <div className='cardTop'>
-                <Link to={props.id}> 
+                <Link to={props.reference}> 
                     <img src={cardImage} alt={'voiture'} className='cardImage'></img>
                 </Link>
             </div>
