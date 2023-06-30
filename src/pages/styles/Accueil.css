@@ -63,11 +63,12 @@
     cursor: pointer;
 }
 
-/*.cardWrapper {
+.cardWrapper {
     display: flex;
     width: 80%;
     justify-content: space-around;
-}*/
+    margin: 0 auto;
+}
 
 /* responsive tablet */
 @media (min-width: 700px) {
@@ -99,6 +100,13 @@
     .cardWrapper {
         width: 50%;
         margin: 0 auto;
+    }
+
+    .heroTitle {
+        font-size: 36px;
+        position: absolute;
+        top: 27%;
+        left: 20%;
     }
 }
 

@@ -21,9 +21,7 @@ if ($prev_and_next_refs[0]['ref']) {
 if ($prev_and_next_refs[0]['next_ref']) {
     echo $prev_and_next_refs[0]['next_ref'].'+';
 } else {
-    echo 'null+';
+    echo 'null';
 }
-
-//echo $prev_and_next_refs[0]['prev_ref'].'+'.$prev_and_next_refs[0]['ref'].'+'.$prev_and_next_refs[0]['next_ref'];
 
 ?>

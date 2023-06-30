@@ -23,13 +23,22 @@ const Galerie = (props) => {;
     // render la galerie
     return (
         <div className='galerieContainer'>
-        {props.imgset.map((img, i )=> {
-            return (
-                <img key={i} src={img} id={`img-${i}`} className={ i ? "galerieImg" : "activeGalerieImg" } onClick={handleClick} alt='voiture'></img>
-            )
-        }
-        )
-        }
+            <img src={props.imgset[0]} id={`img-0`} className={ "activeGalerieImg" } onClick={handleClick} alt='voiture' />
+
+            <div className='galerieBotRow'>
+                {
+                    props.imgset.map((img, i )=> {
+                        if ( i != 0 ) {
+                            return (
+                                <img key={i} src={img} id={`img-${i+1}`} className={ "galerieImg" } onClick={handleClick} alt='voiture' />
+                            )  
+                        } else {
+                            return ( '' )
+                        }
+                    })
+                }
+            </div>
+            
         
         </div>
     )

@@ -65,6 +65,7 @@
 
     .galerie {
         grid-template-columns: 1fr 1fr 1fr;
+        width: 70%;
     }
     
     .navBarOccasions {
@@ -86,5 +87,6 @@
 @media (min-width: 1600px) {
     .galerie {
         grid-template-columns: 1fr 1fr 1fr 1fr;
+        width: 75%;
     }
 }

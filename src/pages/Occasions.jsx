@@ -5,6 +5,7 @@ import axios from 'axios';
 /* components */
 import CarCard from './components/CarCard';
 import Spinner from './components/Spinner';
+import InputRange from "./components/InputRange";
 
 /* styles */
 import './styles/Occasions.css';
@@ -50,6 +51,87 @@ const Occasions = () => {
 
             <div className={`filterPanel ${filterPanelOpen ? " showMenu" : ""}`}>
                 
+                <div>
+                    <label htmlFor="kilometrage">Kilométrage</label>
+
+                    <div>
+                        <input type="text" name="kilometrage" placeholder="Km max"/>
+                    </div>
+
+                </div>
+
+                <InputRange 
+                    label={'Prix'}
+                    min={'0'}
+                    max={'30000'}
+                    unit={'€'}
+                    step={'100'}
+
+                />
+
+                <div>
+                    <label htmlFor="annee">Année</label>
+
+                    <div>
+                        <input type="text" name="annee" placeholder="Km max"/>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label htmlFor="marque">Marque</label>
+
+                    <div>
+                        <input type="text" name="marque" placeholder="Km max"/>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label htmlFor="carburant">Carburant</label>
+
+                    <div>
+                        <input type="text" name="carburant" placeholder="Km max"/>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label htmlFor="boite">Boîte</label>
+
+                    <div>
+                        <input type="text" name="boite" placeholder="Km max"/>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label htmlFor="couleur">Couleur</label>
+
+                    <div>
+                        <input type="text" name="couleur" placeholder="Km max"/>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label htmlFor="critair">Crit'Air</label>
+
+                    <div>
+                        <input type="text" name="critair" placeholder="Km max"/>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label htmlFor="equipements">Equipements</label>
+
+                    <div>
+                        <input type="text" name="equipements" placeholder="Km max"/>
+                    </div>
+
+                </div>
+
             </div>
 
             <section className='galerie'>

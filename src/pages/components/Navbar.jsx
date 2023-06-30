@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 /* components */
 import HamburgerBtn from "./HamburgerBtn";
+import { IoMdClose } from 'react-icons/io';
 
 // la barre de navigation du site
 const Navbar = () => {
@@ -15,12 +16,17 @@ const Navbar = () => {
     const handleToggle = () => { setNavbarOpen(prev => !prev) }
     const closeMenu = () => { setNavbarOpen(false) }
 
+    // style
+    const style = {
+        width: "50px", height: "50px"
+    }
+
     return (
         <nav className="navBar">
             <button className="hamburgerBtn" onClick={handleToggle}>
                 {navbarOpen ? 
                 ( 
-                    <HamburgerBtn />
+                    <IoMdClose style={style} />
                 ) : (
                     <HamburgerBtn />
                 )}

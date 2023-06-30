@@ -121,6 +121,7 @@
 
 .active {
     background-color: var(--btn-color);
+    cursor: pointer;
 }
 
 .showDiv {

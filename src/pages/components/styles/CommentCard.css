@@ -15,6 +15,10 @@
     display: none;
 }
 
+.ratingInt {
+    margin-left: 5px;
+}
+
 @media (min-width: 1200px) {
     .commentCardBox {
         width: 250px;

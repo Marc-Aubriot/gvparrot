@@ -13,6 +13,16 @@
     cursor: pointer;
 }
 
+@media (min-width: 700px) {
+    .galerieBotRow {
+        display: flex;
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 70%;
+    
+    }
+}
+
 @media (min-width: 1200px) {
     .galerieContainer {
         width: 70%;
