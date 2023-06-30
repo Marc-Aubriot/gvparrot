@@ -1,76 +1,80 @@
 /* dependencies */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import React from "react";
 
 /* styles */
 import './styles/InputRange.css';
 
-const InputRange = (props) => {
-    const [minimum, setMinimum] = useState(props.min);
-    const [maximum, setMaximum] = useState(props.max);
-    const [minValue, setMinValue] = useState(props.min);
-    const [maxValue, setMaxValue] = useState(props.max);
-    const [name, setName] = useState(props.label);
-    const [steps, setSteps] = useState(props.step);
+// component un input range customisé
+const InputRange = ({ label, unit, min, max, value, step, onChange }) => {
+    // hook fonctionnel
+    const [minValue, setMinValue] = useState(value ? value.min : min);
+    const [maxValue, setMaxValue] = useState(value ? value.max : max);
 
-    const minPos = ((minValue - minimum) / (maximum - minimum)) * 100;
-    const maxPos = ((maxValue - minimum) / (maximum - minimum)) * 100;
+    // update les values min max 
+    useEffect(() => {
+        if (value) {
+            setMinValue(value.min);
+            setMaxValue(value.max);
+        }
+    }, [value]);
 
-    const handleMinChange = (e) => {
+    // ajuste le niveau du range minimum
+    const handleMinChange = e => {
         e.preventDefault();
 
-        const value = parseFloat(e.target.value);
-        const newMinVal = Math.min(value, maxValue - steps);
+        const newMinVal = Math.min(+e.target.value, maxValue - step);
 
-        setMinValue(newMinVal);
+        if (!value) setMinValue(newMinVal);
+
+        onChange({ min: newMinVal, max: maxValue });
     };
-
-    const handleMaxChange = (e) => {
+    
+    // ajuste le niveau du range maximum
+    const handleMaxChange = e => {
         e.preventDefault();
-        
-        const value = parseFloat(e.target.value);
-        const newMaxVal = Math.max(value, minValue + steps);
 
-        setMaxValue(newMaxVal);
+        const newMaxVal = Math.max(+e.target.value, minValue + step);
+
+        if (!value) setMaxValue(newMaxVal);
+
+        onChange({ min: minValue, max: newMaxVal });
     };
 
     return (
-        <div className="InputRangeWrapper">
-            <label htmlFor={name}>{name}</label>
+        <div class="InputRangeWrapper">
 
-            <div className="InputRangeLineWrapper">
+            <div className="InputRangeTitleWrapper">
+                <label className="InputRangeTitle" htmlFor={label}>{label}</label>
+            </div>
+            
+
+            <div class="InputRangeInputWrapper">
+
                 <input
+                    className="InputRangeInput1"
                     type="range"
                     value={minValue}
-                    min={minimum}
-                    max={maximum}
-                    step={steps}
+                    min={min}
+                    max={max}
+                    step={step}
                     onChange={handleMinChange}
                 />
 
                 <input
+                    className="InputRangeInput2"
                     type="range"
                     value={maxValue}
-                    min={minimum}
-                    max={maximum}
-                    step={steps}
+                    min={min}
+                    max={max}
+                    step={step}
                     onChange={handleMaxChange}
                 />
-            </div>
-            
-            <div class="control-wrapper">
-                <div class="control" style={{ left: `${minPos}%` }} />
-                <div class="rail">
-                    <div
-                        class="inner-rail" 
-                        style={{ left: `${minPos}%`, right: `${100 - maxPos}%` }}
-                    />
+
             </div>
 
-            <div class="control" style={{ left: `${maxPos}%` }} />
 
-      </div>
-
-
+            <p className="InputRangeDetail">{minValue} {unit} - {maxValue} {unit}</p>
         </div>
     )
 }

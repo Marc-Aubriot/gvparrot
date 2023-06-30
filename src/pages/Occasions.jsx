@@ -15,13 +15,20 @@ const Occasions = () => {
     // hooks liste des véhicules
     const [carList, setCarList] = useState([]);
     
+    // hook pour les filtres
+    const [valueKm, setValueKm] = useState({ min: 0, max: 200000 });
+    const [valuePrix, setValuePrix] = useState({ min: 0, max: 30000 });
+    const yearNow = new Date().getFullYear();
+    const [valueAnnee, setValueAnnee] = useState({ min: yearNow-30, max: yearNow })
+
     // hook de fonctionnement de page
     const [isLoading, setIsloading] = useState(true);
 
     // récupère la liste des véhicules dans la BDD
     useEffect( ()=> {
         const getCarList = () => {
-            const inputs = `action=getCarList`;
+            //const inputs = `action=getCarList`;
+            const inputs = `action=getCarListWithBasicFilter&q=${valueKm.min},${valueKm.max},${valueAnnee.min},${valueAnnee.max},${valuePrix.min},${valuePrix.max}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 // transforme la réponse (string) en array
@@ -38,7 +45,7 @@ const Occasions = () => {
             })
         }
         getCarList();
-    }, []);
+    }, [valueKm, valueAnnee, valuePrix]);
 
     // hooks le panneau des filtres est ouvert ou non, et son toggle
     const [filterPanelOpen, setFilterPanelOpen] = useState(false);
@@ -51,86 +58,37 @@ const Occasions = () => {
 
             <div className={`filterPanel ${filterPanelOpen ? " showMenu" : ""}`}>
                 
-                <div>
-                    <label htmlFor="kilometrage">Kilométrage</label>
+                <h2 className="pageOccasionFilterSectionTitle">Filtres</h2>
 
-                    <div>
-                        <input type="text" name="kilometrage" placeholder="Km max"/>
-                    </div>
-
-                </div>
+                <InputRange
+                    label={'Kilométrage'}
+                    unit={'Km'}
+                    min={0}
+                    max={200000}
+                    step={1000}
+                    value={valueKm}
+                    onChange={setValueKm}
+                />
 
                 <InputRange 
                     label={'Prix'}
-                    min={'0'}
-                    max={'30000'}
                     unit={'€'}
-                    step={'100'}
-
+                    min={0} 
+                    max={30000} 
+                    step={100} 
+                    value={valuePrix} 
+                    onChange={setValuePrix} 
                 />
-
-                <div>
-                    <label htmlFor="annee">Année</label>
-
-                    <div>
-                        <input type="text" name="annee" placeholder="Km max"/>
-                    </div>
-
-                </div>
-
-                <div>
-                    <label htmlFor="marque">Marque</label>
-
-                    <div>
-                        <input type="text" name="marque" placeholder="Km max"/>
-                    </div>
-
-                </div>
-
-                <div>
-                    <label htmlFor="carburant">Carburant</label>
-
-                    <div>
-                        <input type="text" name="carburant" placeholder="Km max"/>
-                    </div>
-
-                </div>
-
-                <div>
-                    <label htmlFor="boite">Boîte</label>
-
-                    <div>
-                        <input type="text" name="boite" placeholder="Km max"/>
-                    </div>
-
-                </div>
-
-                <div>
-                    <label htmlFor="couleur">Couleur</label>
-
-                    <div>
-                        <input type="text" name="couleur" placeholder="Km max"/>
-                    </div>
-
-                </div>
-
-                <div>
-                    <label htmlFor="critair">Crit'Air</label>
-
-                    <div>
-                        <input type="text" name="critair" placeholder="Km max"/>
-                    </div>
-
-                </div>
-
-                <div>
-                    <label htmlFor="equipements">Equipements</label>
-
-                    <div>
-                        <input type="text" name="equipements" placeholder="Km max"/>
-                    </div>
-
-                </div>
+                
+                <InputRange
+                    label={'Année'}
+                    unit={''}
+                    min={yearNow-30}
+                    max={yearNow}
+                    step={1}
+                    value={valueAnnee}
+                    onChange={setValueAnnee}
+                />
 
             </div>
 

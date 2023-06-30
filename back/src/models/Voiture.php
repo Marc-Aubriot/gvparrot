@@ -135,7 +135,7 @@ class Voiture {
 
         $stmt->execute();
 
-        // Récupération du résultat sous d'un array contenant les commentaires
+        // Récupération du résultat sous d'un array contenant les voitures
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($result) {
             $conn = null;           
@@ -147,16 +147,23 @@ class Voiture {
         }
     }
 
-    // Fonction pour récupérer le nombre de car présent dans la DB
-    public static function getMaxCar() {
+    // Fonction pour récupérer la liste des voitures avec filtres km, prix et année
+    public static function getCarListWithBasicFilter($km_Min, $km_Max, $annee_Min, $annee_Max, $prix_Min, $prix_Max) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         
-        $stmt = $conn->prepare('SELECT COUNT(id) FROM voitures;');
+        $stmt = $conn->prepare('SELECT * FROM voitures WHERE kilometrage >= :kmMin AND kilometrage <= :kmMax AND annee >= :anneeMin AND annee <= :anneeMax AND prix >= :prixMin AND prix <= :prixMax;');
+
+        $stmt->bindValue(':kmMin', $km_Min);
+        $stmt->bindValue(':kmMax', $km_Max);
+        $stmt->bindValue(':anneeMin', $annee_Min);
+        $stmt->bindValue(':anneeMax', $annee_Max);
+        $stmt->bindValue(':prixMin', $prix_Min);
+        $stmt->bindValue(':prixMax', $prix_Max);
 
         $stmt->execute();
 
-        // Récupération du résultat sous d'un array contenant les commentaires
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Récupération du résultat sous d'un array contenant les voitures
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($result) {
             $conn = null;         
             return $result;
@@ -212,7 +219,7 @@ class Voiture {
     }
 
     // Méthodes pour recevoir les paramètres d'une voiture
-    public function getId() { return $this->id; }
+    /*public function getId() { return $this->id; }
     public function getImages() { return $this->images; }
     public function getTitre() { return $this->titre; }
     public function getDescript() { return $this->descript; }
@@ -238,6 +245,6 @@ class Voiture {
     public function setLesplus($new_value) { $this->lesplus = $new_value; }
     public function setEquipements($new_value) { $this->equipements = $new_value; }
     public function setDetails($new_value) { $this->details = $new_value; }
-    public function setReference($new_value) { $this->ref = $new_value; }
+    public function setReference($new_value) { $this->ref = $new_value; }*/
 }
 ?>

@@ -1,0 +1,76 @@
+.InputRangeWrapper {
+    margin-top: 20px;
+    border-top: 1px solid black;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.InputRangeTitleWrapper {
+    margin-top: 5px;
+    width: 100%;
+}
+
+.InputRangeTitle {
+    width: 100%;
+    margin-left: 10px;
+    font-family: oxygen;
+    font-size: 24px;
+}
+
+.InputRangeDetail {
+    font-family: oxygen;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.InputRangeInputWrapper {
+    width: 100%;
+    margin-left: 10px;
+}
+
+.InputRangeInput1 {
+    overflow: hidden;
+    appearance: initial;
+    -webkit-appearance: none;
+    background-color: white;
+}
+
+.InputRangeInput1::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    color: blue;
+}
+
+.InputRangeInput1::-webkit-slider-thumb {
+    width: 10px;
+    appearance: initial;
+    -webkit-appearance: none;
+    height: 10px;
+    cursor: ew-resize;
+    background: #434343;
+    box-shadow: 80px 0 0 80px #43e5f7;
+}
+
+
+.InputRangeInput2 {
+    position: relative;
+    right: 5px;
+    overflow: hidden;
+    appearance: initial;
+    -webkit-appearance: none;
+    background-color: white;
+}
+
+.InputRangeInput2::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    color: blue;
+}
+
+.InputRangeInput2::-webkit-slider-thumb {
+    width: 10px;
+    appearance: initial;
+    -webkit-appearance: none;
+    height: 10px;
+    cursor: ew-resize;
+    background: #434343;
+    box-shadow: -80px 0 0 80px #43e5f7;
+}

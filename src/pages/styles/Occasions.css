@@ -38,7 +38,11 @@
     display: none;
     visibility: hidden;
     position: sticky;
-    top: 0vh;
+}
+
+.pageOccasionFilterSectionTitle {
+    font-family: righteous;
+    text-align: center;
 }
 
 .showMenu {
