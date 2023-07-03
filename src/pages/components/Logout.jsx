@@ -1,13 +1,11 @@
 /* dependencies */
-import { useLoaderData, useNavigate  } from "react-router-dom";
+import { Link, useLoaderData, useNavigate  } from "react-router-dom";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { CookiesProvider, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 /* components */
 import Spinner from "./Spinner";
-
-/* styles */
 
 /* data loader */
 export async function loader(urlparams) {
@@ -17,8 +15,8 @@ export async function loader(urlparams) {
 // page de Logout, efface les cookies de sessions
 const Logout = () => {
     // url parameter loader, récupère les informations de l'utilisateur et son id 
-    const { params } = useLoaderData();
     const navigate = useNavigate();
+    const { params } = useLoaderData();
     const [cookie, setCookie, removeCookie] = useCookies();
 
     // hook de fonctionnement de page
@@ -33,10 +31,11 @@ const Logout = () => {
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
             
                 // transforme la réponse (string) en array [user statut, user id]
-                const data = response.data; 
+                //const data = response.data; 
 
                 // à la confirmation de la suppression de la session, on supprime localement les cookies
-                removeCookie('userToken', { path: '/' });
+                removeCookie('userToken', { path: '/' }); 
+                navigate(`/espacepro`); 
 
                 setIsloading(false);
 
@@ -44,7 +43,7 @@ const Logout = () => {
         }
         removeSessionUser();
 
-    }, [params])
+    }, [params, cookie, setCookie, removeCookie, navigate])
 
     return (
         <div>
@@ -54,6 +53,9 @@ const Logout = () => {
                 :
                 <div>
                     <p className="responseText">Vous êtes déconnecté.</p>
+                    <Link to={'/espacepro'}>
+                        <p className="responseText">Retour page de connexion</p>
+                    </Link>
                 </div>
             }
         </div>

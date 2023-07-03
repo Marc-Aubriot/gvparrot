@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { useCookies, CookiesProvider } from "react-cookie";
+import { CookiesProvider } from "react-cookie";
 
 /* root */
 import './index.css';

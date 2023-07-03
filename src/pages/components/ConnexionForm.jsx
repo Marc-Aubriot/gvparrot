@@ -36,7 +36,6 @@ const ConnexionForm = (props) => {
             if (data[0] === "ok mail et pass") { 
                 setCookie("userToken", data[2], { path: "/" });
                 navigate(`/backoffice/${data[1]}/accueil`); 
-                console.log(data);
             } else {
                 setFormSetTrue(false);
             }

@@ -22,6 +22,12 @@ if ( $user->getEmail() === $email ) {
     if ( password_verify( $form_mot_de_passe ,$user_password) ) {
         $user_id = $user->getId();
         $token = guidv4();
+        $get_old_session = Session::getSessionByUser($user_id);
+
+        if ($get_old_session) {
+            $get_old_session->delete();
+        }
+        
         $new_session = Session::addSessions($user_id, $token);
 
         $response = 'ok mail et pass+'.$user->getId().'+'.$token; //réponse, id, token
