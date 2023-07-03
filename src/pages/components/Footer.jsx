@@ -1,6 +1,7 @@
 /* dependencies */
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 /* styles */
 import './styles/Footer.css';
@@ -90,7 +91,7 @@ const Footer = () => {
                 </div>
 
             </div>
-            <p>Copyright 2023 - Mentions légales - Charte de confidentialité</p>
+            <p>Copyright 2023 - <Link to={'/cgu'}>Mentions légales - Charte de confidentialité</Link></p>
         </footer>
     )
 }

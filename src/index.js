@@ -17,6 +17,7 @@ import ContactWithRef, { loader as refloader } from './pages/ContactWithRef';
 import Espacepro from './pages/Espacepro';
 import ErrorPage from './pages/ErrorPage';
 import ProductPage, { loader as productLoader} from './pages/ProductPage';
+import CGU from './pages/components/CGU';
 
 /* pages back office */
 import Backoffice, { loader as idloader } from './pages/Backoffice';
@@ -76,6 +77,9 @@ const router = createBrowserRouter([
         path: "/occasions/:id",
         element: <ProductPage />,
         loader: refloader,
+      },{
+        path: "/cgu",
+        element: <CGU />,
       }
     ]
   }
