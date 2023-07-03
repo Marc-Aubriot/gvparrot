@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useCookies, CookiesProvider } from "react-cookie";
 
 /* root */
 import './index.css';
@@ -32,6 +33,7 @@ import AddCar from './pages/components/AddCar';
 import ListEquipement from './pages/components/ListEquipement';
 import SeeCarList from './pages/components/SeeCarList';
 import ModifyCar from './pages/components/ModifyCar';
+import Logout from './pages/components/Logout';
 
 // routeur
 const router = createBrowserRouter([
@@ -128,6 +130,10 @@ const router = createBrowserRouter([
             path: "/backoffice/:id/carlist/:carref",
             element: <ModifyCar />,
             loader: idloader,
+          },{
+            path: "/backoffice/:id/logout",
+            element: <Logout />,
+            loader: idloader,
           }
         ]
       }
@@ -137,7 +143,10 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
   </React.StrictMode>
 );

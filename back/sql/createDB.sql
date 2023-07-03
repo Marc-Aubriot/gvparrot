@@ -71,6 +71,15 @@ CREATE TABLE equipements (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	nom VARCHAR(50)
 );
+
+CREATE TABLE custom_sessions (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	utilisateur VARCHAR(255),
+	token VARCHAR(255),
+	date_connection DATETIME DEFAULT CURRENT_TIMESTAMP,
+	logged BOOLEAN DEFAULT TRUE
+);
+
 /* add foreign key */
 ALTER TABLE commentaires
 ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);

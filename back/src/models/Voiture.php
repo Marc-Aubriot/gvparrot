@@ -219,7 +219,7 @@ class Voiture {
     }
 
     // Méthodes pour recevoir les paramètres d'une voiture
-    /*public function getId() { return $this->id; }
+    public function getId() { return $this->id; }
     public function getImages() { return $this->images; }
     public function getTitre() { return $this->titre; }
     public function getDescript() { return $this->descript; }
@@ -245,6 +245,6 @@ class Voiture {
     public function setLesplus($new_value) { $this->lesplus = $new_value; }
     public function setEquipements($new_value) { $this->equipements = $new_value; }
     public function setDetails($new_value) { $this->details = $new_value; }
-    public function setReference($new_value) { $this->ref = $new_value; }*/
+    public function setReference($new_value) { $this->ref = $new_value; }
 }
 ?>

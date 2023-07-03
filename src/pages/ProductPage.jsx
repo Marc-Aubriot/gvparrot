@@ -195,15 +195,16 @@ const ProductPage = () => {
                                     <h3>Informations du véhicule</h3>
                                     <p>Couleur : {details[0]} </p>
                                     <p>Puissance fiscale : {details[1]}</p>
-                                    <p>Portes: {details[2]}</p>
+                                    <p>Rapports: {details[2]}</p>
                                     <p>Places: {details[3]}</p>
+                                    <p>Portes: {details[4]}</p>
 
                                     <h3>GARANTIE</h3>
-                                    <p>Garantie: {details[4]}</p>
+                                    <p>Garantie: {details[5]}</p>
 
                                     <h3>Informations énergétiques</h3>
                                     <p>Qualité de l'air</p>
-                                    <p>Certificat Crit'Air {details[5]}</p>
+                                    <p>Certificat Crit'Air {details[6]}</p>
                                 </div>
 
                             </div>

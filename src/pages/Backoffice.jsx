@@ -2,7 +2,6 @@
 import { Outlet } from "react-router-dom";
 import { useLoaderData  } from "react-router-dom";
 import axios from 'axios';
-
 import { useState, useEffect } from 'react';
 
 /* components */

@@ -27,7 +27,6 @@ const Occasions = () => {
     // récupère la liste des véhicules dans la BDD
     useEffect( ()=> {
         const getCarList = () => {
-            //const inputs = `action=getCarList`;
             const inputs = `action=getCarListWithBasicFilter&q=${valueKm.min},${valueKm.max},${valueAnnee.min},${valueAnnee.max},${valuePrix.min},${valuePrix.max}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             

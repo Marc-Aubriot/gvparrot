@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 /* styles */
 import "./styles/ConnexionForm.css";
@@ -9,6 +10,7 @@ import "./styles/ConnexionForm.css";
 // component un formulaire de connexion au back office
 const ConnexionForm = (props) => {
     const navigate = useNavigate();
+    const [cookie, setCookie] = useCookies(["userToken"]);
 
     // hook envoit du formulaire
     const [formSentTrue, setFormSetTrue] = useState(false);
@@ -28,11 +30,13 @@ const ConnexionForm = (props) => {
 
             // retourne un string qu'on passe en tableau, contenant l'accès ou le refus, et un token de connexion ou une id
             const rawdata = response.data;
-            const data = rawdata.split('+');
+            const data = rawdata.split('+'); // data[réponse, user id, token]
             setResponse(data);
 
             if (data[0] === "ok mail et pass") { 
+                setCookie("userToken", data[2], { path: "/" });
                 navigate(`/backoffice/${data[1]}/accueil`); 
+                console.log(data);
             } else {
                 setFormSetTrue(false);
             }
