@@ -18,8 +18,8 @@ const Footer = () => {
     useEffect( ()=> {
 
         const getHoraires = () => {
-            const inputs = `action=getHoraires`;
-            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getHoraires`;
+            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 // transforme la réponse (string) en array
                 const rawdata = response.data.split('+'); 

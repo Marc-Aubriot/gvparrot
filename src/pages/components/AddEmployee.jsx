@@ -24,8 +24,9 @@ const AddEmployee = () => {
         formData.append('mdp1', e.target[3].value);
         formData.append('mdp2', e.target[4].value);
         formData.append('action', 'addEmployee');
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
 
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
 
             const data = response.data;
             setResponse(data);

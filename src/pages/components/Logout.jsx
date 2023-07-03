@@ -27,8 +27,8 @@ const Logout = () => {
         const removeSessionUser = () => {
             const id = params.id;
             const token = cookie.userToken;
-            const inputs = `action=deleteUserSession&id=${id}&token=${token}`;
-            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deleteUserSession&id=${id}&token=${token}`;
+            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 // transforme la réponse (string) en array [user statut, user id]
                 //const data = response.data; 

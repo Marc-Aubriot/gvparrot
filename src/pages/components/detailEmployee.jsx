@@ -30,8 +30,8 @@ const DetailEmployee = () => {
     useEffect( ()=> {
 
         const getEmployeeInfos = () => {
-            const inputs = `action=detailEmployee&id=${params.employeeid}`;
-            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=detailEmployee&id=${params.employeeid}`;
+            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 // transforme la réponse (string) en array
                 const rawdata = response.data;
@@ -59,8 +59,9 @@ const DetailEmployee = () => {
         formData.append('mdp2', e.target[4].value);
         formData.append('id', params.employeeid);
         formData.append('action', 'modifyEmployee');
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
 
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
 
             const data = response.data;
             setResponse(data);
@@ -71,8 +72,8 @@ const DetailEmployee = () => {
     const deleteEmployee = (e) => {
         e.preventDefault();
 
-        const inputs = `action=deleteEmployee&id=${params.employeeid}`;
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deleteEmployee&id=${params.employeeid}`;
+        axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
 
             const data = response.data;
             setResponse(data);

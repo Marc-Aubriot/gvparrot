@@ -41,7 +41,7 @@ const ModifyCar = () => {
         const getCarByRef = () => {
 
             // requête au back end via axios
-            const inputs = `action=getCarByRefAndEquipements&ref=${params.carref}`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getCarByRefAndEquipements&ref=${params.carref}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const rawdata = response.data.split('#'); 
@@ -188,6 +188,7 @@ const ModifyCar = () => {
         formData.append('lesplus', lesplusToAppend);
         formData.append('equipements', equipements);
         formData.append('details', details);
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
         formData.append('action', 'modifyCar');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData, config).then(function(response) {
@@ -220,6 +221,7 @@ const ModifyCar = () => {
         formData.append(`file-count`, imgs.length);
 
         // on attache toutes les données et on l'envoit
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
         formData.append('action', 'checkImg');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
@@ -248,7 +250,7 @@ const ModifyCar = () => {
         const rawNewStringPath = newPathArray.toString();
 
         // on update la BDD avec le nouveau string path
-        const inputs = `action=deletePhoto&path=${rawNewStringPath}&ref=${params.carref}`;
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deletePhoto&path=${rawNewStringPath}&ref=${params.carref}`;
         axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
             const data = response.data; 

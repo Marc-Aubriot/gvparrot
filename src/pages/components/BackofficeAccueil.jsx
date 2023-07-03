@@ -21,7 +21,7 @@ const BackofficeAccueil = () => {
     useEffect( () => {
         const getMessages = () => {
 
-            const inputs = `action=getMessages&q=viewedfalse`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getMessages&q=viewedfalse`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const rawdata = response.data.split('&'); 
@@ -51,7 +51,7 @@ const BackofficeAccueil = () => {
     // marque les messages comme lu dans la BDD
     const checkAsViewed = (e) => {
         const id = e.target.id;
-        const inputs = `action=verifyMessage&q=y&id=${id}`;
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=verifyMessage&q=y&id=${id}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 //const data = response.data; 

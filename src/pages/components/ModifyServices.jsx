@@ -24,7 +24,7 @@ const ModifyServices = () => {
     useEffect( ()=> {
 
         const getServices = () => {
-            const inputs = `action=getServiceList&categorie=all`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getServiceList&categorie=all`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const rawdata = response.data.split('&'); 
@@ -111,7 +111,7 @@ const ModifyServices = () => {
     const deleteService = (e) => {
         e.preventDefault();
 
-        const input = `action=deleteService&ID=${e.target.id}`;
+        const input = `apikey=${process.env.REACT_APP_APIKEY}&action=deleteService&ID=${e.target.id}`;
         axios.post(process.env.REACT_APP_SERVEURHTTP, input).then(function(response) {
 
             const rawdata = response.data;
@@ -132,6 +132,7 @@ const ModifyServices = () => {
 
         const formData = new FormData();
 
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
         formData.append('ID', e.target.id);
         formData.append('categorie', element0.textContent);
         formData.append('subcategorie', element1.textContent);

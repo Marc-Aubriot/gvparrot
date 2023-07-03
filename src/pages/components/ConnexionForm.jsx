@@ -25,8 +25,9 @@ const ConnexionForm = (props) => {
         formData.append('email', e.target[0].value);
         formData.append('mot_de_passe', e.target[1].value);
         formData.append('action', 'checkCredentials');
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
 
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
 
             // retourne un string qu'on passe en tableau, contenant l'accès ou le refus, et un token de connexion ou une id
             const rawdata = response.data;

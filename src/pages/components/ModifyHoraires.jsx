@@ -22,8 +22,8 @@ const ModifyHoraires = () => {
     useEffect( ()=> {
 
         const getHoraires = () => {
-            const inputs = `action=getHoraires`;
-            axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getHoraires`;
+            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 // transforme la réponse (string) en array
                 const rawdata = response.data.split('+'); 
@@ -90,9 +90,10 @@ const ModifyHoraires = () => {
         formData.append('dimanche-2', e.target[26].value);
         formData.append('dimanche-3', e.target[27].value);
 
+        formData.append('apikey', process.env.REACT_APP_APIKEY)
         formData.append('action', 'modifyHoraires');
 
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
 
             /* retourne un string qu'on va transformer en tableau contenant un message et un résultat logique */
             const rawdata = response.data;

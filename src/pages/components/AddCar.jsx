@@ -25,7 +25,7 @@ const AddCar = () => {
         const getCarListAndEquipements = () => {
 
             // requête au back end via axios
-            const inputs = `action=getCarListAndEquipements`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getCarListAndEquipements`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const rawdata = response.data.split('#'); 
@@ -122,6 +122,7 @@ const AddCar = () => {
         formData.append('equipements', equipements);
         formData.append('details', details);
         formData.append('action', 'addCar');
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
             
@@ -157,6 +158,7 @@ const AddCar = () => {
 
         // on attache toutes les données et on l'envoit
         formData.append('action', 'checkImg');
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
             

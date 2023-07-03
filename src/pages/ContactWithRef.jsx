@@ -35,6 +35,7 @@ const Contact = () => {
         setFormSent(true);
 
         const formData = new FormData();
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
         formData.append('nom', e.target[0].value);
         formData.append('prenom', e.target[1].value);
         formData.append('telephone', e.target[2].value);
@@ -43,7 +44,7 @@ const Contact = () => {
         formData.append('content', e.target[5].value);
         formData.append('action', 'sendMessage');
 
-        axios.post(`http://localhost:3000/gvparrot/back/public_html/`, formData).then(function(response) {
+        axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
 
             const data = response.data;
             setResponse(data);

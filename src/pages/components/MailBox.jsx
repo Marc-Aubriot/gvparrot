@@ -25,7 +25,7 @@ const MailBox = () => {
     useEffect( () => {
 
         const getMessages = () => {
-            const inputs = `action=getMessages&q=all`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getMessages&q=all`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 // récupère tous les messages dans const "messages", les données reçues sont au format string et passées en array
@@ -63,7 +63,7 @@ const MailBox = () => {
     const checkAsViewed = (e) => {
         const id = e.target.id;
 
-        const inputs = `action=verifyMessage&q=y&id=${id}`;
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=verifyMessage&q=y&id=${id}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const data = response.data; 
@@ -77,7 +77,7 @@ const MailBox = () => {
     const deleteMessage = (e) => {
         const id = e.target.id;
 
-        const inputs = `action=deleteMessage&id=${id}`;
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deleteMessage&id=${id}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const data = response.data; 

@@ -22,7 +22,7 @@ const ListEquipement = () => {
     useEffect( () => {
 
         const getEquipementList = () => {
-            const inputs = `action=getEquipementList`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getEquipementList`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const rawdata = response.data.split('&'); 
@@ -53,6 +53,7 @@ const ListEquipement = () => {
 
         const formData = new FormData();
         formData.append('nom', e.target[0].value);
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
         formData.append('action', 'addEquipement');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
@@ -70,7 +71,7 @@ const ListEquipement = () => {
     // supprime un équipement de la BDD
     const deleteEquipement = (e) => {
         const id = e.target.id;
-        const inputs = `action=deleteEquipement&id=${id}`;
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deleteEquipement&id=${id}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const data = response.data; 
