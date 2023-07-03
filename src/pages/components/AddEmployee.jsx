@@ -2,6 +2,9 @@
 import axios from 'axios';
 import { useState } from 'react';
 
+/* components */
+import PasswordStrength from './PasswordStrength';
+
 /* style */
 import './styles/AddEmployee.css';
 
@@ -10,7 +13,7 @@ const AddEmployee = () => {
     // hook envoit du formulaire
     const [formSentTrue, setFormSentTrue] = useState(false);
     const [response, setResponse] = useState([]);
-  
+    const [password, setPassword] = useState('');
 
     // ajoute l'employé en BDD
     const sendForm = (e) => {
@@ -33,6 +36,11 @@ const AddEmployee = () => {
         });
     }
 
+    // check la force du password au moment de l'input
+    const passwordChangeHandler = (e) => {
+        setPassword(e.target.value);
+    }
+
     // render un formulaire contenant les informations à ajouter en BDD
     return (
         <div className='addEmployeePage'>
@@ -53,31 +61,32 @@ const AddEmployee = () => {
                     <div className="field">
                         <label htmlFor="nom">Nom</label>
                         <br />
-                        <input name="nom" type='text' className='inputField'></input>
+                        <input name="nom" type='text' className='inputField' />
                     </div>
                 
                     <div className="field">
                         <label htmlFor="prenom">Prénom</label>
                         <br />
-                        <input name='prenom' type='text' className='inputField'></input>
+                        <input name='prenom' type='text' className='inputField' />
                     </div>
 
                     <div className="field">
                         <label htmlFor='email'>Email</label>
                         <br />
-                        <input name='email' type='email' className='inputField'></input>
+                        <input name='email' type='email' className='inputField' />
                     </div>
 
                     <div className="field">
                         <label htmlFor='mdp1'>Mot de passe</label>
                         <br />
-                        <input name='mdp1' type='password' className='inputField'></input>
+                        <input name='mdp1' type='password' className='inputField' onChange={passwordChangeHandler} />
                     </div>
+                    <PasswordStrength password={password} />
 
                     <div className="field">
                         <label htmlFor='mdp2'>Vérifier le mot de passe</label>
                         <br />
-                        <input name='mdp2' type='password' className='inputField'></input>
+                        <input name='mdp2' type='password' className='inputField' />
                     </div>
 
                     {

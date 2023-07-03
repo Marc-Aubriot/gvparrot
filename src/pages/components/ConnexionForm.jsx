@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
+/* components */
+import PasswordStrength from './PasswordStrength';
+
 /* styles */
 import "./styles/ConnexionForm.css";
 
@@ -11,6 +14,7 @@ import "./styles/ConnexionForm.css";
 const ConnexionForm = (props) => {
     const navigate = useNavigate();
     const [cookie, setCookie] = useCookies(["userToken"]);
+    const [password, setPassword] = useState('');
 
     // hook envoit du formulaire
     const [formSentTrue, setFormSetTrue] = useState(false);
@@ -44,6 +48,11 @@ const ConnexionForm = (props) => {
         });
     }
 
+    // check la force du password au moment de l'input
+    const passwordChangeHandler = (e) => {
+        setPassword(e.target.value);
+    }
+
     // render le formulaire de connexion
     return (
         <div className="ConnexionForm">
@@ -59,13 +68,14 @@ const ConnexionForm = (props) => {
                 <div className="field">
                     <label htmlFor="mail">Email</label>
                     <br />
-                    <input type="email" id="mail" name="mail"></input>
+                    <input type="email" id="mail" name="mail" />
                 </div>
                 
                 <div className="field">
                     <label htmlFor="pass">Password</label>
                     <br />
-                    <input type="password" id="pass" name="pass"></input>
+                    <input type="password" id="pass" name="pass" onChange={passwordChangeHandler} />
+                    <PasswordStrength password={password} />
                 </div>
 
                 {

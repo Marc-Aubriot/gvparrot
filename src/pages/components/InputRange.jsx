@@ -49,7 +49,7 @@ const InputRange = ({ label, unit, min, max, value, step, onChange }) => {
             </div>
             
 
-            <div class="InputRangeInputWrapper">
+            <div className="InputRangeInputWrapper">
 
                 <input
                     className="InputRangeInput1"
