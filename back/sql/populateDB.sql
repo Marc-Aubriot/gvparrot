@@ -9,10 +9,11 @@ VALUES ( '../ressources/images/gallerie/ford.jpg+../ressources/images/gallerie/c
 INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
 VALUES ( '../ressources/images/gallerie/volkswagen.jpg+../ressources/images/gallerie/coxx.jpg', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6 cv+5 portes+5 places+12 mois+C', 'blabla');
 
-/* UTILISATEURS */
+/* UTILISATEURS : EMPLOYES */
 INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
-VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbea", "aubriot", "marc", "marc.aubriot@outlook.fr", "$2y$10$IKnk.34eszvM4lq.JKwWJOMQ0br0ltJDnPNCEubprCems6DmC1.9.", true);
+VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbeb", "aubriot", "marc", "marc.aubriot@outlook.fr", "$2y$10$IKnk.34eszvM4lq.JKwWJOMQ0br0ltJDnPNCEubprCems6DmC1.9.", false);
 
+/* COMMENTAIRES */
 INSERT INTO commentaires (nom, contenu, note, valider)
 VALUES ('marc', "super garage, j'adore, j'adhère", "4.5", true);
 
