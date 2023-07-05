@@ -80,7 +80,7 @@ const SeeCarList = () => {
     // efface le véhicule en BDD
     const deleteCar = (e) => {
         const id = e.target.id;
-        const inputs = `action=deleteCar&id=${id}`;
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deleteCar&id=${id}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const data = response.data; 

@@ -23,9 +23,9 @@ for ( $i = 0; $i < $count; $i++ ) {
 
 // Récupère toutes les infos envoyées par le front
 $images = implode("+", $tmp_array); // transforme l'array en string pour stockage BDD
+$path = $_REQUEST['imgPath'];
 
 if ($_REQUEST['imgPathTrue'] === 'true' && $count > 1 ) {
-    $path = $_REQUEST['imgPath'];
     $images = $images.'+'.$path;
     $count--;
 } else if ( $_REQUEST['imgPathTrue'] === 'true' && $count <= 0 ) {

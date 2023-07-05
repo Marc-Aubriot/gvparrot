@@ -1,13 +1,34 @@
 /* populate db : test data + dummy data */
 /* VOITURES */
 INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( '../ressources/images/gallerie/renault.jpg+../ressources/images/gallerie/coxx.jpg', 'Renault Clio IV', 'Blue dci 100cv business', 'Manuelle', 'Diesel', '45000', '2018', '14500', 'Cuir+Sièges chauffants+Toit ouvrant+GPS', 'Régulateur+Limiteur de vitesse+Radar de recul+Sellerie en cuir+Régulateur adaptatif+Radar avant+Avertisseur d angle mort+Siège chauffant+Affichage tête haute+Attelage+Connexion bluetooth+etc', 'Bleu+6 cv+5 portes+5 places+12 mois+B', 'bleubleu');
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/renault.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Renault Clio IV', 'Blue dci 100cv business', 'Manuelle', 'Diesel', '45000', '2018', '14500', 'Cuir+Sièges chauffants+Toit ouvrant+GPS', 'Régulateur+Limiteur de vitesse+Radar de recul+Sellerie en cuir+Régulateur adaptatif+Radar avant+Avertisseur d angle mort+Siège chauffant+Affichage tête haute+Attelage+Connexion bluetooth+etc', 'Bleu+6+5+5+12+B', 'bleubleu');
 
 INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( '../ressources/images/gallerie/ford.jpg+../ressources/images/gallerie/coxx.jpg', 'Ford Focus', 'EcoBoost 1.0L Titanium', 'Manuelle', 'Essence', '35000', '2019', '13500', 'Climatisation automatique+Caméra de recul+Jantes en alliage+Start-Stop', 'Régulateur+Limiteur de vitesse+Bluetooth+Feux de jour LED+Détecteur de pluie+Radar avant et arrière+Volant en cuir+Écran tactile 8" SYNC', 'Gris+5 cv+5 portes+5 places+24 mois+D', 'grigri');
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/ford.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Ford Focus', 'EcoBoost 1.0L Titanium', 'Manuelle', 'Essence', '35000', '2019', '13500', 'Climatisation automatique+Caméra de recul+Jantes en alliage+Start-Stop', 'Régulateur+Limiteur de vitesse+Bluetooth+Feux de jour LED+Détecteur de pluie+Radar avant et arrière+Volant en cuir+Écran tactile 8" SYNC', 'Gris+5+5+5+24+D', 'grigri');
 
 INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( '../ressources/images/gallerie/volkswagen.jpg+../ressources/images/gallerie/coxx.jpg', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6 cv+5 portes+5 places+12 mois+C', 'blabla');
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/volkswagen.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+12+C', 'blabla');
+
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/toyota.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Toyotata', 'Tokyo Drift', 'Automatique', 'Electrique', '27800', '2022', '23000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+12+C', 'refrefref1');
+
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '27800', '2022', '23000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+12+C', 'refrefref2');
+
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '150000', '2022', '7000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+12+C', 'refrefref3');
+
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '27800', '2010', '1500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+12+C', 'refrefref4');
+
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '56000', '2001', '10000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+12+C', 'refrefref5');
+
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '80000', '1996', '30000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+12+C', 'refrefref6');
+
+INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '1200', '2022', '25500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+12+C', 'refrefref7');
 
 /* UTILISATEURS : EMPLOYES */
 INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
@@ -25,6 +46,12 @@ VALUES ('cram', "garage moyen osef", "2.5", true);
 
 INSERT INTO commentaires (nom, contenu, note)
 VALUES ('rio', "nul nul nul", "0.5");
+
+INSERT INTO commentaires (nom, contenu, note, valider)
+VALUES ('albert', "Super super", "4.5", true);
+
+INSERT INTO commentaires (nom, contenu, note, valider)
+VALUES ('Mario', "j'y suis j'y reste", "3.5", true);
 
 /* SERVICES : CARROSSERIE */
 INSERT INTO services (categorie, subcategorie, titre, descript)
@@ -71,7 +98,7 @@ VALUES ("Entretien", "Entretien moteur", "Nettoyage du système d'admission d'ai
 
 /* HORAIRES*/
 INSERT INTO horaires (lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche)
-VALUES ( "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "fermé,,,");
+VALUES ( "09h00,12h00,13h00,17h00", "10h00,12h00,13h30,20h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "fermé,,,");
 
 /* MESSAGES */
 INSERT INTO messages (nom, prenom, telephone, email, sujet, content)
@@ -79,4 +106,4 @@ VALUES ("Marc", "Aubriot", "0650550480", "marc.aubriot@outlook.fr", "test sujet"
 
 /* LISTE DES EQUIPEMENTS*/
 INSERT INTO equipements (nom)
-VALUES ("Régulateur"), ("Limiteur de vitesse"), ("Radar de recul"), ("Sellerie en cuir"), ("Régulateur adaptatif"), ("Radar avant"), ("Avertisseurs d'angle mort"), ("Siège chauffant"), ("Affichage tête haute"), ("Attelage"), ("Connexion bluetooth");
+VALUES ("Régulateur"), ("Limiteur de vitesse"), ("Radar de recul"), ("Sellerie en cuir"), ("Régulateur adaptatif"), ("Radar avant"), ("Avertisseurs d'angle mort"), ("Siège chauffant"), ("Affichage tête haute"), ("Attelage"), ("Connexion bluetooth"), ("Climatisation"), ("Régulateur de vitesse"), ("Bluetooth"), ("Ordinateur de bord"), ("Volant multifonction"), ("Rétroviseurs électriques"), ("Détecteur de fatigue");

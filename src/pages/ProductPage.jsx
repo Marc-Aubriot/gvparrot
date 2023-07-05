@@ -71,7 +71,7 @@ const ProductPage = () => {
         }
 
         const getPreviousAndNextCarRef = (ref) => {
-            const inputs = `action=getPrevAndNextCar&ref=${ref}`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getPrevAndNextCar&ref=${ref}`;
             axios.post(`http://localhost:3000/gvparrot/back/public_html/`, inputs).then(function(response) {
                 
                 // transforme la réponse (string) en array
@@ -194,13 +194,13 @@ const ProductPage = () => {
                                 <div id="detailsDiv" className={ equipementsDivOpen ? "hiddenDiv" : "showDiv" }>
                                     <h3>Informations du véhicule</h3>
                                     <p>Couleur : {details[0]} </p>
-                                    <p>Puissance fiscale : {details[1]}</p>
+                                    <p>Puissance fiscale (cv): {details[1]}</p>
                                     <p>Rapports: {details[2]}</p>
                                     <p>Places: {details[3]}</p>
                                     <p>Portes: {details[4]}</p>
 
                                     <h3>GARANTIE</h3>
-                                    <p>Garantie: {details[5]}</p>
+                                    <p>Garantie (mois): {details[5]}</p>
 
                                     <h3>Informations énergétiques</h3>
                                     <p>Qualité de l'air</p>

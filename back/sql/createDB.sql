@@ -79,7 +79,3 @@ CREATE TABLE custom_sessions (
 	date_connection DATETIME DEFAULT CURRENT_TIMESTAMP,
 	logged BOOLEAN DEFAULT TRUE
 );
-
-/* add foreign key */
-ALTER TABLE commentaires
-ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
