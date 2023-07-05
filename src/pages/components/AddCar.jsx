@@ -89,6 +89,22 @@ const AddCar = () => {
         let tempString = tempArray.toString('+'); 
         const equipements = tempString.replaceAll(',', '+'); 
 
+        // on récupère les values des checkbox de la section les plus, qu'on transforme en un string
+        const countlesplus = equipementList.length;
+        let tempArrayLesplus = [];
+
+        for ( let i = 0; i < countlesplus; i++) {
+            const checkbox = document.getElementById(`lesplus-${i}`);
+            const check = checkbox.checked;
+
+            if (check) {
+                tempArrayLesplus.push(checkbox.value);
+            }
+        }
+
+        // data['a','b','c'] > data 'a,b,c > data 'a+b+c'
+        let tempStringLesPlus = tempArrayLesplus.toString('+'); 
+        const lesplusToAppend = tempStringLesPlus.replaceAll(',', '+'); 
 
         // on récupère les values des checkbox de la section détails, qu'on transforme en un string
         const details = `${e.target[8].value}+${e.target[9].value}+${e.target[10].value}+${e.target[11].value}+${e.target[12].value}+${e.target[13].value}+${e.target[14].value}`;
@@ -119,6 +135,7 @@ const AddCar = () => {
         formData.append('kilometrage', e.target[5].value);
         formData.append('annee', e.target[6].value);
         formData.append('prix', e.target[7].value);
+        formData.append('lesplus', lesplusToAppend);
         formData.append('equipements', equipements);
         formData.append('details', details);
         formData.append('action', 'addCar');
@@ -301,19 +318,44 @@ const AddCar = () => {
                     isLoading ?
                     <Spinner />
                     :
-                    <div>
-                        <h3 className="AddCarFormTitle">Equipements</h3>
-                        {
-                            equipementList.map( (e,i) => {
-                                return (
-                                    <div className="addCarPageInputField" key={i}>
-                                        <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
-                                        <label htmlFor={`${e[1]}`}>{e[1]}</label>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                    <>
+                        <div className="addCarFormContentWrapperBotBox">
+                            <div className="addCarFormSectionWrapper">
+                                <h3 className="AddCarFormTitle">Equipements</h3>
+                                {
+                                    equipementList.map( (e,i) => {
+                                        return (
+                                            <div className="addCarPageInputField" key={i}>
+                                                <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
+                                                <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+
+                            <div className="addCarFormSectionWrapper">
+                                <h3 className="AddCarFormTitle">Les plus</h3>
+                                {
+                                    equipementList.map( (e,i) => {  
+                                    
+
+                                        return (
+                                            <div key={i}>
+                                                
+                                                <div className="addCarPageInputField" key={i}>
+                                                    <input type="checkbox" id={`lesplus-${i}`} name={`lesplus-${e[1]}`} value={e[1]} className="addCarPageInputFieldInput" key={i} />
+                                                    <label htmlFor={`lesplus-${e[1]}`}>{e[1]}</label>
+                                                </div>
+                                                    
+                                            </div>
+                                        )
+                                    })
+                                }
+
+                            </div>
+                        </div>
+                    </>
                 }
 
                 <div className="addCarPageFormSubmitBtnWrapper">

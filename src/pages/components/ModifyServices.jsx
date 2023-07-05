@@ -77,11 +77,37 @@ const ModifyServices = () => {
 
         inputWrapper.appendChild(p);
 
-        const input = document.createElement('input');
-        input.id = 'newInput';
-        input.defaultValue = e.target.textContent;
-        input.className = 'modal-input';
-        inputWrapper.appendChild(input);
+        let input;
+
+        if ( e.target.id.charAt(0) === 'p' ) {
+            input = document.createElement('select');
+            input.id = 'newInput';
+            input.defaultValue = e.target.textContent;
+            input.className = 'modal-input';
+            inputWrapper.appendChild(input);
+            
+            const option1 = document.createElement('option');
+            option1.value = 'Mecanique';
+            option1.textContent = 'Mécanique';
+            input.appendChild(option1);
+
+            const option2 = document.createElement('option');
+            option2.value = 'Carrosserie';
+            option2.textContent = 'Carrosserie';
+            input.appendChild(option2);
+
+            const option3 = document.createElement('option');
+            option3.value = 'Entretien';
+            option3.textContent = 'Entretien';
+            input.appendChild(option3);
+
+        } else {
+            input = document.createElement('input');
+            input.id = 'newInput';
+            input.defaultValue = e.target.textContent;
+            input.className = 'modal-input';
+            inputWrapper.appendChild(input);
+        }
 
         const btnWrapper = document.createElement('div');
         btnWrapper.className = 'modal-btnWrapper';
@@ -189,7 +215,11 @@ const ModifyServices = () => {
                     <form onSubmit={sendForm2} className='modifyServiceFormWrapper'>
                         <div className='modifyServiceAddServiceFormField'>
                             <label className='modifyServiceAddServiceLabel' htmlFor='categorie'><b>Categorie</b></label>
-                            <input className='modifyServiceAddServiceInput' type="text" name='categorie'/>
+                            <select className='modifyServiceAddServiceInput' name='categorie' >
+                                <option value="Mecanique">Mécanique</option>
+                                <option value="Carrosserie">Carrosserie</option>
+                                <option value="Entretien">Entretien</option>
+                            </select>
                         </div>
                         
                         <div className='modifyServiceAddServiceFormField'>

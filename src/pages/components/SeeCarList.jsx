@@ -22,7 +22,6 @@ const SeeCarList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [response, setResponse] = useState();
-    const [toggleDetails, setToggleDetails] = useState(false);
 
     // récupère une liste des véhicules et une liste des équipements en BDD
     useEffect( () => {
@@ -94,9 +93,29 @@ const SeeCarList = () => {
             });
     }
     
-    // toggle permettant l'affiche des détails du véhicule
-    const toggleHandler = () => {
-        setToggleDetails( prev => !prev );
+    // toggle permettant l'affichage des détails du véhicule
+    const toggleHandler = (e) => {
+        const key = e.target.getAttribute('data-div-key');
+        const divToShow = document.getElementById(`carCardBotbox-${key}`);
+        const toggle = e.target.getAttribute('data-toggle');
+        
+        switch(toggle) {
+            case "1":
+                e.target.setAttribute('data-toggle', 0);
+                divToShow.className = 'detailsBoxWrapper';
+            break;
+
+            case "0":
+                e.target.setAttribute('data-toggle', 1);
+                divToShow.className = 'detailsBoxWrapper showDetail';
+            break;
+
+            default: 
+                e.target.setAttribute('data-toggle', 1);
+                divToShow.className = 'detailsBoxWrapper showDetail';
+            break;
+        }
+
     }
 
     // affiche une liste des véhicules, avec lien pour modification, bouton pour suppression et toggle pour affichage des détails
@@ -124,7 +143,7 @@ const SeeCarList = () => {
                             const details = e[11].split('+');
 
                             return (
-                                <div className="modifyCarPageCarCardWrapper" key={i}>
+                                <div className="modifyCarPageCarCardWrapper" id={`carCard-${i}`} key={i}>
 
                                     <div className="modifyCarPageCarCardTopBox">
                                         <div className="modifyCarPageCarCardTopLeftBox">
@@ -149,7 +168,7 @@ const SeeCarList = () => {
 
                                         <div className="modifyCarPageCarCardBotRightBox">
                                             <div className="modifyCarPageCarCardBtnWrapper">
-                                                <button id={e[0]} onClick={toggleHandler} className="modifyCarPageCarCarBtn">Voir détails</button>
+                                                <button id={e[0]} onClick={toggleHandler} className="modifyCarPageCarCarBtn" data-div-key={e[0]} data-toggle={0}>Voir détails</button>
                                             </div>
                                             
                                             <div className="modifyCarPageCarCardBtnWrapper">
@@ -163,54 +182,51 @@ const SeeCarList = () => {
                                        
                                     </div>
                                     
-                                    {
-                                        toggleDetails ?
-                                        <div className="detailsBoxWrapper">
+             
+                                    <div className="detailsBoxWrapper" id={`carCardBotbox-${e[0]}`}>
 
-                                            <div>
-                                                <h5 className="infoSuppTitle">Les plus</h5>
-                                                <div className="infoSuppContainer">
-                                                    {
-                                                        lesPlus.map( (e,i) => {
-                                                            
-                                                            return (
-                                                                <p key={i}>{e}</p>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
+                                        <div>
+                                            <h5 className="infoSuppTitle">Les plus</h5>
+                                            <div className="infoSuppContainer">
+                                                {
+                                                    lesPlus.map( (e,i) => {
+                                                        
+                                                        return (
+                                                            <p key={i}>{e}</p>
+                                                        )
+                                                    })
+                                                }
                                             </div>
-
-                                            <div>
-                                                <h5 className="infoSuppTitle">Equipements</h5>
-                                                <div className="infoSuppContainer">
-                                                    {
-                                                        equipements.map( (e,i) => {
-                                                            
-                                                            return (
-                                                                <p key={i}>{e}</p>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                            </div>
-                                            
-                                            <div>
-                                                <h5 className="infoSuppTitle">Détails</h5>
-                                                <div className="infoSuppContainer">
-                                                    <p>Couleur: {details[0]}</p>
-                                                    <p>Puissance fiscale: {details[1]}</p>
-                                                    <p>Portes: {details[2]}</p>
-                                                    <p>Places: {details[3]}</p>
-                                                    <p>Garantie: {details[4]}</p>
-                                                    <p>Crit'Air: {details[5]}</p>
-                                                </div>
-                                            </div>
-
                                         </div>
-                                        :
-                                        ""
-                                    }
+
+                                        <div>
+                                            <h5 className="infoSuppTitle">Equipements</h5>
+                                            <div className="infoSuppContainer">
+                                                {
+                                                    equipements.map( (e,i) => {
+                                                        
+                                                        return (
+                                                            <p key={i}>{e}</p>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 className="infoSuppTitle">Détails</h5>
+                                            <div className="infoSuppContainer">
+                                                <p>Couleur: {details[0]}</p>
+                                                <p>Puissance fiscale: {details[1]}</p>
+                                                <p>Portes: {details[2]}</p>
+                                                <p>Places: {details[3]}</p>
+                                                <p>Garantie: {details[4]}</p>
+                                                <p>Crit'Air: {details[5]}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                        
                                    
                                 </div>
                             )

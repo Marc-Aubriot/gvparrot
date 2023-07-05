@@ -11,7 +11,7 @@ That's it ! The repository is now up to date :D
 
 ### First to run the back-end PHP Server do this:
 -------
-3. install VSCode extension "PHP Server" by "brapifra" 
+3. Install VSCode extension "PHP Server" by "brapifra" 
 4. Go in gvparrot>back>public_html>index.php and press CTRL+SHIFT+P then input "PHP Server: Serve project" (or right click in file and then "PHP Server: Serve project")
 -------
 -
@@ -22,7 +22,7 @@ That's it ! The repository is now up to date :D
 -------
 Everything should be up and running, if you don't see the live server be sure to try the Network version of your local server
 
-(it should be http://192.168.1.10:3000, REACT will give you the link in the terminal when after npm start)
+(It should be http://192.168.1.10:3000, REACT will give you the link in the terminal after npm start)
 
 http://localhost:3000 (is the back-end php server)
 http://192.168.1.10:3000 (is the front-end React server)
@@ -37,8 +37,10 @@ http://192.168.1.10:3000 (is the front-end React server)
     3. createAdmin.sql (here you can modify the login and password of the admin if you need otherwise it will be "superadmin@outlook.fr"/"123456")
     4. populateDB.sql
 (alternatively you can use whatever you want to run the sql files)
+9. In gvparrot>back>config.php modify the lines (18-21) for the database connection
+10. You can modify critical data in the config.php and gvparrot>.env
 ----
 
 -
 Congratulations !
-In less than 10 steps (5min) you now have the full app running :D
+In less than 5min you now have the full app running :D
