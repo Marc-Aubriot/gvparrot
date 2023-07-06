@@ -46,19 +46,19 @@ const CommentForm = (props) => {
                 <div className='commentFormField'>
                     <label htmlFor="nameField" className='formLabel'>Nom</label>
                     <br />
-                    <input id='nameField' name='nameField' type='text' placeholder='Nom' className='formInput'></input>
+                    <input id='nameField' name='nameField' type='text' placeholder='Nom' className='formInput' required />
                 </div>
                 
                 <div className='commentFormField'>
                     <label htmlFor="noteField"  className='formLabel'>Note</label>
                     <br />
-                    <input id='noteField' name='noteField' type='text' placeholder='Note de 1 à 5' className='formInput'></input>
+                    <input id='noteField' name='noteField' type='text' placeholder='Note de 1 à 5' className='formInput' required />
                 </div>
 
                 <div className='commentFormField'>
                     <label htmlFor="messageField"  className='formLabel'>Message</label>
                     <br />
-                    <input id='messageField' name='messageField' type='text' placeholder='Message' className='formInput'></input>
+                    <input id='messageField' name='messageField' type='text' placeholder='Message' className='formInput' required />
                 </div>
 
                 {

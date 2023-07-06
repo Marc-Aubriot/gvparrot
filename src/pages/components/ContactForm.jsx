@@ -49,25 +49,25 @@ const ContactForm = () => {
                 <div className="field">
                     <label htmlFor="nom">Nom</label>
                     <br />
-                    <input type="text" id="nom" name="nom" placeholder='Nom' className='formInput'></input>
+                    <input type="text" id="nom" name="nom" placeholder='Nom' className='formInput' required />
                 </div>
 
                 <div className="field">
                     <label htmlFor="prenom">Prénom</label>
                     <br />
-                    <input type="text" id="prenom" name="prenom" placeholder='Prenom' className='formInput'></input>
+                    <input type="text" id="prenom" name="prenom" placeholder='Prenom' className='formInput' required />
                 </div>
 
                 <div className="field">
                     <label htmlFor="tel">Téléphone</label>
                     <br />
-                    <input type="text" id="tel" name="tel" placeholder='Telephone' className='formInput'></input>
+                    <input type="text" id="tel" name="tel" placeholder='Telephone' className='formInput' required />
                 </div>
 
                 <div className="field">
                     <label htmlFor="mail">Email</label>
                     <br />
-                    <input type="email" id="mail" name="mail" placeholder='Email' className='formInput'></input>
+                    <input type="email" id="mail" name="mail" placeholder='Email' className='formInput' required />
                 </div>
                 
                 <div className="field">
@@ -79,13 +79,14 @@ const ContactForm = () => {
                         name="sujet" 
                         placeholder="Sujet"
                         className='formInput'
-                    ></input>
+                        required 
+                    />
                 </div>
 
                 <div className="field">
                     <label htmlFor="message">Message</label>
                     <br />
-                    <textarea id="message" name="message" type='textarea' placeholder='Message' className='formInput'></textarea>
+                    <textarea id="message" name="message" type='textarea' placeholder='Message' className='formInput' required />
                 </div>
 
                 {
