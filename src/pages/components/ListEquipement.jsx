@@ -106,7 +106,7 @@ const ListEquipement = () => {
                             return (
                                 <li className="ListEquipementLI" key={i}>
                                     <p className="listEquipementP">{e[1]}</p>
-                                    <button className="ListEquipementULBTN" id={e[0]} onClick={deleteEquipement}>Supprimer l'équipement</button>
+                                    <button className="ListEquipementULBTN1" id={e[0]} onClick={deleteEquipement}>Supprimer</button>
                                 </li>
                             )
                         })
@@ -116,7 +116,7 @@ const ListEquipement = () => {
                         <label htmlFor="nom">Nouvel équipement</label>
                         <input className="listEquipementInput" type="text" name="nom" id="nom" />
 
-                        <button className="ListEquipementULBTN" type="submit">Enregistrer</button>
+                        <button className="ListEquipementULBTN2" type="submit">Ajouter</button>
                     </form>
                 </div>
             }

@@ -1,6 +1,7 @@
 .headerStyle {
     background-color: var(--bg-color);
     height: 100px;
+    overflow: hidden;
 }
 
 @media (min-width: 1000px) {

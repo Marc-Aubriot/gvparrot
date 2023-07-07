@@ -44,7 +44,7 @@ const Footer = () => {
             
                 <div className='footerTopBox'>
                     <div className='addressePanel'>
-                        <p>Où nous trouver?</p>
+                        <p>Où nous trouver ?</p>
                         <p>6, rue de Bruxelles</p>
                         <p>57370 PHALSBOURG</p>
                         <p>Zone industrielle</p>
@@ -91,7 +91,7 @@ const Footer = () => {
                 </div>
 
             </div>
-            <p>Copyright 2023 - <Link to={'/cgu'}>Mentions légales - Charte de confidentialité</Link></p>
+            <p>Copyright 2023 - <Link to={'/cgu'}><span className='cgulink'>Mentions légales - Charte de confidentialité</span></Link></p>
         </footer>
     )
 }

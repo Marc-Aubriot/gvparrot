@@ -146,7 +146,7 @@ const MailBox = () => {
                                 </div>
                                 : 
                                 <div className="backofficeAccueilPageMessageFieldBTN">
-                                    <button id={e[0]} onClick={deleteMessage}>Supprimer le message</button>
+                                    <button id={e[0]} onClick={deleteMessage} className="BackofficeAccueilDeleteBtn">Supprimer le message</button>
                                 </div>
                             }
 

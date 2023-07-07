@@ -6,6 +6,8 @@
   --btn-color: #87CEFA;
   --white-color: #F2F2F2;
   --black-color: #270526;
+  --delete-btn: rgb(233, 131, 131);
+  --add-btn: rgb(90, 233, 54);
 }
 
 @font-face {

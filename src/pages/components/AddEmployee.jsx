@@ -94,7 +94,7 @@ const AddEmployee = () => {
                         ""
                         :
                         <div className="fieldBTN">
-                            <button type='submit' className='submitBtn'>Enregistrer</button>
+                            <button type='submit' className='submitBtn'>Ajouter</button>
                         </div>
                     }
     

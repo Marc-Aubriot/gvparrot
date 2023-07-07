@@ -7,3 +7,8 @@
     display: none;
     visibility: hidden;
 }
+
+.ListEmployeeDetailWrapper {
+    background-color: var(--section-color);
+    width: fit-content;
+}

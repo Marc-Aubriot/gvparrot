@@ -39,6 +39,18 @@
     max-width: 300px;
 }
 
-.ListEquipementULBTN {
+.ListEquipementULBTN1, .ListEquipementULBTN2 {
     margin-left: 20px;
+}
+
+.ListEquipementULBTN1 {
+    background-color: var(--delete-btn);
+    font-family: righteous;
+    font-size: 18px;
+}
+
+.ListEquipementULBTN2 {
+    background-color: var(--add-btn);
+    font-family: righteous;
+    font-size: 18px;
 }

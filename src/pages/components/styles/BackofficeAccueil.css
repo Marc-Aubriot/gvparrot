@@ -34,6 +34,12 @@
     font-family: roboto;
 }
 
+.BackofficeAccueilDeleteBtn {
+    background-color: var(--delete-btn);
+    font-family: righteous;
+    font-size: 18px;
+}
+
 @media (min-width: 1000px) {
     .backofficeAccueilPageWrapper {
         width: 90%;

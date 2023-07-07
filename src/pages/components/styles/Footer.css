@@ -42,6 +42,7 @@ footer p {
 
 .daynameBox {
     width: 30%;
+    width: 80px;
     text-align: start;
 }
 
@@ -51,8 +52,12 @@ footer p {
 }
 
 .horaireTitle {
-    margin: 0 auto;
-    width: 40%;
+    margin: 0;
+    width: 200px;
+}
+
+.cgulink {
+    font-size: 18px;
 }
 
 /* responsive table */

@@ -34,6 +34,9 @@
 
 .modifyServiceDeleteBTN {
     cursor: pointer;
+    background-color: var(--delete-btn);
+    font-family: righteous;
+    font-size: 14px;
 }
 
 .modifyServiceModifyBTN {

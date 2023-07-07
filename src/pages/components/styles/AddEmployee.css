@@ -29,6 +29,9 @@
     height: 40px;
     margin: 0 auto;
     cursor: pointer;
+    background-color: var(--add-btn);
+    font-family: righteous;
+    font-size: 18px;
 }
 
 .responseText {

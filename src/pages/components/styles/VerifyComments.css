@@ -53,6 +53,16 @@
     width: 100px;
     height: 40px;
     cursor: pointer;
+    background-color: var(--delete-btn);
+    font-family: righteous;
+    font-size: 18px;
+}
+
+.verifyCommentsCommentCardToggleBtn {
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    font-family: righteous;
 }
 
 /* UTILITIES */

@@ -120,7 +120,7 @@ const VerifyComments = () => {
 
                                     <div className='verifyCommentsCommentCardBotRow'>
                                         <button id={e[0]} onClick={deleteComment} className='verifyCommentsCommentCardDeleteBtn'>Supprimer</button>
-                                        <button data-comment-id={e[0]} data-comment-q={e[4]} id={`${[i]}`} onClick={verifyComment} className='verifyCommentsCommentCardDeleteBtn'>{e[4] === '0' ? "Ajout à l'Accueil" : "Enlever de l'Accueil"}</button>
+                                        <button data-comment-id={e[0]} data-comment-q={e[4]} id={`${[i]}`} onClick={verifyComment} className='verifyCommentsCommentCardToggleBtn'>{e[4] === '0' ? "Ajout à l'Accueil" : "Enlever de l'Accueil"}</button>
                                     </div>
 
                                 </div>

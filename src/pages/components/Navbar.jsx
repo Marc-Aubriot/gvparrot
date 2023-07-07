@@ -18,7 +18,7 @@ const Navbar = () => {
 
     // style
     const style = {
-        width: "50px", height: "50px"
+        width: "50px", height: "50px", cursor: "pointer"
     }
 
     return (
