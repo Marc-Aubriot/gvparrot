@@ -28,13 +28,14 @@ if ( $q == 'checkLogin' ) {
 
             $get_old_session = Session::getSessionByUser($user_id);
 
-            if ( $get_old_session && isset($_COOKIE["PHP_User_Token"]) === $get_old_session ) {
-                //$get_old_session->delete();
+            // si pas de cookie, créé un cookie et nouvelle session, sinon efface ancienne session et créée nouvelle avec le cookie actif
+            if (!isset($_COOKIE["PHP_User_Token"])) { 
+                setcookie( "PHP_User_Token", $token, ['secure'=>'true', 'httponly'=>'true', 'path'=>'/','samesite'=>'None']); 
+                $new_session = Session::addSessions($user_id, $token);
+            } else {
+                if ( $get_old_session ) { $get_old_session->delete(); }
+                $new_session = Session::addSessions($user_id, $_COOKIE["PHP_User_Token"]);
             }
-            
-            if ( !$get_old_session ) { $new_session = Session::addSessions($user_id, $token); };
-
-            if (!isset($_COOKIE["PHP_User_Token"])) { setcookie( "PHP_User_Token", $token, ['secure'=>'true', 'httponly'=>'true', 'path'=>'/','samesite'=>'None']); }
 
             $response = 'ok mail et pass+'.$user->getId();//'+'.$token; //réponse, id, token
             echo $response;
