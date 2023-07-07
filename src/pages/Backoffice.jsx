@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import { useLoaderData, Link  } from "react-router-dom";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useCookies } from "react-cookie";
 
 /* components */
 import BackofficeNavbar from "./components/BackofficeNavbar";
@@ -23,7 +22,6 @@ const Backoffice = () => {
     // url parameter loader, récupère les informations de l'utilisateur et son id 
     const { params } = useLoaderData();
     const [user, setUser] = useState([]);
-    const [cookie, setCookie] = useCookies();
 
     // hook de fonctionnement de page
     const [isLoading, setIsloading] = useState(true);
@@ -47,9 +45,8 @@ const Backoffice = () => {
 
         const checkToken = () => {
             const id = params.id;
-            const token = cookie.userToken;
-            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=checkToken&id=${id}&token=${token}`;
-            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=checkCredentials&q=checkToken&id=${id}`;
+            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs, {withCredentials:true}).then(function(response) {
             
                 // transforme la réponse (string) en array [user statut, user id]
                 const data = response.data; 
@@ -84,7 +81,10 @@ const Backoffice = () => {
                         :
                         <>
                             <header className="backofficeHEADER">
-                                <Logo />
+                                <Link to={`/backoffice/${params.id}/accueil`}>
+                                    <Logo />
+                                </Link>
+                                
                                 <BackofficeNavbar user={user[0]} id={user[1]} />
                             </header>
 

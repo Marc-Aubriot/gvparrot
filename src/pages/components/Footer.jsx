@@ -44,7 +44,7 @@ const Footer = () => {
             
                 <div className='footerTopBox'>
                     <div className='addressePanel'>
-                        <p>Où nous trouver ?</p>
+                        <h5>Où nous trouver ?</h5>
                         <p>6, rue de Bruxelles</p>
                         <p>57370 PHALSBOURG</p>
                         <p>Zone industrielle</p>
@@ -52,7 +52,7 @@ const Footer = () => {
                     </div>
 
                     <div className='contactPanel'>
-                        <p>Nous contacter</p>
+                        <h5>Nous contacter</h5>
                         <p>Téléphone</p>
                         <p>Email</p>
                         <p>Contact en ligne</p>
@@ -60,7 +60,7 @@ const Footer = () => {
                 </div>
 
                 <div className='footerBotBox'>
-                    <p className='horaireTitle'>Horaires d'ouvertures</p>
+                    <h5 className='horaireTitle'>Horaires d'ouvertures</h5>
                     
                     <div className='ouvertureBox'>
                         <div className='daynameBox'>

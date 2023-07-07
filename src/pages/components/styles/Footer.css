@@ -26,6 +26,14 @@ footer p {
     width: 50%;
 }
 
+.footerContainer h5 {
+    font-family: righteous;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
 .footerBotBox {
     padding-top: 20px;
     padding-bottom: 30px;
@@ -53,7 +61,7 @@ footer p {
 
 .horaireTitle {
     margin: 0;
-    width: 200px;
+    width: 300px;
 }
 
 .cgulink {

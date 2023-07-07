@@ -34,6 +34,16 @@
     font-size: 18px;
 }
 
+.submitBtn2 {
+    width: 50%;
+    height: 40px;
+    margin: 0 auto;
+    cursor: pointer;
+    font-family: righteous;
+    font-size: 18px;
+    background-color: var(--delete-btn);
+}
+
 .responseText {
     text-align: center;
     margin-top: 60px;

@@ -1,3 +1,6 @@
+/* dependencies */
+import { Link } from 'react-router-dom';
+
 /* components */
 import Logo from "./Logo";
 import Navbar from "./Navbar";
@@ -10,7 +13,10 @@ const Header = () => {
     return (
         <>
         <header className="headerStyle">
-            <Logo />
+            <Link to={'/accueil'}>
+                <Logo />
+            </Link>
+            
             <Navbar />
         </header>
         </>

@@ -131,7 +131,7 @@ const DetailEmployee = () => {
                     </form>
 
                     <div className={ employeeDeleted ? 'hideForm' : 'fieldBTN' }>
-                        <button type="button" onClick={deleteEmployee} className="submitBtn">Supprimer employé</button>
+                        <button type="button" onClick={deleteEmployee} className="submitBtn2">Supprimer employé</button>
                     </div>
 
                     <p className="responseText">{response}</p>
