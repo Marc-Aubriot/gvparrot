@@ -1,5 +1,6 @@
 .Workspace {
-    overflow: scroll;
+    overflow-x: hidden;
+    width: 95%;
 }
 
 .workspaceTitle {

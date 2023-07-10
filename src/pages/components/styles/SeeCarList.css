@@ -38,7 +38,7 @@
 
 /* top box */
 .modifyCarPageCarCardTopBox {
-    display: flex;
+
     width: 100%;
 }
 
@@ -58,7 +58,6 @@
 
 /* bot box */
 .modifyCarPageCarCardBotBox {
-    display: flex;
     align-items: center;
     width: 100%;
 }
@@ -112,6 +111,15 @@
 .showDetail {
     visibility: visible;
     display: block;
+}
+@media (min-width: 700px) {
+    .modifyCarPageCarCardTopBox {
+        display: flex;
+    }
+
+    .modifyCarPageCarCardBotBox {
+        display: flex;
+    }
 }
 
 @media (min-width: 1500px) {

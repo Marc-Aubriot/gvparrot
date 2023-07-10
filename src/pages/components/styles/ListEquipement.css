@@ -16,7 +16,7 @@
 
 .ListEquipementUL {
     list-style-type: initial;
-    width: 100%;
+    width: 70%;
     height: 100%
 }
 
@@ -35,7 +35,7 @@
 
 .listEquipementInput {
     margin-left: 20px;
-    width: 30%;
+    width: 25%;
     max-width: 300px;
 }
 
