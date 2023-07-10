@@ -6,7 +6,11 @@ header('Access-Control-Allow-Credentials: true');
 // load les fichiers importants
 require __DIR__ . '/../config.php';
 
-$API_KEY = $_REQUEST['apikey'];
+$API_KEY = '';
+
+if ( $_REQUEST ) {
+    $API_KEY = $_REQUEST['apikey'];
+}
 
 if (!$API_KEY) {
     echo 'no api key';

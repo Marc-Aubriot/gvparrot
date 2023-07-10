@@ -72,7 +72,7 @@ const Accueil = () => {
 
     // style
     const style = {
-        width: "50px", height: "50px"
+        width: "30px", height: "30px"
     }
 
     // render la page principale, avec une présentation des services et une galerie de retour client, ainsi qu'un formulaire modal
@@ -179,7 +179,7 @@ const Accueil = () => {
             
                 <section className='service5 largeScreenContainer'>
         
-                    <h2>SECTION TITLE : AVIS</h2>
+                    <h2>Ce qu'ils en ont pensé</h2>
 
                     <div className='boxWrapper'>
 
@@ -187,29 +187,45 @@ const Accueil = () => {
                             avisFormOpen ? 
                             <CommentForm toggle={handleToggle} /> 
                             : 
-                            <div className='cardWrapper'>
+                            <>
+                                <div className='cardWrapper'>
+                                    
+                                    { comments[index] ? <CommentCard lsOnly="false" nom={comments[index][1]} rating={comments[index][3]} comment={comments[index][2]} /> : '' }
+                                    { comments[index+1] ? <CommentCard lsOnly="true" nom={comments[index+1][1]} rating={comments[index+1][3]} comment={comments[index+1][2]} /> : '' }
+                                    { comments[index+2] ? <CommentCard lsOnly="true" nom={comments[index+2][1]} rating={comments[index+2][3]} comment={comments[index+2][2]} /> : ''}
 
-                                {
-                                    index === 0 ? ''
-                                    :
+                                </div>
+
+                                <div className='cardBtnWrapper'>
                                     <div className='btnPrecedentAvis'>
-                                        <button id='btnPrecedentAvis' onClick={precedentBtn}><BsChevronDoubleLeft style={style}/></button>
-                                    </div>
-                                }
+                                        {
+                                            index === 0 ? ''
+                                            :
+                                            <button id='btnPrecedentAvis' onClick={precedentBtn}><BsChevronDoubleLeft style={style}/></button>
 
-                                { comments[index] ? <CommentCard lsOnly="false" nom={comments[index][1]} rating={comments[index][3]} comment={comments[index][2]} /> : '' }
-                                { comments[index+1] ? <CommentCard lsOnly="true" nom={comments[index+1][1]} rating={comments[index+1][3]} comment={comments[index+1][2]} /> : '' }
-                                { comments[index+2] ? <CommentCard lsOnly="true" nom={comments[index+2][1]} rating={comments[index+2][3]} comment={comments[index+2][2]} /> : ''}
-                                
-                                {
-                                    index === comments.length - 3 ? ''
-                                    :
+                                        }
+                                    </div>
+
                                     <div className='btnSuivantAvis'>
-                                        <button id='btnSuivantAvis' onClick={suivantBtn}><BsChevronDoubleRight style={style}/></button>
-                                    </div>
-                                }
+                                        {                               
+                                            index === comments.length - 1 ? ''
+                                            :
+                                            <button id='btnSuivantAvis' onClick={suivantBtn}><BsChevronDoubleRight style={style}/></button>
 
-                            </div>
+                                        }
+                                    </div>
+
+                                    <div className='btnSuivantAvis2'>
+                                        {                               
+                                            index === comments.length - 3 ? ''
+                                            :
+                                            <button id='btnSuivantAvis' onClick={suivantBtn}><BsChevronDoubleRight style={style}/></button>
+
+                                        }
+                                    </div>
+
+                                </div>
+                            </>
                         } 
                             
                     </div>

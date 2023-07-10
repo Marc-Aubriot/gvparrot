@@ -50,6 +50,10 @@ const CommentCard = (props) => {
             return (
                 <><BsStarHalf /><BsStar /><BsStar /><BsStar /><BsStar /></>
             )
+        } else if ( rating / 0.5 === 0 ) {
+            return (
+                <><BsStar /><BsStar /><BsStar /><BsStar /><BsStar /></>
+            )
         }
     }
 

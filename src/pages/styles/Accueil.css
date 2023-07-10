@@ -41,30 +41,43 @@
     margin-top: 30px;
 }
 
+.cardBtnWrapper {
+    display: flex;
+    margin-top: 10px;
+    text-align: center;
+}
+
 .btnSuivantAvis {
+    width: 50%;
     position: relative;
-    top: 50%;
+    top: -150px;
+    right: -50px;
 }
 
 #btnSuivantAvis {
-    width: 50px;
-    height: 70px;
+    width: 100%;
     border: none;
     background-color: transparent;
     cursor: pointer;
 }
 
 .btnPrecedentAvis {
+    width: 50%;
     position: relative;
-    top: 50%;
+    top: -150px;
+    left: -50px;
 }
 
 #btnPrecedentAvis {
-    width: 50px;
-    height: 70px;
+    width: 100%;
     border: none;
     background-color: transparent;
     cursor: pointer;
+}
+
+.btnSuivantAvis2 {
+    display: none;
+    visibility: hidden;
 }
 
 .cardWrapper {
@@ -138,10 +151,19 @@
     }
 
     .boxWrapper {
-        width: 100%;
-        margin-top: auto;
-        margin-bottom: auto;
-        display: flex;
+        width: 80%;
+        margin: 0 auto;
+
+    }
+    
+    .btnPrecedentAvis {
+        left: -20%;
+    }
+
+    .btnSuivantAvis {
+        right: -20%;
+        display: none;
+        visibility: hidden;
     }
 
     .float-r { 
@@ -178,6 +200,15 @@
         display: flex;
         width: 80%;
         justify-content: space-around;
+    }
+
+    .btnSuivantAvis2 {
+        display: initial;
+        visibility: visible;
+        width: 50%;
+        position: relative;
+        top: -150px;
+        right: -20%;
     }
 
     .avisBtnBox {

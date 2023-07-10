@@ -2,6 +2,9 @@
 import axios from 'axios';
 import { useState } from 'react';
 
+/* components */
+import { BsStar, BsStarHalf, BsStarFill } from 'react-icons/bs';
+
 /* styles */
 import './styles/CommentForm.css';
 import Bouton from './Bouton';
@@ -10,6 +13,8 @@ import Bouton from './Bouton';
 const CommentForm = (props) => {
     // hooks envoit du formulaire
     const [commentSendTrue, setCommentSendTrue] = useState(false);
+    const [currentValue, setCurrentValue] = useState(5);
+    // hook fonctionnel
     const [response, setResponse] = useState([]);
 
     // envoit le commentaire en BDD
@@ -29,6 +34,62 @@ const CommentForm = (props) => {
             const data = response.data;
             setResponse(data);
         });
+    }
+
+    // hook la value du range
+    const handleChange = e => {
+        e.preventDefault();
+
+        setCurrentValue(e.target.value);
+    };
+
+    // affiche un nombre d'étoile pleine en fonction du rating
+    const popStart = (rating) => {
+        if ( rating / 0.5 === 10 ) {
+            return (
+                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /></>
+            )
+        } else if ( rating / 0.5 === 9 ) {
+            return (
+                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStarHalf /></>
+            )
+        } else if ( rating / 0.5 === 8 ) {
+            return (
+                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStar /></>
+            )
+        } else if ( rating / 0.5 === 7 ) {
+            return (
+                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStarHalf /><BsStar /></>
+            )
+        } else if ( rating / 0.5 === 6 ) {
+            return (
+                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStar /><BsStar /></>
+            )
+        } else if ( rating / 0.5 === 5 ) {
+            return (
+                <><BsStarFill /><BsStarFill /><BsStarHalf /><BsStar /><BsStar /></>
+            )
+        } else if ( rating / 0.5 === 4 ) {
+            return (
+                <><BsStarFill /><BsStarFill /><BsStarHalf /><BsStar /><BsStar /></>
+            )
+        } else if ( rating / 0.5 === 3 ) {
+            return (
+                <><BsStarFill /><BsStarHalf /><BsStar /><BsStar /><BsStar /></>
+            )
+        } else if ( rating / 0.5 === 2 ) {
+            return (
+                <><BsStarFill /><BsStar /><BsStar /><BsStar /><BsStar /></>
+            )
+        } else if ( rating / 0.5 === 1 ) {
+            return (
+                <><BsStarHalf /><BsStar /><BsStar /><BsStar /><BsStar /></>
+            )
+        } else if ( rating / 0.5 === 0 ) {
+            return (
+                <><BsStar /><BsStar /><BsStar /><BsStar /><BsStar /></>
+            )
+        }
     }
 
     // render le formulaire
@@ -52,7 +113,28 @@ const CommentForm = (props) => {
                 <div className='commentFormField'>
                     <label htmlFor="noteField"  className='formLabel'>Note</label>
                     <br />
-                    <input id='noteField' name='noteField' type='text' placeholder='Note de 1 à 5' className='formInput' required />
+                    <div className='commentFormFieldInputRange'>
+                        <div className='commentFormInputRangeInputWrapper'>                        
+                            <input
+                                id='noteField' 
+                                name='noteField'
+                                className="formInputRange"
+                                type="range"
+                                defaultValue={5}
+                                min={0}
+                                max={5}
+                                step={0.5}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className='commentFormStarWrapper'>
+                            {
+                                popStart(currentValue)
+                            } 
+                        </div>
+
+                        <p className="commentFormInputRangeDetail">{currentValue}</p>   
+                    </div>
                 </div>
 
                 <div className='commentFormField'>

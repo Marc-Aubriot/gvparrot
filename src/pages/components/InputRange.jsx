@@ -42,7 +42,7 @@ const InputRange = ({ label, unit, min, max, value, step, onChange }) => {
     };
 
     return (
-        <div class="InputRangeWrapper">
+        <div className="InputRangeWrapper">
 
             <div className="InputRangeTitleWrapper">
                 <label className="InputRangeTitle" htmlFor={label}>{label}</label>
