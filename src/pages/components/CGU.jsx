@@ -3,6 +3,8 @@ import './styles/CGU.css';
 
 // Page content les mentions légales et les Conditions Générales d'utilisation
 const CGU = () => {
+    window.scrollTo(0, 0);
+    
     return (
         <div className="CGUContentWrapper">
             <h3>Mentions Légales</h3>

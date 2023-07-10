@@ -11,7 +11,7 @@ import './styles/AddCar.css';
 // fonctionnalité pour ajouté un véhicule dans la BDD
 const AddCar = () => {
     // hooks liste des véhicules et liste des équipements
-    const [carList, setCarList] = useState([]);
+    //const [carList, setCarList] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
 
     // hook de fonctionnement de page
@@ -41,7 +41,7 @@ const AddCar = () => {
 
                 data0.pop();
 
-                setCarList(data0);
+                //setCarList(data0);
 
 
                 // on récupère ensuite la liste des équipements standard sous forme de string

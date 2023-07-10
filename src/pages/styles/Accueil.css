@@ -8,6 +8,10 @@
     justify-self: center;
 }
 
+.textwrapper {
+    width: fit-content;
+}
+
 .bandSection {
     background-color: var(--bg-color);
     height: 400px;

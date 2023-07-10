@@ -1,3 +1,8 @@
+.contactPage {
+    width: 95%;
+    margin: 10px auto;
+}
+
 @media (min-width: 700px) {
     .contactPage {
         margin-left: auto;

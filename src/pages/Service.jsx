@@ -79,7 +79,7 @@ const Service = (props) => {
                         if (element[2] === activeSubCat ) {
 
                             return (
-                                <div key={i}>
+                                <div className="textwrapper" key={i}>
                                     <h3 key={`h3-${i}`}>{element[3]}</h3>
                                     <p key={`p-${i}`}>{element[4]}</p>
                                 </div>

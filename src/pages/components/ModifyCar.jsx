@@ -248,6 +248,7 @@ const ModifyCar = () => {
         const newPathArray = rawImgPath.split('+');
         const removedPath = newPathArray.splice(id, 1);
         const rawNewStringPath = newPathArray.toString();
+        console.log(`deleted img: ${removedImg}   path: ${removedPath}`);
 
         // on update la BDD avec le nouveau string path
         const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deletePhoto&path=${rawNewStringPath}&ref=${params.carref}`;

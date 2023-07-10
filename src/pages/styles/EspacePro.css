@@ -1,5 +1,5 @@
 .espaceProPage {
-    height: 58vh;
+    min-height: 500px;
 }
 
 .formWrapper {
@@ -12,5 +12,6 @@
         margin-right: auto;
         width: 70%;
         max-width: 1200px;
+        min-height: 670px;
     }
 }

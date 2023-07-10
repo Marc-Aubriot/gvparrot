@@ -108,16 +108,16 @@ const ProductPage = () => {
                     <div className="navigationInterProduct">
             
                         <Link to={`/occasions/${previousCarRef}`} className="leftBtnWrapper">
-                            <button disabled={ previousCarRef === 'null' ? true : false } className={ previousCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Annonce précédente</button>
+                            <button disabled={ previousCarRef === 'null' ? true : false } className={ previousCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Précédent</button>
                         </Link>
 
 
                         <Link to={`/occasions`}className="middleBtnWrapper">
-                            <button className="navigationInterProductBTN">Retour aux annonces</button>
+                            <button className="navigationInterProductBTN">Retour</button>
                         </Link>
 
                         <Link to={`/occasions/${nextCarRef}`} className="RightBtnWrapper">
-                        <button disabled={ nextCarRef === 'null' ? true : false } className={ nextCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Annonce suivante</button>
+                        <button disabled={ nextCarRef === 'null' ? true : false } className={ nextCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Suivant</button>
                         </Link>
                     </div>
                     

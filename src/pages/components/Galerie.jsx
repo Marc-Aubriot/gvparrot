@@ -28,7 +28,7 @@ const Galerie = (props) => {;
             <div className='galerieBotRow'>
                 {
                     props.imgset.map((img, i )=> {
-                        if ( i != 0 ) {
+                        if ( i !== 0 ) {
                             return (
                                 <img key={i} src={img} id={`img-${i+1}`} className={ "galerieImg" } onClick={handleClick} alt='voiture' />
                             )  

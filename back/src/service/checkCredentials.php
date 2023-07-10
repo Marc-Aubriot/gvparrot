@@ -23,21 +23,28 @@ if ( $q == 'checkLogin' ) {
         $user_password = $user->getMotDePasse();
 
         if ( password_verify( $form_mot_de_passe ,$user_password) ) {
+            $response = 'ok mail et pass+'.$user->getId();//'+'.$token; //réponse, id, token
             $user_id = $user->getId();
             $token = guidv4();
 
             $get_old_session = Session::getSessionByUser($user_id);
 
-            // si pas de cookie, créé un cookie et nouvelle session, sinon efface ancienne session et créée nouvelle avec le cookie actif
+            // efface ancienne session si elle existe
+            if ( $get_old_session ) { 
+                $get_old_session->delete(); 
+                $response = $response.'+ancienne session delete ';
+            }
+
+            // si pas de cookie, créé un cookie et nouvelle session, sinon créée nouvelle avec le cookie actif
             if (!isset($_COOKIE["PHP_User_Token"])) { 
                 setcookie( "PHP_User_Token", $token, ['secure'=>'true', 'httponly'=>'true', 'path'=>'/','samesite'=>'None']); 
                 $new_session = Session::addSessions($user_id, $token);
+                $response = $response.'+cookie et session créés ';
             } else {
-                if ( $get_old_session ) { $get_old_session->delete(); }
                 $new_session = Session::addSessions($user_id, $_COOKIE["PHP_User_Token"]);
+                $response = $response.'+nouvelle session ';
             }
 
-            $response = 'ok mail et pass+'.$user->getId();//'+'.$token; //réponse, id, token
             echo $response;
             return;
 
@@ -57,7 +64,11 @@ if ( $q == 'checkLogin' ) {
 } else if ( $q == 'checkToken' ) {
 
     $user_id = $_REQUEST['id'];
-    $user_token = $_COOKIE['PHP_User_Token'];
+    $user_token = '';
+
+    if( isset($_COOKIE['PHP_User_Token']) ) {
+        $user_token = $_COOKIE['PHP_User_Token'];
+    }
     $active_session = Session::getSessionByUser($user_id);
 
     $response = 'session introuvable';
@@ -70,7 +81,7 @@ if ( $q == 'checkLogin' ) {
     if ( $user_token == $active_session->getToken() ) {
         $response = 'Token OK';
     } else {
-        $response = 'Token de session incorrect';
+        $response = 'Token de session invalide';
     }
 
     echo $response;

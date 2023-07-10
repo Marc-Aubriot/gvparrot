@@ -79,6 +79,11 @@ main {
   width: 100%;
 }
 
+button:hover {
+  background-color: #75b2d8;
+  cursor: pointer;
+}
+
 /* general class */
 .largeScreenContainer {
   width: 100%;

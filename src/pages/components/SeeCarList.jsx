@@ -16,7 +16,7 @@ const SeeCarList = () => {
 
     // hook liste des véhicules et liste des équipements
     const [carList, setCarList] = useState([]);
-    const [equipementList, setEquipementList] = useState([]);
+    //const [equipementList, setEquipementList] = useState([]);
 
     // hook fonctionnel
     const [isLoading, setIsLoading] = useState(true);
@@ -56,7 +56,7 @@ const SeeCarList = () => {
 
                 data1.pop();
 
-                setEquipementList(data1);
+                //setEquipementList(data1);
 
                 // si la requête prend du temps, pop le spinner
                 setIsLoading(false);
