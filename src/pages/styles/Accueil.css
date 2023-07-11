@@ -31,10 +31,6 @@
     text-align: center;
 }
 
-.boxWrapper {
-    overflow: hidden;
-}
-
 .avisBtnBox {
     margin: 0 auto;
     width: 60%;
@@ -150,14 +146,12 @@
 
     .service5 {
         margin-bottom: 100px;
-        min-height: 500px;
-        /*display: flex;*/
+        min-height: fit-content;
     }
 
     .boxWrapper {
         width: 80%;
         margin: 0 auto;
-
     }
     
     .btnPrecedentAvis {

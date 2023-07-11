@@ -14,7 +14,9 @@ import './styles/Occasions.css';
 const Occasions = () => {
     // hooks liste des véhicules
     const [carList, setCarList] = useState([]);
-    
+    const [refinedCarList, setRefinedCarList] = useState([]);
+    const [TrierPar, setTrierpar] = useState("prixcroissant");
+
     // hook pour les filtres
     const [valueKm, setValueKm] = useState({ min: 0, max: 200000 });
     const [valuePrix, setValuePrix] = useState({ min: 0, max: 30000 });
@@ -24,7 +26,7 @@ const Occasions = () => {
     // hook de fonctionnement de page
     const [isLoading, setIsloading] = useState(true);
 
-    // récupère la liste des véhicules dans la BDD
+    // récupère la liste des véhicules dans la BDD et la tri
     useEffect( ()=> {
         const getCarList = () => {
             const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getCarListWithBasicFilter&q=${valueKm.min},${valueKm.max},${valueAnnee.min},${valueAnnee.max},${valuePrix.min},${valuePrix.max}`;
@@ -39,16 +41,49 @@ const Occasions = () => {
                 });
 
                 data.pop();
-                setCarList(data);
+
+                // on pourrait simplifier la fonction de tri en passant un argument sort/reverse, et un argument pour la value à return
+                // dans les values des options du selecteur html pour obtenir une fonction à deux conditions seulement
+                // mais pour le moment on a pas beaucoup de "filtre" possible donc pas besoin de simplifier
+                //
+                // if ( TrierPar === 'sort-value') { setCarList(data.sort( function (a,b) { return a[value] - b[value]}));
+                //  else if ( TrierPar === 'reverse-value') { setCarList(data.sort( function (a,b) { return b[value] - a[value] }))}};
+                //
+                if ( TrierPar === "prixcroissant" ) {
+                    setCarList(data.sort( function(a,b) { return a[8] - b[8] }));
+                } else if ( TrierPar === "prixdecroissant" ) {
+                    setCarList(data.sort( function(a,b) { return b[8] - a[8] }));
+                } else if ( TrierPar === "kmcroissant" ) {
+                    setCarList(data.sort( function(a,b) { return a[6] - b[6] }));
+                } else if ( TrierPar === "kmdecroissant" ) {
+                    setCarList(data.sort( function(a,b) { return b[6] - a[6] }));
+                } else if ( TrierPar === "anneecroissante" ) {
+                    setCarList(data.sort( function(a,b) { return a[7] - b[7] }));
+                } else if ( TrierPar === "anneedecroissante" ) {
+                    setCarList(data.sort( function(a,b) { return b[7] - a[7] }));
+                } else {
+                    console.log('erreur sur la fonction de tri, aucun filtre reconnu');
+                }
+
                 setIsloading(false);
             })
         }
         getCarList();
-    }, [valueKm, valueAnnee, valuePrix]);
+    }, [valueKm, valueAnnee, valuePrix, TrierPar]);
 
     // hooks le panneau des filtres est ouvert ou non, et son toggle
     const [filterPanelOpen, setFilterPanelOpen] = useState(false);
     const handleToggleFilter = () => { setFilterPanelOpen(prev => !prev) }
+
+    // hooks pour le panneau de tri en mobile
+    const [trierPanelOpen, setTrierPanelOpen] = useState(false);
+    const handdleToggleTri = () => { setTrierPanelOpen(prev => !prev) }
+
+    // set le hook de tri
+    const selectHandler = e => {
+        e.preventDefault();
+        setTrierpar(e.target.value);
+    }
 
     // render la galerie de véhicules, une zone de filtres et une navigation interne
     return (
@@ -91,30 +126,45 @@ const Occasions = () => {
 
             </div>
 
+            <div className={`trierPanel ${trierPanelOpen ? " showMenu" : ""}`}>
+                <select defaultValue={0} className="galerieSelectTrier" onChange={selectHandler}>
+                    <option value={0} disabled>Trier par</option>
+                    <option value={"prixcroissant"}>Prix croissant</option>
+                    <option value={"prixdecroissant"}>Prix décroissant</option>
+                    <option value={"kmcroissant"}>Kilométrage croissant</option>
+                    <option value={"kmdecroissant"}>Kilométrage décroissant</option>
+                    <option value={"anneecroissante"}>Année croissante</option>
+                    <option value={"anneedecroissante"}>Année décroissante</option>
+                </select>
+            </div>
+
             <section className='galerie'>
                 
-                {
-                    isLoading ?
-                     <  Spinner />
-                    :
-                    carList.map( (e,i) => {
+                
 
-                        return (
-                            <CarCard 
-                                id={e[0]} 
-                                image={e[1]} 
-                                titre={e[2]} 
-                                description={e[3]} 
-                                informations={`${e[5]} - ${e[6]} km - ${e[7]} - ${e[4]}`} 
-                                prix={e[8]} 
-                                reference={e[12]}
-                                key={i}
-                            />
-                        )
-                    })
+                <div className="galerieTable">
+                    {
+                        isLoading ?
+                        <  Spinner />
+                        :
+                        carList.map( (e,i) => {
 
-                }
+                            return (
+                                <CarCard 
+                                    id={e[0]} 
+                                    image={e[1]} 
+                                    titre={e[2]} 
+                                    description={e[3]} 
+                                    informations={`${e[5]} - ${e[6]} km - ${e[7]} - ${e[4]}`} 
+                                    prix={e[8]} 
+                                    reference={e[12]}
+                                    key={i}
+                                />
+                            )
+                        })
 
+                    }
+                </div>
                 
             </section>
 
@@ -125,7 +175,7 @@ const Occasions = () => {
                 </div>
 
                 <div className='navBarOccasionsRightBTN'>
-                    <button>Trier</button>
+                    <button onClick={handdleToggleTri}>Trier</button>
                 </div>
 
             </nav>

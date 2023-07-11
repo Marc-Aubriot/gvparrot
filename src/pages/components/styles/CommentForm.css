@@ -30,53 +30,83 @@
     margin-left: 20px;
 }
 
-.commentFormFieldInputRange {
+.commentFormFieldStarField {
+    margin-bottom: 40px;
     display: flex;
-    width: 100%;
-    margin-left: 10px;
-    justify-content: space-around;
     align-items: center;
 }
 
-.commentFormInputRangeInputWrapper {
-    width: 80px;
-    margin-left: 10px;
-}
-
-.commentFormStarWrapper {
-    width: 100px;
-    margin-left: 10px;
-}
-
-.formInputRange {
-    width: 100%;
-    overflow: hidden;
-    appearance: initial;
-    -webkit-appearance: none;
-    background-color: #43e5f7;
-}
-
-.formInputRange::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    color: blue;
-    cursor: pointer;
-}
-
-.formInputRange::-webkit-slider-thumb {
-    width: 10px;
-    appearance: initial;
-    -webkit-appearance: none;
-    height: 10px;
-    cursor: ew-resize;
-    background: #434343;
-    box-shadow: 80px 0 0 80px white;
-    cursor: pointer;
-}
-
-.commentFormInputRangeDetail {
+.commentFormFieldStarField p {
     font-family: oxygen;
     font-size: 16px;
-    width: 15px;
+}
+
+.rating {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    font-size: 50px;
+    width: 100px;
+    margin-left: 20px;
+}
+  
+.rating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+}
+  
+.rating label:last-child {
+    position: static;
+}
+  
+.rating label:nth-child(1) {
+    z-index: 5;
+}
+  
+.rating label:nth-child(2) {
+    z-index: 4;
+}
+  
+.rating label:nth-child(3) {
+    z-index: 3;
+}
+  
+.rating label:nth-child(4) {
+    z-index: 2;
+}
+  
+.rating label:nth-child(5) {
+    z-index: 1;
+}
+  
+.rating label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+  
+.rating label .icon {
+    float: left;
+    color: transparent;
+}
+  
+.rating label:last-child .icon {
+    color: var(--bg-color);
+}
+  
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+    color: #09f;
+}
+  
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+    color: #000;
+    text-shadow: 0 0 5px #09f;
 }
 
 .commentFormBtnWrapper {

@@ -2,9 +2,6 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-/* components */
-import { BsStar, BsStarHalf, BsStarFill } from 'react-icons/bs';
-
 /* styles */
 import './styles/CommentForm.css';
 import Bouton from './Bouton';
@@ -14,6 +11,7 @@ const CommentForm = (props) => {
     // hooks envoit du formulaire
     const [commentSendTrue, setCommentSendTrue] = useState(false);
     const [currentValue, setCurrentValue] = useState(5);
+
     // hook fonctionnel
     const [response, setResponse] = useState([]);
 
@@ -22,11 +20,13 @@ const CommentForm = (props) => {
         e.preventDefault();
         setCommentSendTrue(true);
 
+        const textarea = document.getElementById('messageField');
+
         const formData = new FormData();
         formData.append('apikey', process.env.REACT_APP_APIKEY);
         formData.append('nom', e.target[0].value);
-        formData.append('note', e.target[1].value);
-        formData.append('message', e.target[2].value);
+        formData.append('note', currentValue);
+        formData.append('message', textarea.value);
         formData.append('action', 'sendComment');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
@@ -39,58 +39,8 @@ const CommentForm = (props) => {
     // hook la value du range
     const handleChange = e => {
         e.preventDefault();
-
         setCurrentValue(e.target.value);
     };
-
-    // affiche un nombre d'étoile pleine en fonction du rating
-    const popStart = (rating) => {
-        if ( rating / 0.5 === 10 ) {
-            return (
-                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /></>
-            )
-        } else if ( rating / 0.5 === 9 ) {
-            return (
-                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStarHalf /></>
-            )
-        } else if ( rating / 0.5 === 8 ) {
-            return (
-                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStar /></>
-            )
-        } else if ( rating / 0.5 === 7 ) {
-            return (
-                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStarHalf /><BsStar /></>
-            )
-        } else if ( rating / 0.5 === 6 ) {
-            return (
-                <><BsStarFill /><BsStarFill /><BsStarFill /><BsStar /><BsStar /></>
-            )
-        } else if ( rating / 0.5 === 5 ) {
-            return (
-                <><BsStarFill /><BsStarFill /><BsStarHalf /><BsStar /><BsStar /></>
-            )
-        } else if ( rating / 0.5 === 4 ) {
-            return (
-                <><BsStarFill /><BsStarFill /><BsStarHalf /><BsStar /><BsStar /></>
-            )
-        } else if ( rating / 0.5 === 3 ) {
-            return (
-                <><BsStarFill /><BsStarHalf /><BsStar /><BsStar /><BsStar /></>
-            )
-        } else if ( rating / 0.5 === 2 ) {
-            return (
-                <><BsStarFill /><BsStar /><BsStar /><BsStar /><BsStar /></>
-            )
-        } else if ( rating / 0.5 === 1 ) {
-            return (
-                <><BsStarHalf /><BsStar /><BsStar /><BsStar /><BsStar /></>
-            )
-        } else if ( rating / 0.5 === 0 ) {
-            return (
-                <><BsStar /><BsStar /><BsStar /><BsStar /><BsStar /></>
-            )
-        }
-    }
 
     // render le formulaire
     return(
@@ -110,31 +60,45 @@ const CommentForm = (props) => {
                     <input id='nameField' name='nameField' type='text' placeholder='Nom' className='formInput' required />
                 </div>
                 
-                <div className='commentFormField'>
-                    <label htmlFor="noteField"  className='formLabel'>Note</label>
-                    <br />
-                    <div className='commentFormFieldInputRange'>
-                        <div className='commentFormInputRangeInputWrapper'>                        
-                            <input
-                                id='noteField' 
-                                name='noteField'
-                                className="formInputRange"
-                                type="range"
-                                defaultValue={5}
-                                min={0}
-                                max={5}
-                                step={0.5}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className='commentFormStarWrapper'>
-                            {
-                                popStart(currentValue)
-                            } 
-                        </div>
+                <div className='commentFormField commentFormFieldStarField'>
 
-                        <p className="commentFormInputRangeDetail">{currentValue}</p>   
+                    <label htmlFor="noteField"  className='formLabel'>Note</label>
+                        
+                    <div className='rating'>
+                        <label class="rating-label">
+                            <input type="radio" name="stars" value="1" onChange={handleChange}/>
+                            <span className="icon">★</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="stars" value="2" onChange={handleChange}/>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="stars" value="3" onChange={handleChange}/>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>   
+                        </label>
+                        <label>
+                            <input type="radio" name="stars" value="4" onChange={handleChange}/>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="stars" value="5" onChange={handleChange}/>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                            <span className="icon">★</span>
+                        </label>
                     </div>
+ 
+                    <p>{currentValue}</p>
                 </div>
 
                 <div className='commentFormField'>

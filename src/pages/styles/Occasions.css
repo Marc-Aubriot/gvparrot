@@ -41,8 +41,20 @@
     width: 100%;
     display: none;
     visibility: hidden;
-    position: sticky;
+    position: fixed;
     top: 0;
+    overflow: hidden;
+    z-index: 9;
+}
+
+.trierPanel {
+    background-color: var(--bg-color);
+    height: 30vh;
+    width: 100vw;
+    display: none;
+    visibility: hidden;
+    position: fixed;
+    bottom: 0vh;
     overflow: hidden;
     z-index: 9;
 }
@@ -57,15 +69,25 @@
     visibility: visible;
 }
 
+.galerieSelectTrier {
+    margin: 10px;
+    height: 40px;
+    border-radius: 5px;
+    width: 90%;
+    font-size: 20px;
+}
+
 /* responsive tablet */
 @media (min-width: 700px) {
-    .galerie {
-        width: 90%;
+    .galerieTable {
+        width: 100%;
         margin-left: auto;
         margin-right: auto;
+        margin-top: 10px;
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+
 }
 
 /* responsive desktop */
@@ -74,9 +96,8 @@
         display: flex;
     }
 
-    .galerie {
+    .galerieTable {
         grid-template-columns: 1fr 1fr 1fr;
-        width: 70%;
     }
     
     .navBarOccasions {
@@ -92,12 +113,26 @@
         margin: 20px;
         margin-top: 50px;
     }
+
+    .trierPanel {
+        display: block;
+        visibility: visible;
+        position: absolute;
+        top: 120px;
+        right: 50px;
+        width: initial;
+        height: 40px;
+        background-color: transparent;
+    }
+    .galerieSelectTrier {
+        height: 20px;
+        font-size: 16px;
+    }
 }
 
 /* responsive large screen */
 @media (min-width: 1600px) {
-    .galerie {
+    .galerieTable {
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        width: 75%;
     }
 }
