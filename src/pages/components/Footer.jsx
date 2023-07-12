@@ -45,10 +45,9 @@ const Footer = () => {
                 <div className='footerTopBox'>
                     <div className='addressePanel'>
                         <h5>Où nous trouver ?</h5>
-                        <p>6, rue de Bruxelles</p>
-                        <p>57370 PHALSBOURG</p>
+                        <p> 67 Av. Jean JayJay</p>
+                        <p> 31200 Toulouse</p>
                         <p>Zone industrielle</p>
-                        <p>D46, 57370SCHALBACH</p>
                     </div>
 
                     <div className='contactPanel'>
