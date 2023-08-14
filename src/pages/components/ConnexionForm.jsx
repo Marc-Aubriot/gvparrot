@@ -19,12 +19,18 @@ const ConnexionForm = (props) => {
         e.preventDefault();
         setFormSetTrue(true);
 
+        // get elements value
+        const mailValue = document.getElementById('mail').value;
+        const passValue = document.getElementById('pass').value;
+
         const formData = new FormData();
-        formData.append('email', e.target[0].value);
-        formData.append('mot_de_passe', e.target[1].value);
+        formData.append('email', mailValue);
+        formData.append('mot_de_passe', passValue);
         formData.append('action', 'checkCredentials');
         formData.append('q', 'checkLogin');
         formData.append('apikey', process.env.REACT_APP_APIKEY);
+
+        setResponse(["Formulaire de connection envoyé"]);
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData, {withCredentials:true}).then(function(response) {
 
@@ -47,7 +53,7 @@ const ConnexionForm = (props) => {
         <div className="ConnexionForm">
             {
                 response ?
-                <p className='responseText'>{response[0]}</p>
+                <p className='responseText' data-testid="response-pTag">{response[0]}</p>
                 :""
             }
 

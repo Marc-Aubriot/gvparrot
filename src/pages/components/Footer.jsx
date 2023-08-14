@@ -52,9 +52,12 @@ const Footer = () => {
 
                     <div className='contactPanel'>
                         <h5>Nous contacter</h5>
-                        <p>Téléphone</p>
-                        <p>Email</p>
-                        <p>Contact en ligne</p>
+                        <p>01.50.55.xx.xx</p>
+                        <p>garagegvparrot@outlook.fr</p>
+                        <Link to={"/contact"}>
+                            <p>Contact en ligne</p>
+                        </Link>
+                        
                     </div>
                 </div>
 
