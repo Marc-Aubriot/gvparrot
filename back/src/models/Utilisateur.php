@@ -33,7 +33,7 @@ Class Utilisateur {
                 ':val3' => $prenom,
                 ':val4' => $email, 
                 ':val5' => $mot_de_passe, 
-                ':val6' => false
+                ':val6' => 0
         ));
 
         $con = null;

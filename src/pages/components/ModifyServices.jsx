@@ -184,6 +184,7 @@ const ModifyServices = () => {
 
         const formData = new FormData();
 
+        formData.append('apikey', process.env.REACT_APP_APIKEY);
         formData.append('categorie', e.target[0].value);
         formData.append('subcategorie', e.target[1].value);
         formData.append('title', e.target[2].value);
