@@ -4,41 +4,6 @@ CREATE DATABASE ecfgvparrot;
 USE ecfgvparrot;
 
 /* create tabkles */
-CREATE TABLE voitures (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    images VARCHAR(500),
-    titre VARCHAR(100),
-    descript VARCHAR(100),
-    boite VARCHAR(11),
-    carburant VARCHAR(10),
-    kilometrage INT,
-    annee VARCHAR(4),
-    prix INT,
-    lesplus VARCHAR(200),
-    equipements VARCHAR(1000),
-    details VARCHAR(500),
-    ref VARCHAR(100)
-);
-
-CREATE TABLE commentaires (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nom VARCHAR(50),
-	contenu TEXT,
-	note FLOAT,
-	valider BOOL DEFAULT FALSE
-);
-
-CREATE TABLE messages (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    telephone VARCHAR(15),
-    email VARCHAR(100),
-    sujet VARCHAR(255),
-    content TEXT,
-    lecture BOOL DEFAULT FALSE
-);
-
 CREATE TABLE utilisateurs (
 	id CHAR(36) PRIMARY KEY,
 	nom VARCHAR(50),
@@ -48,8 +13,30 @@ CREATE TABLE utilisateurs (
 	is_admin BOOL DEFAULT FALSE
 );
 
+CREATE TABLE commentaires (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
+	nom VARCHAR(50),
+	contenu TEXT,
+	note FLOAT,
+	valider BOOL DEFAULT FALSE
+);
+
+CREATE TABLE messages (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    telephone VARCHAR(15),
+    email VARCHAR(100),
+    sujet VARCHAR(255),
+    content TEXT,
+    lecture BOOL DEFAULT FALSE
+);
+
 CREATE TABLE services (
 	id INT PRIMARY KEY AUTO_INCREMENT,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
     categorie VARCHAR(20),
     subcategorie VARCHAR(20),
 	titre VARCHAR(100),
@@ -58,6 +45,7 @@ CREATE TABLE services (
 
 CREATE TABLE horaires (
 	id INT PRIMARY KEY AUTO_INCREMENT,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
 	lundi VARCHAR(50),
 	mardi VARCHAR(50),
 	mercredi VARCHAR(50),
@@ -72,8 +60,37 @@ CREATE TABLE equipements (
 	nom VARCHAR(50)
 );
 
+CREATE TABLE voitures (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    utilisateur_id VARCHAR(36) NOT NULL,
+    images VARCHAR(500),
+    titre VARCHAR(100),
+    descript VARCHAR(100),
+    boite VARCHAR(11),
+    carburant VARCHAR(10),
+    kilometrage INT,
+    annee VARCHAR(4),
+    prix INT,
+    lesplus VARCHAR(200),
+    equipements VARCHAR(1000),
+    details VARCHAR(500),
+    ref VARCHAR(100),
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
+);
+
+CREATE TABLE posseder (
+	equipement_id INT(11),
+    voiture_id INT(11),
+    titre VARCHAR(100),
+    nom VARCHAR(50),
+    PRIMARY KEY(equipement_id, voiture_id),
+    FOREIGN KEY(equipement_id) REFERENCES id(equipements),
+    FOREIGN KEY(voiture_id) REFERENCES id(voitures)
+);
+
 CREATE TABLE custom_sessions (
 	id INT PRIMARY KEY AUTO_INCREMENT,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
 	utilisateur VARCHAR(255),
 	token VARCHAR(255),
 	date_connection DATETIME DEFAULT CURRENT_TIMESTAMP,

@@ -1,34 +1,85 @@
 /* populate db : test data + dummy data */
 /* VOITURES */
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/renault.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Renault Clio IV', 'Blue dci 100cv business', 'Manuelle', 'Diesel', '45000', '2018', '14500', 'Cuir+Sièges chauffants+Toit ouvrant+GPS', 'Régulateur+Limiteur de vitesse+Radar de recul+Sellerie en cuir+Régulateur adaptatif+Radar avant+Avertisseur d angle mort+Siège chauffant+Affichage tête haute+Attelage+Connexion bluetooth+etc', 'Bleu+6+5+5+4+12+B', 'bleubleu');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/renault.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Renault Clio IV', 'Blue dci 100cv business', 'Manuelle', 'Diesel', '45000', '2018', '14500', 'Cuir+Sièges chauffants+Toit ouvrant+GPS', 
+'Régulateur+Limiteur de vitesse+Radar de recul+Sellerie en cuir+Régulateur adaptatif+Radar avant+Avertisseur d angle mort+Siège chauffant+Affichage tête haute+Attelage+Connexion bluetooth+etc'
+, 'Bleu+6+5+5+4+12+B', 'bleubleu');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/ford.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Ford Focus', 'EcoBoost 1.0L Titanium', 'Manuelle', 'Essence', '35000', '2019', '13500', 'Climatisation automatique+Caméra de recul+Jantes en alliage+Start-Stop', 'Régulateur+Limiteur de vitesse+Bluetooth+Feux de jour LED+Détecteur de pluie+Radar avant et arrière+Volant en cuir+Écran tactile 8" SYNC', 'Gris+5+5+5+4+24+D', 'grigri');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/ford.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Ford Focus', 'EcoBoost 1.0L Titanium', 'Manuelle', 'Essence', '35000', '2019', '13500', 'Climatisation automatique+Caméra de recul+Jantes en alliage+Start-Stop', 'Régulateur+Limiteur de vitesse+Bluetooth+Feux de jour LED+Détecteur de pluie+Radar avant et arrière+Volant en cuir+Écran tactile 8" SYNC', 'Gris+5+5+5+4+24+D', 'grigri');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/volkswagen.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+5+12+C', 'blabla');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/volkswagen.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+5+12+C', 'blabla');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/toyota.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Toyotata', 'Tokyo Drift', 'Automatique', 'Electrique', '27800', '2022', '23000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref1');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/toyota.jpg+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png+http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'Toyotata', 'Tokyo Drift', 'Automatique', 'Electrique', '27800', '2022', '23000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref1');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '27800', '2022', '23000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref2');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '27800', '2022', '23000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref2');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_hget_prev_and_next_reftml/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '150000', '2022', '7000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref3');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_hget_prev_and_next_reftml/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '150000', '2022', '7000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref3');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '27800', '2010', '1500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref4');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '27800', '2010', '1500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref4');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '56000', '2001', '10000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref5');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '56000', '2001', '10000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref5');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '80000', '1996', '30000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref6');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '80000', '1996', '30000', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref6');
 
-INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-VALUES ( 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '1200', '2022', '25500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref7');
+INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+VALUES ( '32afaf97-0535-4f90-875d-bdecad36648a', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.png', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '1200', '2022', '25500', 'Climatisation+Régulateur de vitesse+Radar de recul', 'Bluetooth+Ordinateur de bord+Volant multifonction+Rétroviseurs électriques+Détecteur de fatigue', 'Noir+6+5+5+4+12+C', 'refrefref7');
+
+/* POSSEDER */
+/* trigger: chaque fois qu'on insert de données dans la table posseder, le titre et le nom vont s'auto-fill */
+DELIMITER $$
+drop trigger fill_table_posseder_1$$
+CREATE TRIGGER fill_table_posseder_1
+    before INSERT
+    ON posseder FOR EACH ROW
+	begin
+	set new.titre = (select titre from voitures where id = new.voiture_id);
+	set new.nom = (select nom from equipements where id = new.equipement_id);
+    end$$
+
+DELIMITER ;
+
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('1', '1');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('2', '1');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('3', '1');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('4', '1');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('5', '1');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('6', '1');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('7', '1');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('8', '1');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('9', '1');
+
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('6', '2');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('8', '2');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('4', '2');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('2', '2');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('5', '2');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('3', '2');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('15', '2');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('10', '2');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('9', '2');
+
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('6', '3');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('8', '3');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('4', '3');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('2', '3');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('5', '3');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('3', '3');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('15', '3');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('10', '3');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('9', '3');
+
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('6', '4');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('8', '4');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('4', '4');
+INSERT INTO posseder (equipement_id, voiture_id) VALUES ('9', '4');
 
 /* UTILISATEURS : EMPLOYES */
 INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
