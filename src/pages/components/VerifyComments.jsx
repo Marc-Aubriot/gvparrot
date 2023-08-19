@@ -64,8 +64,6 @@ const VerifyComments = () => {
         const id = e.target.getAttribute('data-comment-id');
         const q = e.target.getAttribute('data-comment-q');
 
-        console.log(`target id: ${e.target.id},  id: ${id},   q:${q}`);
-
         if (q === '0') {
 
             commentCard.className = 'verifyCommentsCommentCard pin';

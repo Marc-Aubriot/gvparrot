@@ -508,12 +508,14 @@ class BackofficeController extends Controller {
         $subcategorie = $_REQUEST['subcategorie'];
         $title = $_REQUEST['title'];
         $descript = $_REQUEST['descript'];
+        $utilisateur_id = $_REQUEST['user'];
 
         $service = Service::getServiceById($ID);
         $service->modify('categorie', $categorie);
         $service->modify('subcategorie', $subcategorie);
         $service->modify('titre', $title);
         $service->modify('descript', $descript);
+        $service->modify('utilisateur_id', $utilisateur_id);
 
         echo 'Service modifié !';
     }
@@ -525,8 +527,9 @@ class BackofficeController extends Controller {
         $subcategorie = $_REQUEST['subcategorie'];
         $title = $_REQUEST['title'];
         $descript = $_REQUEST['descript'];
+        $utilisateur_id = $_REQUEST['user'];
 
-        $service = Service::addService($categorie, $subcategorie, $title, $descript);
+        $service = Service::addService($utilisateur_id, $categorie, $subcategorie, $title, $descript);
 
         echo 'Service ajouté !';
     }

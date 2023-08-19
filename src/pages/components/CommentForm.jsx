@@ -65,7 +65,7 @@ const CommentForm = (props) => {
                     <label htmlFor="noteField"  className='formLabel'>Note</label>
                         
                     <div className='rating'>
-                        <label class="rating-label">
+                        <label className="rating-label">
                             <input type="radio" name="stars" value="1" onChange={handleChange}/>
                             <span className="icon">★</span>
                         </label>

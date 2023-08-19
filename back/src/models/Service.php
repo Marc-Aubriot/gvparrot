@@ -3,14 +3,16 @@
 Class Service {
     
     private $id;
+    private $utilisateur_id;
     private $categorie;
     private $subcategorie;
     private $titre;
     private $descript;
 
-    public function __construct($id, $categorie, $subcategorie,  $titre, $descript)
+    public function __construct($id, $utilisateur_id, $categorie, $subcategorie,  $titre, $descript)
     {
         $this->id = $id;
+        $this->utilisateur_id = $utilisateur_id;
         $this->categorie = $categorie;
         $this->subcategorie = $subcategorie;
         $this->titre = $titre;
@@ -18,14 +20,15 @@ Class Service {
     }
 
     // fonction pour ajouter un nouveau service en DB
-    public static function addService($categorie, $subcategorie, $titre, $descript) {
+    public static function addService($utilisateur_id, $categorie, $subcategorie, $titre, $descript) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $con->prepare('INSERT INTO services (categorie, subcategorie, titre, descript) 
-        VALUES (:val1, :val2, :val3, :val4)');
+        $stmt = $con->prepare('INSERT INTO services (utilisateur_id, categorie, subcategorie, titre, descript) 
+        VALUES (:val0, :val1, :val2, :val3, :val4)');
 
         $stmt->execute(
             array(
+            ':val0' => $utilisateur_id,
             ':val1' => $categorie,
             ':val2' => $subcategorie, 
             ':val3' => $titre, 
@@ -54,7 +57,8 @@ Class Service {
                 $result['categorie'], 
                 $result['subcategorie'],
                 $result['titre'], 
-                $result['descript']
+                $result['descript'],
+                $result['utilisateur_id']
             );
         } else {
             $conn = null;

@@ -10,8 +10,9 @@ Class Message {
     private $sujet;
     private $content;
     private $lecture;
+    private $voiture_ref;
 
-    public function __construct( $id, $nom, $prenom, $telephone, $email, $sujet, $content, $lecture)
+    public function __construct( $id, $nom, $prenom, $telephone, $email, $sujet, $content, $lecture, $voiture_ref)
     {
         $this->id = $id;
         $this->nom = $nom;
@@ -21,14 +22,15 @@ Class Message {
         $this->sujet = $sujet;
         $this->content = $content;
         $this->lecture = $lecture;
+        $this->voiture_ref = $voiture_ref;
     }
 
     // CREATE
-    public static function addMessage($nom, $prenom, $telephone, $email, $sujet, $content) {
+    public static function addMessage($nom, $prenom, $telephone, $email, $sujet, $content, $voiture_ref) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $con->prepare('INSERT INTO messages (nom, prenom, telephone, email, sujet, content) 
-        VALUES (:val1, :val2, :val3, :val4, :val5, :val6)');
+        $stmt = $con->prepare('INSERT INTO messages (nom, prenom, telephone, email, sujet, content, voiture_ref) 
+        VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7)');
 
         $stmt->execute(
             array(
@@ -38,6 +40,7 @@ Class Message {
                 ':val4' => $email, 
                 ':val5' => $sujet, 
                 ':val6' => $content,
+                ':val7' => $voiture_ref,
         ));
 
         $con = null;
@@ -65,7 +68,8 @@ Class Message {
                 $result['email'],
                 $result['sujet'], 
                 $result['content'],
-                $result['lecture']
+                $result['lecture'],
+                $result['voiture_ref'],
             );
         } else {
             $conn = null;

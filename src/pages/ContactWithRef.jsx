@@ -42,6 +42,7 @@ const Contact = () => {
         formData.append('email', e.target[3].value);
         formData.append('sujet', e.target[4].value);
         formData.append('content', e.target[5].value);
+        formData.append('voitureRef', product);
         formData.append('action', 'sendMessage');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {

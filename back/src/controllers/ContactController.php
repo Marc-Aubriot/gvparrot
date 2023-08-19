@@ -11,8 +11,13 @@ class ContactController extends Controller {
         $email = $_REQUEST["email"];
         $sujet = $_REQUEST["sujet"];
         $content = $_REQUEST["content"];
+        $voiture_ref = '';
 
-        $message = Message::addMessage($nom, $prenom, $telephone, $email, $sujet, $content);
+        if (isset($_REQUEST['voitureRef'])) {
+            $voiture_ref = $_REQUEST['voitureRef'];
+        }
+
+        $message = Message::addMessage($nom, $prenom, $telephone, $email, $sujet, $content, $voiture_ref);
         echo 'Votre demande de contact à étée correctement envoyée ! Elle sera prise en charge par nos équipes dès que possible.';
     }
 }

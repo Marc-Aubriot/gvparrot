@@ -30,6 +30,7 @@ CREATE TABLE messages (
     telephone VARCHAR(15),
     email VARCHAR(100),
     sujet VARCHAR(255),
+    voiture_ref VARCHAR(100),
     content TEXT,
     lecture BOOL DEFAULT FALSE
 );
