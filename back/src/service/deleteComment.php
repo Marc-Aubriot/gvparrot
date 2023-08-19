@@ -8,5 +8,5 @@ $comment = Comment::getCommentById($id);
 
 $comment->delete();
 
-echo 'Commentaire supprimé'
+echo 'Commentaire supprimé';
 ?>

@@ -6,5 +6,5 @@ $id = $_REQUEST['id'];
 $user = Utilisateur::getUserByID($id);
 $user->delete();
 
-echo 'Employé supprimé de la base de données'
+echo 'Employé supprimé de la base de données';
 ?>
