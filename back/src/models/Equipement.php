@@ -46,6 +46,30 @@ Class Equipement {
         }
     }
 
+    // get par id
+    public static function getEquipementByNom($equipement_nom) {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('SELECT * FROM equipements WHERE nom = :nom');
+
+        $stmt->bindValue(':nom', $equipement_nom);
+
+        $stmt->execute();
+
+        // Récupération du résultat sous forme d'objet
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $conn = null;
+            return new Equipement(
+                $result['id'], 
+                $result['nom']
+            );
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
+
     // get une liste des équipements
     public static function getAllEquipements() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);

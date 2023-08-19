@@ -3,6 +3,7 @@
 class Voiture {
 
     private $id;
+    private $utilisateur_id;
     private $images;
     private $titre;
     private $descript;
@@ -16,9 +17,10 @@ class Voiture {
     private $details;
     private $ref;
 
-    public function __construct($id, $images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref)
+    public function __construct($id, $utilisateur_id, $images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref)
     {
         $this->id = $id;
+        $this->utilisateur_id = $utilisateur_id;
         $this->images = $images;
         $this->titre = $titre;
         $this->descript = $descript;
@@ -34,14 +36,15 @@ class Voiture {
     }
 
     // Fonction pour ajouter une nouvelle Voiture en base de données
-    public static function addCar($images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref) {
+    public static function addCar($utilisateur_id, $images, $titre, $descript, $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('INSERT INTO voitures ( images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
-        VALUES ( :val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12)');
+        $stmt = $conn->prepare('INSERT INTO voitures ( utilisateur_id, images, titre, descript, boite, carburant, kilometrage, annee, prix, lesplus, equipements, details, ref)
+        VALUES ( :val0, :val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12)');
 
         $stmt->execute(
             array(
+            ':val0' => $utilisateur_id,
             ':val1' => $images, 
             ':val2' => $titre, 
             ':val3' => $descript, 
@@ -75,6 +78,7 @@ class Voiture {
             $conn = null;
             return new Voiture(
                 $result['id'], 
+                $result['utilisateur_id'],
                 $result['images'], 
                 $result['titre'], 
                 $result['descript'], 
@@ -108,7 +112,8 @@ class Voiture {
         if ($result) {
             $conn = null;
             return new Voiture(
-                $result['id'], 
+                $result['id'],
+                $result['utilisateur_id'],  
                 $result['images'], 
                 $result['titre'], 
                 $result['descript'], 
@@ -220,6 +225,7 @@ class Voiture {
 
     // Méthodes pour recevoir les paramètres d'une voiture
     public function getId() { return $this->id; }
+    public function getUserId() { return $this->utilisateur_id; }
     public function getImages() { return $this->images; }
     public function getTitre() { return $this->titre; }
     public function getDescript() { return $this->descript; }

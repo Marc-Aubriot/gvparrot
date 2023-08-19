@@ -3,13 +3,15 @@
 Class Comment {
 
     private $id;
+    private $utilisateur_id;
     private $nom;
     private $contenu;
     private $note;
     private $valider;
 
-    public function __construct($id, $nom, $contenu, $note, $valider) {
+    public function __construct($id, $utilisateur_id, $nom, $contenu, $note, $valider) {
         $this->id = $id;
+        $this->utilisateur_id = $utilisateur_id;
         $this->nom = $nom;
         $this->contenu = $contenu;
         $this->note = $note;
@@ -65,6 +67,7 @@ Class Comment {
             $conn = null;
             return new Comment(
                 $result['id'], 
+                $result['utilisateur_id'],
                 $result['nom'], 
                 $result['contenu'], 
                 $result['note'], 

@@ -10,8 +10,9 @@ Class Horaire {
     private $vendredi;
     private $samedi;
     private $dimanche;
+    private $utilisateur_id;
 
-    public function __construct( $id, $lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche)
+    public function __construct( $id, $lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche, $utilisateur_id)
     {
         $this->id = $id;
         $this->lundi = $lundi;
@@ -21,14 +22,15 @@ Class Horaire {
         $this->vendredi = $vendredi;
         $this->samedi = $samedi;
         $this->dimanche = $dimanche;
+        $this->utilisateur_id = $utilisateur_id;
     }
 
     // fonction pour ajouter 
-    public static function addHoraire($lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche) {
+    public static function addHoraire($lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche, $utilisateur_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('INSERT INTO horaires (lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche) 
-        VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7)');
+        $stmt = $conn->prepare('INSERT INTO horaires (lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche, utilisateur_id) 
+        VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8)');
 
         $stmt->execute(
             array(
@@ -38,7 +40,8 @@ Class Horaire {
                 ':val4' => $jeudi,
                 ':val5' => $vendredi,
                 ':val6' => $samedi,
-                ':val7' => $dimanche
+                ':val7' => $dimanche,
+                ':val8' => $utilisateur_id
             )
         );
 
@@ -66,7 +69,8 @@ Class Horaire {
                 $result['jeudi'], 
                 $result['vendredi'],
                 $result['samedi'],
-                $result['dimanche']
+                $result['dimanche'],
+                $result['utilisateur_id']
             );
         } else {
             $conn = null;

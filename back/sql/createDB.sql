@@ -79,18 +79,18 @@ CREATE TABLE voitures (
 );
 
 CREATE TABLE posseder (
-	equipement_id INT(11),
-    voiture_id INT(11),
+	equipement_id INT,
+    voiture_id INT,
     titre VARCHAR(100),
     nom VARCHAR(50),
     PRIMARY KEY(equipement_id, voiture_id),
-    FOREIGN KEY(equipement_id) REFERENCES id(equipements),
-    FOREIGN KEY(voiture_id) REFERENCES id(voitures)
+    FOREIGN KEY(equipement_id) REFERENCES equipements(id),
+    FOREIGN KEY(voiture_id) REFERENCES voitures(id)
 );
 
 CREATE TABLE custom_sessions (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
+    FOREIGN KEY (utilisateur) REFERENCES utilisateurs(id),
 	utilisateur VARCHAR(255),
 	token VARCHAR(255),
 	date_connection DATETIME DEFAULT CURRENT_TIMESTAMP,

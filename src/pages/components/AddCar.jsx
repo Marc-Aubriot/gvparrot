@@ -1,6 +1,7 @@
 /* dependencies */
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useOutletContext } from 'react-router-dom';
 
 /* components */
 import Spinner from './Spinner';
@@ -13,6 +14,7 @@ const AddCar = () => {
     // hooks liste des véhicules et liste des équipements
     //const [carList, setCarList] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
+    const [user] = useOutletContext();
 
     // hook de fonctionnement de page
     const [isLoading, setIsLoading] = useState(true);
@@ -128,6 +130,7 @@ const AddCar = () => {
         formData.append(`file-count`, imgs.length);
 
         // on attache toutes les données et on l'envoit
+        formData.append('id', user[1]);
         formData.append('titre', e.target[1].value);
         formData.append('descript', e.target[2].value);
         formData.append('boite', e.target[3].value);

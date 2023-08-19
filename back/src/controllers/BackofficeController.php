@@ -61,6 +61,8 @@ class BackofficeController extends Controller {
 
     public function addCar() {
         include_once ROOT.'/src/models/Voiture.php';
+        include_once ROOT.'/src/models/Posseder.php';
+        include_once ROOT.'/src/models/Equipement.php';
 
         $tmp_array = [];
         $count = $_REQUEST['file-count'];
@@ -81,6 +83,7 @@ class BackofficeController extends Controller {
         }
 
         // Récupère toutes les infos envoyées par le front
+        $utilisateur_id = $_REQUEST['id'];
         $images = implode("+", $tmp_array); // transforme l'array en string pour stockage BDD
         $titre = $_REQUEST['titre'];
         $descript = $_REQUEST['descript'];
@@ -96,8 +99,19 @@ class BackofficeController extends Controller {
         $ref = Controller::guidv4(); // génère une référence aléatoire
 
         // créé un nouvel objet via son Model et envoit l'objet en BDD
-        $voiture = Voiture::addCar($images, $titre, $descript,  $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref);
+        $voiture = Voiture::addCar($utilisateur_id, $images, $titre, $descript,  $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref);
 
+        // récupèré chaque  équipement pour le pousser en BDD avec l'id de la voiture
+        if ($_REQUEST['equipements']) {
+            
+            $equipementsList = explode('+', $equipements);
+
+            foreach($equipementsList as $equipement) {
+                $voiture = Voiture::getCarByRef($ref);
+                $equipement = Equipement::getEquipementByNom($equipement);
+                $posseder = Posseder::add($equipement->getId(), $voiture->getId());
+            }
+        }
 
         // envoit une réponse au front
         $response = 'voiture ajoutée sous la référence '.$ref;
@@ -248,6 +262,8 @@ class BackofficeController extends Controller {
         $dimanche_3 = $_REQUEST['dimanche-3'];
         $dimanche = $dimanche_0.','.$dimanche_1.','.$dimanche_2.','.$dimanche_3;
 
+        $utilisateur_id = $_REQUEST['id'];
+
         $horaires->modify('lundi', $lundi);
         $horaires->modify('mardi', $mardi);
         $horaires->modify('mercredi', $mercredi);
@@ -255,6 +271,7 @@ class BackofficeController extends Controller {
         $horaires->modify('vendredi', $vendredi);
         $horaires->modify('samedi', $samedi);
         $horaires->modify('dimanche', $dimanche);
+        $horaires->modify('utilisateur_id', $utilisateur_id);
 
         echo 'Modifications enregistrées !';
     }
@@ -344,6 +361,8 @@ class BackofficeController extends Controller {
     public function modifyCar() {
         include_once ROOT.'/src/models/Voiture.php';
         //include_once ROOT.'/src/service/uuidv4Generator.php';
+        include_once ROOT.'/src/models/Posseder.php';
+        include_once ROOT.'/src/models/Equipement.php';
 
         $tmp_array = [];
         $count = $_REQUEST['file-count'];
@@ -374,6 +393,7 @@ class BackofficeController extends Controller {
             $images = $path;
         }
 
+        $utilisateur_id = $_REQUEST['id'];
         $ref = $_REQUEST['ref'];
         $titre = $_REQUEST['titre'];
         $descript = $_REQUEST['descript'];
@@ -399,6 +419,20 @@ class BackofficeController extends Controller {
         $voiture->updateChamp('lesplus',$lesplus);
         $voiture->updateChamp('equipements',$equipements);
         $voiture->updateChamp('details',$details);
+        $voiture->updateChamp('utilisateur_id',$utilisateur_id);
+
+        // récupèré chaque  équipement pour le pousser en BDD avec l'id de la voiture
+        if ($_REQUEST['equipements']) {
+            
+            $equipementsList = explode('+', $equipements);
+            $voiture = Voiture::getCarByRef($ref);
+            Posseder::delete($voiture->getId());
+
+            foreach($equipementsList as $equipement) {
+                $equipement = Equipement::getEquipementByNom($equipement);
+                Posseder::add($equipement->getId(), $voiture->getId());
+            }
+        }
 
         // envoit une réponse au front
         $response = 'voiture '.$ref.': informations modifiées';
@@ -406,6 +440,16 @@ class BackofficeController extends Controller {
     }
 
     // MODULE : VerifyComments.jsx
+    public function getAllComments() {
+        include_once ROOT.'/src/models/Comment.php';
+
+        $comments = Comment::getCommentList();
+
+        foreach($comments as $item) {
+            echo $item['id'].'+'.$item['nom'].'+'.$item['contenu'].'+'.$item['note'].'+'.$item['valider'].'&';
+        };
+    }
+
     public function deleteComment() {
         include_once ROOT.'/src/models/Comment.php';
 
@@ -429,11 +473,13 @@ class BackofficeController extends Controller {
         if ($q === '0') {
 
             $comment->pin();
+            $comment->updateChamp('utilisateur_id', $_REQUEST['user']);
             echo "Commentaire ajouté à l'Accueil";
 
         } else if ($q === '1') {
 
             $comment->unPin();
+            $comment->updateChamp('utilisateur_id', $_REQUEST['user']);
             echo "Commentaire enlevé de l'Accueil";
 
         } else {

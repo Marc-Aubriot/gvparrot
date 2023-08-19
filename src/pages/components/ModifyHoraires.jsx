@@ -1,6 +1,7 @@
 /* dependencies */
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Outlet, useOutletContext } from 'react-router-dom';
 
 /* components */
 import Spinner from './Spinner';
@@ -12,6 +13,7 @@ import './styles/ModifyHoraires.css';
 const ModifyHoraires = () => {
     // hook les horaires
     const [horaires, setHoraires] = useState([]);
+    const [user] = useOutletContext();
 
     // hook fonctionnel
     const [formSendTrue, setFormSendTrue] = useState(false);
@@ -90,6 +92,7 @@ const ModifyHoraires = () => {
         formData.append('dimanche-2', e.target[26].value);
         formData.append('dimanche-3', e.target[27].value);
 
+        formData.append('id', user[1]);
         formData.append('apikey', process.env.REACT_APP_APIKEY)
         formData.append('action', 'modifyHoraires');
 

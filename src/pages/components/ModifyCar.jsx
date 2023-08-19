@@ -1,7 +1,7 @@
 /* dependencies */
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 
 /* styles */
 import './styles/AddCar.css';
@@ -28,6 +28,7 @@ const ModifyCar = () => {
     const [rawImgPath, setRawImgPath] = useState();
     const [carImg, setCarImg] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
+    const [user] = useOutletContext();
 
     // hook fonctionnel
     const [isLoading, setIsLoading] = useState(true);
@@ -189,6 +190,7 @@ const ModifyCar = () => {
         formData.append('equipements', equipements);
         formData.append('details', details);
         formData.append('apikey', process.env.REACT_APP_APIKEY);
+        formData.append('id', user[1]);
         formData.append('action', 'modifyCar');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData, config).then(function(response) {
