@@ -20,7 +20,7 @@ Class Utilisateur {
     }
 
     // CREATE
-    public static function addUser($id, $nom, $prenom, $email, $mot_de_passe) {
+    public function addUser($id, $nom, $prenom, $email, $mot_de_passe) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $con->prepare('INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin) 
@@ -40,7 +40,7 @@ Class Utilisateur {
     }
 
     // READ
-    public static function getUserByID($user_id) {
+    public function getUserByID($user_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM utilisateurs WHERE id = :id');
@@ -68,7 +68,7 @@ Class Utilisateur {
     }
 
     // READ
-    public static function getUserByEmail($user_mail) {
+    public function getUserByEmail($user_mail) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM utilisateurs WHERE email = :user_mail');
@@ -96,7 +96,7 @@ Class Utilisateur {
     }
 
     // Fonction pour récupérer tous les messages
-    public static function getUserList() {
+    public function getUserList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM utilisateurs WHERE is_admin = 0');
@@ -126,6 +126,7 @@ Class Utilisateur {
 
         $db = null;
     }
+    
     public function modify() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 

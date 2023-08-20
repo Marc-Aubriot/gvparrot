@@ -19,7 +19,7 @@ Class Comment {
     }
 
     // fonction pour ajouter un nouveau commentaire en DB
-    public static function addComment($nom, $contenu, $note) {
+    public function addComment($nom, $contenu, $note) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $con->prepare('INSERT INTO commentaires (nom, contenu, note) 
@@ -52,7 +52,7 @@ Class Comment {
     }
 
     // Fonction pour récupérer les informations d
-    public static function getCommentById($comment_id) {
+    public function getCommentById($comment_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM commentaires WHERE id = :id');
@@ -80,7 +80,7 @@ Class Comment {
     }
 
     // Fonction pour récupérer tous les comments validés
-    public static function getCommentList() {
+    public function getCommentList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM commentaires');
@@ -100,7 +100,7 @@ Class Comment {
     }
 
     // Fonction pour récupérer tous les comments validés
-    public static function getValidatedCommentList() {
+    public function getValidatedCommentList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM commentaires WHERE valider = true');
@@ -166,6 +166,7 @@ Class Comment {
 
     // Méthodes pour recevoir les paramètres
     public function getId() { return $this->id; }
+    public function getUtilisateurId() { return $this->utilisateur_id; }
     public function getNom() { return $this->nom; }
     public function getContenu() { return $this->contenu; }
     public function getNote() { return $this->note; }
@@ -173,6 +174,7 @@ Class Comment {
 
     // Méthodes pour modifier les paramètres
     public function setId($new_value) { $this->id = $new_value; }
+    public function setUtilisateurId($new_value) { $this->utilisateur_id = $new_value; }
     public function setNom($new_value) { $this->nom = $new_value; }
     public function setContenu($new_value) { $this->contenu = $new_value; }
     public function setNote($new_value) { $this->note = $new_value; }

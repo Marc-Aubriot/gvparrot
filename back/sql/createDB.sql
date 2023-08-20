@@ -1,99 +1,143 @@
 /* create db */
+DROP DATABASE ecfgvparrot;
 CREATE DATABASE ecfgvparrot;
 # SHOW DATABASES;
 USE ecfgvparrot;
 
-/* create tabkles */
+/* create tables */
 CREATE TABLE utilisateurs (
 	id CHAR(36) PRIMARY KEY,
-	nom VARCHAR(50),
-	prenom VARCHAR(50),
-	email VARCHAR(100),
-	mot_de_passe VARCHAR(255),
+	nom VARCHAR(50) NOT NULL,
+	prenom VARCHAR(50) NOT NULL,
+	email VARCHAR(100) NOT NULL,
+	mot_de_passe VARCHAR(255) NOT NULL,
 	is_admin BOOL DEFAULT FALSE
 );
 
 CREATE TABLE commentaires (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
-	nom VARCHAR(50),
-	contenu TEXT,
-	note FLOAT,
+	id INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    utilisateur_id CHAR(36),
+	nom VARCHAR(50) NOT NULL,
+	contenu TEXT NOT NULL,
+	note FLOAT NOT NULL,
 	valider BOOL DEFAULT FALSE
+);
+
+CREATE TABLE services (
+	id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    utilisateur_id CHAR(36) NOT NULL,
+    categorie VARCHAR(20) NOT NULL,
+    subcategorie VARCHAR(20) NOT NULL,
+	titre VARCHAR(100) NOT NULL,
+	descript TEXT NOT NULL
+);
+
+CREATE TABLE horaires (
+	id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    utilisateur_id CHAR(36) NOT NULL,
+	lundi VARCHAR(50) NOT NULL,
+	mardi VARCHAR(50) NOT NULL,
+	mercredi VARCHAR(50) NOT NULL,
+	jeudi VARCHAR(50) NOT NULL,
+	vendredi VARCHAR(50) NOT NULL,
+	samedi VARCHAR(50) NOT NULL,
+	dimanche VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE equipements (
+	id INT(11) PRIMARY KEY AUTO_INCREMENT,
+	nom VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE voitures (
+	id CHAR(36) PRIMARY KEY,
+    utilisateur_id VARCHAR(36) NOT NULL,
+    titre VARCHAR(100) NOT NULL,
+    descript VARCHAR(100) NOT NULL,
+    boite VARCHAR(11) NOT NULL,
+    carburant VARCHAR(10) NOT NULL,
+    kilometrage INT NOT NULL,
+    annee VARCHAR(4) NOT NULL,
+    prix INT NOT NULL
 );
 
 CREATE TABLE messages (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    telephone VARCHAR(15),
-    email VARCHAR(100),
-    sujet VARCHAR(255),
-    voiture_ref VARCHAR(100),
-    content TEXT,
+    utilisateur_id CHAR(36) NOT NULL,
+    voiture_id CHAR(36),
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    telephone VARCHAR(15) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    sujet VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
     lecture BOOL DEFAULT FALSE
 );
 
-CREATE TABLE services (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
-    categorie VARCHAR(20),
-    subcategorie VARCHAR(20),
-	titre VARCHAR(100),
-	descript TEXT
-);
-
-CREATE TABLE horaires (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
-	lundi VARCHAR(50),
-	mardi VARCHAR(50),
-	mercredi VARCHAR(50),
-	jeudi VARCHAR(50),
-	vendredi VARCHAR(50),
-	samedi VARCHAR(50),
-	dimanche VARCHAR(50)
-);
-
-CREATE TABLE equipements (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nom VARCHAR(50)
-);
-
-CREATE TABLE voitures (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    utilisateur_id VARCHAR(36) NOT NULL,
-    images VARCHAR(500),
-    titre VARCHAR(100),
-    descript VARCHAR(100),
-    boite VARCHAR(11),
-    carburant VARCHAR(10),
-    kilometrage INT,
-    annee VARCHAR(4),
-    prix INT,
-    lesplus VARCHAR(200),
-    equipements VARCHAR(1000),
-    details VARCHAR(500),
-    ref VARCHAR(100),
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
-);
-
-CREATE TABLE posseder (
-	equipement_id INT,
-    voiture_id INT,
+CREATE TABLE voiture_equipements (
+	equipement_id INT(11),
+    voiture_id CHAR(36),
     titre VARCHAR(100),
     nom VARCHAR(50),
-    PRIMARY KEY(equipement_id, voiture_id),
-    FOREIGN KEY(equipement_id) REFERENCES equipements(id),
-    FOREIGN KEY(voiture_id) REFERENCES voitures(id)
+    PRIMARY KEY(equipement_id, voiture_id)
+);
+
+CREATE TABLE voiture_lesplus (
+	lesplus_id INT(11),
+    voiture_id CHAR(36),
+    titre VARCHAR(100),
+    nom VARCHAR(50),
+    PRIMARY KEY(lesplus_id, voiture_id)
 );
 
 CREATE TABLE custom_sessions (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    FOREIGN KEY (utilisateur) REFERENCES utilisateurs(id),
-	utilisateur VARCHAR(255),
-	token VARCHAR(255),
+	id INT(11) PRIMARY KEY AUTO_INCREMENT,
+	utilisateur_id VARCHAR(255) NOT NULL,
+	token VARCHAR(255) NOT NULL,
 	date_connection DATETIME DEFAULT CURRENT_TIMESTAMP,
 	logged BOOLEAN DEFAULT TRUE
 );
+
+CREATE TABLE images (
+	id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    voiture_id CHAR(36) NOT NULL,
+    chemin VARCHAR(500) NOT NULL
+);
+
+CREATE TABLE lesplus (
+	id INT(11) AUTO_INCREMENT PRIMARY KEY,
+	equipement_id INT(11) NOT NULL,
+	nom VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE details (
+	id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    voiture_id CHAR(36) NOT NULL,
+    couleur VARCHAR(30) NOT NULL,
+    puissance INT(11) NOT NULL,
+    rapports INT(11) NOT NULL,
+    places INT(11) NOT NULL,
+    portes INT(11) NOT NULL,
+    garantie INT(11) NOT NULL,
+    critair CHAR(1) NOT NULL
+);
+
+/* create admin */
+INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
+VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbea", "adminfamily", "adminname", "superadmin@outlook.fr", "$2y$10$IKnk.34eszvM4lq.JKwWJOMQ0br0ltJDnPNCEubprCems6DmC1.9.", true);
+
+/* add foreign key */
+ALTER TABLE commentaires ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
+ALTER TABLE services ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
+ALTER TABLE custom_sessions ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
+ALTER TABLE voiture_equipements ADD FOREIGN KEY (equipement_id) REFERENCES equipements(id);
+ALTER TABLE voiture_equipements ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
+ALTER TABLE voitures ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
+ALTER TABLE horaires ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
+ALTER TABLE voiture_lesplus ADD FOREIGN KEY (lesplus_id) REFERENCES lesplus(id);
+ALTER TABLE voiture_lesplus ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
+ALTER TABLE images ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
+ALTER TABLE messages ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
+ALTER TABLE messages ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
+ALTER TABLE lesplus ADD FOREIGN KEY (equipement_id) REFERENCES equipements(id);
+ALTER TABLE details ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);

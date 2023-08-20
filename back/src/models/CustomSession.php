@@ -2,29 +2,29 @@
 
 Class Session {
     private $id;
-    private $utilisateur;
+    private $utilisateur_id;
     private $token;
-    private $date_connection;
+    private $connexion;
     private $logged;
 
-    public function __construct($id, $utilisateur, $token, $date_connection, $logged) {
+    public function __construct($id, $utilisateur_id, $token, $connexion, $logged) {
         $this->id = $id;
-        $this->utilisateur = $utilisateur;
+        $this->utilisateur_id = $utilisateur_id;
         $this->token = $token;
-        $this->date_connection = $date_connection;
+        $this->connexion = $connexion;
         $this->logged = $logged;
     }
 
     // CREATE
-    public static function addSessions($utilisateur, $token) {
+    public function addSessions($utilisateur_id, $token) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('INSERT INTO custom_sessions ( utilisateur, token )
+        $stmt = $conn->prepare('INSERT INTO custom_sessions ( utilisateur_id, token )
         VALUES ( :val1, :val2 )');
 
         $stmt->execute(
             array(
-            ':val1' => $utilisateur, 
+            ':val1' => $utilisateur_id, 
             ':val2' => $token 
         ));
 
@@ -32,10 +32,10 @@ Class Session {
     }
 
     //READ
-    public static function getSessionByUser($user_id) {
+    public function getSessionByUser($user_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('SELECT * FROM custom_sessions WHERE utilisateur = :user');
+        $stmt = $conn->prepare('SELECT * FROM custom_sessions WHERE utilisateur_id = :user');
 
         $stmt->bindValue(':user', $user_id);
 
@@ -47,9 +47,9 @@ Class Session {
             $conn = null;
             return new Session(
                 $result['id'], 
-                $result['utilisateur'], 
+                $result['utilisateur_id'], 
                 $result['token'], 
-                $result['date_connection'], 
+                $result['connexion'], 
                 $result['logged']);
         } else {
             $conn = null;
@@ -57,7 +57,7 @@ Class Session {
         }
     }
         
-    public static function getSessionByToken($user_token) {
+    public function getSessionByToken($user_token) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM custom_sessions WHERE token = :token');
@@ -72,16 +72,15 @@ Class Session {
             $conn = null;
             return new Session(
                 $result['id'], 
-                $result['utilisateur'], 
+                $result['utilisateur_id'], 
                 $result['token'], 
-                $result['date_connection'], 
+                $result['connexion'], 
                 $result['logged']);
         } else {
             $conn = null;
             return null;
         }
     }
-
     
     // UPDATE
     public function updateChamp($champ, $nouvelleValeur) {
@@ -108,16 +107,16 @@ Class Session {
 
     // Méthodes pour recevoir les paramètres d'une voiture
     public function getId() { return $this->id; }
-    public function getUtilisateur() { return $this->utilisateur; }
+    public function getUtilisateur() { return $this->utilisateur_id; }
     public function getToken() { return $this->token; }
-    public function getDate() { return $this->date_connection; }
+    public function getDate() { return $this->connexion; }
     public function getLogged() { return $this->logged; }
 
     // Méthodes pour modifier les paramètres d'une voiture
     public function setId($new_value) { $this->id = $new_value; }
-    public function setUtilisateur($new_value) { $this->utilisateur = $new_value; }
+    public function setUtilisateur($new_value) { $this->utilisateur_id = $new_value; }
     public function setToken($new_value) { $this->token = $new_value; }
-    public function setDate($new_value) { $this->date_connection = $new_value; }
+    public function setDate($new_value) { $this->connexion = $new_value; }
     public function setLogged($new_value) { $this->logged = $new_value; }
 }
     

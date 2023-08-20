@@ -32,8 +32,7 @@ class OccasionsController extends Controller {
             $voiture['prix'].','.
             $voiture['lesplus'].','.
             $voiture['equipements'].','.
-            $voiture['details'].',',
-            $voiture['ref'].'&';
+            $voiture['details'].'&';
         };
 
     }

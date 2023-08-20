@@ -3,6 +3,8 @@
 Class Message {
 
     private $id;
+    private $utilisateur_id;
+    private $voiture_id;
     private $nom;
     private $prenom;
     private $telephone;
@@ -10,11 +12,12 @@ Class Message {
     private $sujet;
     private $content;
     private $lecture;
-    private $voiture_ref;
 
-    public function __construct( $id, $nom, $prenom, $telephone, $email, $sujet, $content, $lecture, $voiture_ref)
+    public function __construct( $id, $utilisateur_id, $voiture_id, $nom, $prenom, $telephone, $email, $sujet, $content, $lecture)
     {
         $this->id = $id;
+        $this->utilisateur_id = $utilisateur_id;
+        $this->voiture_id = $voiture_id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->telephone = $telephone;
@@ -22,11 +25,10 @@ Class Message {
         $this->sujet = $sujet;
         $this->content = $content;
         $this->lecture = $lecture;
-        $this->voiture_ref = $voiture_ref;
     }
 
     // CREATE
-    public static function addMessage($nom, $prenom, $telephone, $email, $sujet, $content, $voiture_ref) {
+    public function addMessage($nom, $prenom, $telephone, $email, $sujet, $content, $voiture_ref) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $con->prepare('INSERT INTO messages (nom, prenom, telephone, email, sujet, content, voiture_ref) 
@@ -47,7 +49,7 @@ Class Message {
     }
 
     // READ
-    public static function getMessageById($message_id) {
+    public function getMessageById($message_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM messages WHERE id = :id');
@@ -62,6 +64,8 @@ Class Message {
             $conn = null;
             return new Message(
                 $result['id'], 
+                $result['utilisateur_id'], 
+                $result['voiture_id'], 
                 $result['nom'], 
                 $result['prenom'], 
                 $result['telephone'], 
@@ -69,7 +73,6 @@ Class Message {
                 $result['sujet'], 
                 $result['content'],
                 $result['lecture'],
-                $result['voiture_ref'],
             );
         } else {
             $conn = null;
@@ -78,7 +81,7 @@ Class Message {
     }
 
     // Fonction pour récupérer tous les messages lu / non lu
-    public static function getMessageListByViewStatut($view_statut) {
+    public function getMessageListByViewStatut($view_statut) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM messages WHERE lecture = :lecture ORDER BY id DESC');
@@ -99,7 +102,7 @@ Class Message {
     }
 
     // Fonction pour récupérer tous les messages
-    public static function getMessageList() {
+    public function getMessageList() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM messages ORDER BY id DESC');
@@ -154,6 +157,8 @@ Class Message {
 
     // Méthodes pour recevoir les paramètres
     public function getId() { return $this->id; }
+    public function getUtilisateurId() { return $this->utilisateur_id; }
+    public function getVoitureId() { return $this->voiture_id; }
     public function getNom() { return $this->nom; }
     public function getPrenom() { return $this->prenom; }
     public function getTelephone() { return $this->telephone; }
@@ -164,6 +169,8 @@ Class Message {
 
     // Méthodes pour modifier les paramètres
     public function setId($new_value) { $this->id = $new_value; }
+    public function setUtilisateurId($new_value) { $this->utilisateur_id = $new_value;}
+    public function setVoitureId($new_value) { $this->voiture_id = $new_value; }
     public function setNom($new_value) { $this->nom = $new_value; }
     public function setPrenom($new_value) { $this->prenom = $new_value; }
     public function setTelephone($new_value) { $this->telephone = $new_value; }

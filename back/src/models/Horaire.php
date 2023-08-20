@@ -3,6 +3,7 @@
 Class Horaire {
     
     private $id;
+    private $utilisateur_id;
     private $lundi;
     private $mardi;
     private $mercredi;
@@ -10,9 +11,8 @@ Class Horaire {
     private $vendredi;
     private $samedi;
     private $dimanche;
-    private $utilisateur_id;
 
-    public function __construct( $id, $lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche, $utilisateur_id)
+    public function __construct( $id, $utilisateur_id, $lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche)
     {
         $this->id = $id;
         $this->lundi = $lundi;
@@ -26,7 +26,7 @@ Class Horaire {
     }
 
     // fonction pour ajouter 
-    public static function addHoraire($lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche, $utilisateur_id) {
+    public function addHoraire($lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche, $utilisateur_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('INSERT INTO horaires (lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche, utilisateur_id) 
@@ -48,7 +48,7 @@ Class Horaire {
         $conn = null;
     }
 
-    public static function getHoraire($id) {
+    public function getHoraire($id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
@@ -79,7 +79,7 @@ Class Horaire {
     }
 
     // Fonction pour récupérer les informations
-    public static function getHoraireByDay($jour) {
+    public function getHoraireByDay($jour) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM horaires WHERE jour = :jour');
@@ -100,7 +100,7 @@ Class Horaire {
     }
 
     // Fonction pour récupérer tous les horaires
-    public static function getHorairesListByID($id) {
+    public function getHorairesListByID($id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
@@ -145,6 +145,7 @@ Class Horaire {
 
     // Méthodes pour recevoir les paramètres
     public function getId() { return $this->id; }
+    public function getUtilisateurId() { return $this->utilisateur_id; }
     public function getLundi() { return $this->lundi; }
     public function getMardi() { return $this->mardi; }
     public function getMercredi() { return $this->mercredi; }
@@ -155,6 +156,7 @@ Class Horaire {
 
     // Méthodes pour modifier les paramètres
     public function setId($new_value) { $this->id = $new_value; }
+    public function setUtilisateurId($new_value) { $this->utilisateur_id = $new_value; }
     public function setLundi($new_value) { $this->lundi = $new_value; }
     public function setMardi($new_value) { $this->mardi = $new_value; }
     public function setMercredi($new_value) { $this->mercredi = $new_value; }

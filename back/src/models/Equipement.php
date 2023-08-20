@@ -11,7 +11,7 @@ Class Equipement {
     }
 
     // ADD
-    public static function addEquipement($nom) {
+    public function addEquipement($nom) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $con->prepare('INSERT INTO equipements (nom) VALUES (:val1)');
@@ -23,7 +23,7 @@ Class Equipement {
     }
 
     // get par id
-    public static function getEquipementById($equipement_id) {
+    public function getEquipementById($equipement_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM equipements WHERE id = :id');
@@ -47,7 +47,7 @@ Class Equipement {
     }
 
     // get par id
-    public static function getEquipementByNom($equipement_nom) {
+    public function getEquipementByNom($equipement_nom) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM equipements WHERE nom = :nom');
@@ -71,7 +71,7 @@ Class Equipement {
     }
 
     // get une liste des équipements
-    public static function getAllEquipements() {
+    public function getAllEquipements() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM equipements');

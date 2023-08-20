@@ -15,7 +15,7 @@ class Posseder {
         $this->nom = $nom;
     }
 
-    public static function add($equipement_id, $voiture_id) {
+    public function add($equipement_id, $voiture_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('INSERT INTO posseder ( equipement_id, voiture_id )
@@ -31,7 +31,7 @@ class Posseder {
     }
 
     // Fonction pour delete la voiture dans la base de données
-    public static function delete($voiture_id) {
+    public function delete($voiture_id) {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $sql = "DELETE FROM posseder WHERE voiture_id = :voiture_id";
         $stmt = $db->prepare($sql);
@@ -40,5 +40,19 @@ class Posseder {
 
         $db = null;
     }
+
+    public function getEquipementId() { return $this->equipement_id; }
+    public function setEquipementId($new_value) { $this->equipement_id = $new_value; }
+
+    public function getVoitureId() { return $this->voiture_id; }
+    public function setVoitureId($new_value) { $this->voiture_id = $new_value; }
+
+    public function getTitre() { return $this->titre; }
+    public function setTitre($new_value) { $this->titre = $new_value; }
+
+    public function getNom() { return $this->nom; }
+    public function setNom($new_value) { $this->nom = $new_value; }
+        
+    
 }
 ?>
