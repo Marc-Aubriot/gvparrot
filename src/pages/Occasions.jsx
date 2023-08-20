@@ -157,7 +157,7 @@ const Occasions = () => {
                                     description={e[3]} 
                                     informations={`${e[5]} - ${e[6]} km - ${e[7]} - ${e[4]}`} 
                                     prix={e[8]} 
-                                    reference={e[12]}
+                                    reference={e[0]}
                                     key={i}
                                 />
                             )

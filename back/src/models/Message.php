@@ -27,6 +27,66 @@ Class Message {
         $this->lecture = $lecture;
     }
 
+    // retourne une entité vide : utilisé dans AccueilController
+    public static function createEntity($id = null) {
+        if ($id) {
+            $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+            $stmt = $conn->prepare('SELECT * FROM commentaires WHERE id = :id');
+
+            $stmt->bindValue(':id', $id);
+
+            $stmt->execute();
+
+            // Récupération du résultat sous forme d'objet
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $conn = null;
+                return new Comment(
+                    $result['id'], 
+                    $result['utilisateur_id'],
+                    $result['voiture_id'], 
+                    $result['nom'], 
+                    $result['prenom'], 
+                    $result['telephone'],
+                    $result['email'],
+                    $result['sujet'],
+                    $result['content'],
+                    $result['lecture'],
+                );
+            } else {
+                $conn = null;
+                return null;
+            }
+        } else {
+            return new Message(null,null,null,null,null,null,null,null,null,null);
+        }
+    }
+
+    // Méthodes pour recevoir les paramètres
+    public function getId() { return $this->id; }
+    public function getUtilisateurId() { return $this->utilisateur_id; }
+    public function getVoitureId() { return $this->voiture_id; }
+    public function getNom() { return $this->nom; }
+    public function getPrenom() { return $this->prenom; }
+    public function getTelephone() { return $this->telephone; }
+    public function getEmail() { return $this->email; }
+    public function getSujet() { return $this->sujet; }
+    public function getContent() { return $this->content; }
+    public function getLecture() { return $this->lecture; }
+
+    // Méthodes pour modifier les paramètres
+    public function setId($new_value) { $this->id = $new_value; }
+    public function setUtilisateurId($new_value) { $this->utilisateur_id = $new_value;}
+    public function setVoitureId($new_value) { $this->voiture_id = $new_value; }
+    public function setNom($new_value) { $this->nom = $new_value; }
+    public function setPrenom($new_value) { $this->prenom = $new_value; }
+    public function setTelephone($new_value) { $this->telephone = $new_value; }
+    public function setEmail($new_value) { $this->email = $new_value; }
+    public function setSujet($new_value) { $this->sujet = $new_value; }
+    public function setContent($new_value) { $this->content = $new_value; }
+    public function setLecture($new_value) { $this->content = $new_value; }
+
     // CREATE
     public function addMessage($nom, $prenom, $telephone, $email, $sujet, $content, $voiture_ref) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -155,28 +215,5 @@ Class Message {
         $db = null;
     }
 
-    // Méthodes pour recevoir les paramètres
-    public function getId() { return $this->id; }
-    public function getUtilisateurId() { return $this->utilisateur_id; }
-    public function getVoitureId() { return $this->voiture_id; }
-    public function getNom() { return $this->nom; }
-    public function getPrenom() { return $this->prenom; }
-    public function getTelephone() { return $this->telephone; }
-    public function getEmail() { return $this->email; }
-    public function getSujet() { return $this->sujet; }
-    public function getContent() { return $this->content; }
-    public function getLecture() { return $this->lecture; }
-
-    // Méthodes pour modifier les paramètres
-    public function setId($new_value) { $this->id = $new_value; }
-    public function setUtilisateurId($new_value) { $this->utilisateur_id = $new_value;}
-    public function setVoitureId($new_value) { $this->voiture_id = $new_value; }
-    public function setNom($new_value) { $this->nom = $new_value; }
-    public function setPrenom($new_value) { $this->prenom = $new_value; }
-    public function setTelephone($new_value) { $this->telephone = $new_value; }
-    public function setEmail($new_value) { $this->email = $new_value; }
-    public function setSujet($new_value) { $this->sujet = $new_value; }
-    public function setContent($new_value) { $this->content = $new_value; }
-    public function setLecture($new_value) { $this->content = $new_value; }
 }
 ?>

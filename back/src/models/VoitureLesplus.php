@@ -1,6 +1,6 @@
 <?php
 
-class Posseder {
+class VoitureLesplus {
     
     private $lesplus_id;
     private $voiture_id;
@@ -15,30 +15,34 @@ class Posseder {
         $this->nom = $nom;
     }
 
-    public function add($lesplus_id, $voiture_id) {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+    // retourne une entité vide : utilisé dans Controller
+    public static function createEntity($id = null) {
+        if ($id) {
+            $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('INSERT INTO posseder ( lesplus_id, voiture_id )
-        VALUES ( :val1, :val2 ) ');
+            $stmt = $conn->prepare('SELECT * FROM voiture_lesplus WHERE id = :id');
 
-        $stmt->execute(
-            array(
-            ':val1' => $lesplus_id, 
-            ':val2' => $voiture_id
-        ));
+            $stmt->bindValue(':id', $id);
 
-        $conn = null;
-    }
+            $stmt->execute();
 
-    // Fonction pour delete la voiture dans la base de données
-    public function delete($voiture_id) {
-        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $sql = "DELETE FROM posseder WHERE voiture_id = :voiture_id";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':voiture_id', $voiture_id, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $db = null;
+            // Récupération du résultat sous forme d'objet
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $conn = null;
+                return new Image(
+                    $result['lesplus_id'], 
+                    $result['voiture_id'],
+                    $result['titre'],
+                    $result['nom'],
+                );
+            } else {
+                $conn = null;
+                return null;
+            }
+        } else {
+            return new VoitureLesplus(null,null,null,null);
+        }
     }
 
     public function getEquipementId() { return $this->lesplus_id; }
@@ -52,7 +56,33 @@ class Posseder {
 
     public function getNom() { return $this->nom; }
     public function setNom($new_value) { $this->nom = $new_value; }
-        
+
+    public function getAll($voiture_id = null) {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+        $stmt = '';
+
+        if ($voiture_id) {
+            $stmt = $conn->prepare('SELECT * FROM voiture_lesplus WHERE voiture_id = :voiture_id;');
+            $stmt->bindValue(':voiture_id', $voiture_id);
+
+        } else {
+            $stmt = $conn->prepare('SELECT * FROM voiture_lesplus');
+        }
+
+        $stmt->execute();
+
+        // Récupération du résultat sous d'un array contenant les voitures
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $conn = null;         
+            return $result;
+
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
     
 }
 ?>

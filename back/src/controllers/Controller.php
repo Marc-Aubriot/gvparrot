@@ -38,7 +38,8 @@ class Controller {
 
     public function getHoraires() {
         include_once ROOT.'/src/models/Horaire.php';
-        $horaires = Horaire::getHorairesListByID(1);
+
+        $horaires = Horaire::createEntity(1);
 
         foreach($horaires as $item) {
             echo $item['lundi'].'+'.$item['mardi'].'+'.$item['mercredi'].'+'.$item['jeudi'].'+'.$item['vendredi'].'+'.$item['samedi'].'+'.$item['dimanche'];
@@ -60,5 +61,15 @@ class Controller {
         }
 
         return $reponse;
+    }
+
+    public static function getIndexToStringInNestedArray($array, $indexname) {
+        $string = '';
+        foreach($array as $item) {
+            $string = $string.'+'.$item[$indexname];
+        }
+        $string = substr($string, 1);
+
+        return $string;
     }
 }

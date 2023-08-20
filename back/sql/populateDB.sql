@@ -32,17 +32,17 @@ DELIMITER ;
 
 /* procedure */
 DELIMITER $$
-CREATE PROCEDURE `get_prev_and_next_ref` (IN car_ref TEXT)
+CREATE PROCEDURE `get_prev_and_next_ref` (IN car_id TEXT)
 BEGIN
-	SELECT prev_ref, ref, next_ref
+	SELECT prev_id, id, next_id
 	FROM (
-		SELECT id, 
-			   LAG(id) OVER (ORDER BY id) AS prev_ref,
+		SELECT  
+			   LAG(id) OVER (ORDER BY id) AS prev_id,
 			   id,
-			   LEAD(id) OVER (ORDER BY id) AS next_ref
+			   LEAD(id) OVER (ORDER BY id) AS next_id
 		FROM voitures
 	) AS t
-	WHERE id = car_ref;
+	WHERE id = car_id;
 END$$
 DELIMITER ;
 

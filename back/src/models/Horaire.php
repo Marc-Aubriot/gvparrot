@@ -25,6 +25,54 @@ Class Horaire {
         $this->utilisateur_id = $utilisateur_id;
     }
 
+    // retourne une entité vide : utilisé dans Controller
+    public static function createEntity($id = null) {
+        if ($id) {
+            $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+            $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
+            $stmt->bindParam(':id', $id);
+    
+            $stmt->execute();
+    
+            // Récupération du résultat sous d'un array contenant les commentaires
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($result) {
+                $conn = null;           
+                return $result;
+    
+            } else {
+                $conn = null;
+                return null;
+            } 
+        } else {
+            return new Horaire(null,null,null,null,null,null,null,null,null);
+        }
+    }
+
+    // Méthodes pour recevoir les paramètres
+    public function getId() { return $this->id; }
+    public function getUtilisateurId() { return $this->utilisateur_id; }
+    public function getLundi() { return $this->lundi; }
+    public function getMardi() { return $this->mardi; }
+    public function getMercredi() { return $this->mercredi; }
+    public function getJeudi() { return $this->jeudi; }
+    public function getVendredi() { return $this->vendredi; }
+    public function getSamedi() { return $this->samedi; }
+    public function getDimanche() { return $this->dimanche; }
+
+    // Méthodes pour modifier les paramètres
+    public function setId($new_value) { $this->id = $new_value; }
+    public function setUtilisateurId($new_value) { $this->utilisateur_id = $new_value; }
+    public function setLundi($new_value) { $this->lundi = $new_value; }
+    public function setMardi($new_value) { $this->mardi = $new_value; }
+    public function setMercredi($new_value) { $this->mercredi = $new_value; }
+    public function setJeudi($new_value) { $this->jeudi = $new_value; }
+    public function setVendredi($new_value) { $this->vendredi = $new_value; }
+    public function setSamedi($new_value) { $this->samedi = $new_value; }
+    public function setDimanche($new_value) { $this->dimanche = $new_value; }
+
+    /* FONCTIONS OBSOLETES ? */
     // fonction pour ajouter 
     public function addHoraire($lundi, $mardi, $mercredi, $jeudi, $vendredi, $samedi, $dimanche, $utilisateur_id) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -48,7 +96,7 @@ Class Horaire {
         $conn = null;
     }
 
-    public function getHoraire($id) {
+    public function getHoraire($id = null) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
@@ -99,27 +147,6 @@ Class Horaire {
         }
     }
 
-    // Fonction pour récupérer tous les horaires
-    public function getHorairesListByID($id) {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
-        $stmt->bindParam(':id', $id);
-
-        $stmt->execute();
-
-        // Récupération du résultat sous d'un array contenant les commentaires
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;           
-            return $result;
-
-        } else {
-            $conn = null;
-            return null;
-        }
-    }
-
     // Fonction pour mettre à jour un champ 
     public function modify($champ, $nouvelleValeur) {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -143,26 +170,5 @@ Class Horaire {
         $db = null;
     }
 
-    // Méthodes pour recevoir les paramètres
-    public function getId() { return $this->id; }
-    public function getUtilisateurId() { return $this->utilisateur_id; }
-    public function getLundi() { return $this->lundi; }
-    public function getMardi() { return $this->mardi; }
-    public function getMercredi() { return $this->mercredi; }
-    public function getJeudi() { return $this->jeudi; }
-    public function getVendredi() { return $this->vendredi; }
-    public function getSamedi() { return $this->samedi; }
-    public function getDimanche() { return $this->dimanche; }
-
-    // Méthodes pour modifier les paramètres
-    public function setId($new_value) { $this->id = $new_value; }
-    public function setUtilisateurId($new_value) { $this->utilisateur_id = $new_value; }
-    public function setLundi($new_value) { $this->lundi = $new_value; }
-    public function setMardi($new_value) { $this->mardi = $new_value; }
-    public function setMercredi($new_value) { $this->mercredi = $new_value; }
-    public function setJeudi($new_value) { $this->jeudi = $new_value; }
-    public function setVendredi($new_value) { $this->vendredi = $new_value; }
-    public function setSamedi($new_value) { $this->samedi = $new_value; }
-    public function setDimanche($new_value) { $this->dimanche = $new_value; }
 }
 ?>

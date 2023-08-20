@@ -25,6 +25,41 @@ class Detail {
         $this->critair = $critair;
     }
 
+    // retourne une entité vide : utilisé dans Controller
+    public static function createEntity($voiture_id = null) {
+        if ($voiture_id) {
+            $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+            $stmt = $conn->prepare('SELECT * FROM details WHERE voiture_id = :id');
+
+            $stmt->bindValue(':id', $voiture_id);
+
+            $stmt->execute();
+
+            // Récupération du résultat sous forme d'objet
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $conn = null;
+                return new Detail(
+                    $result['id'], 
+                    $result['voiture_id'],
+                    $result['couleur'],
+                    $result['puissance'],
+                    $result['rapports'],
+                    $result['places'],
+                    $result['portes'],
+                    $result['garantie'],
+                    $result['critair'],
+                );
+            } else {
+                $conn = null;
+                return null;
+            }
+        } else {
+            return new Detail(null,null,null,null,null,null,null,null,null);
+        }
+    }
+
     public function getId() { return $this->id; }
     public function getVoitureId() { return $this->voiture_id; }
     public function getCouleur() { return $this->couleur; }
@@ -44,4 +79,32 @@ class Detail {
     public function setPortes($new_value) { $this->portes = $new_value; }
     public function setGarantie($new_value) { $this->garantie = $new_value; }
     public function setCritair($new_value) { $this->critair = $new_value; }
+
+    public function getAll($voiture_id = null) {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+        $stmt = '';
+
+        if ($voiture_id) {
+            $stmt = $conn->prepare('SELECT * FROM details WHERE voiture_id = :voiture_id;');
+            $stmt->bindValue(':voiture_id', $voiture_id);
+
+        } else {
+            $stmt = $conn->prepare('SELECT * FROM details');
+        }
+
+        $stmt->execute();
+
+        // Récupération du résultat sous d'un array contenant les voitures
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $conn = null;         
+            return $result;
+
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
 } 
+?>
