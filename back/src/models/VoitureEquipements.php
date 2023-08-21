@@ -57,11 +57,16 @@ class VoitureEquipements {
     public function getNom() { return $this->nom; }
     public function setNom($new_value) { $this->nom = $new_value; }
         
-    public function getAll($voiture_id = null) {
+    public function getAll($voiture_id = null, $plus = null) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $stmt = '';
 
-        if ($voiture_id) {
+        if ($voiture_id && $plus) {
+            $stmt = $conn->prepare('SELECT * FROM voiture_equipements WHERE voiture_id = :voiture_id AND plus = :plus;');
+            $stmt->bindValue(':voiture_id', $voiture_id);
+            $stmt->bindValue(':plus', $plus);
+
+        } else if ($voiture_id) {
             $stmt = $conn->prepare('SELECT * FROM voiture_equipements WHERE voiture_id = :voiture_id;');
             $stmt->bindValue(':voiture_id', $voiture_id);
 
@@ -80,7 +85,7 @@ class VoitureEquipements {
 
         } else {
             $conn = null;
-            return null;
+            return [['nom' => '']];
         }
     }
 }

@@ -12,8 +12,9 @@ Class Message {
     private $sujet;
     private $content;
     private $lecture;
+    private $reçu;
 
-    public function __construct( $id, $utilisateur_id, $voiture_id, $nom, $prenom, $telephone, $email, $sujet, $content, $lecture)
+    public function __construct( $id, $utilisateur_id, $voiture_id, $nom, $prenom, $telephone, $email, $sujet, $content, $lecture, $reçu)
     {
         $this->id = $id;
         $this->utilisateur_id = $utilisateur_id;
@@ -25,6 +26,7 @@ Class Message {
         $this->sujet = $sujet;
         $this->content = $content;
         $this->lecture = $lecture;
+        $this->reçu = $reçu;
     }
 
     // retourne une entité vide : utilisé dans AccueilController
@@ -32,7 +34,7 @@ Class Message {
         if ($id) {
             $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-            $stmt = $conn->prepare('SELECT * FROM commentaires WHERE id = :id');
+            $stmt = $conn->prepare('SELECT * FROM messages WHERE id = :id');
 
             $stmt->bindValue(':id', $id);
 
@@ -42,7 +44,7 @@ Class Message {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 $conn = null;
-                return new Comment(
+                return new Message(
                     $result['id'], 
                     $result['utilisateur_id'],
                     $result['voiture_id'], 
@@ -53,14 +55,54 @@ Class Message {
                     $result['sujet'],
                     $result['content'],
                     $result['lecture'],
+                    $result['reçu'],
                 );
             } else {
                 $conn = null;
-                return null;
+                return "erreur dans la création d'entité.";
             }
         } else {
-            return new Message(null,null,null,null,null,null,null,null,null,null);
+            return new Message(null,null,null,null,null,null,null,null,null,null,null);
         }
+    }
+
+    public function push($ref = null) {
+        $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        if ($ref) {
+            $stmt = $con->prepare('INSERT INTO messages (voiture_id, nom, prenom, telephone, email, sujet, content) 
+            VALUES (:val0, :val2, :val3, :val4, :val5, :val6, :val7)');
+    
+            $stmt->execute(
+                array(
+                    ':val0' => $this->voiture_id,
+                    ':val2' => $this->nom, 
+                    ':val3' => $this->prenom, 
+                    ':val4' => $this->telephone,
+                    ':val5' => $this->email, 
+                    ':val6' => $this->sujet, 
+                    ':val7' => $this->content,
+                )
+            );
+        } else if (!$ref) {
+            $stmt = $con->prepare('INSERT INTO messages (nom, prenom, telephone, email, sujet, content) 
+            VALUES (:val1, :val2, :val3, :val4, :val5, :val6)');
+    
+            $stmt->execute(
+                array(
+                    ':val1' => $this->nom, 
+                    ':val2' => $this->prenom, 
+                    ':val3' => $this->telephone,
+                    ':val4' => $this->email, 
+                    ':val5' => $this->sujet, 
+                    ':val6' => $this->content,
+                )
+            );   
+        } else {
+            return "erreur dans l'exécution du push.";
+        }
+
+        $con = null;
     }
 
     // Méthodes pour recevoir les paramètres
@@ -74,6 +116,7 @@ Class Message {
     public function getSujet() { return $this->sujet; }
     public function getContent() { return $this->content; }
     public function getLecture() { return $this->lecture; }
+    public function getReçu() { return $this->reçu; }
 
     // Méthodes pour modifier les paramètres
     public function setId($new_value) { $this->id = $new_value; }
@@ -86,27 +129,7 @@ Class Message {
     public function setSujet($new_value) { $this->sujet = $new_value; }
     public function setContent($new_value) { $this->content = $new_value; }
     public function setLecture($new_value) { $this->content = $new_value; }
-
-    // CREATE
-    public function addMessage($nom, $prenom, $telephone, $email, $sujet, $content, $voiture_ref) {
-        $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $con->prepare('INSERT INTO messages (nom, prenom, telephone, email, sujet, content, voiture_ref) 
-        VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7)');
-
-        $stmt->execute(
-            array(
-                ':val1' => $nom, 
-                ':val2' => $prenom, 
-                ':val3' => $telephone,
-                ':val4' => $email, 
-                ':val5' => $sujet, 
-                ':val6' => $content,
-                ':val7' => $voiture_ref,
-        ));
-
-        $con = null;
-    }
+    public function setReçu($new_value) { $this->reçu = $new_value; }
 
     // READ
     public function getMessageById($message_id) {
@@ -133,6 +156,7 @@ Class Message {
                 $result['sujet'], 
                 $result['content'],
                 $result['lecture'],
+                $result['reçu']
             );
         } else {
             $conn = null;

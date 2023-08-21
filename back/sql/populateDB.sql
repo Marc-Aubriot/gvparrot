@@ -9,27 +9,6 @@ CREATE TRIGGER fill_table_voiture_equipements
     end$$
 DELIMITER ;
 
-/* trigger : chaque qu'on insert une data equipement_id dans la table lesplus le champs nom auto fill */
-DELIMITER $$
-CREATE TRIGGER fill_table_lesplus
-    before INSERT
-    ON lesplus FOR EACH ROW
-	begin
-	set new.nom = (select nom from equipements where id = new.equipement_id);
-    end$$
-DELIMITER ;
-
-/* trigger: chaque fois qu'on insert des datas dans la table voiture_lesplus, le titre et le nom vont s'auto-fill */
-DELIMITER $$
-CREATE TRIGGER fill_table_voiture_lesplus
-    before INSERT
-    ON voiture_lesplus FOR EACH ROW
-	begin
-	set new.titre = (select titre from voitures where id = new.voiture_id);
-	set new.nom = (select nom from lesplus where id = new.lesplus_id);
-    end$$
-DELIMITER ;
-
 /* procedure */
 DELIMITER $$
 CREATE PROCEDURE `get_prev_and_next_ref` (IN car_id TEXT)
@@ -54,99 +33,82 @@ VALUES ('32afaf97-0535-4f90-875d-bdecad36648a', "aubriot", "marc", "marc.aubriot
 INSERT INTO horaires (utilisateur_id, lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche) VALUES ( "977c0ead-139f-40b6-a7b6-da194d0bcbea", "09h00,12h00,13h00,17h00", "10h00,12h00,13h30,20h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "08h00,12h00,13h00,18h00", "fermé,,,");
 
 /* LISTE DES EQUIPEMENTS*/
-INSERT INTO equipements (nom) VALUES ("Régulateur"), ("Limiteur de vitesse"), ("Radar de recul"), ("Sellerie en cuir"), ("Régulateur adaptatif"), ("Radar avant"), ("Avertisseurs d'angle mort"), ("Siège chauffant"), ("Affichage tête haute"), ("Attelage"), ("Connexion bluetooth"), ("Climatisation"), ("Régulateur de vitesse"), ("Bluetooth"), ("Ordinateur de bord"), ("Volant multifonction"), ("Rétroviseurs électriques"), ("Détecteur de fatigue");
+INSERT INTO equipements (nom, plus) VALUES ("Régulateur", 0), ("Limiteur de vitesse", 0), ("Radar de recul", 1), ("Sellerie en cuir", 1), ("Régulateur adaptatif", 0), ("Radar avant", 1), ("Avertisseurs d'angle mort", 1), ("Siège chauffant", 1), ("Affichage tête haute", 0), ("Attelage", 0), ("Connexion bluetooth", 1), ("Climatisation", 0), ("Régulateur de vitesse", 0), ("Ordinateur de bord", 0), ("Volant multifonction", 0), ("Rétroviseurs électriques", 0), ("Détecteur de fatigue", 1);
 
 /* VOITURE : RENAULT */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648c', '32afaf97-0535-4f90-875d-bdecad36648a', 'Renault Clio IV', 'Blue dci 100cv business', 'Manuelle', 'Diesel', '45000', '2018', '14500');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648c', 'http://localhost:3000/gvparrot/back/public_html/uploads/renault.jpg'),('32afaf97-0535-4f90-875d-bdecad36648c', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg'),('32afaf97-0535-4f90-875d-bdecad36648c', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648c', 'Rouge', '6', '6', '4', '4', '12', 'B');
-INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('1', '32afaf97-0535-4f90-875d-bdecad36648c'),('2', '32afaf97-0535-4f90-875d-bdecad36648c'),('3', '32afaf97-0535-4f90-875d-bdecad36648c'),('4', '32afaf97-0535-4f90-875d-bdecad36648c'),('5', '32afaf97-0535-4f90-875d-bdecad36648c'),('7', '32afaf97-0535-4f90-875d-bdecad36648c'),('8', '32afaf97-0535-4f90-875d-bdecad36648c'),('9', '32afaf97-0535-4f90-875d-bdecad36648c');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648c'),('2','32afaf97-0535-4f90-875d-bdecad36648c'),('3','32afaf97-0535-4f90-875d-bdecad36648c'),('4','32afaf97-0535-4f90-875d-bdecad36648c');
+INSERT INTO voiture_equipements (equipement_id, voiture_id, plus) VALUES ('1', '32afaf97-0535-4f90-875d-bdecad36648c', 0),('2', '32afaf97-0535-4f90-875d-bdecad36648c', 0),('3', '32afaf97-0535-4f90-875d-bdecad36648c', 1),('4', '32afaf97-0535-4f90-875d-bdecad36648c', 1),('5', '32afaf97-0535-4f90-875d-bdecad36648c', 0),('7', '32afaf97-0535-4f90-875d-bdecad36648c', 0),('8', '32afaf97-0535-4f90-875d-bdecad36648c', 0),('9', '32afaf97-0535-4f90-875d-bdecad36648c', 0);
 
 /* VOITURE : FORD */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648d', '32afaf97-0535-4f90-875d-bdecad36648a', 'Ford Focus', 'EcoBoost 1.0L Titanium', 'Manuelle', 'Essence', '35000', '2019', '13500');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648d', 'http://localhost:3000/gvparrot/back/public_html/uploads/ford.jpg'),('32afaf97-0535-4f90-875d-bdecad36648d', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg'),('32afaf97-0535-4f90-875d-bdecad36648d', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
+
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648d', 'Gris', '6', '6', '4', '4', '12', 'B');
 INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf97-0535-4f90-875d-bdecad36648d'),('8', '32afaf97-0535-4f90-875d-bdecad36648d'),('4', '32afaf97-0535-4f90-875d-bdecad36648d'),('2', '32afaf97-0535-4f90-875d-bdecad36648d'),('5', '32afaf97-0535-4f90-875d-bdecad36648d'),('3', '32afaf97-0535-4f90-875d-bdecad36648d'),('15', '32afaf97-0535-4f90-875d-bdecad36648d'),('10', '32afaf97-0535-4f90-875d-bdecad36648d'),('9', '32afaf97-0535-4f90-875d-bdecad36648d');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648d'),('2','32afaf97-0535-4f90-875d-bdecad36648d'),('3','32afaf97-0535-4f90-875d-bdecad36648d'),('4','32afaf97-0535-4f90-875d-bdecad36648d');
 
 /* VOITURE : VOLKSWAGEN */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648e', '32afaf97-0535-4f90-875d-bdecad36648a', 'Volkswagen Golf', '1.6 TDI Comfortline', 'Manuelle', 'Diesel', '50000', '2017', '15500');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648e', 'http://localhost:3000/gvparrot/back/public_html/uploads/volkswagen.jpg'),('32afaf97-0535-4f90-875d-bdecad36648e', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg'),('32afaf97-0535-4f90-875d-bdecad36648e', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648e', 'Noire', '6', '6', '4', '4', '12', 'B');
 INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf97-0535-4f90-875d-bdecad36648e'),('8', '32afaf97-0535-4f90-875d-bdecad36648e'),('4', '32afaf97-0535-4f90-875d-bdecad36648e'),('2', '32afaf97-0535-4f90-875d-bdecad36648e'),('5', '32afaf97-0535-4f90-875d-bdecad36648e'),('3', '32afaf97-0535-4f90-875d-bdecad36648e'),('15', '32afaf97-0535-4f90-875d-bdecad36648e'),('10', '32afaf97-0535-4f90-875d-bdecad36648e'),('9', '32afaf97-0535-4f90-875d-bdecad36648e');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648e'),('2','32afaf97-0535-4f90-875d-bdecad36648e'),('3','32afaf97-0535-4f90-875d-bdecad36648e'),('4','32afaf97-0535-4f90-875d-bdecad36648e');
 
 /* VOITURE : TOYOTA */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648f', '32afaf97-0535-4f90-875d-bdecad36648a', 'Toyotata', 'Tokyo Drift', 'Automatique', 'Electrique', '27800', '2022', '23000');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648f', 'http://localhost:3000/gvparrot/back/public_html/uploads/toyota.jpg'),('32afaf97-0535-4f90-875d-bdecad36648f', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg'),('32afaf97-0535-4f90-875d-bdecad36648f', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648f', 'Verte', '6', '6', '4', '4', '12', 'B');
 INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf97-0535-4f90-875d-bdecad36648f'),('8', '32afaf97-0535-4f90-875d-bdecad36648f'),('4', '32afaf97-0535-4f90-875d-bdecad36648f'),('9', '32afaf97-0535-4f90-875d-bdecad36648f');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648f'),('2','32afaf97-0535-4f90-875d-bdecad36648f'),('3','32afaf97-0535-4f90-875d-bdecad36648f'),('4','32afaf97-0535-4f90-875d-bdecad36648f');
 
 /* VOITURE : PLACEHOLDER */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648g', '32afaf97-0535-4f90-875d-bdecad36648a', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '27800', '2022', '23000');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648g', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648g', 'Rouge', '6', '6', '4', '4', '12', 'B');
 INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf97-0535-4f90-875d-bdecad36648g'),('8', '32afaf97-0535-4f90-875d-bdecad36648g'),('4', '32afaf97-0535-4f90-875d-bdecad36648g'),('9', '32afaf97-0535-4f90-875d-bdecad36648g');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648g'),('2','32afaf97-0535-4f90-875d-bdecad36648g'),('3','32afaf97-0535-4f90-875d-bdecad36648g'),('4','32afaf97-0535-4f90-875d-bdecad36648g');
 
 /* VOITURE : PLACEHOLDER */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648i', '32afaf97-0535-4f90-875d-bdecad36648a', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '27800', '2010', '1500');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648i', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648i', 'Rouge', '6', '6', '4', '4', '12', 'B');
 INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf97-0535-4f90-875d-bdecad36648i'),('8', '32afaf97-0535-4f90-875d-bdecad36648i'),('4', '32afaf97-0535-4f90-875d-bdecad36648i'),('9', '32afaf97-0535-4f90-875d-bdecad36648i');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648i'),('2','32afaf97-0535-4f90-875d-bdecad36648i'),('3','32afaf97-0535-4f90-875d-bdecad36648i'),('4','32afaf97-0535-4f90-875d-bdecad36648i');
 
 /* VOITURE : PLACEHOLDER */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648j', '32afaf97-0535-4f90-875d-bdecad36648a', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '56000', '2001', '10000');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648j', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648j', 'Rouge', '6', '6', '4', '4', '12', 'B');
 INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf97-0535-4f90-875d-bdecad36648j'),('8', '32afaf97-0535-4f90-875d-bdecad36648j'),('4', '32afaf97-0535-4f90-875d-bdecad36648j'),('9', '32afaf97-0535-4f90-875d-bdecad36648j');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648j'),('2','32afaf97-0535-4f90-875d-bdecad36648j'),('3','32afaf97-0535-4f90-875d-bdecad36648j'),('4','32afaf97-0535-4f90-875d-bdecad36648j');
 
 /* VOITURE : PLACEHOLDER */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648k', '32afaf97-0535-4f90-875d-bdecad36648a', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '80000', '1996', '30000');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648k', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648k', 'Rouge', '6', '6', '4', '4', '12', 'B');
 INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf97-0535-4f90-875d-bdecad36648k'),('8', '32afaf97-0535-4f90-875d-bdecad36648k'),('4', '32afaf97-0535-4f90-875d-bdecad36648k'),('9', '32afaf97-0535-4f90-875d-bdecad36648k');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648k'),('2','32afaf97-0535-4f90-875d-bdecad36648k'),('3','32afaf97-0535-4f90-875d-bdecad36648k'),('4','32afaf97-0535-4f90-875d-bdecad36648k');
 
 /* VOITURE : PLACEHOLDER */
 INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
 VALUES ( '32afaf97-0535-4f90-875d-bdecad36648m', '32afaf97-0535-4f90-875d-bdecad36648a', 'FAKE CAR', 'placeholder', 'Automatique', 'Electrique', '1200', '2022', '25500');
 INSERT INTO images (voiture_id, chemin) VALUES ('32afaf97-0535-4f90-875d-bdecad36648m', 'http://localhost:3000/gvparrot/back/public_html/uploads/placeholder.jpg');
-INSERT INTO lesplus (equipement_id) VALUES ('1'),('2'),('3'),('4');
 INSERT INTO details (voiture_id, couleur, puissance, rapports, places, portes, garantie, critair) VALUES ('32afaf97-0535-4f90-875d-bdecad36648m', 'Rouge', '6', '6', '4', '4', '12', 'B');
 INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf97-0535-4f90-875d-bdecad36648m'),('8', '32afaf97-0535-4f90-875d-bdecad36648m'),('4', '32afaf97-0535-4f90-875d-bdecad36648m'),('9', '32afaf97-0535-4f90-875d-bdecad36648m');
-INSERT INTO voiture_lesplus (lesplus_id, voiture_id) VALUES ('1','32afaf97-0535-4f90-875d-bdecad36648m'),('2','32afaf97-0535-4f90-875d-bdecad36648m'),('3','32afaf97-0535-4f90-875d-bdecad36648m'),('4','32afaf97-0535-4f90-875d-bdecad36648m');
 
 /* MESSAGES */
 INSERT INTO messages (utilisateur_id, voiture_id, nom, prenom, telephone, email, sujet, content) VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbea", '32afaf97-0535-4f90-875d-bdecad36648c',"Marc", "Aubriot", "0650550480", "marc.aubriot@outlook.fr", "test sujet", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." );
 
 /* COMMENTAIRES */
-INSERT INTO commentaires (nom, contenu, note) VALUES ('marc', "super garage, j'adore, j'adhère", "4.5");
+INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('marc', "super garage, j'adore, j'adhère", "4.5", 1);
 INSERT INTO commentaires (nom, contenu, note) VALUES ('diane', "garage nul je déteste", "1.5");
 INSERT INTO commentaires (nom, contenu, note) VALUES ('cram', "garage moyen osef", "2.5");
 INSERT INTO commentaires (nom, contenu, note) VALUES ('rio', "nul nul nul", "0.5");
-INSERT INTO commentaires (nom, contenu, note) VALUES ('albert', "Super super", "4.5");
-INSERT INTO commentaires (nom, contenu, note) VALUES ('Mario', "j'y suis j'y reste", "3.5");
+INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('albert', "Super super", "4.5", 1);
+INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('Mario', "j'y suis j'y reste", "3.5", 1);
 
 /* SERVICES : CARROSSERIE */
 INSERT INTO services (utilisateur_id, categorie, subcategorie, titre, descript) VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbea", "Carrosserie", "Réparation", "Réparation des éraflures de carrosserie", "La réparation des éraflures de carrosserie est une opération qui vise à restaurer l'apparence esthétique de la carrosserie d'un véhicule en éliminant les éraflures et les rayures superficielles. Cette procédure peut impliquer le ponçage, l'application de mastic de remplissage, l'apprêtage et la mise en peinture pour obtenir un fini lisse et uniforme.");

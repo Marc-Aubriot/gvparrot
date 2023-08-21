@@ -7,7 +7,6 @@ class OccasionsController extends Controller {
 
         include_once ROOT.'/src/models/Voiture.php';
         include_once ROOT.'/src/models/Image.php';
-        include_once ROOT.'/src/models/VoitureLesplus.php';
         include_once ROOT.'/src/models/VoitureEquipements.php';
         include_once ROOT.'/src/models/Detail.php';
 
@@ -33,12 +32,12 @@ class OccasionsController extends Controller {
             $stringImages = Controller::getIndexToStringInNestedArray($images,'chemin');
 
             // récupère l'array contenant les plus et le transforme en string "plus+plus+plus"
-            $lesplus = VoitureLesplus::createEntity();
-            $lesplus = $lesplus->getAll($voiture['id']);
+            $lesplus = VoitureEquipements::createEntity();
+            $lesplus = $lesplus->getAll($voiture['id'], 1);
             $stringPlus = Controller::getIndexToStringInNestedArray($lesplus,'nom');
 
             // récupère l'array contenant les équipements et le transforme en string "equip+equip+equip"
-            $equipements = VoitureLesplus::createEntity();
+            $equipements = VoitureEquipements::createEntity();
             $equipements = $equipements->getAll($voiture['id']);
             $stringEquipements = Controller::getIndexToStringInNestedArray($equipements,'nom');
 
@@ -68,7 +67,6 @@ class OccasionsController extends Controller {
     public function getCarDetail() {
         include_once ROOT.'/src/models/Voiture.php';
         include_once ROOT.'/src/models/Image.php';
-        include_once ROOT.'/src/models/VoitureLesplus.php';
         include_once ROOT.'/src/models/VoitureEquipements.php';
         include_once ROOT.'/src/models/Detail.php';
 
@@ -79,8 +77,8 @@ class OccasionsController extends Controller {
         $images = $images->getAll($voiture->getId());
         $stringImages = Controller::getIndexToStringInNestedArray($images, 'chemin');
 
-        $lesplus = VoitureLesplus::createEntity();
-        $lesplus = $lesplus->getAll($voiture->getId());
+        $lesplus = VoitureEquipements::createEntity();
+        $lesplus = $lesplus->getAll($voiture->getId(), 1);
         $stringLesplus = Controller::getIndexToStringInNestedArray($lesplus, 'nom');
 
         $equipements = VoitureEquipements::createEntity();

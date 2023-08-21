@@ -19,6 +19,77 @@ Class Utilisateur {
         $this->is_admin = $is_admin;
     }
 
+    // retourne une entité vide : utilisé dans AccueilController
+    public static function createEntity($mail = null, $champ = null) {
+        if ($mail) {
+            $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+            if ($champ) {
+                $stmt = $conn->prepare('SELECT * FROM utilisateurs WHERE '.$champ.' = :mail');
+            } else {
+                $stmt = $conn->prepare('SELECT * FROM utilisateurs WHERE email = :mail');
+            }
+            
+            $stmt->bindValue(':mail', $mail);
+
+            $stmt->execute();
+
+            // Récupération du résultat sous forme d'objet
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $conn = null;
+                return new Utilisateur(
+                    $result['id'], 
+                    $result['nom'],
+                    $result['prenom'], 
+                    $result['email'], 
+                    $result['mot_de_passe'], 
+                    $result['is_admin'], 
+                );
+            } else {
+                $conn = null;
+                return "erreur dans la création d'entité.";
+            }
+        } else {
+            return new Utilisateur(null,null,null,null,null,null);
+        }
+    }
+
+    public function push() {
+        $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $con->prepare('INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe) 
+        VALUES (:val1, :val2, :val3, :val4, :val5)');
+
+        $stmt->execute(
+            array(
+                ':val1' => $this->id,
+                ':val2' => $this->nom, 
+                ':val2' => $this->prenom, 
+                ':val2' => $this->email, 
+                ':val2' => $this->mot_de_passe, 
+            )
+        );
+        
+        $con = null;
+    }
+
+    // Méthodes pour recevoir les paramètres
+    public function getId() { return $this->id; }
+    public function getNom() { return $this->nom; }
+    public function getPrenom() { return $this->prenom; }
+    public function getEmail() { return $this->email; }
+    public function getMotDePasse() { return $this->mot_de_passe; }
+    public function getIsAdmin() { return $this->is_admin; }
+
+    // Méthodes pour modifier les paramètres
+    public function setId($new_value) { $this->id = $new_value; }
+    public function setNom($new_value) { $this->nom = $new_value; }
+    public function setPrenom($new_value) { $this->prenom = $new_value; }
+    public function setEmail($new_value) { $this->email = $new_value; }
+    public function setMotDePasse($new_value) { $this->mot_de_passe = $new_value; }
+    public function setIsAdmin($new_value) { $this->is_admin = $new_value; }
+
     // CREATE
     public function addUser($id, $nom, $prenom, $email, $mot_de_passe) {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -164,20 +235,5 @@ Class Utilisateur {
         $db = null;
     }
 
-    // Méthodes pour recevoir les paramètres
-    public function getId() { return $this->id; }
-    public function getNom() { return $this->nom; }
-    public function getPrenom() { return $this->prenom; }
-    public function getEmail() { return $this->email; }
-    public function getMotDePasse() { return $this->mot_de_passe; }
-    public function getIsAdmin() { return $this->is_admin; }
-
-    // Méthodes pour modifier les paramètres
-    public function setId($new_value) { $this->id = $new_value; }
-    public function setNom($new_value) { $this->nom = $new_value; }
-    public function setPrenom($new_value) { $this->prenom = $new_value; }
-    public function setEmail($new_value) { $this->email = $new_value; }
-    public function setMotDePasse($new_value) { $this->mot_de_passe = $new_value; }
-    public function setIsAdmin($new_value) { $this->is_admin = $new_value; }
 }
 ?>

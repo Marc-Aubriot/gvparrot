@@ -46,7 +46,8 @@ CREATE TABLE horaires (
 
 CREATE TABLE equipements (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
-	nom VARCHAR(50) NOT NULL
+	nom VARCHAR(50) NOT NULL,
+    plus BOOL DEFAULT FALSE
 );
 
 CREATE TABLE voitures (
@@ -63,7 +64,7 @@ CREATE TABLE voitures (
 
 CREATE TABLE messages (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    utilisateur_id CHAR(36) NOT NULL,
+    utilisateur_id CHAR(36),
     voiture_id CHAR(36),
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
@@ -71,7 +72,8 @@ CREATE TABLE messages (
     email VARCHAR(100) NOT NULL,
     sujet VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    lecture BOOL DEFAULT FALSE
+    lecture BOOL DEFAULT FALSE,
+    reçu DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE voiture_equipements (
@@ -79,22 +81,15 @@ CREATE TABLE voiture_equipements (
     voiture_id CHAR(36),
     titre VARCHAR(100),
     nom VARCHAR(50),
+    plus BOOL DEFAULT FALSE,
     PRIMARY KEY(equipement_id, voiture_id)
-);
-
-CREATE TABLE voiture_lesplus (
-	lesplus_id INT(11),
-    voiture_id CHAR(36),
-    titre VARCHAR(100),
-    nom VARCHAR(50),
-    PRIMARY KEY(lesplus_id, voiture_id)
 );
 
 CREATE TABLE custom_sessions (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	utilisateur_id VARCHAR(255) NOT NULL,
 	token VARCHAR(255) NOT NULL,
-	date_connection DATETIME DEFAULT CURRENT_TIMESTAMP,
+	connexion DATETIME DEFAULT CURRENT_TIMESTAMP,
 	logged BOOLEAN DEFAULT TRUE
 );
 
@@ -102,12 +97,6 @@ CREATE TABLE images (
 	id INT(11) AUTO_INCREMENT PRIMARY KEY,
     voiture_id CHAR(36) NOT NULL,
     chemin VARCHAR(500) NOT NULL
-);
-
-CREATE TABLE lesplus (
-	id INT(11) AUTO_INCREMENT PRIMARY KEY,
-	equipement_id INT(11) NOT NULL,
-	nom VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE details (
@@ -134,10 +123,7 @@ ALTER TABLE voiture_equipements ADD FOREIGN KEY (equipement_id) REFERENCES equip
 ALTER TABLE voiture_equipements ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
 ALTER TABLE voitures ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
 ALTER TABLE horaires ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
-ALTER TABLE voiture_lesplus ADD FOREIGN KEY (lesplus_id) REFERENCES lesplus(id);
-ALTER TABLE voiture_lesplus ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
 ALTER TABLE images ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
 ALTER TABLE messages ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
 ALTER TABLE messages ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
-ALTER TABLE lesplus ADD FOREIGN KEY (equipement_id) REFERENCES equipements(id);
 ALTER TABLE details ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);

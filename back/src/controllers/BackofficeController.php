@@ -5,8 +5,7 @@ class BackofficeController extends Controller {
     public function index() {
         include_once ROOT.'/src/models/Utilisateur.php';
 
-        $id = $_REQUEST['id'];
-        $user = Utilisateur::getUserByID($id);
+        $user = Utilisateur::createEntity($_REQUEST['id'], 'id');
         $statut = 'user inconnu';
 
         if ($user->getIsAdmin() === 1) {
