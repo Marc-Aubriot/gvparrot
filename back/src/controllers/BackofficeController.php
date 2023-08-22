@@ -23,18 +23,41 @@ class BackofficeController extends Controller {
     public function getCarListAndEquipements() {
         include_once ROOT.'/src/models/Voiture.php';
         include_once ROOT.'/src/models/Equipement.php';
-
-        $equipements = Equipement::getAllEquipements();
-
-        $carlist = Voiture::getCarList();
+        include_once ROOT.'/src/models/Image.php';
+        include_once ROOT.'/src/models/VoitureEquipements.php';
+        include_once ROOT.'/src/models/Detail.php';
 
         $response = '';
 
+        // Renvoie un string contenant la liste des voitures : string = 'voiture&voiture&voiture#'
+        $carlist = Voiture::createEntity();
+        $carlist = $carlist->getAll();
+        
         foreach($carlist as $voiture) {
-            
-            $response = $response.
+
+            // récupère l'array contenant les images et le transforme en string "img+img+img"
+            $images = Image::createEntity($voiture['id']);
+            $images = $images->getAll(true);
+            $stringImages = Controller::getIndexToStringInNestedArray($images,'chemin');
+
+            // récupère l'array contenant les plus et le transforme en string "plus+plus+plus"
+            $lesplus = VoitureEquipements::createEntity();
+            $lesplus = $lesplus->getAll($voiture['id'], 1);
+            $stringPlus = Controller::getIndexToStringInNestedArray($lesplus,'nom');
+
+            // récupère l'array contenant les équipements et le transforme en string "equip+equip+equip"
+            $equipements = VoitureEquipements::createEntity();
+            $equipements = $equipements->getAll($voiture['id']);
+            $stringEquipements = Controller::getIndexToStringInNestedArray($equipements,'nom');
+
+            // récupèré l'objet contenant les détails et le transforme en string "détail+détail+détail"
+            $details = Detail::createEntity($voiture['id']);
+
+            $stringDetails = $details->getCouleur().'+'.$details->getPuissance().'+'.$details->getRapports().'+'.$details->getPlaces().'+'.$details->getPortes().'+'.$details->getGarantie().'+'.$details->getCritair();
+
+            $response = $response. 
             $voiture['id'].','.
-            $voiture['images'].','.
+            $stringImages.','.
             $voiture['titre'].','.
             $voiture['descript'].','.
             $voiture['boite'].','.
@@ -42,16 +65,28 @@ class BackofficeController extends Controller {
             $voiture['kilometrage'].','.
             $voiture['annee'].','.
             $voiture['prix'].','.
-            $voiture['lesplus'].','.
-            $voiture['equipements'].','.
-            $voiture['details'].','.
-            $voiture['ref'].'&';
+            $stringPlus.','.
+            $stringEquipements.','.
+            $stringDetails.'&';
         };
 
         $response = $response.'#';
 
-        foreach($equipements as $item) {
+        // Renvoie un string contenant la liste des voitures et des équipements : string = "voiture&voiture&voiture#equip&equip&equip&"
+        $equipementList = Equipement::createEntity();
+        $equipementList = $equipementList->getAll();
 
+        foreach($equipementList as $item) {
+            $response = $response.$item['id'].'+'.$item['nom'].'&';
+        };
+
+        $response = $response.'#';
+
+        // Renvoie un string contenant la liste des voitures et des équipements et des plus : string = "voiture&voiture#equip&equip#plus&plus&"
+        $plusList = Equipement::createEntity();
+        $plusList = $plusList->getAll(1);
+
+        foreach($plusList as $item) {
             $response = $response.$item['id'].'+'.$item['nom'].'&';
         };
 
@@ -60,8 +95,11 @@ class BackofficeController extends Controller {
 
     public function addCar() {
         include_once ROOT.'/src/models/Voiture.php';
-        include_once ROOT.'/src/models/Posseder.php';
+        include_once ROOT.'/src/models/VoitureEquipements.php';
         include_once ROOT.'/src/models/Equipement.php';
+        include_once ROOT.'/src/models/Image.php';
+        include_once ROOT.'/src/models/Detail.php';
+
 
         $tmp_array = [];
         $count = $_REQUEST['file-count'];
@@ -81,39 +119,63 @@ class BackofficeController extends Controller {
         array_push($tmp_array, $image);
         }
 
-        // Récupère toutes les infos envoyées par le front
-        $utilisateur_id = $_REQUEST['id'];
-        $images = implode("+", $tmp_array); // transforme l'array en string pour stockage BDD
-        $titre = $_REQUEST['titre'];
-        $descript = $_REQUEST['descript'];
-        $boite = $_REQUEST['boite'];
-        $carburant = $_REQUEST['carburant'];
-        $kilometrage = $_REQUEST['kilometrage'];
-        $annee = $_REQUEST['annee'];
-        $prix = $_REQUEST['prix'];
-        $lesplus = $_REQUEST['lesplus']; 
-        //$lesplus = ''; 
-        $equipements = $_REQUEST['equipements'];
-        $details = $_REQUEST['details'];
-        $ref = Controller::guidv4(); // génère une référence aléatoire
-
         // créé un nouvel objet via son Model et envoit l'objet en BDD
-        $voiture = Voiture::addCar($utilisateur_id, $images, $titre, $descript,  $boite, $carburant, $kilometrage, $annee, $prix, $lesplus, $equipements, $details, $ref);
+        $car_id = Controller::guidv4();
 
-        // récupèré chaque  équipement pour le pousser en BDD avec l'id de la voiture
+        $voiture = Voiture::createEntity();
+        $voiture->setId($car_id);
+        $voiture->setUserId($_REQUEST['id']);
+        $voiture->setTitre($_REQUEST['titre']);
+        $voiture->setDescript($_REQUEST['descript']);
+        $voiture->setBoite($_REQUEST['boite']);
+        $voiture->setCarburant($_REQUEST['carburant']);
+        $voiture->setKilometrage($_REQUEST['kilometrage']);
+        $voiture->setAnnee($_REQUEST['annee']);
+        $voiture->setPrix($_REQUEST['prix']);
+        $voiture->push();
+
+        // récupère chaque équipement et push en BDD avec l'id de la voiture, et si la voiture est un "plus" le notifie
         if ($_REQUEST['equipements']) {
             
-            $equipementsList = explode('+', $equipements);
+            $equipementsList = explode('+', $_REQUEST['equipements']);
 
-            foreach($equipementsList as $equipement) {
-                $voiture = Voiture::getCarByRef($ref);
-                $equipement = Equipement::getEquipementByNom($equipement);
-                $posseder = Posseder::add($equipement->getId(), $voiture->getId());
+            foreach($equipementsList as $equipement) { //pour chaque nom d'équipement
+                $equipement = Equipement::createEntity($equipement, 'nom'); // récupère l'id de l'équipement      
+
+                $voiture_equipement = VoitureEquipements::createEntity(); 
+                $voiture_equipement->setEquipementId($equipement->getId());
+                $voiture_equipement->setVoitureId($car_id);
+                if (str_contains($_REQUEST['lesplus'], $equipement->getNom())) { // si le nom de l'équipement est contenu dans le string des plus retourne true
+                    $voiture_equipement->setPlus(1);
+                } else {
+                    $voiture_equipement->setPlus(0);
+                }
+                $voiture_equipement->push();
             }
         }
 
+        // on récupère les détails et on envoie en BDD
+        $detailsList = explode('+', $_REQUEST['details']);
+
+        $details = Detail::createEntity();
+        $details->setVoitureId($car_id);
+        $details->setCouleur($detailsList[0]);
+        $details->setPuissance($detailsList[1]);
+        $details->setRapports($detailsList[2]);
+        $details->setPlaces($detailsList[3]);
+        $details->setPortes($detailsList[4]);
+        $details->setGarantie($detailsList[5]);
+        $details->setCritair($detailsList[6]);
+        $details->push();
+
+        // on récupère les images et on envoie le string en BDD
+        $images = Image::createEntity();
+        $images->setVoitureId($car_id);
+        $images->setChemin(implode("+", $tmp_array));// transforme l'array en string pour stockage BDD
+        $images->push(); 
+
         // envoit une réponse au front
-        $response = 'voiture ajoutée sous la référence '.$ref;
+        $response = 'voiture ajoutée sous la référence '.$car_id;
         echo $response;
     }
 
@@ -188,27 +250,24 @@ class BackofficeController extends Controller {
     public function addEmployee() {
         include_once ROOT.'/src/models/Utilisateur.php';
 
-        $id = Controller::guidv4();
-        $nom = $_REQUEST['nom'];
-        $prenom = $_REQUEST['prenom'];
-        $email = $_REQUEST['email'];
-        $mdp1 = $_REQUEST['mdp1'];
-        $mdp2 = $_REQUEST['mdp2'];
+        if ($_REQUEST['mdp1'] === $_REQUEST['mdp2']) {
 
-        if ($mdp1 === $mdp2) {
-
-            $hashpass = password_hash($mdp1, PASSWORD_DEFAULT);
-
-            $employee = Utilisateur::addUser($id, $nom, $prenom, $email, $hashpass);
+            $employee = new Utilisateur(
+                Controller::guidv4(),
+                $_REQUEST['nom'],
+                $_REQUEST['prenom'],
+                $_REQUEST['email'],
+                password_hash($_REQUEST['mdp1'], PASSWORD_DEFAULT),
+                false
+            );
+            $employee->push();
 
             echo "Employé ajouté à la base de données.";
-
             return;
 
         } else {
 
             echo "Les mots de passe doivent être identique.";
-
             return;
         }
     }
@@ -217,60 +276,27 @@ class BackofficeController extends Controller {
     public function modifyHoraires() {
         include_once ROOT.'/src/models/Horaire.php';
 
-        $horaires = Horaire::getHoraire(1);
+        $horaires = Horaire::createEntity();
+        $horaires->getAll();
 
-        $lundi_0 = $_REQUEST['lundi-0'];
-        $lundi_1 = $_REQUEST['lundi-1'];
-        $lundi_2 = $_REQUEST['lundi-2'];
-        $lundi_3 = $_REQUEST['lundi-3'];
-        $lundi = $lundi_0.','.$lundi_1.','.$lundi_2.','.$lundi_3;
+        $lundi = $_REQUEST['lundi-0'].','.$_REQUEST['lundi-1'].','.$_REQUEST['lundi-2'].','.$_REQUEST['lundi-3'];
+        $mardi = $_REQUEST['mardi-0'].','.$_REQUEST['mardi-1'].','.$_REQUEST['mardi-2'].','.$_REQUEST['mardi-3'];
+        $mercredi = $_REQUEST['mercredi-0'].','.$_REQUEST['mercredi-1'].','.$_REQUEST['mercredi-2'].','.$_REQUEST['mercredi-3'];
+        $jeudi = $_REQUEST['jeudi-0'].','.$_REQUEST['jeudi-1'].','.$_REQUEST['jeudi-2'].','.$_REQUEST['jeudi-3'];
+        $vendredi= $_REQUEST['vendredi-0'].','.$_REQUEST['vendredi-1'].','.$_REQUEST['vendredi-2'].','.$_REQUEST['vendredi-3'];
+        $samedi = $_REQUEST['samedi-0'].','.$_REQUEST['samedi-1'].','.$_REQUEST['samedi-2'].','.$_REQUEST['samedi-3'];
+        $dimanche = $_REQUEST['dimanche-0'].','.$_REQUEST['dimanche-1'].','.$_REQUEST['dimanche-2'].','.$_REQUEST['dimanche-3'];
 
-        $mardi_0 = $_REQUEST['mardi-0'];
-        $mardi_1 = $_REQUEST['mardi-1'];
-        $mardi_2 = $_REQUEST['mardi-2'];
-        $mardi_3 = $_REQUEST['mardi-3'];
-        $mardi = $mardi_0.','.$mardi_1.','.$mardi_2.','.$mardi_3;
-
-        $mercredi_0 = $_REQUEST['mercredi-0'];
-        $mercredi_1 = $_REQUEST['mercredi-1'];
-        $mercredi_2 = $_REQUEST['mercredi-2'];
-        $mercredi_3 = $_REQUEST['mercredi-3'];
-        $mercredi = $mercredi_0.','.$mercredi_1.','.$mercredi_2.','.$mercredi_3;
-
-        $jeudi_0 = $_REQUEST['jeudi-0'];
-        $jeudi_1 = $_REQUEST['jeudi-1'];
-        $jeudi_2 = $_REQUEST['jeudi-2'];
-        $jeudi_3 = $_REQUEST['jeudi-3'];
-        $jeudi = $jeudi_0.','.$jeudi_1.','.$jeudi_2.','.$jeudi_3;
-
-        $vendredi_0 = $_REQUEST['vendredi-0'];
-        $vendredi_1 = $_REQUEST['vendredi-1'];
-        $vendredi_2 = $_REQUEST['vendredi-2'];
-        $vendredi_3 = $_REQUEST['vendredi-3'];
-        $vendredi = $vendredi_0.','.$vendredi_1.','.$vendredi_2.','.$vendredi_3;
-
-        $samedi_0 = $_REQUEST['samedi-0'];
-        $samedi_1 = $_REQUEST['samedi-1'];
-        $samedi_2 = $_REQUEST['samedi-2'];
-        $samedi_3 = $_REQUEST['samedi-3'];
-        $samedi = $samedi_0.','.$samedi_1.','.$samedi_2.','.$samedi_3;
-
-        $dimanche_0 = $_REQUEST['dimanche-0'];
-        $dimanche_1 = $_REQUEST['dimanche-1'];
-        $dimanche_2 = $_REQUEST['dimanche-2'];
-        $dimanche_3 = $_REQUEST['dimanche-3'];
-        $dimanche = $dimanche_0.','.$dimanche_1.','.$dimanche_2.','.$dimanche_3;
-
-        $utilisateur_id = $_REQUEST['id'];
-
-        $horaires->modify('lundi', $lundi);
-        $horaires->modify('mardi', $mardi);
-        $horaires->modify('mercredi', $mercredi);
-        $horaires->modify('jeudi', $jeudi);
-        $horaires->modify('vendredi', $vendredi);
-        $horaires->modify('samedi', $samedi);
-        $horaires->modify('dimanche', $dimanche);
-        $horaires->modify('utilisateur_id', $utilisateur_id);
+        $horaires->setId('1');
+        $horaires->setUtilisateurId($_REQUEST['id']);
+        $horaires->setLundi($lundi);
+        $horaires->setMardi($mardi);
+        $horaires->setMercredi($mercredi);
+        $horaires->setJeudi($jeudi);
+        $horaires->setVendredi($vendredi);
+        $horaires->setSamedi($samedi);
+        $horaires->setDimanche($dimanche);
+        $horaires->modify();
 
         echo 'Modifications enregistrées !';
     }
@@ -279,7 +305,8 @@ class BackofficeController extends Controller {
     public function getEquipementList() {
         include_once ROOT.'/src/models/Equipement.php';
 
-        $equipements = Equipement::getAllEquipements();
+        $equipements = Equipement::createEntity();
+        $equipements = $equipements->getAll();
 
         foreach($equipements as $item) {
             echo $item['id'].'+'.$item['nom'].'&';
@@ -289,9 +316,9 @@ class BackofficeController extends Controller {
     public function addEquipement() {
         include_once ROOT.'/src/models/Equipement.php';
 
-        $nom = $_REQUEST['nom'];
-
-        $equipement = Equipement::addEquipement($nom);
+        $equipement = Equipement::createEntity();
+        $equipement->setNom($_REQUEST['nom']);
+        $equipement->push();
 
         echo 'Equipement ajouté';
     }
@@ -299,10 +326,7 @@ class BackofficeController extends Controller {
     public function deleteEquipement() {
         include_once ROOT.'/src/models/Equipement.php';
 
-        $id = $_REQUEST['id'];
-
-        $equipement = Equipement::getEquipementById($id);
-
+        $equipement = Equipement::createEntity($_REQUEST['id']);
         $equipement->delete();
 
         echo 'Equipement supprimé';
@@ -311,11 +335,39 @@ class BackofficeController extends Controller {
     // MODULE : SeeCarList.jsx
     public function deleteCar() {
         include_once ROOT.'/src/models/Voiture.php';
+        include_once ROOT.'/src/models/Image.php';
+        include_once ROOT.'/src/models/Detail.php';
+        include_once ROOT.'/src/models/VoitureEquipements.php';
+        include_once ROOT.'/src/models/Message.php';
 
-        $id = $_REQUEST["id"];
+        // delete les détails (1 ligne en bdd)
+        $details = Detail::createEntity($_REQUEST['id']);
+        $details->delete();
 
-        $voiture = Voiture::getCarById($id);
+        // delete les photos (0,n lignes en bdd)
+        $images = Image::createEntity($_REQUEST['id']);
+        $images = $images->getAll(true);
 
+        foreach($images as $img) { // peut être simplifié avec du sql "delete from images where voiture_id = :voiture_id' > supprime toutes les rows contenant l'id
+            $img = Image::createEntity($img['voiture_id']);
+            $img->delete();
+        }
+
+        // delete les équipements (0,n lignes en bdd)
+        $voiture_equipement = VoitureEquipements::createEntity();
+        $voiture_equipement = $voiture_equipement->getAll($_REQUEST['id']);
+
+        foreach($voiture_equipement as $equipement) { // peut être simplifié avec du sql "delete from images where voiture_id = :voiture_id' > supprime toutes les rows contenant l'id
+            $equipement = VoitureEquipements::createEntity($equipement['equipement_id'], $equipement['voiture_id']);
+            $equipement->delete();
+        }
+
+        // delete les messages associés
+        $message = Message::createEntity($_REQUEST['id'], 'voiture_id');
+        $message->delete(true);
+
+        // delete la voiture
+        $voiture = Voiture::createEntity($_REQUEST["id"]);
         $voiture->delete();
 
         echo 'Voiture supprimée';
@@ -325,15 +377,36 @@ class BackofficeController extends Controller {
     public function getCarByRefAndEquipements() {
         include_once ROOT.'/src/models/Voiture.php';
         include_once ROOT.'/src/models/Equipement.php';
+        include_once ROOT.'/src/models/Image.php';
+        include_once ROOT.'/src/models/VoitureEquipements.php';
+        include_once ROOT.'/src/models/Detail.php';
 
-        $equipements = Equipement::getAllEquipements();
+        // récupère l'array contenant les images et le transforme en string "img+img+img"
+        $images = Image::createEntity($_REQUEST["ref"]);
+        $images = $images->getAll(true);
+        $stringImages = Controller::getIndexToStringInNestedArray($images,'chemin');
 
-        $ref = $_REQUEST["ref"];
-        $voiture = Voiture::getCarByRef($ref);
+        // récupère l'array contenant les plus et le transforme en string "plus+plus+plus"
+        $lesplus = VoitureEquipements::createEntity();
+        $lesplus = $lesplus->getAll($_REQUEST["ref"], 1);
+        $stringPlus = Controller::getIndexToStringInNestedArray($lesplus,'nom');
+
+        // récupère l'array contenant les équipements et le transforme en string "equip+equip+equip"
+        $equipements = VoitureEquipements::createEntity();
+        $equipements = $equipements->getAll($_REQUEST["ref"]);
+        $stringEquipements = Controller::getIndexToStringInNestedArray($equipements,'nom');
+
+        // récupèré l'objet contenant les détails et le transforme en string "détail+détail+détail"
+        $details = Detail::createEntity($_REQUEST["ref"]);
+
+        $stringDetails = $details->getCouleur().'+'.$details->getPuissance().'+'.$details->getRapports().'+'.$details->getPlaces().'+'.$details->getPortes().'+'.$details->getGarantie().'+'.$details->getCritair();
+
+
+        $voiture = Voiture::createEntity($_REQUEST["ref"]);
 
         $response =  
             $voiture->getId().','.
-            $voiture->getImages().','.
+            $stringImages.','.
             $voiture->getTitre().','.
             $voiture->getDescript().','.
             $voiture->getBoite().','.
@@ -341,18 +414,29 @@ class BackofficeController extends Controller {
             $voiture->getKilometrage().','.
             $voiture->getAnnee().','.
             $voiture->getPrix().','.
-            $voiture->getLesplus().','.
-            $voiture->getEquipements().','.
-            $voiture->getDetails().','.
-            $voiture->getReference()
+            $stringPlus.','.
+            $stringEquipements.','.
+            $stringDetails
         ;
 
         $response = $response.'#';
 
-        foreach($equipements as $item) {
+        $equipementList = Equipement::createEntity();
+        $equipementList = $equipementList->getAll();
 
-            $response = $response.$item['id'].'+'.$item['nom'].'&';
+        foreach($equipementList as $item) {
+
+            $response = $response.$item['equipement_id'].'+'.$item['nom'].'&';
         };
+
+        $response = $response.'#';
+
+        $plusList = Equipement::createEntity();
+        $plusList = $plusList->getAll(true);
+
+        foreach($plusList as $plus) {
+            $response = $response.$plus['equipement_id'].'+'.$plus['nom'].'&';
+        }
 
         echo $response;
     }
@@ -442,7 +526,8 @@ class BackofficeController extends Controller {
     public function getAllComments() {
         include_once ROOT.'/src/models/Comment.php';
 
-        $comments = Comment::getCommentList();
+        $comments = Comment::createEntity();
+        $comments = $comments->getAll();
 
         foreach($comments as $item) {
             echo $item['id'].'+'.$item['nom'].'+'.$item['contenu'].'+'.$item['note'].'+'.$item['valider'].'&';
@@ -452,10 +537,7 @@ class BackofficeController extends Controller {
     public function deleteComment() {
         include_once ROOT.'/src/models/Comment.php';
 
-        $id = $_REQUEST['ID'];
-
-        $comment = Comment::getCommentById($id);
-
+        $comment = Comment::createEntity($_REQUEST['ID']);
         $comment->delete();
 
         echo 'Commentaire supprimé';
@@ -464,21 +546,19 @@ class BackofficeController extends Controller {
     public function verifyComment() {
         include_once ROOT.'/src/models/Comment.php';
 
-        $id = $_REQUEST['ID'];
         $q = $_REQUEST['q'];
-        $comment = Comment::getCommentById($id);
-
+        $comment = Comment::createEntity($_REQUEST['ID']);
 
         if ($q === '0') {
-
             $comment->pin();
-            $comment->updateChamp('utilisateur_id', $_REQUEST['user']);
+            $comment->setUtilisateurId($_REQUEST['user']);
+            $comment->modify();
             echo "Commentaire ajouté à l'Accueil";
 
         } else if ($q === '1') {
-
             $comment->unPin();
-            $comment->updateChamp('utilisateur_id', $_REQUEST['user']);
+            $comment->setUtilisateurId($_REQUEST['user']);
+            $comment->modify();
             echo "Commentaire enlevé de l'Accueil";
 
         } else {
@@ -492,8 +572,7 @@ class BackofficeController extends Controller {
     public function deleteService() {
         include_once ROOT.'/src/models/Service.php';
 
-        $ID = $_REQUEST['ID'];
-        $service = Service::getServiceById($ID);
+        $service = Service::createEntity($_REQUEST['ID']);
         $service->delete();
 
         echo 'Service supprimé !';
@@ -502,19 +581,13 @@ class BackofficeController extends Controller {
     public function modifyServices() {
         include_once ROOT.'/src/models/Service.php';
 
-        $ID = $_REQUEST['ID'];
-        $categorie = $_REQUEST['categorie'];
-        $subcategorie = $_REQUEST['subcategorie'];
-        $title = $_REQUEST['title'];
-        $descript = $_REQUEST['descript'];
-        $utilisateur_id = $_REQUEST['user'];
-
-        $service = Service::getServiceById($ID);
-        $service->modify('categorie', $categorie);
-        $service->modify('subcategorie', $subcategorie);
-        $service->modify('titre', $title);
-        $service->modify('descript', $descript);
-        $service->modify('utilisateur_id', $utilisateur_id);
+        $service = Service::createEntity($_REQUEST['ID']);
+        $service->setUtilisateur($_REQUEST['user']);
+        $service->setCategorie($_REQUEST['categorie']);
+        $service->setSubCategorie($_REQUEST['subcategorie']);
+        $service->setTitle($_REQUEST['title']);
+        $service->setDescript($_REQUEST['descript']);
+        $service->modify();
 
         echo 'Service modifié !';
     }
@@ -522,13 +595,13 @@ class BackofficeController extends Controller {
     public function addService() {
         include_once ROOT.'/src/models/Service.php';
 
-        $categorie = $_REQUEST['categorie'];
-        $subcategorie = $_REQUEST['subcategorie'];
-        $title = $_REQUEST['title'];
-        $descript = $_REQUEST['descript'];
-        $utilisateur_id = $_REQUEST['user'];
-
-        $service = Service::addService($utilisateur_id, $categorie, $subcategorie, $title, $descript);
+        $service = Service::createEntity();
+        $service->setUtilisateur($_REQUEST['user']);
+        $service->setCategorie($_REQUEST['categorie']);
+        $service->setSubCategorie($_REQUEST['subcategorie']);
+        $service->setTitle($_REQUEST['title']);
+        $service->setDescript($_REQUEST['descript']);
+        $service->push();
 
         echo 'Service ajouté !';
     }

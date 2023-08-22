@@ -50,6 +50,99 @@ Class Horaire {
         }
     }
 
+    public function getAll() {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
+
+        $stmt->bindValue(':id', $this->id);
+
+        $stmt->execute();
+
+        // Récupération du résultat sous forme d'objet
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $conn = null;
+            return new Horaire(
+                $result['id'], 
+                $result['lundi'], 
+                $result['mardi'], 
+                $result['mercredi'],
+                $result['jeudi'], 
+                $result['vendredi'],
+                $result['samedi'],
+                $result['dimanche'],
+                $result['utilisateur_id']
+            );
+        } else {
+            $conn = null;
+            return null;
+        }
+    }
+
+    // Fonction pour mettre à jour un champ 
+    public function modify() {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        // utilisateur_id
+        $query = "UPDATE horaires SET utilisateur_id = :utilisateur_id WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':utilisateur_id', $this->utilisateur_id);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // lundi
+        $query = "UPDATE horaires SET lundi = :lundi WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':lundi', $this->lundi);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // mardi
+        $query = "UPDATE horaires SET mardi = :mardi WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':mardi', $this->mardi);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // mercredi
+        $query = "UPDATE horaires SET mercredi = :mercredi WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':mercredi', $this->mercredi);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // jeudi
+        $query = "UPDATE horaires SET jeudi = :jeudi WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':jeudi', $this->jeudi);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // vendredi
+        $query = "UPDATE horaires SET vendredi = :vendredi WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':vendredi', $this->vendredi);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // samedi
+        $query = "UPDATE horaires SET samedi = :samedi WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':samedi', $this->samedi);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // dimanche
+        $query = "UPDATE horaires SET dimanche = :dimanche WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':dimanche', $this->dimanche);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        $db = null;
+    }
+
     // Méthodes pour recevoir les paramètres
     public function getId() { return $this->id; }
     public function getUtilisateurId() { return $this->utilisateur_id; }
@@ -96,36 +189,6 @@ Class Horaire {
         $conn = null;
     }
 
-    public function getHoraire($id = null) {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
-
-        $stmt->bindValue(':id', $id);
-
-        $stmt->execute();
-
-        // Récupération du résultat sous forme d'objet
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;
-            return new Horaire(
-                $result['id'], 
-                $result['lundi'], 
-                $result['mardi'], 
-                $result['mercredi'],
-                $result['jeudi'], 
-                $result['vendredi'],
-                $result['samedi'],
-                $result['dimanche'],
-                $result['utilisateur_id']
-            );
-        } else {
-            $conn = null;
-            return null;
-        }
-    }
-
     // Fonction pour récupérer les informations
     public function getHoraireByDay($jour) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -145,18 +208,6 @@ Class Horaire {
             $conn = null;
             return null;
         }
-    }
-
-    // Fonction pour mettre à jour un champ 
-    public function modify($champ, $nouvelleValeur) {
-        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $query = "UPDATE horaires SET " . $champ . "=:nouvelleValeur WHERE id=:id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':nouvelleValeur', $nouvelleValeur);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
-
-        $db = null;
     }
 
     // Fonction pour delete

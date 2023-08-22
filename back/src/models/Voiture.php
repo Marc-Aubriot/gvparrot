@@ -72,6 +72,8 @@ class Voiture {
     public function getPrix() { return $this->prix; }
 
     // Méthodes pour modifier les paramètres d'une voiture
+    public function setId($new_value) { $this->id = $new_value; }
+    public function setUserId($new_value) { $this->utilisateur_id = $new_value; }
     public function setTitre($new_value) { $this->titre = $new_value; }
     public function setDescript($new_value) { $this->descript = $new_value; }
     public function setBoite($new_value) { $this->boite = $new_value; }
@@ -114,20 +116,22 @@ class Voiture {
     public function push() {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('INSERT INTO voitures ( utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
-        VALUES ( :val0, :val2, :val3, :val4, :val5, :val6, :val7, :val8)');
+        $stmt = $conn->prepare('INSERT INTO voitures ( id, utilisateur_id, titre, descript, boite, carburant, kilometrage, annee, prix)
+        VALUES ( :val0, :val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8)');
 
         $stmt->execute(
             array(
-            ':val0' => $this->utilisateur_id, 
-            ':val2' => $this->titre, 
-            ':val3' => $this->descript, 
-            ':val4' => $this->boite,
-            ':val5' => $this->carburant,
-            ':val6' => $this->kilometrage,
-            ':val7' => $this->annee,
-            ':val8' => $this->prix,
-        ));
+                ':val0' => $this->id, 
+                ':val1' => $this->utilisateur_id, 
+                ':val2' => $this->titre, 
+                ':val3' => $this->descript, 
+                ':val4' => $this->boite,
+                ':val5' => $this->carburant,
+                ':val6' => $this->kilometrage,
+                ':val7' => $this->annee,
+                ':val8' => $this->prix,
+            )
+        );
 
         $conn = null;
     }

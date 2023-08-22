@@ -10,71 +10,62 @@ Class Equipement {
         $this->nom = $nom;
     }
 
-    // ADD
-    public function addEquipement($nom) {
+    public static function createEntity($id = null, $champ = null) {
+        if ($id) {
+            $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+            if ($champ) {
+                $stmt = $conn->prepare('SELECT * FROM equipements WHERE '.$champ.' = :id');
+            } else {
+                $stmt = $conn->prepare('SELECT * FROM equipements WHERE id = :id');
+            }
+           
+            
+            $stmt->bindValue(':id', $id);
+
+            $stmt->execute();
+
+            // Récupération du résultat sous forme d'objet
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $conn = null;
+                return new Equipement(
+                    $result['id'], 
+                    $result['nom'],
+                );
+            } else {
+                $conn = null;
+                return "erreur dans la création d'entité.";
+            }
+        } else {
+            return new Equipement(null,null);
+        }
+    }
+
+    public function push() {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $con->prepare('INSERT INTO equipements (nom) VALUES (:val1)');
+        $stmt = $con->prepare('INSERT INTO equipements (nom) 
+        VALUES (:val2)');
 
         $stmt->execute(
-            array( ':val1' => $nom ));
-
+            array(
+                ':val2' => $this->nom, 
+            )
+        );
+        
         $con = null;
     }
 
-    // get par id
-    public function getEquipementById($equipement_id) {
+    public function getAll($plus = null) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('SELECT * FROM equipements WHERE id = :id');
-
-        $stmt->bindValue(':id', $equipement_id);
-
-        $stmt->execute();
-
-        // Récupération du résultat sous forme d'objet
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;
-            return new Equipement(
-                $result['id'], 
-                $result['nom']
-            );
+        if ($plus) {
+            $stmt = $conn->prepare('SELECT * FROM equipements WHERE plus = 1');
         } else {
-            $conn = null;
-            return null;
+            $stmt = $conn->prepare('SELECT * FROM equipements');
         }
-    }
 
-    // get par id
-    public function getEquipementByNom($equipement_nom) {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM equipements WHERE nom = :nom');
-
-        $stmt->bindValue(':nom', $equipement_nom);
-
-        $stmt->execute();
-
-        // Récupération du résultat sous forme d'objet
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;
-            return new Equipement(
-                $result['id'], 
-                $result['nom']
-            );
-        } else {
-            $conn = null;
-            return null;
-        }
-    }
-
-    // get une liste des équipements
-    public function getAllEquipements() {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM equipements');
         $stmt->execute();
 
         // Récupération du résultat sous d'un array contenant les services
@@ -89,7 +80,6 @@ Class Equipement {
         }
     }
 
-    // Fonction pour delete
     public function delete() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $sql = "DELETE FROM equipements WHERE ID = :id";
@@ -107,6 +97,7 @@ Class Equipement {
     // Méthodes pour modifier les paramètres
     public function setId($new_value) { $this->id = $new_value; }
     public function setNom($new_value) { $this->nom = $new_value; }
+
 }
 
 ?>

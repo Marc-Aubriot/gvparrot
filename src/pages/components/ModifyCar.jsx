@@ -28,6 +28,7 @@ const ModifyCar = () => {
     const [rawImgPath, setRawImgPath] = useState();
     const [carImg, setCarImg] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
+    const [plustList, setPlusList] = useState([]);
     const [user] = useOutletContext();
 
     // hook fonctionnel
@@ -89,6 +90,19 @@ const ModifyCar = () => {
                 data1.pop();
 
                 setEquipementList(data1);
+
+                // on récupère la liste des plus
+                const pluslist = rawdata[2].split('&');
+
+                const data2 = [];
+
+                pluslist.forEach(element => {
+                    data2.push(element.split('+'));
+                })
+
+                data2.pop();
+
+                setPlusList(data2);
 
                 setIsLoading(false); // les données sont récupérées, on interrompt le spinner et on affiche les données
             });
@@ -479,7 +493,7 @@ const ModifyCar = () => {
                             <div className="addCarFormSectionWrapper">
                                 <h3 className="AddCarFormTitle">Les plus</h3>
                                 {
-                                    equipementList.map( (e,i) => {  
+                                    plustList.map( (e,i) => {  
                                         let checkedCheckbox = false;
 
                                         for ( let iteration = 0; iteration < lesplus.length; iteration++ ) {

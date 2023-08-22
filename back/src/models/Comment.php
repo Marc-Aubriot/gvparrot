@@ -86,10 +86,14 @@ Class Comment {
     }
 
     // récupère les données id, utilisateur_id, nom, contenu, note et valider depuis la BDD : utilisé dans AccueilController
-    public function getAllValidated() {
+    public function getAll($validated = null) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('SELECT * FROM commentaires WHERE valider = true');
+        if ($validated) {
+            $stmt = $conn->prepare('SELECT * FROM commentaires WHERE valider = true');
+        } else {
+            $stmt = $conn->prepare('SELECT * FROM commentaires');
+        }
 
         $stmt->execute();
 
@@ -105,93 +109,6 @@ Class Comment {
         }
     }
     
-
-    /* FONCTIONS OBSOLETES ?*/
-    // fonction pour ajouter un nouveau commentaire en DB
-    public function addComment($nom, $contenu, $note) {
-        $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $con->prepare('INSERT INTO commentaires (nom, contenu, note) 
-        VALUES (:val2, :val3, :val4)');
-
-        $stmt->execute(
-            array(':val2' => $nom, 
-            ':val3' => $contenu, 
-            ':val4' => $note,
-        ));
-
-        $con = null;
-    }
-
-    // fonction pour ajouter un nouveau commentaire en DB
-    public function addCommentByEmployee() {
-        $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $con->prepare('INSERT INTO commentaires (nom, contenu, note, valider) 
-        VALUES (:val2, :val3, :val4, :val5)');
-
-        $stmt->execute(
-            array(':val2' => $this->nom, 
-            ':val3' => $this->contenu, 
-            ':val4' => $this->note,
-            ':val5' => $this->valider
-        ));
-
-        $con = null;
-    }
-
-    // Fonction pour récupérer tous les comments non validés
-    public function getCommentList() {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM commentaires');
-
-        $stmt->execute();
-
-        // Récupération du résultat sous d'un array contenant les commentaires
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;           
-            return $result;
-
-        } else {
-            $conn = null;
-            return null;
-        }
-    }
-
-    // Fonction pour récupérer tous les comments validés
-    public function getValidatedCommentList() {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM commentaires WHERE valider = true');
-
-        $stmt->execute();
-
-        // Récupération du résultat sous d'un array contenant les commentaires
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;           
-            return $result;
-
-        } else {
-            $conn = null;
-            return null;
-        }
-    }
-
-    // Fonction pour mettre à jour un champ 
-    public function updateChamp($champ, $nouvelleValeur) {
-        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $query = "UPDATE commentaires SET " . $champ . "=:nouvelleValeur WHERE id=:id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':nouvelleValeur', $nouvelleValeur);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
-
-        $db = null;
-    }
-
     // Fonction pour mettre à jour un champ 
     public function pin() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
@@ -220,6 +137,48 @@ Class Comment {
         $sql = "DELETE FROM commentaires WHERE ID = :id";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id', $this->id, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $db = null;
+    }
+
+
+    public function modify() {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        // utilisateur_id
+        $query = "UPDATE commentaires SET utilisateur_id = :utilisateur_id WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':utilisateur_id', $this->utilisateur_id);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // nom
+        $query = "UPDATE commentaires SET nom = :nom WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':nom', $this->nom);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // contenu
+        $query = "UPDATE commentaires SET contenu = :contenu WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':contenu', $this->contenu);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // note
+        $query = "UPDATE commentaires SET note = :note WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':note', $this->note);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // valider
+        $query = "UPDATE commentaires SET valider = :valider WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':valider', $this->valider);
+        $stmt->bindParam(':id', $this->id);
         $stmt->execute();
 
         $db = null;

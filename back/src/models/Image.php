@@ -13,13 +13,13 @@ class Image {
     }
 
     // retourne une entité vide : utilisé dans Controller
-    public static function createEntity($id = null) {
-        if ($id) {
+    public static function createEntity($voiture_id = null) {
+        if ($voiture_id) {
             $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-            $stmt = $conn->prepare('SELECT * FROM images WHERE id = :id');
+            $stmt = $conn->prepare('SELECT * FROM images WHERE voiture_id = :voiture_id');
 
-            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':voiture_id', $voiture_id);
 
             $stmt->execute();
 
@@ -49,13 +49,13 @@ class Image {
     public function setVoitureId($new_value) { $this->voiture_id = $new_value; }
     public function setChemin($new_value) { $this->chemin = $new_value; }
 
-    public function getAll($voiture_id = null) {
+    public function getAll($voiture = null) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $stmt = '';
 
-        if ($voiture_id) {
+        if ($voiture) {
             $stmt = $conn->prepare('SELECT * FROM images WHERE voiture_id = :voiture_id;');
-            $stmt->bindValue(':voiture_id', $voiture_id);
+            $stmt->bindValue(':voiture_id', $this->voiture_id);
 
         } else {
             $stmt = $conn->prepare('SELECT * FROM images');
@@ -74,6 +74,39 @@ class Image {
             $conn = null;
             return null;
         }
+    }
+
+    public function push() {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('INSERT INTO images (voiture_id, chemin)
+        VALUES ( :val0, :val2)');
+
+        $stmt->execute(
+            array(
+            ':val0' => $this->voiture_id, 
+            ':val2' => $this->chemin, 
+        ));
+
+        $conn = null;
+    }
+
+    public function delete($voiture = null) {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        if ($voiture) {
+            $sql = "DELETE FROM images WHERE voiture_id = :voiture_id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':voiture_id', $this->voiture_id);
+            $stmt->execute();
+        } else {
+            $sql = "DELETE FROM images WHERE ID = :id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':id', $this->id);
+            $stmt->execute();
+        }
+
+        $db = null;
     }
 }
 

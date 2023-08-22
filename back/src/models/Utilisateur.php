@@ -65,9 +65,9 @@ Class Utilisateur {
             array(
                 ':val1' => $this->id,
                 ':val2' => $this->nom, 
-                ':val2' => $this->prenom, 
-                ':val2' => $this->email, 
-                ':val2' => $this->mot_de_passe, 
+                ':val3' => $this->prenom, 
+                ':val4' => $this->email, 
+                ':val5' => $this->mot_de_passe, 
             )
         );
         

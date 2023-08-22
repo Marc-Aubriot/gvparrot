@@ -7,7 +7,7 @@ class AccueilController extends Controller {
     // envoie les commentaires depuis la BDD vers le front
     public function index() {
         $comments = Comment::createEntity();
-        $comments = $comments->getAllValidated();
+        $comments = $comments->getAll(true);
 
         // envoie les datas vers le front
         foreach($comments as $item) {

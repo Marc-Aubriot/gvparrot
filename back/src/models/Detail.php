@@ -106,5 +106,36 @@ class Detail {
             return null;
         }
     }
+
+    public function push() {
+        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $conn->prepare('INSERT INTO details ( voiture_id, couleur, puissance, rapports, places, portes, garantie, critair)
+        VALUES ( :val0, :val2, :val3, :val4, :val5, :val6, :val7, :val8)');
+
+        $stmt->execute(
+            array(
+            ':val0' => $this->voiture_id, 
+            ':val2' => $this->couleur, 
+            ':val3' => $this->puissance, 
+            ':val4' => $this->rapports,
+            ':val5' => $this->places,
+            ':val6' => $this->portes,
+            ':val7' => $this->garantie,
+            ':val8' => $this->critair,
+        ));
+
+        $conn = null;
+    }
+
+    public function delete() {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+        $sql = "DELETE FROM details WHERE ID = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $db = null;
+    }
 } 
 ?>

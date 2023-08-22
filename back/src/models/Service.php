@@ -92,9 +92,8 @@ Class Service {
         
     }
 
-    /* FONCTIONS OBSOLETES ? */
     // fonction pour ajouter un nouveau service en DB
-    public function addService($utilisateur_id, $categorie, $subcategorie, $titre, $descript) {
+    public function push() {
         $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
         $stmt = $con->prepare('INSERT INTO services (utilisateur_id, categorie, subcategorie, titre, descript) 
@@ -102,22 +101,52 @@ Class Service {
 
         $stmt->execute(
             array(
-            ':val0' => $utilisateur_id,
-            ':val1' => $categorie,
-            ':val2' => $subcategorie, 
-            ':val3' => $titre, 
-            ':val4' => $descript,
+            ':val0' => $this->utilisateur_id,
+            ':val1' => $this->categorie,
+            ':val2' => $this->subcategorie, 
+            ':val3' => $this->titre, 
+            ':val4' => $this->descript,
         ));
 
         $con = null;
     }
 
     // Fonction pour mettre à jour un champ 
-    public function modify($champ, $nouvelleValeur) {
+    public function modify() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $query = "UPDATE services SET " . $champ . "=:nouvelleValeur WHERE id=:id";
+
+        // utilisateur_id
+        $query = "UPDATE services SET utilisateur_id = :utilisateur_id WHERE id=:id";
         $stmt = $db->prepare($query);
-        $stmt->bindParam(':nouvelleValeur', $nouvelleValeur);
+        $stmt->bindParam(':utilisateur_id', $this->utilisateur_id);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // categorie
+        $query = "UPDATE services SET categorie = :categorie WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':categorie', $this->categorie);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // subcategorie
+        $query = "UPDATE services SET subcategorie = :subcategorie WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':subcategorie', $this->subcategorie);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // titre
+        $query = "UPDATE services SET titre = :titre WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':titre', $this->titre);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // descript
+        $query = "UPDATE services SET descript = :descript WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':descript', $this->descript);
         $stmt->bindParam(':id', $this->id);
         $stmt->execute();
 

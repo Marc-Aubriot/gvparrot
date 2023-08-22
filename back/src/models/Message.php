@@ -30,11 +30,15 @@ Class Message {
     }
 
     // retourne une entité vide : utilisé dans AccueilController
-    public static function createEntity($id = null) {
+    public static function createEntity($id = null, $champ = null) {
         if ($id) {
             $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-            $stmt = $conn->prepare('SELECT * FROM messages WHERE id = :id');
+            if ($champ) {
+                $stmt = $conn->prepare('SELECT * FROM messages WHERE '.$champ.' = :id');
+            } else {
+                $stmt = $conn->prepare('SELECT * FROM messages WHERE id = :id');
+            }
 
             $stmt->bindValue(':id', $id);
 
@@ -229,12 +233,20 @@ Class Message {
     }
 
     // DELETE
-    public function delete() {
+    public function delete($voiture = null) {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $sql = "DELETE FROM messages WHERE ID = :id";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $this->id, PDO::PARAM_STR);
-        $stmt->execute();
+
+        if ($voiture) {
+            $sql = "DELETE FROM messages WHERE voiture_id = :voiture_id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':voiture_id', $this->voiture_id, PDO::PARAM_STR);
+            $stmt->execute();
+        } else {
+            $sql = "DELETE FROM messages WHERE ID = :id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR);
+            $stmt->execute();
+        }
 
         $db = null;
     }
