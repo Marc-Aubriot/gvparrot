@@ -138,7 +138,7 @@ const ModifyCar = () => {
 
 
         // on récupère les values des checkbox de la section les plus, qu'on transforme en un string
-        const countlesplus = equipementList.length;
+        const countlesplus = plustList.length;
         let tempArrayLesplus = [];
 
         for ( let i = 0; i < countlesplus; i++) {

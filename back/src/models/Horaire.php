@@ -26,14 +26,19 @@ Class Horaire {
     }
 
     // retourne une entité vide : utilisé dans Controller
-    public static function createEntity($id = null) {
+    public static function createEntity($id = null, $champ = null) {
         if ($id) {
             $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-            $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
-            $stmt->bindParam(':id', $id);
-    
-            $stmt->execute();
+            if ($champ) {
+                $stmt = $conn->prepare('SELECT * FROM horaires WHERE '.$champ.' = :id');
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+            } else {
+                $stmt = $conn->prepare('SELECT * FROM horaires WHERE id = :id');
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+            }
     
             // Récupération du résultat sous d'un array contenant les commentaires
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

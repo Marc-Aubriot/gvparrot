@@ -74,6 +74,7 @@ const MailBox = () => {
             }
         );
     }
+    
     const deleteMessage = (e) => {
         const id = e.target.id;
 

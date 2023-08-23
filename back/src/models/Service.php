@@ -20,11 +20,16 @@ Class Service {
     }
 
     // retourne une entité vide : utilisé dans Controller
-    public static function createEntity($id = null) {
+    public static function createEntity($id = null, $champ = null) {
         if ($id) {
             $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-            $stmt = $conn->prepare('SELECT * FROM services WHERE id = :id');
+            if ($champ) {
+                $stmt = $conn->prepare('SELECT * FROM services WHERE '.$champ.' = :id');
+            } else {
+                $stmt = $conn->prepare('SELECT * FROM services WHERE id = :id');
+            }
+
 
             $stmt->bindValue(':id', $id);
 

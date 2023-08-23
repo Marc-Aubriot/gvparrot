@@ -52,7 +52,7 @@ CREATE TABLE equipements (
 
 CREATE TABLE voitures (
 	id CHAR(36) PRIMARY KEY,
-    utilisateur_id VARCHAR(36) NOT NULL,
+    utilisateur_id VARCHAR(36),
     titre VARCHAR(100) NOT NULL,
     descript VARCHAR(100) NOT NULL,
     boite VARCHAR(11) NOT NULL,
@@ -116,14 +116,14 @@ INSERT INTO utilisateurs (id, nom, prenom, email, mot_de_passe, is_admin)
 VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbea", "adminfamily", "adminname", "superadmin@outlook.fr", "$2y$10$IKnk.34eszvM4lq.JKwWJOMQ0br0ltJDnPNCEubprCems6DmC1.9.", true);
 
 /* add foreign key */
-ALTER TABLE commentaires ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
+ALTER TABLE commentaires ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE set null;
 ALTER TABLE services ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
-ALTER TABLE custom_sessions ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
-ALTER TABLE voiture_equipements ADD FOREIGN KEY (equipement_id) REFERENCES equipements(id);
-ALTER TABLE voiture_equipements ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
-ALTER TABLE voitures ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
+ALTER TABLE custom_sessions ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE cascade;
+ALTER TABLE voiture_equipements ADD FOREIGN KEY (equipement_id) REFERENCES equipements(id) ON DELETE cascade;
+ALTER TABLE voiture_equipements ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id) ON DELETE cascade;
+ALTER TABLE voitures ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE set null;
 ALTER TABLE horaires ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
-ALTER TABLE images ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
-ALTER TABLE messages ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id);
-ALTER TABLE messages ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
-ALTER TABLE details ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id);
+ALTER TABLE images ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id) ON DELETE cascade;
+ALTER TABLE messages ADD FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE set null;
+ALTER TABLE messages ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id) ON DELETE set null;
+ALTER TABLE details ADD FOREIGN KEY (voiture_id) REFERENCES voitures(id) ON DELETE cascade;

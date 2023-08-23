@@ -113,13 +113,21 @@ class VoitureEquipements {
         $con = null;
     }
 
-    public function delete() {
+    public function delete($all_voiture_equipement = null) {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $sql = "DELETE FROM voiture_equipements WHERE equipement_id = :equipement_id AND voiture_id = :voiture_id" ;
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':equipement_id', $this->equipement_id, PDO::PARAM_STR);
-        $stmt->bindParam(':voiture_id', $this->voiture_id, PDO::PARAM_STR);
-        $stmt->execute();
+
+        if ($all_voiture_equipement) {
+            $sql = "DELETE FROM voiture_equipements WHERE voiture_id = :voiture_id" ;
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':voiture_id', $this->voiture_id, PDO::PARAM_STR);
+            $stmt->execute();
+        } else {
+            $sql = "DELETE FROM voiture_equipements WHERE equipement_id = :equipement_id AND voiture_id = :voiture_id" ;
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':equipement_id', $this->equipement_id, PDO::PARAM_STR);
+            $stmt->bindParam(':voiture_id', $this->voiture_id, PDO::PARAM_STR);
+            $stmt->execute();
+        }
 
         $db = null;
     }

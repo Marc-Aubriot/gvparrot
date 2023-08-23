@@ -128,6 +128,68 @@ class Detail {
         $conn = null;
     }
 
+    public function modify() {
+        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        // voiture_id
+        $query = "UPDATE details SET voiture_id = :voiture_id WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':voiture_id', $this->voiture_id);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // couleur 
+        $query = "UPDATE details SET couleur = :couleur WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':couleur', $this->couleur);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // puissance 
+        $query = "UPDATE details SET puissance = :puissance WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':puissance', $this->puissance);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // rapports 
+        $query = "UPDATE details SET rapports = :rapports WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':rapports', $this->rapports);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // places 
+        $query = "UPDATE details SET places = :places WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':places', $this->places);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // portes 
+        $query = "UPDATE details SET portes = :portes WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':portes', $this->portes);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // garantie 
+        $query = "UPDATE details SET garantie = :garantie WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':garantie', $this->garantie);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // critair
+        $query = "UPDATE details SET critair = :critair WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':critair', $this->critair);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        $db = null;
+    }
+
     public function delete() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $sql = "DELETE FROM details WHERE ID = :id";

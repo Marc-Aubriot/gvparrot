@@ -19,11 +19,15 @@ Class Comment {
     }
 
     // retourne une entité vide : utilisé dans AccueilController
-    public static function createEntity($id = null) {
+    public static function createEntity($id = null, $champ = null) {
         if ($id) {
             $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-            $stmt = $conn->prepare('SELECT * FROM commentaires WHERE id = :id');
+            if ($champ) {
+                $stmt = $conn->prepare('SELECT * FROM commentaires WHERE '.$champ.' = :id');
+            } else {
+                $stmt = $conn->prepare('SELECT * FROM commentaires WHERE id = :id');
+            }
 
             $stmt->bindValue(':id', $id);
 

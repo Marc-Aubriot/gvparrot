@@ -205,6 +205,30 @@ if ($_REQUEST) {
                     $pageController = new BackofficeController();
                     $pageController->deleteUserSession();
                 break;
+                
+                case 'getMessages' :
+                    $controller->requireController('BackofficeController');
+                    $pageController = new BackofficeController();
+                    $pageController->getMessages();
+                break;
+
+                case 'verifyMessage' : 
+                    $controller->requireController('BackofficeController');
+                    $pageController = new BackofficeController();
+                    $pageController->verifyMessage();
+                break;
+
+                case 'deleteMessage' : 
+                    $controller->requireController('BackofficeController');
+                    $pageController = new BackofficeController();
+                    $pageController->deleteMessage();
+                break;
+
+                case 'deletePhoto' : 
+                    $controller->requireController('BackofficeController');
+                    $pageController = new BackofficeController();
+                    $pageController->deletePhoto();
+                break;
 
                 default:
                     echo "request action error: ".$_REQUEST['action'];

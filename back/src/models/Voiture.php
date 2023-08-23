@@ -156,20 +156,68 @@ class Voiture {
         return $refs;
     }
 
-    /* FONCTIONS OBSOLETES ? */
-    // Fonction pour mettre à jour un champ d'une voiture dans la base de données
-    public function updateChamp($champ, $nouvelleValeur) {
+    public function modify() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $query = "UPDATE voitures SET " . $champ . "=:nouvelleValeur WHERE id=:id";
+
+        // user id
+        $query = "UPDATE voitures SET utilisateur_id = :utilisateur_id WHERE id=:id";
         $stmt = $db->prepare($query);
-        $stmt->bindParam(':nouvelleValeur', $nouvelleValeur);
+        $stmt->bindParam(':utilisateur_id', $this->utilisateur_id);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // titre 
+        $query = "UPDATE voitures SET titre = :titre WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':titre', $this->titre);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+
+        // descript 
+        $query = "UPDATE voitures SET descript = :descript WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':descript', $this->descript);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // boite 
+        $query = "UPDATE voitures SET boite = :boite WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':boite', $this->boite);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // carburant 
+        $query = "UPDATE voitures SET carburant = :carburant WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':carburant', $this->carburant);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // kilometrage 
+        $query = "UPDATE voitures SET kilometrage = :kilometrage WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':kilometrage', $this->kilometrage);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        // annee 
+        $query = "UPDATE voitures SET annee = :annee WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':annee', $this->annee);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        
+        //prix
+        $query = "UPDATE voitures SET prix = :prix WHERE id=:id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':prix', $this->prix);
         $stmt->bindParam(':id', $this->id);
         $stmt->execute();
 
         $db = null;
     }
 
-    // Fonction pour delete la voiture dans la base de données
     public function delete() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $sql = "DELETE FROM voitures WHERE ID = :id";

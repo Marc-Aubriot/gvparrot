@@ -27,8 +27,9 @@ class OccasionsController extends Controller {
         foreach($carlist as $voiture) {
 
             // récupère l'array contenant les images et le transforme en string "img+img+img"
-            $images = Image::createEntity();
-            $images = $images->getAll($voiture['id']);
+            $images = Image::createEntity($voiture['id']);
+            $images = $images->getAll(true);
+
             $stringImages = Controller::getIndexToStringInNestedArray($images,'chemin');
 
             // récupère l'array contenant les plus et le transforme en string "plus+plus+plus"
@@ -73,8 +74,8 @@ class OccasionsController extends Controller {
         $q = $_REQUEST["q"];
         $voiture = Voiture::createEntity($q);
 
-        $images = Image::createEntity();
-        $images = $images->getAll($voiture->getId());
+        $images = Image::createEntity($voiture->getId());
+        $images = $images->getAll(true);
         $stringImages = Controller::getIndexToStringInNestedArray($images, 'chemin');
 
         $lesplus = VoitureEquipements::createEntity();

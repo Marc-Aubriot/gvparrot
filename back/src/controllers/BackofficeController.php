@@ -341,30 +341,30 @@ class BackofficeController extends Controller {
         include_once ROOT.'/src/models/Message.php';
 
         // delete les détails (1 ligne en bdd)
-        $details = Detail::createEntity($_REQUEST['id']);
-        $details->delete();
+        //$details = Detail::createEntity($_REQUEST['id']);
+        //$details->delete();
 
         // delete les photos (0,n lignes en bdd)
-        $images = Image::createEntity($_REQUEST['id']);
-        $images = $images->getAll(true);
+        //$images = Image::createEntity($_REQUEST['id']);
+        //$images = $images->getAll(true);
 
-        foreach($images as $img) { // peut être simplifié avec du sql "delete from images where voiture_id = :voiture_id' > supprime toutes les rows contenant l'id
+        /*foreach($images as $img) { // peut être simplifié avec du sql "delete from images where voiture_id = :voiture_id' > supprime toutes les rows contenant l'id
             $img = Image::createEntity($img['voiture_id']);
             $img->delete();
-        }
+        }*/
 
         // delete les équipements (0,n lignes en bdd)
-        $voiture_equipement = VoitureEquipements::createEntity();
-        $voiture_equipement = $voiture_equipement->getAll($_REQUEST['id']);
+        //$voiture_equipement = VoitureEquipements::createEntity();
+        //$voiture_equipement = $voiture_equipement->getAll($_REQUEST['id']);
 
-        foreach($voiture_equipement as $equipement) { // peut être simplifié avec du sql "delete from images where voiture_id = :voiture_id' > supprime toutes les rows contenant l'id
+        /*foreach($voiture_equipement as $equipement) { // peut être simplifié avec du sql "delete from images where voiture_id = :voiture_id' > supprime toutes les rows contenant l'id
             $equipement = VoitureEquipements::createEntity($equipement['equipement_id'], $equipement['voiture_id']);
             $equipement->delete();
-        }
+        }*/
 
         // delete les messages associés
-        $message = Message::createEntity($_REQUEST['id'], 'voiture_id');
-        $message->delete(true);
+        //$message = Message::createEntity($_REQUEST['id'], 'voiture_id');
+        //$message->delete(true);
 
         // delete la voiture
         $voiture = Voiture::createEntity($_REQUEST["id"]);
@@ -426,7 +426,7 @@ class BackofficeController extends Controller {
 
         foreach($equipementList as $item) {
 
-            $response = $response.$item['equipement_id'].'+'.$item['nom'].'&';
+            $response = $response.$item['id'].'+'.$item['nom'].'&';
         };
 
         $response = $response.'#';
@@ -435,17 +435,42 @@ class BackofficeController extends Controller {
         $plusList = $plusList->getAll(true);
 
         foreach($plusList as $plus) {
-            $response = $response.$plus['equipement_id'].'+'.$plus['nom'].'&';
+            $response = $response.$plus['id'].'+'.$plus['nom'].'&';
         }
 
         echo $response;
     }
 
+    public function deletePhoto() {
+        include_once ROOT.'/src/models/Voiture.php';
+        include_once ROOT.'/src/models/Image.php';
+
+        // récupère le nouveau path des immages en requête et la référence
+        $images = str_replace(',', '+', $_REQUEST['path']);
+        $images = explode('+', $images);
+
+        $deleteImg = Image::createEntity();
+        $deleteImg->setVoitureId($_REQUEST['ref']);
+        $deleteImg->delete(true);
+
+        foreach($images as $img) {
+            $newImg = Image::createEntity();
+            $newImg->setChemin($img);
+            $newImg->setVoitureId($_REQUEST['ref']);
+            $newImg->push();
+        }
+
+        // envoit une réponse au front
+        $response = 'Photos modifiées.';
+        echo $response;
+    }
+
     public function modifyCar() {
         include_once ROOT.'/src/models/Voiture.php';
-        //include_once ROOT.'/src/service/uuidv4Generator.php';
-        include_once ROOT.'/src/models/Posseder.php';
+        include_once ROOT.'/src/models/VoitureEquipements.php';
         include_once ROOT.'/src/models/Equipement.php';
+        include_once ROOT.'/src/models/Image.php';
+        include_once ROOT.'/src/models/Detail.php';
 
         $tmp_array = [];
         $count = $_REQUEST['file-count'];
@@ -476,49 +501,78 @@ class BackofficeController extends Controller {
             $images = $path;
         }
 
-        $utilisateur_id = $_REQUEST['id'];
-        $ref = $_REQUEST['ref'];
-        $titre = $_REQUEST['titre'];
-        $descript = $_REQUEST['descript'];
-        $boite = $_REQUEST['boite'];
-        $carburant = $_REQUEST['carburant'];
-        $kilometrage = $_REQUEST['kilometrage'];
-        $annee = $_REQUEST['annee'];
-        $prix = $_REQUEST['prix'];
-        $lesplus = $_REQUEST['lesplus'];
-        $equipements = $_REQUEST['equipements'];
-        $details = $_REQUEST['details'];
 
         // récupère la voiture via son id et update les datas dans la BDD avec les datas recues
-        $voiture = Voiture::getCarByRef($ref);
-        $voiture->updateChamp('images',$images);
-        $voiture->updateChamp('titre',$titre);
-        $voiture->updateChamp('descript',$descript);
-        $voiture->updateChamp('boite',$boite);
-        $voiture->updateChamp('carburant',$carburant);
-        $voiture->updateChamp('kilometrage',$kilometrage);
-        $voiture->updateChamp('annee',$annee);
-        $voiture->updateChamp('prix',$prix);
-        $voiture->updateChamp('lesplus',$lesplus);
-        $voiture->updateChamp('equipements',$equipements);
-        $voiture->updateChamp('details',$details);
-        $voiture->updateChamp('utilisateur_id',$utilisateur_id);
+        $voiture = Voiture::createEntity($_REQUEST['ref']);
+        $voiture->setUserId($_REQUEST['id']);
+        $voiture->setTitre($_REQUEST['titre']);
+        $voiture->setDescript($_REQUEST['descript']);
+        $voiture->setBoite($_REQUEST['boite']);
+        $voiture->setCarburant($_REQUEST['carburant']);
+        $voiture->setKilometrage($_REQUEST['kilometrage']);
+        $voiture->setAnnee($_REQUEST['annee']);
+        $voiture->setPrix($_REQUEST['prix']);
+        $voiture->modify();
 
-        // récupèré chaque  équipement pour le pousser en BDD avec l'id de la voiture
+
+        // on récupère les détails et on envoie en BDD
+        $detailsList = explode('+', $_REQUEST['details']);
+
+        $details = Detail::createEntity();
+        $details->setVoitureId($_REQUEST['ref']);
+        $details->setCouleur($detailsList[0]);
+        $details->setPuissance($detailsList[1]);
+        $details->setRapports($detailsList[2]);
+        $details->setPlaces($detailsList[3]);
+        $details->setPortes($detailsList[4]);
+        $details->setGarantie($detailsList[5]);
+        $details->setCritair($detailsList[6]);
+        $details->modify();
+
+        // on récupère les images et on envoie le string en BDD mais d'abord on supprime les images existantes
+        $oldImages = Image::createEntity();
+        $oldImages->setVoitureId($_REQUEST['ref']);
+        $oldImages->delete(true);
+
+        $images = explode("+", $images); // transforme le string en array puis pousse chaque image
+
+        foreach($images as $img) {
+            $imgObjet = Image::createEntity();
+            $imgObjet->setVoitureId($_REQUEST['ref']);
+            $imgObjet->setChemin($img);
+            $imgObjet->push();
+        }
+
+
+        // récupèré chaque  équipement pour le pousser en BDD avec l'id de la voiture, on supprime d'abord les anciens equipements
         if ($_REQUEST['equipements']) {
             
-            $equipementsList = explode('+', $equipements);
-            $voiture = Voiture::getCarByRef($ref);
-            Posseder::delete($voiture->getId());
+            $equipementsList = explode('+', $_REQUEST['equipements']);
+
+            $oldVoitureEquipements = VoitureEquipements::createEntity();
+            $oldVoitureEquipements->setVoitureId($_REQUEST['ref']);
+            $oldVoitureEquipements->delete(true);
 
             foreach($equipementsList as $equipement) {
-                $equipement = Equipement::getEquipementByNom($equipement);
-                Posseder::add($equipement->getId(), $voiture->getId());
+                $equipID = Equipement::createEntity($equipement, 'nom');
+                $equipID = $equipID->getId();
+
+                $equip = VoitureEquipements::createEntity();
+                $equip->setEquipementId($equipID);
+                $equip->setVoitureId($_REQUEST['ref']);
+
+                if (str_contains($_REQUEST['lesplus'], $equipement)) {
+                    $equip->setPlus(1);
+                } else {
+                    $equip->setPlus(0);
+                }
+
+                $equip->push();
             }
         }
 
         // envoit une réponse au front
-        $response = 'voiture '.$ref.': informations modifiées';
+        $response = 'voiture '.$_REQUEST['ref'].': informations modifiées';
         echo $response;
     }
 
@@ -610,7 +664,8 @@ class BackofficeController extends Controller {
     public function listEmployee() {
         include_once ROOT.'/src/models/Utilisateur.php';
 
-        $user_list = Utilisateur::getUserList();
+        $user_list = Utilisateur::createEntity();
+        $user_list = $user_list->getAll();
 
         foreach($user_list as $user) {
             echo 
@@ -625,9 +680,7 @@ class BackofficeController extends Controller {
     public function detailEmployee() {
         include_once ROOT.'/src/models/Utilisateur.php';
 
-        $id = $_REQUEST['id'];
-        $user = Utilisateur::getUserByID($id);
-
+        $user = Utilisateur::createEntity($_REQUEST['id'], 'id');
 
         echo 
             $user->getId().','.
@@ -639,33 +692,23 @@ class BackofficeController extends Controller {
 
     public function modifyEmployee() {
         include_once ROOT.'/src/models/Utilisateur.php';
-        //include_once ROOT.'/src/service/uuidv4Generator.php';
 
-        $id = $_REQUEST['id'];
-        $nom = $_REQUEST['nom'];
-        $prenom = $_REQUEST['prenom'];
-        $email = $_REQUEST['email'];
-        $mdp1 = $_REQUEST['mdp1'];
-        $mdp2 = $_REQUEST['mdp2'];
+        if ($_REQUEST['mdp1'] === $_REQUEST['mdp2']) {
 
-        if ($mdp1 === $mdp2) {
+            $employee = Utilisateur::createEntity($_REQUEST['id'] ,'id');
+            $employee->setNom($_REQUEST['nom']);
+            $employee->setPrenom($_REQUEST['prenom']);
+            $employee->setEmail($_REQUEST['email']);
 
-            $employee = Utilisateur::getUserByID($id);
-            $user_password = $employee->getMotDePasse();
-
-            $employee->setNom($nom);
-            $employee->setPrenom($prenom);
-            $employee->setEmail($email);
-
-            if ( password_verify( $mdp1 ,$user_password) ) { 
+            if ( password_verify( $_REQUEST['mdp1'] ,$employee->getMotDePasse()) ) { 
 
                 $employee->modify();
                 echo "Informations modifiées";
                 return;
                 
             } else {
-                $hashpass = password_hash($mdp1, PASSWORD_DEFAULT);
-                $employee->setMotDePasse($hashpass);
+
+                $employee->setMotDePasse(password_hash($_REQUEST['mdp1'], PASSWORD_DEFAULT));
                 $employee->modify();
                 echo "Informations et mot de passe modifiés";
                 return;
@@ -681,22 +724,75 @@ class BackofficeController extends Controller {
 
     public function deleteEmployee() {
         include_once ROOT.'/src/models/Utilisateur.php';
+        include_once ROOT.'/src/models/Comment.php';
+        include_once ROOT.'/src/models/Service.php';
+        include_once ROOT.'/src/models/CustomSession.php';
+        include_once ROOT.'/src/models/Message.php';
+        include_once ROOT.'/src/models/Horaire.php';
+        include_once ROOT.'/src/models/Voiture.php';
 
-        $id = $_REQUEST['id'];
-        $user = Utilisateur::getUserByID($id);
+        // utilisateur
+        $user = Utilisateur::createEntity($_REQUEST['id'], 'id');
         $user->delete();
 
         echo 'Employé supprimé de la base de données';
     }
 
+    // MODULE : Mailbox.jsx
+    public function getMessages() {
+        include_once ROOT.'/src/models/Message.php';
+
+        if ( $_REQUEST['q'] === 'viewedtrue' ) {
+            $messages = Message::createEntity();
+            $messages = $messages->getAll(1);
+        } else if ( $_REQUEST['q'] === 'viewedfalse' ) {
+            $messages = Message::createEntity();
+            $messages = $messages->getAll(0);
+        } else if ( $_REQUEST['q'] === 'all' ) {
+            $messages = Message::createEntity();
+            $messages = $messages->getAll();
+        } else {
+            $response = "Aucune action demandée au service, ou l'action est inconnue";
+            return $response;
+        }
+
+        foreach($messages as $item) {
+            echo $item['id'].'+'.$item['nom'].'+'.$item['prenom'].'+'.$item['telephone'].'+'.$item['email'].'+'.$item['sujet'].'+'.$item['content'].'+'.$item['lecture'].'&';
+        };
+    }
+
+    public function verifyMessage() {
+        include_once ROOT.'/src/models/Message.php';
+
+        $message = Message::createEntity($_REQUEST['id']);
+
+        if ($_REQUEST['q'] === 'y' ) {
+            $message->checkAsViewed('1');
+            echo 'Message marqué comme lu';
+            return;
+
+        } else if ( $_REQUEST['q'] === 'n' ) {
+            $message->checkAsViewed('0');
+            echo 'Message marqué comme non lu';
+            return;
+        }
+    }
+
+    public function deleteMessage() {
+        include_once ROOT.'/src/models/Message.php';
+
+        $message = Message::createEntity($_REQUEST['id']);
+        $message->delete();
+        echo 'Message supprimé';
+    }
+
     // MODULE : Logout.jsx
     public function deleteUserSession() {
-        include_once ROOT.'/src/models/Session.php';
+        include_once ROOT.'/src/models/CustomSession.php';
 
         $response = "";
-        $user_id = $_REQUEST['id'];
 
-        $session_to_logout = Session::getSessionByUser($user_id);
+        $session_to_logout = CustomSession::createEntity($_REQUEST['id']);
 
         if ($session_to_logout) { 
             $session_to_logout->delete(); 
@@ -712,6 +808,8 @@ class BackofficeController extends Controller {
 
         echo $response;
     }
+
 }
+
 
 ?>

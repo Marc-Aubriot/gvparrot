@@ -135,47 +135,23 @@ Class Message {
     public function setLecture($new_value) { $this->content = $new_value; }
     public function setReçu($new_value) { $this->reçu = $new_value; }
 
-    // READ
-    public function getMessageById($message_id) {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM messages WHERE id = :id');
-
-        $stmt->bindValue(':id', $message_id);
-
-        $stmt->execute();
-
-        // Récupération du résultat sous forme d'objet
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;
-            return new Message(
-                $result['id'], 
-                $result['utilisateur_id'], 
-                $result['voiture_id'], 
-                $result['nom'], 
-                $result['prenom'], 
-                $result['telephone'], 
-                $result['email'],
-                $result['sujet'], 
-                $result['content'],
-                $result['lecture'],
-                $result['reçu']
-            );
-        } else {
-            $conn = null;
-            return null;
-        }
-    }
-
     // Fonction pour récupérer tous les messages lu / non lu
-    public function getMessageListByViewStatut($view_statut) {
+    public function getAll($viewed = null, $all = null) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('SELECT * FROM messages WHERE lecture = :lecture ORDER BY id DESC');
+        if ($all) {
+            $stmt = $conn->prepare('SELECT * FROM messages ORDER BY id DESC');
+            $stmt->execute();
+        } else if ($viewed) {
+            $stmt = $conn->prepare('SELECT * FROM messages WHERE lecture = :lecture ORDER BY id DESC');
+            $stmt->bindValue(':lecture', $viewed);
+            $stmt->execute();
+        } else {
+            $stmt = $conn->prepare('SELECT * FROM messages');
+            $stmt->execute();
+    
+        }
 
-        $stmt->bindValue(':lecture', $view_statut);
-        $stmt->execute();
 
         // Récupération du résultat sous d'un array contenant les commentaires
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -189,37 +165,6 @@ Class Message {
         }
     }
 
-    // Fonction pour récupérer tous les messages
-    public function getMessageList() {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM messages ORDER BY id DESC');
-
-        $stmt->execute();
-
-        // Récupération du résultat sous d'un array contenant les commentaires
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;           
-            return $result;
-
-        } else {
-            $conn = null;
-            return null;
-        }
-    }
-
-    // UPDATE
-    public function updateChamp($champ, $nouvelleValeur) {
-        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $query = "UPDATE messages SET " . $champ . "=:nouvelleValeur WHERE id=:id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':nouvelleValeur', $nouvelleValeur);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
-
-        $db = null;
-    }
 
     public function checkAsViewed($view) {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
