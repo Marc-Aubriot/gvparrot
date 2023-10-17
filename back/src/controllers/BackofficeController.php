@@ -188,59 +188,72 @@ class BackofficeController extends Controller {
         // Push l'image dans l'array $tmp_array, repète l'opération pour le nombre $count d'image
         for ( $i = 0; $i < $count; $i++ ) {
 
-        $target_dir = UPLOAD_PATH;
-        $target_file = $target_dir . basename($_FILES["file-".$i]["name"]);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-        // Check if image file is a actual image or fake image
-        if(isset($_POST["submit"])) {
-
-            $check = getimagesize($_FILES["file-".$i]["tmp_name"]);
-
-            if($check !== false) {
-
-            $response = "File is an image - " . $check["mime"] . ".";
-            echo $response;
+            $target_dir = UPLOAD_PATH;
+            $target_file = $target_dir . basename($_FILES["file-".$i]["name"]);
             $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-            } else {
+            // Check if image file is a actual image or fake image
+            if(isset($_POST["submit"])) {
 
-            $response = "File is not an image.";
-            echo $response;
-            $uploadOk = 0;
+                $check = getimagesize($_FILES["file-".$i]["tmp_name"]);
 
+                if($check !== false) {
+
+                $response = "Le fichier est une image - " . $check["mime"] . ".";
+                echo $response;
+                $uploadOk = 1;
+
+                } else {
+
+                $response = "Le fichier n'est pas une image";
+                echo $response;
+                $uploadOk = 0;
+
+                }
             }
-        }
 
-        // Check if file already exists
-        if (file_exists($target_file)) {
-            $response = "Sorry, file already exists.";
-            echo $response;
-            $uploadOk = 0;
-        }
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                $response = "Ce fichier existe déjà.";
+                echo $response;
+                $uploadOk = 0;
+            }
 
-        // Check file size
-        if ($_FILES["file-".$i]["size"] > 1000000) {
-            $response = "Sorry, your file is too large.";
-            echo $response;
-            $uploadOk = 0;
-        }
+            // Check file size
+            if ($_FILES["file-".$i]["size"] > 1000000) {
+                $response = "Le fichier est trop volumineux.";
+                echo $response;
+                $uploadOk = 0;
+            }
 
-        // Allow certain file formats
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-            $response = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            echo $response;
-            $uploadOk = 0;
-        }
+            // Allow certain file formats
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+                $response = "Seuls les fichiers au format JPG, JPEG, PNG et GIF sont autorisés.";
+                echo $response;
+                $uploadOk = 0;
+            }
         }
 
         // Check if $uploadOk is set to 0 by an error
         if ( $uploadOk != 0 && $count == 1 ) {
-            $response = "Votre fichier est prêt.";
-        } else if ( $uploadOk != 0 && $count > 1 ) {
+
+            $target_file = $target_dir . basename($_FILES["file-0"]["name"]);
+            $target_file = explode("/", $target_file);
+            $target_file = end($target_file);
+            $response = "Votre fichier ". $target_file ." est prêt.";
+
+        } else if ( $uploadOk != 0 && $count > 1 && $count < 6) {
+
             $response = "Vos fichiers sont prêts.";
+
+        } else if ( $uploadOk != 0 && $count > 5 ) {
+            $response = "Attention, 5 photos maximum.";
+            $uploadOk = 0;
+        } else {
+            $response = " Une erreur est survenue; veuillez recharger la page.";
+            $uploadOk = 0;
         }
 
         echo $response;
@@ -445,7 +458,7 @@ class BackofficeController extends Controller {
         include_once ROOT.'/src/models/Voiture.php';
         include_once ROOT.'/src/models/Image.php';
 
-        // récupère le nouveau path des immages en requête et la référence
+        // récupère le nouveau path des immages en requête, la référence et le nom de l'image
         $images = str_replace(',', '+', $_REQUEST['path']);
         $images = explode('+', $images);
 
@@ -453,6 +466,8 @@ class BackofficeController extends Controller {
         $deleteImg->setVoitureId($_REQUEST['ref']);
         $deleteImg->delete(true);
 
+         
+        // créé un nouvel enregistrement avec les nouveaux path pour cette id de voiture
         foreach($images as $img) {
             $newImg = Image::createEntity();
             $newImg->setChemin($img);
@@ -461,8 +476,23 @@ class BackofficeController extends Controller {
         }
 
         // envoit une réponse au front
-        $response = 'Photos modifiées.';
-        echo $response;
+        //$response = 'Photos modifiées.';
+        //echo $response;
+
+        // efface l'image du répertoire d'upload
+        $imgName = $_REQUEST['imgName'];
+        $file_pointer = UPLOAD_PATH.$imgName;
+        $file_name = explode("/", $file_pointer);
+        $file_name = end($file_name);
+
+        if (!unlink($file_pointer)) { 
+            echo ("$file_name ne peut pas être supprimée à cause d'une erreur."); 
+        } 
+        else { 
+            echo ("$file_name est supprimée."); 
+        } 
+
+
     }
 
     public function modifyCar() {
@@ -492,8 +522,10 @@ class BackofficeController extends Controller {
 
         // Récupère toutes les infos envoyées par le front
         $images = implode("+", $tmp_array); // transforme l'array en string pour stockage BDD
-        $path = $_REQUEST['imgPath'];
-
+        if (isset($_REQUEST['imgPath'])) {
+            $path = $_REQUEST['imgPath'];
+        }
+        
         if ($_REQUEST['imgPathTrue'] === 'true' && $count > 1 ) {
             $images = $images.'+'.$path;
             $count--;

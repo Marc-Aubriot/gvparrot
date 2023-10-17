@@ -62,7 +62,7 @@ const ModifyCar = () => {
                     carImgArray.push(image[image.length-1]);
 
                 });
-                if (carImgArray.length>1) {
+                if (carImgArray.length>=1) {
                     setCarImg(carImgArray);
                 }
 
@@ -264,10 +264,10 @@ const ModifyCar = () => {
         const newPathArray = rawImgPath.split('+');
         const removedPath = newPathArray.splice(id, 1);
         const rawNewStringPath = newPathArray.toString();
-        console.log(`deleted img: ${removedImg}   path: ${removedPath}`);
+        //console.log(`deleted img: ${removedImg}   path: ${removedPath}`);
 
         // on update la BDD avec le nouveau string path
-        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deletePhoto&path=${rawNewStringPath}&ref=${params.carref}`;
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deletePhoto&path=${rawNewStringPath}&ref=${params.carref}&imgName=${removedImg}`;
         axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
             const data = response.data; 
@@ -304,12 +304,16 @@ const ModifyCar = () => {
                             <p>Photos:</p>
                             {
                                 carImg.map( (e,i) => {
-                                    return (
-                                        <div id={`div-span-${i}`} key={i} className="addCarFormPhotoDivContent">
-                                            <span id={`span-${i}`}> {e}</span>
-                                            <button name={i} id={`button-span-${i}`} onClick={deletePhoto}>suppr</button>
-                                        </div>
-                                    )
+                                    if ( e === '' ) {
+                                        return;
+                                    } else {
+                                        return (
+                                            <div id={`div-span-${i}`} key={i} className="addCarFormPhotoDivContent">
+                                                <span id={`span-${i}`}> {e}</span>
+                                                <button name={i} id={`button-span-${i}`} onClick={deletePhoto}>suppr</button>
+                                            </div>
+                                        )
+                                    }
                                 })
                             }
                         </div>
