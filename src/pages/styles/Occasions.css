@@ -7,7 +7,7 @@
 
 .navBarOccasions {
     font-family: righteous;
-    position: sticky;
+    position: fixed;
     bottom: 0;
     width: 99%;
     display: flex;
@@ -49,7 +49,7 @@
 
 .trierPanel {
     background-color: var(--bg-color);
-    height: 30vh;
+    height: 100vh;
     width: 100vw;
     display: none;
     visibility: hidden;

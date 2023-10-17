@@ -1,3 +1,8 @@
+#on créé un user et on lui donne tout les privilèges
+#CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+#GRANT ALL PRIVILEGES ON * . * TO 'username'@'localhost';
+#FLUSH PRIVILEGES;
+
 /* create db */
 DROP DATABASE ecfgvparrot;
 CREATE DATABASE ecfgvparrot;
@@ -13,7 +18,6 @@ CREATE TABLE utilisateurs (
 	mot_de_passe VARCHAR(255) NOT NULL,
 	is_admin BOOL DEFAULT FALSE
 );
-
 CREATE TABLE commentaires (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     utilisateur_id CHAR(36),
@@ -22,7 +26,6 @@ CREATE TABLE commentaires (
 	note FLOAT NOT NULL,
 	valider BOOL DEFAULT FALSE
 );
-
 CREATE TABLE services (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
     utilisateur_id CHAR(36) NOT NULL,
@@ -31,7 +34,6 @@ CREATE TABLE services (
 	titre VARCHAR(100) NOT NULL,
 	descript TEXT NOT NULL
 );
-
 CREATE TABLE horaires (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
     utilisateur_id CHAR(36) NOT NULL,
@@ -43,13 +45,11 @@ CREATE TABLE horaires (
 	samedi VARCHAR(50) NOT NULL,
 	dimanche VARCHAR(50) NOT NULL
 );
-
 CREATE TABLE equipements (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	nom VARCHAR(50) NOT NULL,
     plus BOOL DEFAULT FALSE
 );
-
 CREATE TABLE voitures (
 	id CHAR(36) PRIMARY KEY,
     utilisateur_id VARCHAR(36),
@@ -61,7 +61,6 @@ CREATE TABLE voitures (
     annee VARCHAR(4) NOT NULL,
     prix INT NOT NULL
 );
-
 CREATE TABLE messages (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     utilisateur_id CHAR(36),
@@ -75,7 +74,6 @@ CREATE TABLE messages (
     lecture BOOL DEFAULT FALSE,
     reçu DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE voiture_equipements (
 	equipement_id INT(11),
     voiture_id CHAR(36),
@@ -84,7 +82,6 @@ CREATE TABLE voiture_equipements (
     plus BOOL DEFAULT FALSE,
     PRIMARY KEY(equipement_id, voiture_id)
 );
-
 CREATE TABLE custom_sessions (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	utilisateur_id VARCHAR(255) NOT NULL,
@@ -92,13 +89,11 @@ CREATE TABLE custom_sessions (
 	connexion DATETIME DEFAULT CURRENT_TIMESTAMP,
 	logged BOOLEAN DEFAULT TRUE
 );
-
 CREATE TABLE images (
 	id INT(11) AUTO_INCREMENT PRIMARY KEY,
     voiture_id CHAR(36) NOT NULL,
     chemin VARCHAR(500) NOT NULL
 );
-
 CREATE TABLE details (
 	id INT(11) AUTO_INCREMENT PRIMARY KEY,
     voiture_id CHAR(36) NOT NULL,

@@ -127,9 +127,6 @@ const AddCar = () => {
         // récupère les images uploadées
         const imgs = e.target[0].files;
 
-        //const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-
-
         // on prépare le formulaire
         const formData = new FormData();
 

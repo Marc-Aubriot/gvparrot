@@ -12,12 +12,12 @@ import './styles/Occasions.css';
 
 // page contenant les véhicules d'occasions
 const Occasions = () => {
+    //const [refinedCarList, setRefinedCarList] = useState([]);
     // hooks liste des véhicules
     const [carList, setCarList] = useState([]);
-    const [refinedCarList, setRefinedCarList] = useState([]);
-    const [TrierPar, setTrierpar] = useState("prixcroissant");
 
-    // hook pour les filtres
+    // hook pour les filtres & tri
+    const [TrierPar, setTrierpar] = useState("prixcroissant");
     const [valueKm, setValueKm] = useState({ min: 0, max: 200000 });
     const [valuePrix, setValuePrix] = useState({ min: 0, max: 30000 });
     const yearNow = new Date().getFullYear();
@@ -42,13 +42,7 @@ const Occasions = () => {
 
                 data.pop();
 
-                // on pourrait simplifier la fonction de tri en passant un argument sort/reverse, et un argument pour la value à return
-                // dans les values des options du selecteur html pour obtenir une fonction à deux conditions seulement
-                // mais pour le moment on a pas beaucoup de "filtre" possible donc pas besoin de simplifier
-                //
-                // if ( TrierPar === 'sort-value') { setCarList(data.sort( function (a,b) { return a[value] - b[value]}));
-                //  else if ( TrierPar === 'reverse-value') { setCarList(data.sort( function (a,b) { return b[value] - a[value] }))}};
-                //
+
                 if ( TrierPar === "prixcroissant" ) {
                     setCarList(data.sort( function(a,b) { return a[8] - b[8] }));
                 } else if ( TrierPar === "prixdecroissant" ) {

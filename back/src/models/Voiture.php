@@ -60,28 +60,6 @@ class Voiture {
         }
     }
 
-    // Méthodes pour recevoir les paramètres d'une voiture
-    public function getId() { return $this->id; }
-    public function getUserId() { return $this->utilisateur_id; }
-    public function getTitre() { return $this->titre; }
-    public function getDescript() { return $this->descript; }
-    public function getBoite() { return $this->boite; }
-    public function getCarburant() { return $this->carburant; }
-    public function getKilometrage() { return $this->kilometrage; }
-    public function getAnnee() { return $this->annee; }
-    public function getPrix() { return $this->prix; }
-
-    // Méthodes pour modifier les paramètres d'une voiture
-    public function setId($new_value) { $this->id = $new_value; }
-    public function setUserId($new_value) { $this->utilisateur_id = $new_value; }
-    public function setTitre($new_value) { $this->titre = $new_value; }
-    public function setDescript($new_value) { $this->descript = $new_value; }
-    public function setBoite($new_value) { $this->boite = $new_value; }
-    public function setCarburant($new_value) { $this->carburant = $new_value; }
-    public function setKilometrage($new_value) { $this->kilometrage = $new_value; }
-    public function setAnnee($new_value) { $this->annee = $new_value; }
-    public function setPrix($new_value) { $this->prix = $new_value; }
-
     public function getAll($km_Min = null, $km_Max = null, $annee_Min = null, $annee_Max = null, $prix_Min = null, $prix_Max = null) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $stmt = '';
@@ -228,5 +206,26 @@ class Voiture {
         $db = null;
     }
 
+    // Méthodes pour recevoir les paramètres d'une voiture
+    public function getId() { return $this->id; }
+    public function getUserId() { return $this->utilisateur_id; }
+    public function getTitre() { return $this->titre; }
+    public function getDescript() { return $this->descript; }
+    public function getBoite() { return $this->boite; }
+    public function getCarburant() { return $this->carburant; }
+    public function getKilometrage() { return $this->kilometrage; }
+    public function getAnnee() { return $this->annee; }
+    public function getPrix() { return $this->prix; }
+
+    // Méthodes pour modifier les paramètres d'une voiture
+    public function setId($new_value) { $this->id = $new_value; }
+    public function setUserId($new_value) { $this->utilisateur_id = $new_value; }
+    public function setTitre($new_value) { $this->titre = $new_value; }
+    public function setDescript($new_value) { $this->descript = $new_value; }
+    public function setBoite($new_value) { $this->boite = $new_value; }
+    public function setCarburant($new_value) { $this->carburant = $new_value; }
+    public function setKilometrage($new_value) { $this->kilometrage = $new_value; }
+    public function setAnnee($new_value) { $this->annee = $new_value; }
+    public function setPrix($new_value) { $this->prix = $new_value; }
 }
 ?>
