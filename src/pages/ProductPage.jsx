@@ -66,7 +66,7 @@ const ProductPage = () => {
                 setIsloading(false);
 
                 // récupère les références avant et après la référence actuelle en BDD
-                getPreviousAndNextCarRef(data[12]);
+                getPreviousAndNextCarRef(data[0]);
             });
         }
 
@@ -111,7 +111,6 @@ const ProductPage = () => {
                             <button disabled={ previousCarRef === 'null' ? true : false } className={ previousCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Précédent</button>
                         </Link>
 
-
                         <Link to={`/occasions`}className="middleBtnWrapper">
                             <button className="navigationInterProductBTN">Retour</button>
                         </Link>
@@ -151,7 +150,7 @@ const ProductPage = () => {
                                 </div>
 
                                 <div className="carCardFooter">
-                                    <Link to={`/contact/${car[12]}`} >
+                                    <Link to={`/contact/${car[0]}`} >
                                         <button type="button" id="carProductContactBtn">Prendre contact</button>
                                     </Link>
                                 </div>

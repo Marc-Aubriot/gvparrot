@@ -1,6 +1,7 @@
 /* dependencies */
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 /* components */
 import Spinner from './Spinner';
@@ -18,12 +19,13 @@ const VerifyComments = () => {
     const [formSend, setFormSend] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
+    const [user] = useOutletContext();
 
     // récupère les commentaires en BDD
     useEffect( ()=> {
 
         const getComments = () => {
-            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getComments&q=all`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getAllComments&q=all`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
                 const rawdata = response.data.split('&'); 
@@ -62,8 +64,6 @@ const VerifyComments = () => {
         const id = e.target.getAttribute('data-comment-id');
         const q = e.target.getAttribute('data-comment-q');
 
-        console.log(`target id: ${e.target.id},  id: ${id},   q:${q}`);
-
         if (q === '0') {
 
             commentCard.className = 'verifyCommentsCommentCard pin';
@@ -78,7 +78,7 @@ const VerifyComments = () => {
         };
 
 
-        const input = `apikey=${process.env.REACT_APP_APIKEY}&action=verifyComment&ID=${id}&q=${q}`;
+        const input = `apikey=${process.env.REACT_APP_APIKEY}&action=verifyComment&ID=${id}&q=${q}&user=${user[1]}`;
         axios.post(process.env.REACT_APP_SERVEURHTTP, input).then(function(response) {
             const rawdata = response.data;
             setResponse(rawdata);

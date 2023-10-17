@@ -1,6 +1,7 @@
 /* dependencies */
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 /* components */
 import Spinner from './Spinner';
@@ -19,6 +20,7 @@ const ModifyServices = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [toggleForm, setToggleForm] = useState(false);
+    const [user] = useOutletContext();
 
     // récupère une liste des services en BDD
     useEffect( ()=> {
@@ -164,6 +166,7 @@ const ModifyServices = () => {
         formData.append('subcategorie', element1.textContent);
         formData.append('title', element2.textContent);
         formData.append('descript', element3.textContent);
+        formData.append('user', user[1]);
         formData.append('action', 'modifyServices');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {
@@ -189,6 +192,7 @@ const ModifyServices = () => {
         formData.append('subcategorie', e.target[1].value);
         formData.append('title', e.target[2].value);
         formData.append('descript', e.target[3].value);
+        formData.append('user', user[1]);
         formData.append('action', 'addService');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData).then(function(response) {

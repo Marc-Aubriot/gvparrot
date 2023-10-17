@@ -10,47 +10,64 @@ Class Equipement {
         $this->nom = $nom;
     }
 
-    // ADD
-    public static function addEquipement($nom) {
-        $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+    public static function createEntity($id = null, $champ = null) {
+        if ($id) {
+            $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $con->prepare('INSERT INTO equipements (nom) VALUES (:val1)');
+            if ($champ) {
+                $stmt = $conn->prepare('SELECT * FROM equipements WHERE '.$champ.' = :id');
+            } else {
+                $stmt = $conn->prepare('SELECT * FROM equipements WHERE id = :id');
+            }
+           
+            
+            $stmt->bindValue(':id', $id);
 
-        $stmt->execute(
-            array( ':val1' => $nom ));
+            $stmt->execute();
 
-        $con = null;
-    }
-
-    // get par id
-    public static function getEquipementById($equipement_id) {
-        $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-
-        $stmt = $conn->prepare('SELECT * FROM equipements WHERE id = :id');
-
-        $stmt->bindValue(':id', $equipement_id);
-
-        $stmt->execute();
-
-        // Récupération du résultat sous forme d'objet
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $conn = null;
-            return new Equipement(
-                $result['id'], 
-                $result['nom']
-            );
+            // Récupération du résultat sous forme d'objet
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $conn = null;
+                return new Equipement(
+                    $result['id'], 
+                    $result['nom'],
+                );
+            } else {
+                $conn = null;
+                return "erreur dans la création d'entité.";
+            }
         } else {
-            $conn = null;
-            return null;
+            return new Equipement(null,null);
         }
     }
 
-    // get une liste des équipements
-    public static function getAllEquipements() {
+    // CREATE
+    public function push() {
+        $con = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
+
+        $stmt = $con->prepare('INSERT INTO equipements (nom) 
+        VALUES (:val2)');
+
+        $stmt->execute(
+            array(
+                ':val2' => $this->nom, 
+            )
+        );
+        
+        $con = null;
+    }
+
+    // READ
+    public function getAll($plus = null) {
         $conn = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 
-        $stmt = $conn->prepare('SELECT * FROM equipements');
+        if ($plus) {
+            $stmt = $conn->prepare('SELECT * FROM equipements WHERE plus = 1');
+        } else {
+            $stmt = $conn->prepare('SELECT * FROM equipements');
+        }
+
         $stmt->execute();
 
         // Récupération du résultat sous d'un array contenant les services
@@ -65,7 +82,7 @@ Class Equipement {
         }
     }
 
-    // Fonction pour delete
+    // DELETE
     public function delete() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
         $sql = "DELETE FROM equipements WHERE ID = :id";
@@ -83,6 +100,7 @@ Class Equipement {
     // Méthodes pour modifier les paramètres
     public function setId($new_value) { $this->id = $new_value; }
     public function setNom($new_value) { $this->nom = $new_value; }
+
 }
 
 ?>

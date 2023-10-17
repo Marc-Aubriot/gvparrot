@@ -1,6 +1,7 @@
 /* dependencies */
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useOutletContext } from 'react-router-dom';
 
 /* components */
 import Spinner from './Spinner';
@@ -11,8 +12,9 @@ import './styles/AddCar.css';
 // fonctionnalité pour ajouté un véhicule dans la BDD
 const AddCar = () => {
     // hooks liste des véhicules et liste des équipements
-    //const [carList, setCarList] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
+    const [plusList, setPlusList] = useState([]);
+    const [user] = useOutletContext();
 
     // hook de fonctionnement de page
     const [isLoading, setIsLoading] = useState(true);
@@ -41,8 +43,6 @@ const AddCar = () => {
 
                 data0.pop();
 
-                //setCarList(data0);
-
 
                 // on récupère ensuite la liste des équipements standard sous forme de string
                 const equips = rawdata[1].split('&');
@@ -56,6 +56,20 @@ const AddCar = () => {
                 data1.pop();
 
                 setEquipementList(data1);
+
+                // on récupère ensuite la liste des plus sous forme de string
+                const plus = rawdata[2].split('&');
+
+                let data2 = [];
+
+                plus.forEach(element => {
+                    data2.push(element.split('+'));
+                })
+
+                data2.pop();
+
+
+                setPlusList(data2);
 
                 setIsLoading(false); // les données sont récupérées, on interrompt le spinner et on affiche les données
             });
@@ -90,7 +104,7 @@ const AddCar = () => {
         const equipements = tempString.replaceAll(',', '+'); 
 
         // on récupère les values des checkbox de la section les plus, qu'on transforme en un string
-        const countlesplus = equipementList.length;
+        const countlesplus = plusList.length;
         let tempArrayLesplus = [];
 
         for ( let i = 0; i < countlesplus; i++) {
@@ -113,9 +127,6 @@ const AddCar = () => {
         // récupère les images uploadées
         const imgs = e.target[0].files;
 
-        //const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-
-
         // on prépare le formulaire
         const formData = new FormData();
 
@@ -128,6 +139,7 @@ const AddCar = () => {
         formData.append(`file-count`, imgs.length);
 
         // on attache toutes les données et on l'envoit
+        formData.append('id', user[1]);
         formData.append('titre', e.target[1].value);
         formData.append('descript', e.target[2].value);
         formData.append('boite', e.target[3].value);
@@ -214,12 +226,12 @@ const AddCar = () => {
 
                         <div className="addCarPageInputField">
                             <label htmlFor="titre" className="addCarPageInputFieldLabel">Titre</label>
-                            <input type="text" name="titre" className="addCarPageInputFieldInput"/>
+                            <input type="text" name="titre" className="addCarPageInputFieldInput" required/>
                         </div>
 
                         <div className="addCarPageInputField">
                             <label htmlFor="descript" className="addCarPageInputFieldLabel">Modèle</label>
-                            <input type="text" name="descript" className="addCarPageInputFieldInput"/>
+                            <input type="text" name="descript" className="addCarPageInputFieldInput" required/>
                         </div>
 
                         <div className="addCarPageInputField">
@@ -241,17 +253,17 @@ const AddCar = () => {
 
                         <div className="addCarPageInputField">
                             <label htmlFor="kilometrage" className="addCarPageInputFieldLabel">Kilométrage (km)</label>
-                            <input type="text" name="kilometrage" className="addCarPageInputFieldInput"/>
+                            <input type="text" name="kilometrage" className="addCarPageInputFieldInput" required />
                         </div>
 
                         <div className="addCarPageInputField">
                             <label htmlFor="annee" className="addCarPageInputFieldLabel">Année</label>
-                            <input type="text" name="annee" className="addCarPageInputFieldInput"/>
+                            <input type="text" name="annee" className="addCarPageInputFieldInput"required/>
                         </div>
 
                         <div className="addCarPageInputField">
                             <label htmlFor="prix" className="addCarPageInputFieldLabel">Prix (€)</label>
-                            <input type="text" name="prix" className="addCarPageInputFieldInput"/>
+                            <input type="text" name="prix" className="addCarPageInputFieldInput" required/>
                         </div>
                     </div>
 
@@ -259,17 +271,22 @@ const AddCar = () => {
                         <h3 className="AddCarFormTitle">Détails</h3>
                         <div className="addCarPageInputField">
                             <label htmlFor="couleur" className="addCarPageInputFieldLabel">Couleur</label>
-                            <input type="text" name="couleur" className="addCarPageInputFieldInput"/>
+                            <input type="text" name="couleur" className="addCarPageInputFieldInput" required/>
                         </div>
 
                         <div className="addCarPageInputField">
                             <label htmlFor="puissancefiscale" className="addCarPageInputFieldLabel">Puissance fiscale (cv)</label>
-                            <input type="text" name="puissancefiscale" className="addCarPageInputFieldInput"/>
+                            <input type="text" name="puissancefiscale" className="addCarPageInputFieldInput" required/>
                         </div>
 
                         <div className="addCarPageInputField">
                             <label htmlFor="rapports" className="addCarPageInputFieldLabel">Rapports</label>
-                            <input type="text" name="rapports" className="addCarPageInputFieldInput"/>
+                            <select name="rapports" className="addCarPageInputFieldInput">
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                            </select>
                         </div>
 
                         <div className="addCarPageInputField">
@@ -363,7 +380,7 @@ const AddCar = () => {
                             <div className="addCarFormSectionWrapper">
                                 <h3 className="AddCarFormTitle">Les plus</h3>
                                 {
-                                    equipementList.map( (e,i) => {  
+                                    plusList.map( (e,i) => {  
                                     
 
                                         return (

@@ -172,7 +172,7 @@ const SeeCarList = () => {
                                             </div>
                                             
                                             <div className="modifyCarPageCarCardBtnWrapper">
-                                                <button id={e[0]} data-ref={e[12]} onClick={modifyCar} className="modifyCarPageCarCarBtn">Modifier</button>
+                                                <button id={e[0]} data-ref={e[0]} onClick={modifyCar} className="modifyCarPageCarCarBtn">Modifier</button>
                                             </div>
                                             
                                             <div className="modifyCarPageCarCardBtnWrapper">

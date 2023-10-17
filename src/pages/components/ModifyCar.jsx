@@ -1,7 +1,7 @@
 /* dependencies */
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 
 /* styles */
 import './styles/AddCar.css';
@@ -28,6 +28,8 @@ const ModifyCar = () => {
     const [rawImgPath, setRawImgPath] = useState();
     const [carImg, setCarImg] = useState([]);
     const [equipementList, setEquipementList] = useState([]);
+    const [plustList, setPlusList] = useState([]);
+    const [user] = useOutletContext();
 
     // hook fonctionnel
     const [isLoading, setIsLoading] = useState(true);
@@ -89,6 +91,19 @@ const ModifyCar = () => {
 
                 setEquipementList(data1);
 
+                // on récupère la liste des plus
+                const pluslist = rawdata[2].split('&');
+
+                const data2 = [];
+
+                pluslist.forEach(element => {
+                    data2.push(element.split('+'));
+                })
+
+                data2.pop();
+
+                setPlusList(data2);
+
                 setIsLoading(false); // les données sont récupérées, on interrompt le spinner et on affiche les données
             });
         }
@@ -123,7 +138,7 @@ const ModifyCar = () => {
 
 
         // on récupère les values des checkbox de la section les plus, qu'on transforme en un string
-        const countlesplus = equipementList.length;
+        const countlesplus = plustList.length;
         let tempArrayLesplus = [];
 
         for ( let i = 0; i < countlesplus; i++) {
@@ -189,6 +204,7 @@ const ModifyCar = () => {
         formData.append('equipements', equipements);
         formData.append('details', details);
         formData.append('apikey', process.env.REACT_APP_APIKEY);
+        formData.append('id', user[1]);
         formData.append('action', 'modifyCar');
 
         axios.post(process.env.REACT_APP_SERVEURHTTP, formData, config).then(function(response) {
@@ -477,7 +493,7 @@ const ModifyCar = () => {
                             <div className="addCarFormSectionWrapper">
                                 <h3 className="AddCarFormTitle">Les plus</h3>
                                 {
-                                    equipementList.map( (e,i) => {  
+                                    plustList.map( (e,i) => {  
                                         let checkedCheckbox = false;
 
                                         for ( let iteration = 0; iteration < lesplus.length; iteration++ ) {
