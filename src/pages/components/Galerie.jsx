@@ -33,7 +33,10 @@ const Galerie = (props) => {;
                     props.imgset.map((img, i )=> {
                         if ( i !== 0 && i !== 5) {
                             return (
-                                <img key={i} src={img} id={`img-${i+1}`} className={ "galerieImg" } onClick={handleClick} alt='voiture' />
+                                <div className='imgContainer' key={i}>
+                                    <img key={i} src={img} id={`img-${i+1}`} className={ "galerieImg" } onClick={handleClick} alt='voiture' />
+                                </div>
+                                
                             )  
                         } else {
                             return ( '' )

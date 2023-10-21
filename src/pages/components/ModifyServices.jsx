@@ -21,6 +21,7 @@ const ModifyServices = () => {
     const [reload, setReload] = useState(false);
     const [toggleForm, setToggleForm] = useState(false);
     const [user] = useOutletContext();
+    const [validateForm, setValidateForm] = useState(false);
 
     // récupère une liste des services en BDD
     useEffect( ()=> {
@@ -130,6 +131,8 @@ const ModifyServices = () => {
         btn.addEventListener('click', () => {
             elementToModify.textContent = input.value;
             elementToModify.className = 'highlight';
+            setValidateForm(true);
+            elementToModify.parentElement.setAttribute('data-modified', true);
             bgdiv.remove();
         });
         btnWrapper.appendChild(btn);
@@ -174,6 +177,7 @@ const ModifyServices = () => {
             setResponse(rawdata);
             setReload(true);
             setFormSend(true);
+            setValidateForm(false);
         });
     }
 
@@ -273,7 +277,13 @@ const ModifyServices = () => {
                                     <p onClick={modifyValue} id={`e-${i+1}-3`}>{e[4]}</p>
             
                                     <button id={e[0]} onClick={deleteService} className='modifyServiceDeleteBTN'>Supprimer</button>
-                                    <button id={e[0]} name={i+1} onClick={sendForm} className='modifyServiceModifyBTN'>Valider les modifications</button>
+
+                                    {
+                                        validateForm ? 
+                                        <button id={e[0]} name={i+1} onClick={sendForm} className='modifyServiceModifyBTN'>Valider les modifications</button>
+                                        :
+                                        ""
+                                    }
 
                                 </div>
                             )
