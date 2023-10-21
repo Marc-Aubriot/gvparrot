@@ -112,28 +112,6 @@ Class Comment {
             return null;
         }
     }
-    
-    // Fonction pour mettre à jour un champ 
-    public function pin() {
-        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $query = "UPDATE commentaires SET valider = 1 WHERE id=:id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
-
-        $db = null;
-    }
-
-    // Fonction pour mettre à jour un champ 
-    public function unPin() {
-        $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
-        $query = "UPDATE commentaires SET valider = 0 WHERE id=:id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
-
-        $db = null;
-    }
 
     // Fonction pour delete
     public function delete() {
@@ -146,7 +124,7 @@ Class Comment {
         $db = null;
     }
 
-
+    // Fonction pour mettre à jour un champ 
     public function modify() {
         $db = new PDO("mysql:host=". DB_HOST .";dbname=". DB_NAME, DB_USERNAME, DB_PASSWORD);
 

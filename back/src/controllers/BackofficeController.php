@@ -636,14 +636,16 @@ class BackofficeController extends Controller {
         $comment = Comment::createEntity($_REQUEST['ID']);
 
         if ($q === '0') {
-            $comment->pin();
+            //$comment->pin();
             $comment->setUtilisateurId($_REQUEST['user']);
+            $comment->setValider(1);
             $comment->modify();
             echo "Commentaire ajouté à l'Accueil";
 
         } else if ($q === '1') {
-            $comment->unPin();
+            //$comment->unPin();
             $comment->setUtilisateurId($_REQUEST['user']);
+            $comment->setValider(0);
             $comment->modify();
             echo "Commentaire enlevé de l'Accueil";
 
