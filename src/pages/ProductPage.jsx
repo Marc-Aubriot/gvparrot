@@ -1,7 +1,6 @@
 /* dependencies */
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLoaderData  } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 /* styles */
@@ -16,12 +15,8 @@ export async function loader(urlparams) {
   return urlparams;
 }
 
-
 // page d'un véhicule avec tous les détails et un lien pour une prise de contact
-const ProductPage = () => {
-    // url parameter loader
-    const { params } = useLoaderData();
-
+const ProductPage = (props) => {
     // informations du véhicules, images du véhicules, section "lesplus", les équipements, les détails et le nombre max de véhicule disponible
     const [car, setCar] = useState([]);
     const [images, setImages] = useState([]);
@@ -30,14 +25,16 @@ const ProductPage = () => {
     const [details, setDetails] = useState([]);
     const [previousCarRef, setPreviousCarRef] = useState();
     const [nextCarRef, setNextCarRef] = useState();
+    const [carRef, setCarRef] =  useState(props.carRef);
 
     // hook de fonctionnement de page
     const [isLoading, setIsloading] = useState(true);
 
     // récupère les informations du véhicules dans la BDD et les segmentes, et les références précédentes et suivantes pour la navigation
     useEffect( ()=> {
+
         const getCar = () => {
-            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getCarDetail&q=${params.id}`;
+            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getCarDetail&q=${carRef}`;
             axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
                 
                 // transforme la réponse (string) en array
@@ -66,34 +63,44 @@ const ProductPage = () => {
                 setIsloading(false);
 
                 // récupère les références avant et après la référence actuelle en BDD
-                getPreviousAndNextCarRef(data[0]);
+                getPreviousAndNextCarRef();
             });
         }
 
-        const getPreviousAndNextCarRef = (ref) => {
-            const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=getPrevAndNextCar&ref=${ref}`;
-            axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
-                
-                // transforme la réponse (string) en array
-                const data = response.data.split('+'); 
+        // filtre la liste des véhicules carList et extrait la référence, ensuite récupère la ref avant et après la ref actuelle
+        const getPreviousAndNextCarRef = () => {
+            let carList = props.carList;
 
-                // récupère le previous car
-                setPreviousCarRef(data[0]);
+            for ( let i = 0; i < carList.length; i++ ) {            
+                if ( carList[i][0] === carRef ) {
+                    if ( i !== 0 ) { setPreviousCarRef(carList[i-1][0]); } else { setPreviousCarRef(null); };
+                    if ( i !== carList.length-1) { setNextCarRef(carList[i+1][0]); } else { setNextCarRef(null); };
 
-                // récupère le next car
-                setNextCarRef(data[2]);
+                }
+            };
 
-                setIsloading(false);
-            });
         }
+        
 
         getCar();
 
-    }, [params]);
+    }, [carRef]);
 
     // hook et handler pour les sections équipements et détails
     const [equipementsDivOpen, setEquipementsDivOpen] = useState(true);
     const handleToggle = () => { setEquipementsDivOpen(prev => !prev) }
+
+    const previousHandler = () => {
+        if (previousCarRef) {
+            setCarRef(previousCarRef);
+        }   
+    }
+
+    const nextHandler = () => {
+        if (nextCarRef) {
+            setCarRef(nextCarRef);
+        }
+    }
 
     // render la page du produit ainsi qu'un lien vers un formulaire de conact, une page de navigation et une zone de filtre
     return (
@@ -107,17 +114,29 @@ const ProductPage = () => {
                 <>
                     <div className="navigationInterProduct">
             
-                        <Link to={`/occasions/${previousCarRef}`} className="leftBtnWrapper">
-                            <button disabled={ previousCarRef === 'null' ? true : false } className={ previousCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Précédent</button>
-                        </Link>
+                        <div className="leftBtnWrapper">
+                            <button 
+                                disabled={ previousCarRef === null ? true : false } 
+                                className={ previousCarRef === null ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }
+                                onClick={previousHandler}
+                            >Précédent</button>
+                        </div>
 
-                        <Link to={`/occasions`}className="middleBtnWrapper">
-                            <button className="navigationInterProductBTN">Retour</button>
-                        </Link>
+                        <div className="middleBtnWrapper">
+                            <button 
+                                className="navigationInterProductBTN"
+                                onClick={props.productPageOpenHandler}
+                            >Retour</button>
+                        </div>
 
-                        <Link to={`/occasions/${nextCarRef}`} className="RightBtnWrapper">
-                        <button disabled={ nextCarRef === 'null' ? true : false } className={ nextCarRef === 'null' ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }>Suivant</button>
-                        </Link>
+                        <div className="RightBtnWrapper">
+                            <button 
+                                disabled={ nextCarRef === null ? true : false } 
+                                className={ nextCarRef === null ? "navigationInterProductBTN blocked" : "navigationInterProductBTN" }
+                                onClick={nextHandler}
+                            >Suivant</button>
+                        </div>
+
                     </div>
                     
                     <section className="productPage">

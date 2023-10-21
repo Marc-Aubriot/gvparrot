@@ -1,5 +1,4 @@
 /* dependencies */
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 /* styles */
@@ -16,14 +15,19 @@ const CarCard = (props) => {
         setCardImage(imgArray[0]);
     }, [props])
 
+    const handler = () => {
+        props.productPageHandler();
+        props.carRefHandler(props.id);
+    }
+
     // retourne la card
     return (
         <div className='carCardBox'>
 
             <div className='cardTop'>
-                <Link to={props.reference}> 
-                    <img src={cardImage} alt={'voiture'} className='cardImage'></img>
-                </Link>
+
+                <img src={cardImage} alt={'voiture'} className='cardImage' onClick={handler}></img>
+
             </div>
             
             <div className='cardBotttom'>
