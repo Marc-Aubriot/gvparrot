@@ -16,7 +16,7 @@ CREATE TABLE utilisateurs (
 	prenom VARCHAR(50) NOT NULL,
 	email VARCHAR(100) NOT NULL,
 	mot_de_passe VARCHAR(255) NOT NULL,
-	is_admin BOOL DEFAULT FALSE
+	is_admin BOOLEAN DEFAULT FALSE
 );
 CREATE TABLE commentaires (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE commentaires (
 	nom VARCHAR(50) NOT NULL,
 	contenu TEXT NOT NULL,
 	note FLOAT NOT NULL,
-	valider BOOL DEFAULT FALSE
+	valider BOOLEAN DEFAULT FALSE
 );
 CREATE TABLE services (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -48,7 +48,7 @@ CREATE TABLE horaires (
 CREATE TABLE equipements (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	nom VARCHAR(50) NOT NULL,
-    plus BOOL DEFAULT FALSE
+    plus BOOLEAN DEFAULT FALSE
 );
 CREATE TABLE voitures (
 	id CHAR(36) PRIMARY KEY,
@@ -71,7 +71,7 @@ CREATE TABLE messages (
     email VARCHAR(100) NOT NULL,
     sujet VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    lecture BOOL DEFAULT FALSE,
+    lecture BOOLEAN DEFAULT FALSE,
     reçu DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE voiture_equipements (
@@ -79,7 +79,7 @@ CREATE TABLE voiture_equipements (
     voiture_id CHAR(36),
     titre VARCHAR(100),
     nom VARCHAR(50),
-    plus BOOL DEFAULT FALSE,
+    plus BOOLEAN DEFAULT FALSE,
     PRIMARY KEY(equipement_id, voiture_id)
 );
 CREATE TABLE custom_sessions (

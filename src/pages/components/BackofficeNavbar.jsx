@@ -1,9 +1,9 @@
 /* dependencies */
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 /* styles */
 import "./styles/BackofficeNavbar.css";
-import { Link } from 'react-router-dom';
 
 /* components */
 import HamburgerBtn from "./HamburgerBtn";

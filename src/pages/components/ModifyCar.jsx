@@ -1,7 +1,7 @@
 /* dependencies */
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useLoaderData, useOutletContext } from "react-router-dom";
+import { useLoaderData, useOutletContext, Link } from "react-router-dom";
 
 /* styles */
 import './styles/AddCar.css';
@@ -62,7 +62,7 @@ const ModifyCar = () => {
                     carImgArray.push(image[image.length-1]);
 
                 });
-                if (carImgArray.length>1) {
+                if (carImgArray.length>=1) {
                     setCarImg(carImgArray);
                 }
 
@@ -264,10 +264,10 @@ const ModifyCar = () => {
         const newPathArray = rawImgPath.split('+');
         const removedPath = newPathArray.splice(id, 1);
         const rawNewStringPath = newPathArray.toString();
-        console.log(`deleted img: ${removedImg}   path: ${removedPath}`);
+        //console.log(`deleted img: ${removedImg}   path: ${removedPath}`);
 
         // on update la BDD avec le nouveau string path
-        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deletePhoto&path=${rawNewStringPath}&ref=${params.carref}`;
+        const inputs = `apikey=${process.env.REACT_APP_APIKEY}&action=deletePhoto&path=${rawNewStringPath}&ref=${params.carref}&imgName=${removedImg}`;
         axios.post(process.env.REACT_APP_SERVEURHTTP, inputs).then(function(response) {
             
             const data = response.data; 
@@ -288,252 +288,263 @@ const ModifyCar = () => {
             
             {
                 response ?
-                <p className="responseText">{response}</p>
-                :
-                ''
-            }
-
-            {
-                isLoading ?
-                <Spinner />
+                <>
+                    <p className="responseText">{response}</p>
+                    
+                    <div className="addCarPageFormSubmitBtnWrapper">
+                        <Link to={`/backoffice/${user[1]}/carlist`}>
+                            <button type="button" id="backLink" className="addCarPageFormSubmitBtn">Retour</button>
+                        </Link>
+                    </div>
+                </>
                 :
                 <>
                     {
-                        carImg ?
-                        <div className="addCarFormPhotoDiv">
-                            <p>Photos:</p>
-                            {
-                                carImg.map( (e,i) => {
-                                    return (
-                                        <div id={`div-span-${i}`} key={i} className="addCarFormPhotoDivContent">
-                                            <span id={`span-${i}`}> {e}</span>
-                                            <button name={i} id={`button-span-${i}`} onClick={deletePhoto}>suppr</button>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
+
+                        isLoading ?
+                        <Spinner />
                         :
-                        ''
-                    }
-
-                    <form onSubmit={sendForm} id="FormVoiture">
-
-                        <div className="addCarFormContentWrapperTopBox">
-                            <div className="addCarFormSectionWrapper">
-                                <h3 className="AddCarFormTitle">Informations générales</h3>
-                                
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="images" className="addCarPageInputFieldLabel">Images</label>
-                                    <input type="file" id="fileInput" name="images" multiple onChange={handleUpload} className="addCarPageInputFieldInput"/>
+                        <>
+                            {
+                                carImg ?
+                                <div className="addCarFormPhotoDiv">
+                                    <p>Photos:</p>
+                                    {
+                                        carImg.map( (e,i) => {
+                                            if ( e === '' ) {
+                                                return;
+                                            } else {
+                                                return (
+                                                    <div id={`div-span-${i}`} key={i} className="addCarFormPhotoDivContent">
+                                                        <span id={`span-${i}`}> {e}</span>
+                                                        <button name={i} id={`button-span-${i}`} onClick={deletePhoto}>suppr</button>
+                                                    </div>
+                                                )
+                                            }
+                                        })
+                                    }
                                 </div>
+                                :
+                                ''
+                            }
 
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="titre" className="addCarPageInputFieldLabel">Titre</label>
-                                    <input type="text" name="titre" className="addCarPageInputFieldInput" defaultValue={car[2]}/>
-                                </div>
+                            <form onSubmit={sendForm} id="FormVoiture">
 
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="descript" className="addCarPageInputFieldLabel">Modèle</label>
-                                    <input type="text" name="descript" className="addCarPageInputFieldInput" defaultValue={car[3]}/>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="boite" className="addCarPageInputFieldLabel">Boîte</label>
-                                    <select name="boiteSelector" id="boiteSelector" className="addCarPageInputFieldInput" defaultValue={car[4]}>
-                                        <option value="Manuelle">Manuelle</option>
-                                        <option value="Automatique">Automatique</option>
-                                    </select>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="carburant" className="addCarPageInputFieldLabel">Carburant</label>
-                                    <select name="carburantSelector" id="carburantSelector" className="addCarPageInputFieldInput" defaultValue={car[5]}>
-                                        <option value="Essence">Essence</option>
-                                        <option value="Diesel">Diesel</option>
-                                        <option value="Electrique">Electrique</option>
-                                    </select>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="kilometrage" className="addCarPageInputFieldLabel">Kilométrage (km)</label>
-                                    <input type="text" name="kilometrage" className="addCarPageInputFieldInput" defaultValue={car[6]}/>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="annee" className="addCarPageInputFieldLabel">Année</label>
-                                    <input type="text" name="annee" className="addCarPageInputFieldInput" defaultValue={car[7]}/>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="prix" className="addCarPageInputFieldLabel">Prix (€)</label>
-                                    <input type="text" name="prix" className="addCarPageInputFieldInput" defaultValue={car[8]}/>
-                                </div>
-                            </div>
-
-                            <div className="addCarFormSectionWrapper">
-                                <h3 className="AddCarFormTitle">Détails</h3>
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="couleur" className="addCarPageInputFieldLabel">Couleur</label>
-                                    <input type="text" name="couleur" className="addCarPageInputFieldInput" defaultValue={details[0]}/>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="puissancefiscale" className="addCarPageInputFieldLabel">Puissance fiscale (cv)</label>
-                                    <input type="text" name="puissancefiscale" className="addCarPageInputFieldInput" defaultValue={details[1]}/>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="rapports" className="addCarPageInputFieldLabel">Rapports</label>
-                                    <input type="text" name="rapports" className="addCarPageInputFieldInput"  defaultValue={details[2]}/>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="places" className="addCarPageInputFieldLabel">Places</label>
-                                    <select name="places" id="places" className="addCarPageInputFieldInput"  defaultValue={details[3]}>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                    </select>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="portes" className="addCarPageInputFieldLabel">Portes</label>
-                                    <select name="portes" id="portes" className="addCarPageInputFieldInput"  defaultValue={details[4]}>
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="garantie" className="addCarPageInputFieldLabel">Garantie (mois)</label>
-                                    <select name="garantie" className="addCarPageInputFieldInput" >
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                        <option value="24">24</option>
-                                    </select>
-                                </div>
-
-                                <div className="addCarPageInputField">
-                                    <label htmlFor="critair" className="addCarPageInputFieldLabel">Crit'Air</label>
-                                    <select name="critair" id="critair" className="addCarPageInputFieldInput"  defaultValue={details[6]}>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="E">E</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="addCarFormContentWrapperBotBox">
-
-                            <div className="addCarFormSectionWrapper">
-                                <h3 className="AddCarFormTitle">Equipements</h3>
-                                {
-                                    equipementList.map( (e,i) => {
-                                        let checkedCheckbox = false;
-
-                                        for ( let iteration = 0; iteration < equipement.length; iteration++ ) {
-                                            if ( e[1] === equipement[iteration] ) {
-                                                checkedCheckbox = true;
-                                            };
-                                        };
+                                <div className="addCarFormContentWrapperTopBox">
+                                    <div className="addCarFormSectionWrapper">
+                                        <h3 className="AddCarFormTitle">Informations générales</h3>
                                         
-                                        return (
-                                            <div key={i}>
-                                                {
-                                                    checkedCheckbox ?
-                                                    <div className="addCarPageInputField" key={i}>
-                                                        <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} defaultChecked/>
-                                                        <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="images" className="addCarPageInputFieldLabel">Images</label>
+                                            <input type="file" id="fileInput" name="images" multiple onChange={handleUpload} className="addCarPageInputFieldInput"/>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="titre" className="addCarPageInputFieldLabel">Titre</label>
+                                            <input type="text" name="titre" className="addCarPageInputFieldInput" defaultValue={car[2]}/>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="descript" className="addCarPageInputFieldLabel">Modèle</label>
+                                            <input type="text" name="descript" className="addCarPageInputFieldInput" defaultValue={car[3]}/>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="boite" className="addCarPageInputFieldLabel">Boîte</label>
+                                            <select name="boiteSelector" id="boiteSelector" className="addCarPageInputFieldInput" defaultValue={car[4]}>
+                                                <option value="Manuelle">Manuelle</option>
+                                                <option value="Automatique">Automatique</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="carburant" className="addCarPageInputFieldLabel">Carburant</label>
+                                            <select name="carburantSelector" id="carburantSelector" className="addCarPageInputFieldInput" defaultValue={car[5]}>
+                                                <option value="Essence">Essence</option>
+                                                <option value="Diesel">Diesel</option>
+                                                <option value="Electrique">Electrique</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="kilometrage" className="addCarPageInputFieldLabel">Kilométrage (km)</label>
+                                            <input type="text" name="kilometrage" className="addCarPageInputFieldInput" defaultValue={car[6]}/>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="annee" className="addCarPageInputFieldLabel">Année</label>
+                                            <input type="text" name="annee" className="addCarPageInputFieldInput" defaultValue={car[7]}/>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="prix" className="addCarPageInputFieldLabel">Prix (€)</label>
+                                            <input type="text" name="prix" className="addCarPageInputFieldInput" defaultValue={car[8]}/>
+                                        </div>
+                                    </div>
+
+                                    <div className="addCarFormSectionWrapper">
+                                        <h3 className="AddCarFormTitle">Détails</h3>
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="couleur" className="addCarPageInputFieldLabel">Couleur</label>
+                                            <input type="text" name="couleur" className="addCarPageInputFieldInput" defaultValue={details[0]}/>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="puissancefiscale" className="addCarPageInputFieldLabel">Puissance fiscale (cv)</label>
+                                            <input type="text" name="puissancefiscale" className="addCarPageInputFieldInput" defaultValue={details[1]}/>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="rapports" className="addCarPageInputFieldLabel">Rapports</label>
+                                            <input type="text" name="rapports" className="addCarPageInputFieldInput"  defaultValue={details[2]}/>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="places" className="addCarPageInputFieldLabel">Places</label>
+                                            <select name="places" id="places" className="addCarPageInputFieldInput"  defaultValue={details[3]}>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="portes" className="addCarPageInputFieldLabel">Portes</label>
+                                            <select name="portes" id="portes" className="addCarPageInputFieldInput"  defaultValue={details[4]}>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="garantie" className="addCarPageInputFieldLabel">Garantie (mois)</label>
+                                            <select name="garantie" className="addCarPageInputFieldInput" >
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="addCarPageInputField">
+                                            <label htmlFor="critair" className="addCarPageInputFieldLabel">Crit'Air</label>
+                                            <select name="critair" id="critair" className="addCarPageInputFieldInput"  defaultValue={details[6]}>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="E">E</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="addCarFormContentWrapperBotBox">
+
+                                    <div className="addCarFormSectionWrapper">
+                                        <h3 className="AddCarFormTitle">Equipements</h3>
+                                        {
+                                            equipementList.map( (e,i) => {
+                                                let checkedCheckbox = false;
+
+                                                for ( let iteration = 0; iteration < equipement.length; iteration++ ) {
+                                                    if ( e[1] === equipement[iteration] ) {
+                                                        checkedCheckbox = true;
+                                                    };
+                                                };
+                                                
+                                                return (
+                                                    <div key={i}>
+                                                        {
+                                                            checkedCheckbox ?
+                                                            <div className="addCarPageInputField" key={i}>
+                                                                <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} defaultChecked/>
+                                                                <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                                            </div>
+                                                            :
+                                                            <div className="addCarPageInputField" key={i}>
+                                                                <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
+                                                                <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                                            </div>
+                                                        }
                                                     </div>
-                                                    :
-                                                    <div className="addCarPageInputField" key={i}>
-                                                        <input type="checkbox" id={`checkbox-${i}`} name={e[1]} className="addCarPageInputFieldInput" key={i} />
-                                                        <label htmlFor={`${e[1]}`}>{e[1]}</label>
+                                                )
+                                            })
+                                        }
+                                    </div>
+
+                                    <div className="addCarFormSectionWrapper">
+                                        <h3 className="AddCarFormTitle">Les plus</h3>
+                                        {
+                                            plustList.map( (e,i) => {  
+                                                let checkedCheckbox = false;
+
+                                                for ( let iteration = 0; iteration < lesplus.length; iteration++ ) {
+                                                    if ( e[1] === lesplus[iteration] ) {
+                                                        checkedCheckbox = true;
+                                                    };
+                                                };
+
+                                                return (
+                                                    <div key={i}>
+                                                        {
+                                                            checkedCheckbox ?
+                                                            <div className="addCarPageInputField" key={i}>
+                                                                <input type="checkbox" id={`lesplus-${i}`} name={`lesplus-${e[1]}`} value={e[1]} className="addCarPageInputFieldInput" key={i} defaultChecked/>
+                                                                <label htmlFor={`lesplus-${e[1]}`}>{e[1]}</label>
+                                                            </div>
+                                                            :
+                                                            <div className="addCarPageInputField" key={i}>
+                                                                <input type="checkbox" id={`lesplus-${i}`} name={`lesplus-${e[1]}`} value={e[1]} className="addCarPageInputFieldInput" key={i} />
+                                                                <label htmlFor={`lesplus-${e[1]}`}>{e[1]}</label>
+                                                            </div>
+                                                        }
                                                     </div>
-                                                }
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
+                                                )
+                                            })
+                                        }
+                                    
+                                    </div>
+                                    
+                                </div>
 
-                            <div className="addCarFormSectionWrapper">
-                                <h3 className="AddCarFormTitle">Les plus</h3>
-                                {
-                                    plustList.map( (e,i) => {  
-                                        let checkedCheckbox = false;
+                                <div className="addCarPageFormSubmitBtnWrapper">
+                                    <button type="submit" id="formSubmiter" className="addCarPageFormSubmitBtn">Enregistrer</button>
+                                </div>
 
-                                        for ( let iteration = 0; iteration < lesplus.length; iteration++ ) {
-                                            if ( e[1] === lesplus[iteration] ) {
-                                                checkedCheckbox = true;
-                                            };
-                                        };
-
-                                        return (
-                                            <div key={i}>
-                                                {
-                                                    checkedCheckbox ?
-                                                    <div className="addCarPageInputField" key={i}>
-                                                        <input type="checkbox" id={`lesplus-${i}`} name={`lesplus-${e[1]}`} value={e[1]} className="addCarPageInputFieldInput" key={i} defaultChecked/>
-                                                        <label htmlFor={`lesplus-${e[1]}`}>{e[1]}</label>
-                                                    </div>
-                                                    :
-                                                    <div className="addCarPageInputField" key={i}>
-                                                        <input type="checkbox" id={`lesplus-${i}`} name={`lesplus-${e[1]}`} value={e[1]} className="addCarPageInputFieldInput" key={i} />
-                                                        <label htmlFor={`lesplus-${e[1]}`}>{e[1]}</label>
-                                                    </div>
-                                                }
-                                            </div>
-                                        )
-                                    })
-                                }
-                             
-                            </div>
-                            
-                        </div>
-
-                        <div className="addCarPageFormSubmitBtnWrapper">
-                            <button type="submit" id="formSubmiter" className="addCarPageFormSubmitBtn">Enregistrer</button>
-                        </div>
-
-                    </form>
+                            </form>
+                        </>
+                    }
                 </>
-                }
-
-
+            }
         </div>
     )
 }

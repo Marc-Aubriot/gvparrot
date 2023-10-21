@@ -167,14 +167,21 @@ const ProductPage = () => {
 
                                 <div id="equipementsDiv" className={ equipementsDivOpen ? "showDiv" : "hiddenDiv" }>
 
-                                    <div className="lesplusWrapper">
-                                        <h3>Les +</h3>
-                                        {lesplus.map( (string, i) => {
-                                            return (
-                                                <li key={i}>{string}</li>
-                                            )
-                                        })}
-                                    </div>
+                                    
+                                {
+                                        lesplus.length > 1 ? 
+                                        <div className="lesplusWrapper">
+                                            <h3>Les +</h3>
+                                            {lesplus.map( (string, i) => {
+                                                return (
+                                                    <li key={i}>{string}</li>
+                                                )
+                                            })}
+                                        </div>
+                                        :
+                                        ''
+                                
+                                    }
                                 
                                     <div className="equipserieWrapper">
                                         <h3>EQUIPEMENTS DE SERIE</h3>

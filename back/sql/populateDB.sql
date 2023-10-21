@@ -1,4 +1,5 @@
 /* trigger: chaque fois qu'on insert des datas dans la table voiture_equipements, le titre et le nom vont s'auto-fill */
+#DROP TRIGGER fill_table_voiture_equipements;
 DELIMITER $$
 CREATE TRIGGER fill_table_voiture_equipements
     before INSERT
@@ -10,6 +11,7 @@ CREATE TRIGGER fill_table_voiture_equipements
 DELIMITER ;
 
 /* procedure */
+#DROP PROCEDURE get_prev_and_next_ref;
 DELIMITER $$
 CREATE PROCEDURE `get_prev_and_next_ref` (IN car_id TEXT)
 BEGIN
@@ -103,12 +105,12 @@ INSERT INTO voiture_equipements (equipement_id, voiture_id) VALUES ('6', '32afaf
 INSERT INTO messages (utilisateur_id, voiture_id, nom, prenom, telephone, email, sujet, content) VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbea", '32afaf97-0535-4f90-875d-bdecad36648c',"Marc", "Aubriot", "0650550480", "marc.aubriot@outlook.fr", "test sujet", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." );
 
 /* COMMENTAIRES */
-INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('marc', "super garage, j'adore, j'adhère", "4.5", 1);
-INSERT INTO commentaires (nom, contenu, note) VALUES ('diane', "garage nul je déteste", "1.5");
-INSERT INTO commentaires (nom, contenu, note) VALUES ('cram', "garage moyen osef", "2.5");
-INSERT INTO commentaires (nom, contenu, note) VALUES ('rio', "nul nul nul", "0.5");
-INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('albert', "Super super", "4.5", 1);
-INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('Mario', "j'y suis j'y reste", "3.5", 1);
+INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('marc', "super garage, j'adore, j'adhère", "5", 1);
+INSERT INTO commentaires (nom, contenu, note) VALUES ('diane', "garage nul je déteste", "1");
+INSERT INTO commentaires (nom, contenu, note) VALUES ('cram', "garage moyen osef", "2");
+INSERT INTO commentaires (nom, contenu, note) VALUES ('rio', "nul nul nul", "0");
+INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('albert', "Super super", "4", 1);
+INSERT INTO commentaires (nom, contenu, note, valider) VALUES ('Mario', "j'y suis j'y reste", "3", 1);
 
 /* SERVICES : CARROSSERIE */
 INSERT INTO services (utilisateur_id, categorie, subcategorie, titre, descript) VALUES ("977c0ead-139f-40b6-a7b6-da194d0bcbea", "Carrosserie", "Réparation", "Réparation des éraflures de carrosserie", "La réparation des éraflures de carrosserie est une opération qui vise à restaurer l'apparence esthétique de la carrosserie d'un véhicule en éliminant les éraflures et les rayures superficielles. Cette procédure peut impliquer le ponçage, l'application de mastic de remplissage, l'apprêtage et la mise en peinture pour obtenir un fini lisse et uniforme.");

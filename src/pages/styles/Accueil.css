@@ -1,3 +1,9 @@
+#accueilHeroTitle {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
 .service1, .service2, .service3 {
     background-color: var(--white-color);
 }
@@ -6,10 +12,6 @@
     color: var(--black-color);
     font-size: 20px;
     justify-self: center;
-}
-
-.textwrapper {
-    width: fit-content;
 }
 
 .bandSection {
@@ -89,6 +91,10 @@
 
 /* responsive tablet */
 @media (min-width: 700px) {
+    #accueilHeroTitle {
+        font-size: 3em;
+    }
+
     .bandSection {
         margin-bottom: 10%;
         height: 300px;
@@ -119,16 +125,22 @@
         margin: 0 auto;
     }
 
-    .heroTitle {
-        font-size: 36px;
-        position: absolute;
-        top: 27%;
-        left: 20%;
-    }
+    .serviceContainer {
+        min-height: 360px;
+    } 
+
 }
 
 /* responsive desktop */
 @media (min-width: 1200px) {
+    .serviceContainer .textwrapper {
+        width: 85%;
+    }
+
+    #accueilHeroTitle {
+        font-size: 4em;
+    }
+
     .service1, .service2, .service3, .service4, .service5 {
         display: block;
         margin-top: 100px;
