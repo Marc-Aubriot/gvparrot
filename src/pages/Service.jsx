@@ -81,7 +81,11 @@ const Service = (props) => {
                             return (
                                 <div className="textwrapper" key={i}>
                                     <h3 key={`h3-${i}`}>{element[3]}</h3>
-                                    <p key={`p-${i}`}>{element[4]}</p>
+
+                                    <div className='textwrapperContainer' key='subdiv-${i}'>
+                                        <p key={`p-${i}`}>{element[4]}</p>
+                                    </div>
+                                    
                                 </div>
                                 
                             )

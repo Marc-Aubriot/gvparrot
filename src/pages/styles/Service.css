@@ -42,8 +42,17 @@
     .servicesDescription {
         max-width: 1600px;
     }
+
+    .textwrapperContainer {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 100px;
+    }
 }
 
+
+/* ========================= NAVIGATION ======================================= */
 .navSnippet {
     background-color: var(--btn-color);
     padding: 10px 0px 10px 30px;
