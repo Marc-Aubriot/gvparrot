@@ -123,12 +123,20 @@
 }
 
 @media (min-width: 1500px) {
+    .modifyCarPage {
+        width: 95%;
+    }
+
     .modifyCarPageCarCardImg {
         width: 300px;
     }
 
     .modifyCarPageCarCardBotLeftBox {
         display: flex;
+    }
+
+    .modifyCarPageCarCardBotLeftBox p {
+        font-size: 1em;
     }
 
     .modifyCarPageCarCardBotRightBox {
