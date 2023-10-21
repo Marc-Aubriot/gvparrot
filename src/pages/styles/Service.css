@@ -1,7 +1,7 @@
 #serviceHeroTitle {
-    top: 30%;
-    left: 15%;
-    font-size: 48px;
+    font-size: 4em;
+    font-weight: bold;
+    margin: 0 auto;
 }
 
 .servicesDescription {
@@ -30,6 +30,10 @@
         margin: 0 auto;
         padding-left: 30px;
         width: 90%;
+    }
+
+    #serviceHeroTitle {
+        font-size: 100px;
     }
 }
 

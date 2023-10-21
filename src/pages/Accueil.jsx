@@ -79,7 +79,7 @@ const Accueil = () => {
     return (
         <main >
             <div>
-                <h1 className='heroTitle'>Vos véhicules se détendent enfin</h1>
+                <h1 className='heroTitle' id='accueilHeroTitle'>Vos véhicules se détendent enfin</h1>
                 <img src={heroImg} alt="hero banner" className='heroBanner'/>
             </div>
             
