@@ -14,10 +14,6 @@
     justify-self: center;
 }
 
-.textwrapper {
-    width: fit-content;
-}
-
 .bandSection {
     background-color: var(--bg-color);
     height: 400px;
@@ -129,10 +125,18 @@
         margin: 0 auto;
     }
 
+    .serviceContainer {
+        min-height: 360px;
+    } 
+
 }
 
 /* responsive desktop */
 @media (min-width: 1200px) {
+    .serviceContainer .textwrapper {
+        width: 85%;
+    }
+
     #accueilHeroTitle {
         font-size: 4em;
     }

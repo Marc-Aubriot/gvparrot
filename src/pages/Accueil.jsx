@@ -84,17 +84,17 @@ const Accueil = () => {
             </div>
             
 
-            <section className='service1 largeScreenContainer'>
+            <section className='serviceContainer service1 largeScreenContainer'>
 
                 <div className='float-l imageWrapper'>
                     <img src={img1} alt="une voiture neuve" /> 
                 </div>
 
                 <div>
-                    <h2 className='text-start'>SECTION TITLE : SERVICE - CARROSSERIE</h2>
+                    <h2 className='text-start'>Réparation de la carrosserie</h2>
 
                     <div className='textwrapper'>
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                    <p>Comme son nom l'indique, une réparation de carrosserie consiste à rénover votre voiture et plus exactement à remettre en état sa carrosserie, c'est-à-dire l'ensemble des tôles qui recouvre votre voiture. La carrosserie a à la fois un rôle de sécurité, puisqu'elle protège l'habitacle du véhicule, et esthétique.</p>
                     </div>
 
                     <div className='linkwrapper text-start'>
@@ -104,17 +104,17 @@ const Accueil = () => {
           
             </section>
 
-            <section className='service2 largeScreenContainer'>
+            <section className='serviceContainer service2 largeScreenContainer'>
 
                 <div className='float-r imageWrapper'>
                     <img src={img2} alt="mécanique d'une voiture"/>
                 </div>
 
                 <div>
-                    <h2 className='text-end'>SECTION TITLE : SERVICE - MECANIQUE</h2>
+                    <h2 className='text-end'>Mécanique de votre automobile</h2>
 
                     <div className='textwrapper text-start'>
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                        <p>La réparation de la mécanique de votre automobile consiste en à changer les pièces défaillantes. C’est par exemple le moteur, l’embrayage, la culasse, le démarreur, le turbo, l’injecteur, le filtre à air, la bougie ou encore le filtre à carburant.</p>
                     </div>
 
                     <div className='linkwrapper text-end'>
@@ -124,17 +124,17 @@ const Accueil = () => {
 
             </section>
 
-            <section className='service3 largeScreenContainer'>
+            <section className='serviceContainer service3 largeScreenContainer'>
 
                 <div className='float-l imageWrapper'>
                     <img src={img3} alt="entretien d'une voiture"/>
                 </div>
 
                 <div>
-                    <h2 className='text-start'>SECTION TITLE : SERVICE - ENTRETIENS</h2>
+                    <h2 className='text-start'>Entretien de vos véhicules</h2>
 
                     <div className='textwrapper'>
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                        <p>Il est également important de se rappeler que des révisions régulières du véhicules ainsi qu’une vidange à temps permettent d’éviter nombreuses réparation. Comme dit le dicton: « mieux vaut prévenir que guérir »!</p>
                     </div>
 
                     <div className='linkwrapper text-start'>
@@ -158,16 +158,16 @@ const Accueil = () => {
 
             </section>
 
-            <section className='service4 largeScreenContainer'>
+            <section className='serviceContainer service4 largeScreenContainer'>
 
                 <div className='imageWrapper float-r'>
                     <img src={img4} alt="staff & client"/>
                 </div>
 
-                <h2>SECTION TITLE : A PROPOS</h2>
+                <h2>Nos équipes de spécialistes</h2>
 
                 <div className='textwrapper'>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+                    <p>Fort de 15 ans d'expertise, le garage Vincent Parrot et ses équipes de spécialités et expert en automobile, prendrons en charge vos véhicules et vous apporterons un service de qualité tout au long de la vie de votre automobile.</p>
                 </div>
                 
             </section>
