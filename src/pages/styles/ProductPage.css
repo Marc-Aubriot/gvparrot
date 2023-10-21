@@ -154,6 +154,20 @@
 }
 
 @media (min-width: 1200px) {
+    .active {
+        background-color: initial;
+        text-decoration: initial;
+    }
+
+    .equipDetail {
+        position: absolute;
+        visibility: hidden;
+    }
+
+    .lesplusWrapper {
+        margin-bottom: 80px;
+    }
+
     .topSection {
         display: flex;
     }
