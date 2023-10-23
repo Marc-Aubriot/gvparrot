@@ -6,6 +6,8 @@ import "./styles/Bouton.css"
 
 // component bouton stylisé
 const Bouton = (props) => {
+    window.scrollTo(0, 0);
+    
     return (
         <Link to={props.linkstring}>
             <button 
