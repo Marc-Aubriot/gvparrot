@@ -10,7 +10,6 @@ import './styles/Occasions.css';
 
 // page contenant les véhicules d'occasions
 const Occasions = () => {
-    window.scrollTo(0, 0);
     
     // hooks liste des véhicules
     const [carList, setCarList] = useState([]);

@@ -6,6 +6,7 @@
 .logo {
     width: fit-content;
     height: 15vh;
+    min-height: 100px;
     cursor: pointer;
     margin-top: -5px;
     object-fit: contain;

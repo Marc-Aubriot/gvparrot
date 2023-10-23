@@ -6,9 +6,15 @@ import "./styles/Logo.css";
 
 // component le logo du site
 const Logo = (props) => {
+
+    const handleClick = () => {
+        props.closeMenu();
+        window.scrollTo(0, 0);
+    }
+
     return (
         <div className="logoContainer">
-            <img src={LogoImg} alt="Logo du site" className="logo" onClick={props.closeMenu}></img>
+            <img src={LogoImg} alt="Logo du site" className="logo" onClick={handleClick}></img>
         </div>
     )
 }

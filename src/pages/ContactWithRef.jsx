@@ -13,7 +13,6 @@ export async function loader(urlparams) {
 
 // Page de contact avec un formulaire pré rempli si l'user vient des products pages
 const Contact = () => {
-    window.scrollTo(0, 0);
     
     // url parameter loader
     const { params } = useLoaderData();

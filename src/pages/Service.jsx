@@ -10,7 +10,6 @@ import heroImg from '../ressources/images/front/article2.jpg';
 
 // Page Services (carrosserie, mécanique et entretien du véhicule)
 const Service = (props) => {
-    window.scrollTo(0, 0);
     
     // hooks liste des services et catégorie active
     const [serviceList, setServiceList] = useState([]);
@@ -81,10 +80,10 @@ const Service = (props) => {
                         if (element[2] === activeSubCat ) {
 
                             return (
-                                <div className="textwrapper" key={i}>
+                                <div className={"textwrapper"} key={i}>
                                     <h3 key={`h3-${i}`}>{element[3]}</h3>
 
-                                    <div className='textwrapperContainer' key='subdiv-${i}'>
+                                    <div className={'textwrapperContainer'} key={`subdiv-${i}`}>
                                         <p key={`p-${i}`}>{element[4]}</p>
                                     </div>
                                     

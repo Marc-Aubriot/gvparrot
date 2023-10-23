@@ -63,13 +63,13 @@ const ConnexionForm = (props) => {
                 <div className="field">
                     <label htmlFor="mail">Email</label>
                     <br />
-                    <input type="email" id="mail" name="mail" />
+                    <input type="email" id="mail" name="mail" required />
                 </div>
                 
                 <div className="field">
                     <label htmlFor="pass">Password</label>
                     <br />
-                    <input type="password" id="pass" name="pass" />
+                    <input type="password" id="pass" name="pass" required />
                 </div>
 
                 {

@@ -17,7 +17,7 @@ const Header = () => {
 
     return (
         <>
-        <header className="headerStyle">
+        <header className={"headerStyle"}>
             <Link to={'/accueil'}>
                 <Logo closeMenu={closeMenu} />
             </Link>

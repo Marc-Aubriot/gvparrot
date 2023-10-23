@@ -24,6 +24,11 @@ const GalerieAuto = (props) => {
 
     // hook de fonctionnement de page
     const [isLoading, setIsloading] = useState(true);
+        
+    // renvoit la liste des véhicules au composant parent
+    const handleCarList = (list) => {
+        props.carListHandler(list);
+    }
 
     // récupère la liste des véhicules dans la BDD et la tri
     useEffect( ()=> {
@@ -44,34 +49,32 @@ const GalerieAuto = (props) => {
 
                 if ( TrierPar === "prixcroissant" ) {
                     setCarList(data.sort( function(a,b) { return a[8] - b[8] }));
-                    props.carListHandler(data.sort( function(a,b) { return a[8] - b[8] }));
 
                 } else if ( TrierPar === "prixdecroissant" ) {
                     setCarList(data.sort( function(a,b) { return b[8] - a[8] }));
-                    props.carListHandler(data.sort( function(a,b) { return b[8] - a[8] }));
 
                 } else if ( TrierPar === "kmcroissant" ) {
                     setCarList(data.sort( function(a,b) { return a[6] - b[6] }));
-                    props.carListHandler(data.sort( function(a,b) { return a[6] - b[6] }));
 
                 } else if ( TrierPar === "kmdecroissant" ) {
                     setCarList(data.sort( function(a,b) { return b[6] - a[6] }));
-                    props.carListHandler(data.sort( function(a,b) { return b[6] - a[6] }));
 
                 } else if ( TrierPar === "anneecroissante" ) {
                     setCarList(data.sort( function(a,b) { return a[7] - b[7] }));
-                    props.carListHandler(data.sort( function(a,b) { return a[7] - b[7] }));
 
                 } else if ( TrierPar === "anneedecroissante" ) {
                     setCarList(data.sort( function(a,b) { return b[7] - a[7] }));
-                    props.carListHandler(data.sort( function(a,b) { return b[7] - a[7] }));
 
                 } 
 
+                
                 setIsloading(false);
             })
         }
+
         getCarList();
+        handleCarList(carList);
+
     }, [valueKm, valueAnnee, valuePrix, TrierPar]);
 
     // hooks le panneau des filtres est ouvert ou non, et son toggle
