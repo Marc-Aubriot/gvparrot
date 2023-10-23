@@ -132,21 +132,19 @@ const GalerieAuto = (props) => {
 
             </div>
 
-            <div className={`trierPanel ${trierPanelOpen ? " showMenu" : ""}`}>
-                <select defaultValue={0} className="galerieSelectTrier" onChange={selectHandler}>
-                    <option value={0} disabled>Trier par</option>
-                    <option value={"prixcroissant"}>Prix croissant</option>
-                    <option value={"prixdecroissant"}>Prix décroissant</option>
-                    <option value={"kmcroissant"}>Kilométrage croissant</option>
-                    <option value={"kmdecroissant"}>Kilométrage décroissant</option>
-                    <option value={"anneecroissante"}>Année croissante</option>
-                    <option value={"anneedecroissante"}>Année décroissante</option>
-                </select>
-            </div>
-
             <section className='galerie'>
                 
-                
+                <div className={`trierPanel ${trierPanelOpen ? " showMenu" : ""}`}>
+                    <select defaultValue={0} className="galerieSelectTrier" onChange={selectHandler}>
+                        <option value={0} disabled>Trier par</option>
+                        <option value={"prixcroissant"}>Prix croissant</option>
+                        <option value={"prixdecroissant"}>Prix décroissant</option>
+                        <option value={"kmcroissant"}>Kilométrage croissant</option>
+                        <option value={"kmdecroissant"}>Kilométrage décroissant</option>
+                        <option value={"anneecroissante"}>Année croissante</option>
+                        <option value={"anneedecroissante"}>Année décroissante</option>
+                    </select>
+                </div>
 
                 <div className="galerieTable">
                     {
