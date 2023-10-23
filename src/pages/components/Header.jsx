@@ -1,5 +1,6 @@
 /* dependencies */
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 /* components */
 import Logo from "./Logo";
@@ -10,14 +11,18 @@ import "./styles/Header.css";
 
 // component le header du site, contenant le logo et la navbar
 const Header = () => {
+    const [navbarOpen, setNavbarOpen] = useState(false);
+    const handleToggle = () => { setNavbarOpen(prev => !prev) }
+    const closeMenu = () => { setNavbarOpen(false) }
+
     return (
         <>
         <header className="headerStyle">
             <Link to={'/accueil'}>
-                <Logo />
+                <Logo closeMenu={closeMenu} />
             </Link>
             
-            <Navbar />
+            <Navbar handleToggle={handleToggle} navbarOpen={navbarOpen} closeMenu={closeMenu} />
         </header>
         </>
         

@@ -23,6 +23,8 @@ import { BsChevronDoubleRight } from 'react-icons/bs';
 
 // Page accueil contenant une description rapide des services proposés et un retour client
 const Accueil = () => {
+    window.scrollTo(0, 0);
+
     // hooks commenaitres et numéro d'index pour la galerie de commentaires
     const [comments, setComments] = useState([]);
     const [index, setIndex ] = useState(0);

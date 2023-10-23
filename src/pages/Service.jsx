@@ -10,6 +10,8 @@ import heroImg from '../ressources/images/front/article2.jpg';
 
 // Page Services (carrosserie, mécanique et entretien du véhicule)
 const Service = (props) => {
+    window.scrollTo(0, 0);
+    
     // hooks liste des services et catégorie active
     const [serviceList, setServiceList] = useState([]);
     const [activeSubCat, setActiveSubCat] = useState([]);

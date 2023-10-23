@@ -5,10 +5,10 @@ import LogoImg from "../../ressources/images/front/logo200px.png";
 import "./styles/Logo.css";
 
 // component le logo du site
-const Logo = () => {
+const Logo = (props) => {
     return (
         <div className="logoContainer">
-            <img src={LogoImg} alt="Logo du site" className="logo"></img>
+            <img src={LogoImg} alt="Logo du site" className="logo" onClick={props.closeMenu}></img>
         </div>
     )
 }
