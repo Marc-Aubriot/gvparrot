@@ -23,6 +23,10 @@
   src: url(./ressources/font/Roboto-Regular.ttf);
 }
 
+#root {
+  width: 100vw;
+  overflow-x: hidden;
+}
 
 /* elements */
 html, body, main {
@@ -128,6 +132,11 @@ button:hover {
   font-family: roboto;
 }
 
+.outletContainer {
+padding-top: 12vh;
+overflow: hidden;
+}
+
 /* responsive tablet */
 @media (min-width: 700px) {
   section img {
@@ -143,6 +152,12 @@ button:hover {
   }
 }
 
+@media (min-width: 1000px) {
+  .outletContainer {
+    padding-top: 0px;
+  }
+}
+
 /* responsive desktop */
 @media (min-width: 1200px) {
   /* utilities */
@@ -152,6 +167,10 @@ button:hover {
 
   .text-end, section .text-end {
     text-align: end;
+  }
+
+  .outletContainer {
+    padding-top: 0px;
   }
 }
 

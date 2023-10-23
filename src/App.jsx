@@ -13,8 +13,10 @@ function App() {
   return (
     <>
       <Header />
-      
-      <Outlet />
+    
+      <div className="outletContainer">
+        <Outlet />
+      </div>
 
       <Footer />
     </>

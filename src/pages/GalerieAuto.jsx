@@ -91,7 +91,7 @@ const GalerieAuto = (props) => {
     // render la galerie de véhicules, une zone de filtres et une navigation interne
     return (
 
-        <main className="pageOccasion">
+        <div className="galerieOutletContainer">
 
             <div className={`filterPanel ${filterPanelOpen ? " showMenu" : ""}`}>
                 
@@ -184,7 +184,7 @@ const GalerieAuto = (props) => {
                 </div>
 
             </nav>
-        </main>
+        </div>
     )
 }
 

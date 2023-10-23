@@ -25,7 +25,8 @@ const BackofficeNavbar = (props) => {
     // render le menu de navigation en fonction de son statut ("Administrateur" ou "Employé")
     return (
         <nav className="navBar">
-            <button className="hamburgerBtn" onClick={handleToggle}>
+
+            <button className="backofficeHamburgerBtn" onClick={handleToggle}>
                 {navbarOpen ? 
                     ( 
                         <IoMdClose style={style} />

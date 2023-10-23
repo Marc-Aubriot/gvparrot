@@ -1,3 +1,10 @@
+.galerieOutletContainer {
+    display: inherit;
+    margin: inherit;
+    padding: inherit;
+    margin-top: 10px;
+}
+
 .galerie {
     padding: 20px 10px 10px 10px;
     width: 90%;
@@ -42,14 +49,14 @@
     display: none;
     visibility: hidden;
     position: fixed;
-    top: 0;
+    top: 12vh;
     overflow: hidden;
     z-index: 9;
 }
 
 .trierPanel {
     background-color: var(--bg-color);
-    height: 100vh;
+    height: 20vh;
     width: 100vw;
     display: none;
     visibility: hidden;
@@ -88,6 +95,12 @@
         grid-template-columns: 1fr 1fr;
     }
 
+}
+
+@media (min-width: 1000px) {
+    .filterPanel {
+        top: 13vh;
+    }
 }
 
 /* responsive desktop */

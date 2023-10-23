@@ -81,14 +81,20 @@ const Backoffice = () => {
                         :
                         <>
                             <header className="backofficeHEADER">
-                                <Link to={`/backoffice/${params.id}/accueil`}>
-                                    <Logo />
-                                </Link>
+                                <div className="backofficeLogoContainer">
+                                    <Link to={`/backoffice/${params.id}/accueil`}>
+                                        <Logo />
+                                    </Link>
+                                </div>
+                                
                                 
                                 <BackofficeNavbar user={user[0]} id={user[1]} />
                             </header>
 
-                            <Outlet context={[user, setUser]} />
+                            <div className="backofficeOutletContainer">
+                                <Outlet context={[user, setUser]} />
+                            </div>
+                            
                         </>
                     }
             

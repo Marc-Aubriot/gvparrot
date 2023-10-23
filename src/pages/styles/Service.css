@@ -1,6 +1,10 @@
+.servicesContainer {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
 #serviceHeroTitle {
-    font-size: 4em;
-    font-weight: bold;
+    font-size: 3em;
     margin: 0 auto;
 }
 

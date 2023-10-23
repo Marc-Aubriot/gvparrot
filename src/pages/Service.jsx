@@ -47,7 +47,7 @@ const Service = (props) => {
 
     // render le contenu de la page (une navigation inter services et les services)
     return (
-        <main>
+        <main className='servicesContainer'>
             <div>
                 <img src={heroImg} alt="mécanique" className='heroBanner'/>
                 <h1 className='heroTitle ffrighteous' id="serviceHeroTitle">{props.title}</h1>

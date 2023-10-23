@@ -1,12 +1,25 @@
 .headerStyle {
     background-color: var(--bg-color);
-    height: 100px;
+    height: 12vh;
+    width: 100vw;
+    /*right: 0;
+    left: 0;*/
     overflow: hidden;
+    position: fixed;
+    z-index: 10;
 }
 
 @media (min-width: 1000px) {
     .headerStyle {
         display: flex;
         width: 100%;
+        position: initial;
+        height: 13vh;
+    }
+}
+
+@media (min-width: 1200px) and (min-height: 1000px) {
+    .headerStyle {
+        height: 9vh;
     }
 }

@@ -10,12 +10,13 @@
 }
 
 .menuNav.showMenu {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     visibility: visible;
     width: 100%;
-    height: 90vh;
-    min-height: 750px;
+    position: fixed;
+    top: 12vh;
+    height: 88vh;
     text-align: center;
     display: flex;
     flex-direction: column;
