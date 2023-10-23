@@ -79,11 +79,23 @@ const GalerieAuto = (props) => {
 
     // hooks le panneau des filtres est ouvert ou non, et son toggle
     const [filterPanelOpen, setFilterPanelOpen] = useState(false);
-    const handleToggleFilter = () => { setFilterPanelOpen(prev => !prev) }
+
+    const handleToggleFilter = () => { 
+        if (trierPanelOpen) {
+            setTrierPanelOpen(false);
+        }
+        setFilterPanelOpen(prev => !prev);
+    }
 
     // hooks pour le panneau de tri en mobile
     const [trierPanelOpen, setTrierPanelOpen] = useState(false);
-    const handdleToggleTri = () => { setTrierPanelOpen(prev => !prev) }
+    
+    const handdleToggleTri = () => { 
+        if (filterPanelOpen) {
+            setFilterPanelOpen(false);
+        }
+        setTrierPanelOpen(prev => !prev);
+    }
 
     // set le hook de tri
     const selectHandler = e => {
@@ -174,7 +186,7 @@ const GalerieAuto = (props) => {
                 
             </section>
 
-            <nav className='navBarOccasions'>
+            <nav className='navBarOccasions' data-filterbar='visible' id="mobilefilterbar">
 
                 <div className='navBarOccasionsLeftBTN'>
                     <button onClick={handleToggleFilter}>Filtrer</button>

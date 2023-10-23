@@ -57,6 +57,7 @@
 .trierPanel {
     background-color: var(--bg-color);
     height: 20vh;
+    min-height: 135px;
     width: 100vw;
     display: none;
     visibility: hidden;
@@ -64,7 +65,7 @@
     bottom: 0vh;
     left: 0vw;
     overflow: hidden;
-    z-index: 9;
+    z-index: 8;
 }
 
 .pageOccasionFilterSectionTitle {
@@ -75,6 +76,7 @@
 .showMenu {
     display: block;
     visibility: visible;
+    z-index: 8;
 }
 
 .galerieSelectTrier {
