@@ -81,9 +81,22 @@ const Footer = () => {
                                 <Spinner />
                                 :
                                 horaires.map( (element, i) => {
+                                    if ( (element[0] === '' || element[1] === '') && (element[2] !== '' || element[3] !== '') ) {
+                                        return (
+                                            <p key={i}>Fermé / {element[2]}-{element[3]}</p>
+                                        );
+                                    } else if ( (element[2] === '' || element[3] === '') && (element[0] !== '' || element[1] !== '') ) {
+                                        return (
+                                            <p key={i}>{element[0]}-{element[1]} / Fermé</p>
+                                        );
+                                    } else if ( (element[0] === '' || element[1] === '') && (element[2] === '' || element[3] === '') ) {
+                                        return (
+                                            <p key={i}>Fermé / Fermé</p>
+                                        );
+                                    };
                                     return (
                                         <p key={i}>{element[0]}-{element[1]} / {element[2]}-{element[3]}</p>
-                                    )
+                                    );
                                 })
                             }
                            

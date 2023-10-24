@@ -1,7 +1,7 @@
 /* dependencies */
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Outlet, useOutletContext } from 'react-router-dom';
+import { Outlet, useOutletContext, Link } from 'react-router-dom';
 
 /* components */
 import Spinner from './Spinner';
@@ -37,6 +37,7 @@ const ModifyHoraires = () => {
 
                 setHoraires(data);
                 setIsLoading(false);
+                //setFormSendTrue(true);
             });
         }
 
@@ -115,165 +116,179 @@ const ModifyHoraires = () => {
                 isLoading ?
                 <Spinner />
                 :
-            
-                <form onSubmit={sendForm} className='modifyHoraireForm'>
+                <>
+                    {   
 
-                    <div className='modifyHoraireField'>
-                        <p className='modifyHoraireFieldName'>Lundi</p>
-
-                        <div className='modifyHoraireInputWrapper'>
-                            <div className='modifyHoraireSubField1'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[0][0]} placeholder='Heure début' name='lundi-0'></input>
-                                <p> - </p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[0][1]} placeholder='Heure fin' name='lundi-1'></input>
-                            </div>
-                            <p>/</p>
-                            <div className='modifyHoraireSubField2'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[0][2]} placeholder='Heure début' name='lundi-2'></input>
-                                <p> - </p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[0][3]} placeholder='Heure fin' name='lundi-3'></input>
-                            </div>
-                        </div>
-                        
-                       
-                    </div>
-
-                    <div className='modifyHoraireField'>
-                        <p className='modifyHoraireFieldName'>Mardi</p>
-
-                        <div className='modifyHoraireInputWrapper'>
-                            <div className='modifyHoraireSubField1'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[1][0]} placeholder='Heure début' name='mardi-0'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[1][1]} placeholder='Heure fin' name='mardi-1'></input>
-                            </div>
+                        formSendTrue ?
+                
+                        <>
+                            <p className="responseText">{response}</p>
                             
-                            <p>/</p>
-
-                            <div className='modifyHoraireSubField2'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[1][2]} placeholder='Heure début' name='mardi-2'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[1][3]} placeholder='Heure fin' name='mardi-3'></input>
+                            <div className="addCarPageFormSubmitBtnWrapper">
+                                <Link to={`/backoffice/${user[1]}`}>
+                                    <button type="button" id="backLink" className="addCarPageFormSubmitBtn">Retour</button>
+                                </Link>
                             </div>
-                        </div>
-                       
-                    </div>
+                        </>
 
-                    <div className='modifyHoraireField'>
-                        <p className='modifyHoraireFieldName'>Mercredi</p>
+                        :
+                        
+                        <>
+                            <form onSubmit={sendForm} className='modifyHoraireForm'>
 
-                        <div className='modifyHoraireInputWrapper'>
-                            <div className='modifyHoraireSubField1'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[2][0]} placeholder='Heure début' name='mercredi-0'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[2][1]} placeholder='Heure fin' name='mercredi-1'></input>
-                            </div>
+                                <div className='modifyHoraireField'>
+                                    <p className='modifyHoraireFieldName'>Lundi</p>
 
-                            <p>/</p>
-
-                            <div className='modifyHoraireSubField2'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[2][2]} placeholder='Heure début' name='mercredi-2'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[2][3]} placeholder='Heure fin' name='mercredi-3'></input>
-                            </div>
-                        </div>
-
-                       </div>
-
-                    <div className='modifyHoraireField'>
-                        <p className='modifyHoraireFieldName'>Jeudi</p>
-
-                        <div className='modifyHoraireInputWrapper'>
-                            <div className='modifyHoraireSubField1'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[3][0]} placeholder='Heure début' name='jeudi-0'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[3][1]} placeholder='Heure fin' name='jeudi-1'></input>
-                            </div>
-                            <p>/</p>
-
-                            <div className='modifyHoraireSubField2'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[3][2]} placeholder='Heure début' name='jeudi-2'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[3][3]} placeholder='Heure fin' name='jeudi-3'></input>
-                            </div>
-                        </div>
-
-                      </div>
-
-                    <div className='modifyHoraireField'>
-                        <p className='modifyHoraireFieldName'>Vendredi</p>
-
-                        <div className='modifyHoraireInputWrapper'>
-                            <div className='modifyHoraireSubField1'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[4][0]} placeholder='Heure début' name='vendredi-0'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[4][1]} placeholder='Heure fin' name='vendredi-1'></input>
-                            </div>
-
-                            <p>/</p>
-
-                            <div className='modifyHoraireSubField2'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[4][2]} placeholder='Heure début' name='vendredi-2'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[4][3]} placeholder='Heure fin' name='vendredi-3'></input>
-                            </div>
-                        </div>
-
-                     </div>
-
-                    <div className='modifyHoraireField'>
-                        <p className='modifyHoraireFieldName'>Samedi</p>
-
-                        <div className='modifyHoraireInputWrapper'>
-                            <div className='modifyHoraireSubField1'>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[5][0]} placeholder='Heure début' name='samedi-0'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[5][1]} placeholder='Heure fin' name='samedi-1'></input>
-                            </div>
-
-                            <p>/</p>
-
-                                <div className='modifyHoraireSubField2'>
-                                    <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[5][2]} placeholder='Heure début' name='samedi-2'></input>
-                                    <p>-</p>
-                                    <input type="text" className='modifyHoraireFieldInput' defaultValue={horaires[5][3]} placeholder='Heure fin' name='samedi-3'></input>
+                                    <div className='modifyHoraireInputWrapper'>
+                                        <div className='modifyHoraireSubField1'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[0][0]} placeholder='Heure début' name='lundi-0'></input>
+                                            <p> - </p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[0][1]} placeholder='Heure fin' name='lundi-1'></input>
+                                        </div>
+                                        <p>/</p>
+                                        <div className='modifyHoraireSubField2'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[0][2]} placeholder='Heure début' name='lundi-2'></input>
+                                            <p> - </p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[0][3]} placeholder='Heure fin' name='lundi-3'></input>
+                                        </div>
+                                    </div>
+                                    
+                                
                                 </div>
-                            </div>
-                        </div>
 
-                    <div className='modifyHoraireField'>
-                        <p className='modifyHoraireFieldName'>Dimanche</p>
+                                <div className='modifyHoraireField'>
+                                    <p className='modifyHoraireFieldName'>Mardi</p>
 
-                        <div className='modifyHoraireInputWrapper'>
-                            <div className='modifyHoraireSubField1'>
-                                <input type="text" className='modifyHoraireFieldInput'defaultValue={horaires[6][0]} placeholder='Heure début' name='dimanche-0'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput'defaultValue={horaires[6][1]} placeholder='Heure fin' name='dimanche-1'></input>
-                            </div>
+                                    <div className='modifyHoraireInputWrapper'>
+                                        <div className='modifyHoraireSubField1'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[1][0]} placeholder='Heure début' name='mardi-0'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[1][1]} placeholder='Heure fin' name='mardi-1'></input>
+                                        </div>
+                                        
+                                        <p>/</p>
 
-                            <p>/</p>
+                                        <div className='modifyHoraireSubField2'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[1][2]} placeholder='Heure début' name='mardi-2'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[1][3]} placeholder='Heure fin' name='mardi-3'></input>
+                                        </div>
+                                    </div>
+                                
+                                </div>
 
-                            <div className='modifyHoraireSubField2'>
-                                <input type="text" className='modifyHoraireFieldInput'defaultValue={horaires[6][2]} placeholder='Heure début' name='dimanche-2'></input>
-                                <p>-</p>
-                                <input type="text" className='modifyHoraireFieldInput'defaultValue={horaires[6][3]} placeholder='Heure fin' name='dimanche-3'></input>
-                            </div>
-                            </div>
+                                <div className='modifyHoraireField'>
+                                    <p className='modifyHoraireFieldName'>Mercredi</p>
 
-                    </div>
+                                    <div className='modifyHoraireInputWrapper'>
+                                        <div className='modifyHoraireSubField1'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[2][0]} placeholder='Heure début' name='mercredi-0'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[2][1]} placeholder='Heure fin' name='mercredi-1'></input>
+                                        </div>
 
-                    <div className='modifyHoraireBtnField'>
-                        <button type='submit' className='modifyHoraireSubmitBtn'>Enregistrer</button>
-                    </div>
-                </form>
+                                        <p>/</p>
+
+                                        <div className='modifyHoraireSubField2'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[2][2]} placeholder='Heure début' name='mercredi-2'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[2][3]} placeholder='Heure fin' name='mercredi-3'></input>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className='modifyHoraireField'>
+                                    <p className='modifyHoraireFieldName'>Jeudi</p>
+
+                                    <div className='modifyHoraireInputWrapper'>
+                                        <div className='modifyHoraireSubField1'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[3][0]} placeholder='Heure début' name='jeudi-0'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[3][1]} placeholder='Heure fin' name='jeudi-1'></input>
+                                        </div>
+                                        <p>/</p>
+
+                                        <div className='modifyHoraireSubField2'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[3][2]} placeholder='Heure début' name='jeudi-2'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[3][3]} placeholder='Heure fin' name='jeudi-3'></input>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className='modifyHoraireField'>
+                                    <p className='modifyHoraireFieldName'>Vendredi</p>
+
+                                    <div className='modifyHoraireInputWrapper'>
+                                        <div className='modifyHoraireSubField1'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[4][0]} placeholder='Heure début' name='vendredi-0'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[4][1]} placeholder='Heure fin' name='vendredi-1'></input>
+                                        </div>
+
+                                        <p>/</p>
+
+                                        <div className='modifyHoraireSubField2'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[4][2]} placeholder='Heure début' name='vendredi-2'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[4][3]} placeholder='Heure fin' name='vendredi-3'></input>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className='modifyHoraireField'>
+                                    <p className='modifyHoraireFieldName'>Samedi</p>
+
+                                    <div className='modifyHoraireInputWrapper'>
+                                        <div className='modifyHoraireSubField1'>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[5][0]} placeholder='Heure début' name='samedi-0'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[5][1]} placeholder='Heure fin' name='samedi-1'></input>
+                                        </div>
+
+                                        <p>/</p>
+
+                                            <div className='modifyHoraireSubField2'>
+                                                <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[5][2]} placeholder='Heure début' name='samedi-2'></input>
+                                                <p>-</p>
+                                                <input type="time" className='modifyHoraireFieldInput' defaultValue={horaires[5][3]} placeholder='Heure fin' name='samedi-3'></input>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div className='modifyHoraireField'>
+                                    <p className='modifyHoraireFieldName'>Dimanche</p>
+
+                                    <div className='modifyHoraireInputWrapper'>
+                                        <div className='modifyHoraireSubField1'>
+                                            <input type="time" className='modifyHoraireFieldInput'defaultValue={horaires[6][0]} placeholder='Heure début' name='dimanche-0'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput'defaultValue={horaires[6][1]} placeholder='Heure fin' name='dimanche-1'></input>
+                                        </div>
+
+                                        <p>/</p>
+
+                                        <div className='modifyHoraireSubField2'>
+                                            <input type="time" className='modifyHoraireFieldInput'defaultValue={horaires[6][2]} placeholder='Heure début' name='dimanche-2'></input>
+                                            <p>-</p>
+                                            <input type="time" className='modifyHoraireFieldInput'defaultValue={horaires[6][3]} placeholder='Heure fin' name='dimanche-3'></input>
+                                        </div>
+                                        </div>
+
+                                </div>
+
+                                <div className='modifyHoraireBtnField'>
+                                    <button type='submit' className='modifyHoraireSubmitBtn'>Enregistrer</button>
+                                </div>
+                            </form>
+                        </>
+                    }
+                </>
             }
 
-            {
-                formSendTrue ?
-                ''
-                :
-                <p className='modifyHoraireResponseText'>{response}</p>
-            }
         </div>
         
     )
