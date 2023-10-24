@@ -46,7 +46,14 @@
 }
 
 /* responsive desktop*/
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
+    .backofficeHamburgerBtn {
+        display: none;
+        visibility: hidden;
+        height: 0;
+        width: 0;
+    }
+
     .backofficemenuNav {
         visibility: visible;
         display: block;
@@ -67,10 +74,11 @@
     .navBar {
         margin-top: 10px;
         width: 100%;
+        height: 80vh;
     }
-    .hamburgerBtn {
+    /*.hamburgerBtn {
         display: none;
-    }
+    }*/
 }
 
 /* responsive large screen*/

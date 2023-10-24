@@ -1,7 +1,7 @@
 .backofficeHEADER {
     background-color: var(--bg-color);
     height: 12vh;
-    /*overflow: hidden;*/
+    min-height: 75px;
     position: fixed;
     width: 100%;
 }
@@ -15,16 +15,35 @@
     padding-top: 12vh;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
     .backofficeHEADER {
         position: absolute;
         top: 0;
         left: 0;
         display: block;
         width: 30vw;    
+        min-width: 410px;
         height: 100vh;
         padding-left: 20px;
         overflow: hidden;
         max-width: 450px;
+    }
+
+    .backofficeLogoContainer {
+        height: 10vh;
+        min-height: 100px;
+        width: 100%;
+        min-width: 410px;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .backofficeLogoContainer .logoContainer {
+        width: inherit;
+        height: inherit;
+    }
+
+    .backofficeLogoContainer .logo {
+        width: 100%;
     }
 }
