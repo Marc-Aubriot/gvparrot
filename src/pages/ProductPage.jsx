@@ -78,7 +78,6 @@ const ProductPage = (props) => {
 
                 }
             };
-
         }
         
 
@@ -93,6 +92,7 @@ const ProductPage = (props) => {
     const previousHandler = () => {
         if (previousCarRef) {
             setCarRef(previousCarRef);
+            console.log('prev');
         }   
     }
 

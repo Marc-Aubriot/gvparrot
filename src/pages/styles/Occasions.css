@@ -143,6 +143,7 @@
         left: 55vw;
         width: 95%;
         height: 40px;
+        min-height: 50px;
         background-color: transparent;
         justify-content: end;
     }

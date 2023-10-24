@@ -71,6 +71,11 @@ const Accueil = () => {
     const [avisFormOpen, setAvisFormOpen] = useState(false);
     const handleToggle = () => { setAvisFormOpen(prev => !prev) }
 
+    // scroll to top
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+
     // style
     const style = {
         width: "30px", height: "30px"
@@ -99,7 +104,7 @@ const Accueil = () => {
                     </div>
 
                     <div className='linkwrapper text-start'>
-                        <Link to={'/carrosserie'} className='sectionLink'>Voir tous les services de carrosserie</Link>
+                        <Link to={'/carrosserie'} className='sectionLink' onClick={scrollToTop}>Voir tous les services de carrosserie</Link>
                     </div>
                 </div>  
           
@@ -119,7 +124,7 @@ const Accueil = () => {
                     </div>
 
                     <div className='linkwrapper text-end'>
-                        <Link to={'/mecanique'} className='sectionLink'>Voir tous les services de mécanique</Link>
+                        <Link to={'/mecanique'} className='sectionLink' onClick={scrollToTop}>Voir tous les services de mécanique</Link>
                     </div>
                 </div>    
 
@@ -139,7 +144,7 @@ const Accueil = () => {
                     </div>
 
                     <div className='linkwrapper text-start'>
-                        <Link to={'/entretien'} className='sectionLink'>Voir tous les services d'entretien'</Link>
+                        <Link to={'/entretien'} className='sectionLink' onClick={scrollToTop}>Voir tous les services d'entretien'</Link>
                     </div>
                 </div>
 
@@ -152,7 +157,7 @@ const Accueil = () => {
                     <h3>Découvrez nos voitures d'occasions</h3>
 
                     <div className="bandSectionBtn">
-                        <Bouton text="Voitures d'occasions" linkstring="/occasions"></Bouton>
+                        <Bouton text="Voitures d'occasions" linkstring="/occasions" onClick={scrollToTop}></Bouton>
                     </div>
 
                 </div>
