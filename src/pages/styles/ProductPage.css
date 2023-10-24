@@ -177,6 +177,10 @@
         height: fit-content;
     }
 
+    .carCardFooter {
+        margin-top: 10px;
+    }
+
     .sectionEquipement {
        padding: 20px;
     }   
