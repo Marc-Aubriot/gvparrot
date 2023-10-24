@@ -8,8 +8,13 @@ import "./styles/Logo.css";
 const Logo = (props) => {
 
     const handleClick = () => {
-        props.closeMenu();
-        window.scrollTo(0, 0);
+        if(props.backofficeView) {
+            window.scrollTo(0, 0);
+        } else {
+            props.closeMenu();
+            window.scrollTo(0, 0);
+        }
+
     }
 
     return (

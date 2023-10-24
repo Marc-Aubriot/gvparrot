@@ -83,7 +83,7 @@ const Backoffice = () => {
                             <header className="backofficeHEADER">
                                 <div className="backofficeLogoContainer">
                                     <Link to={`/backoffice/${params.id}/accueil`}>
-                                        <Logo />
+                                        <Logo backofficeView={true}/>
                                     </Link>
                                 </div>
                                 
