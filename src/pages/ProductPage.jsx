@@ -92,13 +92,14 @@ const ProductPage = (props) => {
     const previousHandler = () => {
         if (previousCarRef) {
             setCarRef(previousCarRef);
-            console.log('prev');
+            setIsloading(true);
         }   
     }
 
     const nextHandler = () => {
         if (nextCarRef) {
             setCarRef(nextCarRef);
+            setIsloading(true);
         }
     }
 
