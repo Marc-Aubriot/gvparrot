@@ -155,7 +155,7 @@
 }
 
 /* responsive large screen */
-@media (min-width: 1600px) {
+@media (min-width: 1400px) {
     .galerieTable {
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
