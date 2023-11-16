@@ -140,7 +140,5 @@ SELECT
 	equipements.nom,
 	equipements.id
 FROM voitures
-JOIN voiture_equipements
-  ON voitures.id = voiture_equipements.voiture_id
-JOIN equipements
-  ON equipements.id = voiture_equipements.equipement_id;
+JOIN voiture_equipements ON voitures.id = voiture_equipements.voiture_id
+JOIN equipements ON equipements.id = voiture_equipements.equipement_id;
