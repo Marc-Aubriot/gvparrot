@@ -3,7 +3,7 @@
 }
 
 .formWrapper {
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 @media (min-width: 700px) {
@@ -12,6 +12,7 @@
         margin-right: auto;
         width: 70%;
         max-width: 1200px;
-        min-height: 670px;
+        min-height: 600px;
+        margin-bottom: 50px;
     }
 }
