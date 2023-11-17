@@ -72,7 +72,7 @@
 
 @media (min-width: 1000px) {
     .verifyCommentsCommentCard {
-        width: 400px;
+        width: 80%;
     }
 
     .verifyCoommentsCardsWrapper {
